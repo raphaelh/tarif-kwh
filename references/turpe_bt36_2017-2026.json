@@ -1,0 +1,172 @@
+{
+ "_commentaire": "Coefficients du TURPE HTA-BT pour la basse tension ≤ 36 kVA, relus à la main dans les délibérations CRE (référence, non lu par le code). a = composante de gestion (contrat conclu par le fournisseur, + Rf depuis le TURPE 6) + composante de comptage (compteur propriété du GRD), en €/an ; b = part puissance du soutirage, en €/kVA/an, par version : CU et MUDT (courte et moyenne utilisation, sans ou avec différenciation temporelle, TURPE 5), CU4 et MU4 (4 plages, depuis le TURPE 5), LU (longue utilisation). Part fixe d'un abonnement = a + b × kVA ; CTA = taux × part fixe (voir config/taxes.json). Les grilles Tarif Bleu EDF suivent cette formule au centime, avec une version par option et puissance : Base CU (CU4 dès août 2022) ; HP/HC MUDT jusqu'à 24-30 kVA puis CU (MU4/CU4 dès août 2022, tout CU4 dès août 2025) ; Tempo MUDT en 9 kVA puis CU, CU4 dès août 2022. L'open data CRE suit la même formule jusqu'en 2019, puis le « TURPE optimisé » (voir README). Piège de pdftotext : un renvoi de note collé au nombre (« 4,8090 » = 4,80).",
+ "periodes": [
+  {
+   "debut": "2017-08-01",
+   "a": 26.76,
+   "b": {
+    "CU": 4.32,
+    "CU4": 3.72,
+    "MUDT": 6.84,
+    "MU4": 5.88,
+    "LU": 58.56
+   },
+   "texte": "TURPE 5 HTA-BT, délibération n° 2016-249 du 17 novembre 2016, modifiée le 19 janvier 2017 ; gestion temporaire 6,96 €/an (tableau 2), gestion définitive 11,88 visible dès les grilles de février 2018",
+   "sources": [
+    "https://www.cre.fr/fileadmin/Documents/Deliberations/import/161117_TURPE-HTA-BT.pdf",
+    "https://www.cre.fr/fileadmin/Documents/Deliberations/import/170119-TURPE5-HTA-BT-2.pdf"
+   ]
+  },
+  {
+   "debut": "2018-08-01",
+   "a": 31.68,
+   "b": {
+    "CU": 4.8,
+    "CU4": 4.2,
+    "MUDT": 7.2,
+    "MU4": 6.36,
+    "LU": 58.68
+   },
+   "texte": "TURPE 5 bis, délibération n° 2018-148 du 28 juin 2018",
+   "sources": [
+    "https://www.cre.fr/fileadmin/Documents/Deliberations/import/180628-148-POST_CSE_TURPE_5.pdf"
+   ]
+  },
+  {
+   "debut": "2019-08-01",
+   "a": 33.12,
+   "b": {
+    "CU": 5.4,
+    "CU4": 4.8,
+    "MUDT": 7.92,
+    "MU4": 6.96,
+    "LU": 60.6
+   },
+   "texte": "délibération n° 2019-138 du 25 juin 2019",
+   "sources": [
+    "https://www.cre.fr/content/download/21048/269056"
+   ]
+  },
+  {
+   "debut": "2020-08-01",
+   "a": 34.32,
+   "b": {
+    "CU": 6.0,
+    "CU4": 5.4,
+    "MUDT": 8.52,
+    "MU4": 7.56,
+    "LU": 62.52
+   },
+   "texte": "délibération n° 2020-095 du 20 mai 2020",
+   "sources": [
+    "https://www.cre.fr/content/download/22307/282447"
+   ]
+  },
+  {
+   "debut": "2021-08-01",
+   "a": 32.16,
+   "b": {
+    "CU": 8.52,
+    "CU4": 8.4,
+    "MUDT": 10.32,
+    "MU4": 9.96,
+    "LU": 76.44
+   },
+   "texte": "TURPE 6 HTA-BT, délibération n° 2021-13 du 21 janvier 2021 ; gestion avec Rf (délibération n° 2021-157), a déduit de la grille EDF EJP (voir config/taxes.json)",
+   "sources": [
+    "https://www.cre.fr/fileadmin/Documents/Deliberations/import/210121_2021-13_TURPE_6_HTA-BT.pdf"
+   ]
+  },
+  {
+   "debut": "2022-08-01",
+   "a": 33.24,
+   "b": {
+    "CU": 9.0,
+    "CU4": 8.52,
+    "MUDT": 11.04,
+    "MU4": 9.96,
+    "LU": 77.04
+   },
+   "texte": "délibération n° 2022-158 du 9 juin 2022",
+   "sources": [
+    "https://www.cre.fr/content/download/25644/file/220609_2022-158_Evolution_TURPE_6_HTA-BT_1er_aout_2022.pdf"
+   ]
+  },
+  {
+   "debut": "2023-08-01",
+   "a": 35.4,
+   "b": {
+    "CU": 9.96,
+    "CU4": 9.0,
+    "MUDT": 12.24,
+    "MU4": 10.56,
+    "LU": 81.24
+   },
+   "texte": "délibération n° 2023-137 du 31 mai 2023 (évolution suivante reportée au 1er novembre 2024)",
+   "sources": [
+    "https://www.cre.fr/fileadmin/Documents/Deliberations/import/230531_2023-137_Evolution_TURPE_6_HTA-BT_1er_aout_2023.pdf"
+   ]
+  },
+  {
+   "debut": "2024-11-01",
+   "a": 37.08,
+   "b": {
+    "CU": 10.44,
+    "CU4": 9.36,
+    "MUDT": 12.72,
+    "MU4": 11.04,
+    "LU": 84.96
+   },
+   "texte": "délibération n° 2024-122 du 26 juin 2024 (évolution du 1er août 2024 appliquée au 1er novembre 2024)",
+   "sources": [
+    "https://www.cre.fr/fileadmin/Documents/Deliberations/2024/240626_2024-122_Evolution_TURPE_6_HTA-BT_1er_aout_2024.pdf"
+   ]
+  },
+  {
+   "debut": "2025-02-01",
+   "a": 39.36,
+   "b": {
+    "CU": 11.28,
+    "CU4": 10.08,
+    "MUDT": 13.8,
+    "MU4": 11.88,
+    "LU": 91.44
+   },
+   "texte": "évolution exceptionnelle du TURPE 6 HTA-BT, délibération n° 2025-08 du 15 janvier 2025 (projet n° 2025-01 du 6 janvier 2025)",
+   "sources": [
+    "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250115__2025-08_Evolution_TURPE_6_HTA-BT.pdf",
+    "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250106_2025-01_Evolution_TURPE_6_HTA-BT.pdf"
+   ]
+  },
+  {
+   "debut": "2025-08-01",
+   "a": 38.8,
+   "b": {
+    "CU": 11.07,
+    "CU4": 10.11,
+    "MUDT": 13.49,
+    "MU4": 12.12,
+    "LU": 93.13
+   },
+   "texte": "TURPE 7 HTA-BT, délibération n° 2025-78 du 13 mars 2025",
+   "sources": [
+    "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250313_2025-78_Post-CSE_TURPE_7_HTA-BT.pdf"
+   ]
+  },
+  {
+   "debut": "2026-08-01",
+   "a": 39.79,
+   "b": {
+    "CU": 11.41,
+    "CU4": 10.42,
+    "MUDT": 13.9,
+    "MU4": 12.49,
+    "LU": 95.96
+   },
+   "texte": "délibération n° 2026-105 du 21 mai 2026",
+   "sources": [
+    "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260521_2026-105_Evolution_TURPE_7_HTA-BT.pdf"
+   ]
+  }
+ ]
+}

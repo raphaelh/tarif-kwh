@@ -174,7 +174,10 @@ passée ou tracer l'évolution des prix.
   ici, celui de l'open data, s'écarte donc du montant affiché par EDF de −9 à +9 €/an selon l'option et la
   puissance (−4 à +7 €/an pour Tempo dès 2018). Ce n'est pas une erreur que l'on corrige : c'est la méthode de la
   CRE, et la CTA réellement facturée dépend encore de la version du TURPE retenue pour chaque client. Pour le
-  montant affiché par EDF, voir sa grille Tarif Bleu. Deux cas particuliers :
+  montant affiché par EDF, voir sa grille Tarif Bleu (ou le recalculer avec les coefficients TURPE de chaque version,
+  relus dans les délibérations CRE d'août 2017 à août 2026 :
+  [`references/turpe_bt36_2017-2026.json`](references/turpe_bt36_2017-2026.json), non lu par le code). Deux cas
+  particuliers :
   - **Tempo, août 2022 : abonnement TTC non mis à jour par la CRE.** Aucun prix HT ne change ce jour-là (bouclier
     tarifaire) ; la grille open data du 1er août 2022 ne sert qu'à reporter la hausse du TURPE dans la CTA. La Base
     et HP/HC la reçoivent (+0,5 à +1,9 €/an), EDF modifie aussi son abonnement Tempo, mais l'abonnement Tempo de
