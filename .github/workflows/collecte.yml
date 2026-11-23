@@ -7,11 +7,18 @@ on:
     - cron: "17 5 * * *"
     - cron: "17 17 * * *"
   workflow_dispatch:
+  # Un changement manuel des fichiers publiés ou de la config est mis en ligne
+  # tout de suite (le site Pages n'est déployé que par ce workflow).
+  push:
+    branches: [main]
+    paths: ["docs/**", "config/**"]
 
 permissions:
   contents: write   # commit des JSON
   issues: write     # alertes
   actions: write    # maintien en vie de la planification
+  pages: write      # déploiement du site (etat.json avec signe de vie)
+  id-token: write   # requis par actions/deploy-pages
 
 concurrency:
   group: collecte
@@ -21,6 +28,9 @@ jobs:
   collecte:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
 
@@ -37,7 +47,7 @@ jobs:
       - name: Collecte et publication
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/collect.py
+        run: python scripts/collect.py --site _site
 
       - name: Commit des changements
         run: |
@@ -51,6 +61,18 @@ jobs:
             git pull --rebase --quiet
             git push
           fi
+
+      # Signe de vie : le site est redéployé à chaque passage réussi, même sans
+      # changement de tarif. etat.json y porte derniere_verification (date de ce
+      # passage) et sources_en_echec ; le dépôt, lui, ne reçoit aucun commit.
+      # Si la collecte échoue, rien n'est déployé et derniere_verification vieillit.
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      - name: Déploiement GitHub Pages
+        id: deploiement
+        uses: actions/deploy-pages@v5
 
       # GitHub désactive les workflows planifiés après 60 jours sans activité
       # sur le dépôt. Comme les tarifs ne changent que deux fois par an, on

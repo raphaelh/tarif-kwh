@@ -5,6 +5,7 @@ Usage :
     python scripts/collect.py                 # collecte complète
     python scripts/collect.py --hors-ligne    # reconstruit docs/ depuis le registre
     python scripts/collect.py --annexe URL    # force la lecture d'une annexe B CRE
+    python scripts/collect.py --site _site    # prépare aussi le site GitHub Pages (signe de vie)
 """
 from __future__ import annotations
 
@@ -141,6 +142,7 @@ def main() -> int:
     ap.add_argument("--hors-ligne", action="store_true", help="ne télécharge rien")
     ap.add_argument("--annexe", action="append", default=[], help="URL d'annexe B à lire")
     ap.add_argument("--date", help="date du jour simulée (AAAA-MM-JJ)")
+    ap.add_argument("--site", type=Path, help="dossier du site GitHub Pages à préparer (copie de docs/)")
     args = ap.parse_args()
 
     registre = charger(REGISTRE, {"schema_version": 1})
@@ -180,6 +182,8 @@ def main() -> int:
             )
         for r in e["remarques"]:
             print("remarque:", r, file=sys.stderr)
+    if args.site:
+        publish.preparer_site(DOCS, args.site, [nom for nom, _ in erreurs])
     print(json.dumps({o: e["publication"] for o, e in etat.items()}, ensure_ascii=False))
     return 0
 

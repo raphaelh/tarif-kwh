@@ -2,8 +2,10 @@
 
 [![Collecte](https://github.com/raphaelh/tarif-kwh/actions/workflows/collecte.yml/badge.svg)](https://github.com/raphaelh/tarif-kwh/actions/workflows/collecte.yml)
 [![Publication](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraphaelh.github.io%2Ftarif-kwh%2Fetat.json&query=%24.options.*.publication&label=publication)](https://raphaelh.github.io/tarif-kwh/etat.json)
+[![Dernière vérification](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraphaelh.github.io%2Ftarif-kwh%2Fetat.json&query=%24.derniere_verification&label=derni%C3%A8re%20v%C3%A9rification)](https://raphaelh.github.io/tarif-kwh/etat.json)
 
-État détaillé des derniers contrôles (par option, problèmes, remarques) : [`etat.json`](https://raphaelh.github.io/tarif-kwh/etat.json).
+État détaillé des derniers contrôles (par option, problèmes, remarques) et **date de la dernière vérification** :
+[`etat.json`](https://raphaelh.github.io/tarif-kwh/etat.json) (voir [Signe de vie](#signe-de-vie)).
 
 > **English** — Regulated French electricity prices (EDF *Tarif Bleu* / TRVE: Base, Peak/Off-peak, Tempo, EJP) as JSON,
 > updated automatically twice a day from official sources (CRE deliberations and open data, EDF price sheets, Journal
@@ -53,6 +55,19 @@ check-jsonschema --schemafile https://raphaelh.github.io/tarif-kwh/schema.json t
 Règle de compatibilité : `schema_version` vaut `1`. Des champs peuvent être **ajoutés** sans changer de version (ne rejetez
 pas les propriétés inconnues) ; toute suppression, tout renommage ou changement de sens fera passer `schema_version` à `2`.
 Les tests du dépôt valident chaque fichier publié contre ce schéma.
+
+### Signe de vie
+
+Les tarifs ne changent que deux fois par an : la date d'un fichier ne dit pas si la collecte tourne encore. Le fichier
+`etat.json` **servi par GitHub Pages** porte donc, en plus :
+
+- `derniere_verification` : date du dernier passage **réussi** de la collecte (deux par jour) ;
+- `sources_en_echec` : sources injoignables ou illisibles lors de ce passage (les autres ont été lues et recoupées).
+
+Règle conseillée : **si `derniere_verification` a plus de 48 h, considérez les données comme peut-être périmées.**
+Ces deux champs n'existent que sur GitHub Pages (`https://raphaelh.github.io/…`), pas dans la copie brute du dépôt
+(`raw.githubusercontent.com`), où `etat.json` ne change qu'avec son contenu : le signe de vie ne crée aucun commit.
+`mis_a_jour_le` reste, dans chaque fichier, la date du dernier changement de son contenu.
 
 ### Historique (`historique.json`)
 
@@ -180,7 +195,9 @@ GitHub suffit). La collecte suivante recalcule les TTC estimés.
 
 ### Planification
 
-- [`collecte.yml`](.github/workflows/collecte.yml) : deux fois par jour (+ lancement manuel). Il ne committe que si un JSON change.
+- [`collecte.yml`](.github/workflows/collecte.yml) : deux fois par jour (+ lancement manuel, et à chaque modification de
+  `docs/` ou `config/`). Il ne committe que si un JSON change, mais **redéploie le site GitHub Pages à chaque passage
+  réussi** (signe de vie dans `etat.json`). Un passage en échec ne déploie rien : `derniere_verification` vieillit.
 - GitHub désactive les workflows planifiés d'un dépôt sans activité depuis 60 jours. Les tarifs ne changeant que deux fois
   par an, chaque passage **réactive explicitement le workflow** par l'API GitHub (`PUT …/actions/workflows/collecte.yml/enable`),
   sans commit factice. Un échec du workflow vous est notifié par GitHub.

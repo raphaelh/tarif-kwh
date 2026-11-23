@@ -86,3 +86,22 @@ def test_schema_rejette_les_erreurs():
     assert modifie(lambda x: x["actuelle"].update(date_effet="01/08/2026"))
     # Champ ajouté : accepté sans changer de version (compatibilité ascendante)
     assert not modifie(lambda x: x.update(champ_futur=1))
+
+
+def test_site_pages_signe_de_vie(tmp_path):
+    """La copie publiée sur Pages porte le signe de vie ; docs/etat.json versionné n'est pas touché."""
+    docs, site = tmp_path / "docs", tmp_path / "_site"
+    publish.publier(docs, registre_avec(), taxes.charger_config(), date(2026, 11, 23), [], T0)
+    avant = (docs / "etat.json").read_bytes()
+    (site / "perime.json").parent.mkdir()
+    (site / "perime.json").write_text("{}")  # un ancien site est remplacé, pas complété
+    plus_tard = T0.replace(hour=17, minute=17)
+    publish.preparer_site(docs, site, ["EDF grille", "EDF grille"], plus_tard)
+    assert (docs / "etat.json").read_bytes() == avant
+    assert not (site / "perime.json").exists()
+    assert {f.name for f in site.iterdir()} == {f.name for f in docs.iterdir()}
+    etat = json.loads((site / "etat.json").read_text(encoding="utf-8"))
+    assert etat["derniere_verification"] == "2026-11-23T17:17:00+00:00"
+    assert etat["mis_a_jour_le"] == T0.isoformat()
+    assert etat["sources_en_echec"] == ["EDF grille"]
+    assert erreurs(etat, "fichier_etat") == []

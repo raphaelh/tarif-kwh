@@ -264,7 +264,16 @@
             }
           }
         },
-        "mis_a_jour_le": {"$ref": "#/$defs/horodatage"}
+        "mis_a_jour_le": {"$ref": "#/$defs/horodatage"},
+        "derniere_verification": {
+          "description": "Signe de vie, présent seulement sur GitHub Pages : date du dernier passage réussi de la collecte (deux par jour). Plus de 48 h d'ancienneté = collecte arrêtée, données peut-être périmées. mis_a_jour_le, lui, ne change qu'avec le contenu du fichier.",
+          "$ref": "#/$defs/horodatage"
+        },
+        "sources_en_echec": {
+          "description": "Présent seulement sur GitHub Pages : sources injoignables ou illisibles lors de ce passage (les autres ont été lues).",
+          "type": "array",
+          "items": {"type": "string"}
+        }
       }
     }
   }

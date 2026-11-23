@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -248,3 +249,21 @@ def publier(
         horodatage,
     )
     return etat
+
+
+def preparer_site(docs: Path, site: Path, sources_en_echec: list[str], maintenant: datetime | None = None) -> None:
+    """Copie docs/ dans site/ (déployé sur GitHub Pages) et ajoute le signe de vie à site/etat.json.
+
+    docs/etat.json, versionné, ne change qu'avec son contenu ; la copie publiée porte en plus
+    derniere_verification (date de ce passage réussi) et sources_en_echec, sans commit.
+    """
+    horodatage = (maintenant or datetime.now(timezone.utc)).replace(microsecond=0).isoformat()
+    if site.exists():
+        shutil.rmtree(site)
+    shutil.copytree(docs, site)
+    f = site / "etat.json"
+    etat = json.loads(f.read_text(encoding="utf-8"))
+    etat["derniere_verification"] = horodatage
+    etat["sources_en_echec"] = sorted(set(sources_en_echec))
+    f.write_text(json.dumps(etat, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
