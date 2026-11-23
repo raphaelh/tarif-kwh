@@ -314,7 +314,7 @@ def ejp_hors_turpe(registre: dict, config_taxes: dict) -> list[str]:
 
     Signalées : les grilles sans grille EDF (abonnement publié à null) et toutes celles
     postérieures à la dernière période configurée (TURPE du 1er août non ajouté). Les
-    trous historiques couverts par une grille EDF (février 2023, février 2025) sont
+    trous historiques couverts par une grille EDF (février 2023) sont
     volontaires et ne sont pas signalés.
     """
     periodes = config_taxes.get("turpe_part_fixe", [])
