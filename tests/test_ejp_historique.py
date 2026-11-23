@@ -281,6 +281,45 @@ def test_cta_turpe_novembre_2024_fevrier_2025_redonne_grille_edf(jt, d, fixture,
     assert delib in src
 
 
+# Grilles EDF EJP d'avant le TURPE 6, en €/mois (annuel ÷ 12), recopiées par picbleu.fr
+# (article « tarif EDF EJP ») ; ses tableaux de février 2023 et février 2024 sont identiques
+# aux grilles EDF archivées. Aucune grille EDF EJP de cette époque n'est archivée.
+EDF_EJP_TURPE_5 = {
+    "2018-08-01": (129.36, 148.68, 168.00, 187.20, 303.00),
+    "2019-08-01": (140.52, 162.24, 183.96, 205.56, 336.84),
+    "2020-08-01": (152.16, 176.28, 200.16, 224.04, 371.28),
+}
+
+
+@pytest.mark.parametrize("d,delib", [("2018-08-01", "2018-148"), ("2019-08-01", "2019-138"), ("2020-08-01", "2020-095")])
+def test_cta_turpe_5_cu_redonne_grilles_edf(jt, d, delib):
+    """TURPE 5 bis, CTA 27,04 %, tarif CU (et non CU4) : grilles EDF EJP au centime."""
+    de = date.fromisoformat(d)
+    for k, annuel in zip(KVAS, EDF_EJP_TURPE_5[d]):
+        cta, src = taxes.cta_turpe("ejp", de, k, CONFIG)
+        ttc = taxes.abonnement_ttc(jt[("ejp", de)].puissances[k].abonnement_ht, cta, 0.055)
+        assert round(ttc / 12 + 1e-9, 2) == round(annuel / 12, 2), k
+        assert "27.04%" in src and "+ CU ×" in src and delib in src
+
+
+def test_cta_turpe_aout_2022_cu4_redonne_grille_edf_fevrier_2023(jt):
+    """TURPE 6 du 1er août 2022 en CU4 : grille EDF de février 2023 au centime (en CU, 1 à 4 €/an de trop)."""
+    edf = edf_grille.parse_grille_ejp(EDF_EJP_2023.read_bytes())["ejp"]
+    de = date(2023, 2, 1)
+    for k in KVAS:
+        cta, src = taxes.cta_turpe("ejp", de, k, CONFIG)
+        ttc = taxes.abonnement_ttc(jt[("ejp", de)].puissances[k].abonnement_ht, cta, 0.055)
+        assert round(ttc / 12 + 1e-9, 2) == edf.puissances[k].abonnement_ttc_mensuel, k
+    assert "2022-158" in src and "CU4" in src
+
+
+def test_cta_turpe_une_seule_formule_par_periode():
+    cfg = copy.deepcopy(CONFIG)
+    cfg["turpe_part_fixe"][0]["soutirage_fixe_cu4"] = 1.0
+    with pytest.raises(ValueError):
+        taxes.cta_turpe("ejp", date.fromisoformat(cfg["turpe_part_fixe"][0]["debut"]), 9, cfg)
+
+
 def test_historique_revision_novembre_2024(jt):
     """TURPE du 1er novembre 2024 sans nouveau barème : l'historique EJP ouvre une période
     au TTC recalculé, qui redonne la grille EDF du 1er novembre 2024 au centime."""
@@ -331,7 +370,10 @@ def test_cta_turpe_fevrier_2026(ejp_cre):
     assert mensuel == {9: 19.20, 12: 22.71, 15: 26.27, 18: 29.74, 36: 51.31}
 
 
-@pytest.mark.parametrize("option,d", [("ejp", date(2023, 2, 1)), ("ejp", date(2023, 7, 31)), ("ejp", date(2027, 8, 1)), ("tempo", date(2026, 2, 1))])
+@pytest.mark.parametrize("option,d", [
+    ("ejp", date(2018, 7, 31)), ("ejp", date(2021, 8, 1)), ("ejp", date(2022, 7, 31)),
+    ("ejp", date(2027, 8, 1)), ("tempo", date(2026, 2, 1)),
+])
 def test_cta_turpe_hors_perimetre(option, d):
     assert taxes.cta_turpe(option, d, 9, CONFIG) is None
 

@@ -7,7 +7,8 @@ La CTA dépend de la part fixe du tarif d'acheminement (TURPE), propre à chaque
 option et puissance, et change chaque 1er août : on la déduit de la dernière
 grille officielle connue (open data CRE). Pour l'EJP, absente de l'open data,
 on la calcule : taux de CTA × part fixe du TURPE (composantes de gestion et de
-comptage + soutirage fixe CU4 × puissance), d'après config/taxes.json. Un TTC
+comptage + soutirage fixe × puissance, tarif CU jusqu'en juillet 2021 puis CU4),
+d'après config/taxes.json. Un TTC
 calculé ainsi est une ESTIMATION, signalée par ``ttc_estime: true`` dans les JSON.
 """
 from __future__ import annotations
@@ -73,15 +74,20 @@ def abonnement_ttc(ht: float, cta: float, tva_v: float) -> float:
     return round((ht + cta) * (1 + tva_v) + 1e-9, 2)
 
 
-# Formule tarifaire d'acheminement dont la part fixe sert d'assiette à la CTA.
-# EJP : CU4 (vérifié au centime sur les grilles EDF de février 2024 à août 2026).
-FORMULE_TURPE = {"ejp": "soutirage_fixe_cu4"}
+# Options dont la CTA est calculée à partir du TURPE (absentes de l'open data CRE).
+OPTIONS_TURPE = {"ejp"}
+
+# Part puissance du soutirage servant d'assiette à la CTA, propre à chaque période de
+# config/taxes.json (une seule des deux clés par période). EJP : tarif CU (sans
+# différenciation temporelle) sous le TURPE 5, vérifié au centime sur les grilles EDF
+# d'août 2018, 2019 et 2020 ; CU4 depuis le TURPE 6 au moins à partir d'août 2022, vérifié
+# sur les grilles EDF de février 2023 à août 2026.
+FORMULES_SOUTIRAGE = {"soutirage_fixe_cu": "CU", "soutirage_fixe_cu4": "CU4"}
 
 
 def cta_turpe(option: str, d: date, kva: int, config: dict) -> tuple[float, str] | None:
     """CTA annuelle (€/an HT) calculée à partir du TURPE, ou None si la date n'est pas couverte."""
-    champ = FORMULE_TURPE.get(option)
-    if champ is None:
+    if option not in OPTIONS_TURPE:
         return None
     periode = next(
         (e for e in config.get("turpe_part_fixe", [])
@@ -91,10 +97,14 @@ def cta_turpe(option: str, d: date, kva: int, config: dict) -> tuple[float, str]
     taux = valeur_au(config.get("cta_taux", []), d)
     if periode is None or taux is None:
         return None
+    champs = [c for c in FORMULES_SOUTIRAGE if c in periode]
+    if len(champs) != 1:
+        raise ValueError(f"période TURPE du {periode['debut']} : une et une seule de {sorted(FORMULES_SOUTIRAGE)}")
+    champ = champs[0]
     part_fixe = periode["gestion"] + periode["comptage"] + periode[champ] * kva
     return (
         taux["valeur"] * part_fixe,
-        f"CTA {taux['valeur']:.2%} × part fixe TURPE (gestion + comptage + CU4 × kVA, "
+        f"CTA {taux['valeur']:.2%} × part fixe TURPE (gestion + comptage + {FORMULES_SOUTIRAGE[champ]} × kVA, "
         f"{periode['source']})",
     )
 
@@ -120,7 +130,7 @@ def reviser_ttc(grille: dict, jour: date, config: dict) -> dict:
         cle: _changements(config.get(cle, []), d, jour)
         for cle in ("accise_eur_kwh", "tva_energie", "tva_abonnement", "cta_taux", "turpe_part_fixe")
     }
-    if option not in FORMULE_TURPE:
+    if option not in OPTIONS_TURPE:
         ch["turpe_part_fixe"] = []
     if not any(ch.values()):
         return grille

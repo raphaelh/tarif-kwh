@@ -9085,7 +9085,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 102.36,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 129.35,
               "prix_ht": {
                 "normal": 0.0866,
                 "pointe": 0.1654
@@ -9097,7 +9097,7 @@
             },
             "12": {
               "abonnement_ht": 116.76,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 148.65,
               "prix_ht": {
                 "normal": 0.0866,
                 "pointe": 0.1654
@@ -9109,7 +9109,7 @@
             },
             "15": {
               "abonnement_ht": 131.16,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 167.95,
               "prix_ht": {
                 "normal": 0.0866,
                 "pointe": 0.1654
@@ -9121,7 +9121,7 @@
             },
             "18": {
               "abonnement_ht": 145.56,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 187.25,
               "prix_ht": {
                 "normal": 0.0866,
                 "pointe": 0.1654
@@ -9133,7 +9133,7 @@
             },
             "36": {
               "abonnement_ht": 231.96,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 303.05,
               "prix_ht": {
                 "normal": 0.0866,
                 "pointe": 0.1654
@@ -9167,7 +9167,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 102.36,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 129.35,
               "prix_ht": {
                 "normal": 0.0908,
                 "pointe": 0.2082
@@ -9179,7 +9179,7 @@
             },
             "12": {
               "abonnement_ht": 116.76,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 148.65,
               "prix_ht": {
                 "normal": 0.0908,
                 "pointe": 0.2082
@@ -9191,7 +9191,7 @@
             },
             "15": {
               "abonnement_ht": 131.16,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 167.95,
               "prix_ht": {
                 "normal": 0.0908,
                 "pointe": 0.2082
@@ -9203,7 +9203,7 @@
             },
             "18": {
               "abonnement_ht": 145.56,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 187.25,
               "prix_ht": {
                 "normal": 0.0908,
                 "pointe": 0.2082
@@ -9215,7 +9215,7 @@
             },
             "36": {
               "abonnement_ht": 231.96,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 303.05,
               "prix_ht": {
                 "normal": 0.0908,
                 "pointe": 0.2082
@@ -9249,7 +9249,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 111.12,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 140.54,
               "prix_ht": {
                 "normal": 0.0912,
                 "pointe": 0.2083
@@ -9261,7 +9261,7 @@
             },
             "12": {
               "abonnement_ht": 127.32,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 162.26,
               "prix_ht": {
                 "normal": 0.0912,
                 "pointe": 0.2083
@@ -9273,7 +9273,7 @@
             },
             "15": {
               "abonnement_ht": 143.52,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 183.97,
               "prix_ht": {
                 "normal": 0.0912,
                 "pointe": 0.2083
@@ -9285,7 +9285,7 @@
             },
             "18": {
               "abonnement_ht": 159.6,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 205.55,
               "prix_ht": {
                 "normal": 0.0912,
                 "pointe": 0.2083
@@ -9297,7 +9297,7 @@
             },
             "36": {
               "abonnement_ht": 257.76,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 336.84,
               "prix_ht": {
                 "normal": 0.0912,
                 "pointe": 0.2083
@@ -9331,7 +9331,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 112.44,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 141.94,
               "prix_ht": {
                 "normal": 0.0932,
                 "pointe": 0.226
@@ -9343,7 +9343,7 @@
             },
             "12": {
               "abonnement_ht": 128.64,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 163.65,
               "prix_ht": {
                 "normal": 0.0932,
                 "pointe": 0.226
@@ -9355,7 +9355,7 @@
             },
             "15": {
               "abonnement_ht": 144.84,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 185.36,
               "prix_ht": {
                 "normal": 0.0932,
                 "pointe": 0.226
@@ -9367,7 +9367,7 @@
             },
             "18": {
               "abonnement_ht": 161.04,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 207.07,
               "prix_ht": {
                 "normal": 0.0932,
                 "pointe": 0.226
@@ -9379,7 +9379,7 @@
             },
             "36": {
               "abonnement_ht": 259.08,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 338.23,
               "prix_ht": {
                 "normal": 0.0932,
                 "pointe": 0.226
@@ -9413,7 +9413,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 120.36,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 152.18,
               "prix_ht": {
                 "normal": 0.0942,
                 "pointe": 0.2272
@@ -9425,7 +9425,7 @@
             },
             "12": {
               "abonnement_ht": 138.36,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 176.3,
               "prix_ht": {
                 "normal": 0.0942,
                 "pointe": 0.2272
@@ -9437,7 +9437,7 @@
             },
             "15": {
               "abonnement_ht": 156.12,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 200.17,
               "prix_ht": {
                 "normal": 0.0942,
                 "pointe": 0.2272
@@ -9449,7 +9449,7 @@
             },
             "18": {
               "abonnement_ht": 173.88,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 224.04,
               "prix_ht": {
                 "normal": 0.0942,
                 "pointe": 0.2272
@@ -9461,7 +9461,7 @@
             },
             "36": {
               "abonnement_ht": 284.28,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 371.32,
               "prix_ht": {
                 "normal": 0.0942,
                 "pointe": 0.2272
@@ -9495,7 +9495,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 119.76,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 151.54,
               "prix_ht": {
                 "normal": 0.0952,
                 "pointe": 0.2819
@@ -9507,7 +9507,7 @@
             },
             "12": {
               "abonnement_ht": 137.76,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 175.67,
               "prix_ht": {
                 "normal": 0.0952,
                 "pointe": 0.2819
@@ -9519,7 +9519,7 @@
             },
             "15": {
               "abonnement_ht": 155.52,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 199.54,
               "prix_ht": {
                 "normal": 0.0952,
                 "pointe": 0.2819
@@ -9531,7 +9531,7 @@
             },
             "18": {
               "abonnement_ht": 173.16,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 223.28,
               "prix_ht": {
                 "normal": 0.0952,
                 "pointe": 0.2819
@@ -9543,7 +9543,7 @@
             },
             "36": {
               "abonnement_ht": 283.56,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 370.57,
               "prix_ht": {
                 "normal": 0.0952,
                 "pointe": 0.2819
@@ -9741,7 +9741,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 137.64,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 170.64,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -9753,7 +9753,7 @@
             },
             "12": {
               "abonnement_ht": 162.96,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 203.27,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -9765,7 +9765,7 @@
             },
             "15": {
               "abonnement_ht": 188.52,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 236.15,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -9777,7 +9777,7 @@
             },
             "18": {
               "abonnement_ht": 213.6,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 268.52,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -9789,7 +9789,7 @@
             },
             "36": {
               "abonnement_ht": 370.2,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 469.21,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -9823,7 +9823,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 137.64,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 170.64,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -9835,7 +9835,7 @@
             },
             "12": {
               "abonnement_ht": 162.96,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 203.27,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -9847,7 +9847,7 @@
             },
             "15": {
               "abonnement_ht": 188.52,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 236.15,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -9859,7 +9859,7 @@
             },
             "18": {
               "abonnement_ht": 213.6,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 268.52,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -9871,7 +9871,7 @@
             },
             "36": {
               "abonnement_ht": 370.2,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 469.21,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -10610,5 +10610,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T15:06:56+00:00"
+  "mis_a_jour_le": "2026-11-23T15:38:40+00:00"
 }

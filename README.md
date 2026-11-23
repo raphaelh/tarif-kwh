@@ -128,8 +128,9 @@ passée ou tracer l'évolution des prix.
   - depuis février 2023 (août 2023, février 2026) : accise nationale et abonnement par la CTA calculée (voir plus bas) ;
   - **d'août 2013 à janvier 2023** : le TTC comprenait des taxes locales (TCFE). On reprend les taxes au kWh
     (CSPE + TCFE) que la CRE a appliquées à Base, HP/HC et Tempo à la même date (open data, TVA 19,6 % avant 2014) :
-    le **TTC au kWh** est donc celui de ses hypothèses, à 0,0003 €/kWh près (écart entre options). L'**abonnement TTC
-    vaut `null`** (CTA non calculée). La méthode redonne au centime les TTC au kWh des grilles EDF de 2023 à 2026 ;
+    le **TTC au kWh** est donc celui de ses hypothèses, à 0,0003 €/kWh près (écart entre options). L'**abonnement TTC**
+    est calculé par la CTA (voir plus bas) d'août 2018 à juillet 2021 et d'août 2022 à janvier 2023 ; il **vaut `null`**
+    avant août 2018 et d'août 2021 à juillet 2022, faute de grille EDF pour vérifier le calcul. La méthode redonne au centime les TTC au kWh des grilles EDF de 2023 à 2026 ;
   - **2022** : 7,63 €/MWh, une fois Tempo corrigé (voir plus haut). La hausse de la pointe mobile au 1er février 2022
     (27,93 -> 77,72 c€/kWh HT, +178 %) est validée dans `config/validations.json` sur le barème de l'arrêté du
     28 janvier 2022.
@@ -206,10 +207,14 @@ de [`scripts/tarif_kwh/sources/`](scripts/tarif_kwh/sources), par ordre d'arriv�
 
 **CTA de l'EJP.** L'abonnement TTC vaut (HT + CTA) × (1 + TVA). Pour Base, HP/HC et Tempo, la CTA est déduite de l'open
 data CRE. L'EJP n'y est pas : sa CTA est calculée, taux de CTA × (composante de gestion + composante de comptage +
-soutirage fixe CU4 × kVA) du TURPE, d'après `config/taxes.json` (`cta_taux`, `turpe_part_fixe`, une période par
-grille TURPE, en principe au 1er août). Ce calcul redonne au centime les grilles EDF de février 2024, novembre 2024,
-février 2025, août 2025 et août 2026 ; le JSON le signale par `taxes.cta_calculee`. Périodes configurées, sans trou,
-d'août 2023 à juillet 2027 : août 2023 → octobre 2024 (TURPE 6, indexation 2023, reportée), novembre 2024 → janvier 2025
+soutirage fixe × kVA) du TURPE, d'après `config/taxes.json` (`cta_taux`, `turpe_part_fixe`, une période par
+grille TURPE, en principe au 1er août). Le soutirage fixe est celui du tarif CU (sans différenciation temporelle)
+sous le TURPE 5 (`soutirage_fixe_cu`), puis du tarif CU4 (`soutirage_fixe_cu4`) ; le taux de CTA est de 27,04 %
+jusqu'en juillet 2021. Ce calcul redonne au centime les grilles EDF d'août 2018, août 2019, août 2020 (recopiées par
+picbleu.fr, aucune n'étant archivée), février 2023, février 2024, novembre 2024, février 2025, août 2025 et
+août 2026 ; le JSON le signale par `taxes.cta_calculee`. Avant le TURPE 6, périodes configurées : août 2018 → juillet 2021
+(TURPE 5 bis, CU) et août 2022 → juillet 2023 (TURPE 6, CU4) ; août 2021 → juillet 2022 reste sans période (CU ou
+CU4 ? aucune grille EDF fiable). Puis, sans trou, d'août 2023 à juillet 2027 : août 2023 → octobre 2024 (TURPE 6, indexation 2023, reportée), novembre 2024 → janvier 2025
 (TURPE 6, indexation 2024 reportée au 1er novembre), février → juillet 2025 (TURPE 6, hausse exceptionnelle de 7,70 %),
 puis TURPE 7 à partir d'août 2025. Deux garde-fous ouvrent une issue : une grille EJP
 hors des périodes configurées (TURPE du 1er août pas encore ajouté), et un abonnement calculé qui diffère de plus d'un
