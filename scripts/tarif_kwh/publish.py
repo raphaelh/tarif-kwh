@@ -216,16 +216,21 @@ def _revisions_janvier(grilles: list[dict], taxes_od: dict[str, dict], config_ta
     return out
 
 
+TOL_ABONNEMENT = 0.011  # €/an : arrondi de la CTA, qui diffère parfois d'un centime entre EDF, la CRE et le calcul
+
+
 def _revisions_abonnement(option: str, grilles: list[dict], conf: dict) -> list[dict]:
-    """Abonnement TTC révisé à chaque changement du TURPE sans nouveau barème (2014).
+    """Abonnement TTC révisé quand le TURPE change sans nouveau barème (2014), ou quand l'open
+    data garde la CTA du TURPE précédent (HP/HC au 1er août 2015).
 
     Pour chaque période de config/revisions_abonnement.json après la première, la grille
     en cours à sa date de début voit son abonnement TTC recalculé avec la CTA de ce TURPE
     (``taxes.abonnement_ttc_turpe``) : sur place si elle commence ce jour-là (grille open
     data CRE ou révision de janvier, qui gardaient la CTA précédente), sinon dans une
-    nouvelle période (``revision_ttc``). Les deux portent ``revision_abonnement``,
-    ``ttc_estime: true``, et une grille open data passe en ``en_vigueur``. Rien si
-    l'abonnement est déjà le bon (grille relue hors ligne).
+    nouvelle période (``revision_ttc``). Les révisions de janvier qui la suivent sur le même
+    barème sont corrigées aussi. Toutes portent ``revision_abonnement`` et
+    ``ttc_estime: true`` ; une grille ``confirme`` passe en ``en_vigueur``. Rien si
+    l'abonnement est déjà le bon, à un centime près.
     """
     if not conf or option not in conf.get("options", []):
         return grilles
@@ -241,26 +246,40 @@ def _revisions_abonnement(option: str, grilles: list[dict], conf: dict) -> list[
             for k, p in g["puissances"].items()
             if p.get("abonnement_ht") is not None and p.get("abonnement_ttc") is not None
         }
-        if all(g["puissances"][k]["abonnement_ttc"] == v for k, v in nouveaux.items()):
+        # À un centime près, l'abonnement publié est déjà le bon (grille EDF, open data qui
+        # arrondit la CTA autrement, grille relue hors ligne) : on le garde.
+        if all(abs(g["puissances"][k]["abonnement_ttc"] - v) <= TOL_ABONNEMENT for k, v in nouveaux.items()):
             continue
         motif = (
             f"abonnement TTC au {d} : CTA {conf['cta_taux']:.2%} de la part fixe du nouveau TURPE "
             f"({per['source']})"
         )
         if g["date_debut"] == d:
-            r = copy.deepcopy(g)  # les puissances sont partagées avec l'open data lue
-            out[out.index(g)] = r
-            if r["statut"] == "confirme":
-                r["statut"] = "en_vigueur"
+            cibles = [g]
         else:
             r = copy.deepcopy(g)
             r["date_debut"], r["date_fin"] = d, None
             r["revision_ttc"] = {"date": d, "motifs": [motif]}
             out.append(r)
-        for k, v in nouveaux.items():
-            r["puissances"][k]["abonnement_ttc"] = v
-        r["ttc_estime"] = True
-        r["revision_abonnement"] = {"date": d, "motif": motif, "sources": [per["url"]]}
+            cibles = [r]
+        # Les révisions de janvier qui suivent (même barème) ont copié l'ancien abonnement.
+        for g2 in sorted(out, key=lambda x: x["date_debut"]):
+            if g2["date_debut"] <= d:
+                continue
+            if "revision_ttc" not in g2 or any(
+                g2["puissances"].get(k, {}).get("abonnement_ht") != g["puissances"][k]["abonnement_ht"] for k in nouveaux
+            ):
+                break
+            cibles.append(g2)
+        for c in cibles:
+            r = copy.deepcopy(c)  # les puissances sont partagées avec l'open data lue
+            out[next(i for i, x in enumerate(out) if x is c)] = r
+            for k, v in nouveaux.items():
+                r["puissances"][k]["abonnement_ttc"] = v
+            r["ttc_estime"] = True
+            if r["statut"] == "confirme":
+                r["statut"] = "en_vigueur"
+            r["revision_abonnement"] = {"date": d, "motif": motif, "sources": [per["url"]]}
     return sorted(out, key=lambda g: g["date_debut"])
 
 

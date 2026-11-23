@@ -11,7 +11,7 @@ from tarif_kwh.sources import cre_opendata, jourtempo
 
 CONFIG = taxes.charger_config()
 CONF = taxes.charger_revisions_abonnement()
-T3, T4, T4_AOUT = CONF["periodes"]
+T3, T4, T4_AOUT, T15 = CONF["periodes"]
 AUJOURD_HUI = date(2026, 11, 23)
 ARCHIVEES = {a["date"]: a for a in reconcile.charger_grilles_edf_archivees()}
 TOL = 0.011  # €/an : EDF et la CRE arrondissent parfois la CTA différemment
@@ -73,6 +73,45 @@ def test_turpe4_aout_2014_redonne_novembre_2014(od, jt):
             assert abs(_abo(o, int(k), p["abonnement_ht"], T4_AOUT) - p["abonnement_ttc"]) <= TOL, (o, k)
     for k, e in ARCHIVEES["2015-01-01"]["puissances"].items():
         assert abs(_abo("tempo", int(k), jt["2014-11-01"].puissances[int(k)].abonnement_ht, T4_AOUT) - e["abonnement_ttc"]) <= TOL, k
+
+
+# Grille Tarif Bleu EDF du 1er août 2015 (web.archive.org), abonnements annuels TTC Base et Heures creuses.
+EDF_AOUT_2015 = {
+    "base": {3: 54.45, 6: 88.42, 9: 117.20, 12: 180.11, 15: 206.57, 18: 237.59, 24: 505.49, 30: 624.69, 36: 723.39},
+    "hphc": {6: 94.46, 9: 126.52, 12: 204.77, 15: 237.26, 18: 266.84, 24: 560.18, 30: 661.91, 36: 761.37},
+}
+
+
+def test_turpe_aout_2015_redonne_grille_edf(od, jt):
+    """TURPE au 1er août 2015 : abonnements de la grille EDF d'août 2015 ; l'open data HP/HC garde la CTA d'août 2014."""
+    for o, abos in EDF_AOUT_2015.items():
+        ht = od[o]["2015-08-01"]["puissances"]
+        for kva, v in abos.items():
+            if str(kva) in ht:
+                assert abs(_abo(o, kva, ht[str(kva)]["abonnement_ht"], T15) - v) <= TOL, (o, kva)
+    for k, e in ARCHIVEES["2015-08-01"]["puissances"].items():
+        assert abs(_abo("tempo", int(k), jt["2015-08-01"].puissances[int(k)].abonnement_ht, T15) - e["abonnement_ttc"]) <= TOL, k
+    for k, p in od["hphc"]["2015-08-01"]["puissances"].items():  # open data HP/HC : CTA du TURPE d'août 2014
+        assert p["abonnement_ttc"] == _abo("hphc", int(k), p["abonnement_ht"], T4_AOUT), k
+        assert p["abonnement_ttc"] < EDF_AOUT_2015["hphc"][int(k)] - 0.02, k
+
+
+def test_historique_aout_2015(historique):
+    """HP/HC corrigé d'août 2015 à juillet 2016 (révision de janvier 2016 comprise) ; Base et Tempo intacts."""
+    h, _, _ = historique
+    hphc = _periodes(h, "hphc")
+    for d in ("2015-08-01", "2016-01-01"):
+        g = hphc[d]
+        assert g["revision_abonnement"]["date"] == "2015-08-01" and g["revision_abonnement"]["sources"] == [T15["url"]]
+        assert g["ttc_estime"] is True and g["statut"] == "en_vigueur"
+        assert g["puissances"]["9"]["abonnement_ttc"] == 126.52
+        for k, p in g["puissances"].items():
+            assert abs(p["abonnement_ttc"] - EDF_AOUT_2015["hphc"][int(k)]) <= TOL, k
+    assert hphc["2015-08-01"]["date_fin"] == "2015-12-31"
+    assert "revision_abonnement" not in hphc["2016-08-01"]
+    for o in ("base", "tempo"):
+        for d in ("2015-08-01", "2016-01-01"):
+            assert "revision_abonnement" not in _periodes(h, o)[d], (o, d)
 
 
 def _periodes(h, option):

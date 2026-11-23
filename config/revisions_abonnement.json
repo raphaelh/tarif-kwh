@@ -1,35 +1,92 @@
 {
-  "_commentaire": "Abonnement TTC révisé quand le TURPE change sans nouveau barème TRVE (Base, HP/HC, Tempo, 2014). Le taux de CTA ne bouge pas (27,04 %), mais son assiette, la part fixe du TURPE, change. Elle vaut gestion (contrat conclu par le fournisseur) + comptage (disjoncteur, relève semestrielle) + soutirage fixe × kVA. Le tarif de soutirage dépend de l'option : jusqu'à 18 kVA, « courte utilisation » (cu) pour la Base, « moyenne utilisation » (mu, avec différenciation temporelle sous le TURPE 4) pour HP/HC et Tempo ; au-delà de 18 kVA, « courte utilisation » pour toutes. Les coefficients sont donnés par tranche : P ≤ 9 kVA, 9 < P ≤ 18 kVA, P > 18 kVA. Abonnement TTC = (HT + CTA arrondie au centime) × (1 + 5,5 %). La première période sert de référence (elle redonne les abonnements de l'open data CRE et de la grille EDF d'août 2013) ; chaque période suivante révise l'abonnement de la grille en cours à sa date de début (publish._revisions_abonnement), jusqu'au barème suivant, qui l'intègre déjà.",
+  "_commentaire": "Abonnement TTC révisé quand le TURPE change sans nouveau barème TRVE (Base, HP/HC, Tempo, 2014), ou quand l'open data CRE garde la CTA du TURPE précédent (HP/HC au 1er août 2015). Le taux de CTA ne bouge pas (27,04 %), mais son assiette, la part fixe du TURPE, change. Elle vaut gestion (contrat conclu par le fournisseur) + comptage (disjoncteur, relève semestrielle) + soutirage fixe × kVA. Le tarif de soutirage dépend de l'option : jusqu'à 18 kVA, « courte utilisation » (cu) pour la Base, « moyenne utilisation » (mu, avec différenciation temporelle sous le TURPE 4) pour HP/HC et Tempo ; au-delà de 18 kVA, « courte utilisation » pour toutes. Les coefficients sont donnés par tranche : P ≤ 9 kVA, 9 < P ≤ 18 kVA, P > 18 kVA. Abonnement TTC = (HT + CTA arrondie au centime) × (1 + 5,5 %). La première période sert de référence (elle redonne les abonnements de l'open data CRE et de la grille EDF d'août 2013) ; chaque période suivante révise l'abonnement de la grille en cours à sa date de début (publish._revisions_abonnement), jusqu'au barème suivant, qui l'intègre déjà. Une grille dont l'abonnement est déjà le bon à un centime près n'est pas touchée (Base et Tempo d'août 2015, repris des grilles EDF).",
   "cta_taux": 0.2704,
   "tva_abonnement": 0.055,
-  "options": ["base", "hphc", "tempo"],
+  "options": [
+    "base",
+    "hphc",
+    "tempo"
+  ],
   "periodes": [
     {
       "debut": "2013-08-01",
       "gestion": 8.64,
-      "comptage": [18.36, 22.08],
-      "cu": [3.48, 6.24, 12.36],
-      "mu": [4.80, 9.00, 19.80],
+      "comptage": [
+        18.36,
+        22.08
+      ],
+      "cu": [
+        3.48,
+        6.24,
+        12.36
+      ],
+      "mu": [
+        4.8,
+        9.0,
+        19.8
+      ],
       "source": "TURPE 3 HTA-BT prolongé du 1er août au 31 décembre 2013, CRE délibération du 28 mai 2013",
       "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/130528TURPE3-HTA-BT-1aout31dec.pdf"
     },
     {
       "debut": "2014-01-01",
-      "gestion": 9.00,
-      "comptage": [19.08, 22.92],
-      "cu": [3.60, 6.48, 12.96],
-      "mu": [4.32, 7.32, 14.04],
+      "gestion": 9.0,
+      "comptage": [
+        19.08,
+        22.92
+      ],
+      "cu": [
+        3.6,
+        6.48,
+        12.96
+      ],
+      "mu": [
+        4.32,
+        7.32,
+        14.04
+      ],
       "source": "TURPE 4 HTA-BT, entré en vigueur le 1er janvier 2014, CRE délibération du 12 décembre 2013 ; abonnements de la grille Tarif Bleu EDF « en vigueur à compter du 1er février 2014 » retrouvés à 1 centime près",
       "url": "https://www.cre.fr/content/download/11149/file/131212TURPE4.pdf"
     },
     {
       "debut": "2014-08-01",
       "gestion": 8.88,
-      "comptage": [18.84, 22.68],
-      "cu": [3.60, 6.36, 12.84],
-      "mu": [4.32, 7.20, 13.80],
+      "comptage": [
+        18.84,
+        22.68
+      ],
+      "cu": [
+        3.6,
+        6.36,
+        12.84
+      ],
+      "mu": [
+        4.32,
+        7.2,
+        13.8
+      ],
       "source": "TURPE 4 HTA-BT au 1er août 2014, CRE délibération du 4 juin 2014 ; abonnements de l'open data CRE du 1er novembre 2014 (Base, HP/HC) et de la grille EDF de janvier 2015 (Tempo) retrouvés à 1 centime près",
       "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/140604_TURPE_HTA-BT.pdf"
+    },
+    {
+      "debut": "2015-08-01",
+      "gestion": 8.88,
+      "comptage": [
+        18.96,
+        22.8
+      ],
+      "cu": [
+        3.6,
+        6.36,
+        12.84
+      ],
+      "mu": [
+        4.32,
+        7.2,
+        13.8
+      ],
+      "source": "TURPE 4 HTA-BT au 1er août 2015, CRE délibération du 28 mai 2015 ; abonnements de la grille Tarif Bleu EDF du 1er août 2015 retrouvés à 1 centime près (Base, HP/HC, Tempo), alors que l'open data CRE HP/HC garde la CTA d'août 2014",
+      "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/150528_TURPE_HTA_BT.pdf"
     }
   ]
 }
