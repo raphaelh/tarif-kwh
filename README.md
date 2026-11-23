@@ -100,8 +100,7 @@ passée ou tracer l'évolution des prix.
 - **EJP** n'est pas dans l'open data CRE : son historique commence au **1er février 2023**. Le HT vient de la
   délibération CRE et du jeu Jour Tempo (qui cite l'arrêté du JORF pour 2023, où la proposition de la CRE n'a pas été
   appliquée), le TTC de la grille EDF EJP archivée sur web.archive.org. Sans grille EDF, le TTC est calculé
-  (`ttc_estime: true`) : février 2026 (abonnement par la CTA calculée, voir plus bas) et août 2023 (abonnement inconnu,
-  `null`). Avant 2023, le TTC comprenait des taxes locales (TCFE) qu'on ne sait pas recalculer : pas d'EJP.
+  (`ttc_estime: true`, abonnement par la CTA calculée, voir plus bas) : août 2023 et février 2026. Avant 2023, le TTC comprenait des taxes locales (TCFE) qu'on ne sait pas recalculer : pas d'EJP.
   Une grille rejetée par les contrôles laisse un **trou** plutôt que de prolonger à tort la précédente.
 - Pas de `prochaine` ici : elle est dans les fichiers par option.
 
@@ -176,7 +175,8 @@ de [`scripts/tarif_kwh/sources/`](scripts/tarif_kwh/sources), par ordre d'arriv�
 data CRE. L'EJP n'y est pas : sa CTA est calculée, taux de CTA × (composante de gestion + composante de comptage +
 soutirage fixe CU4 × kVA) du TURPE, d'après `config/taxes.json` (`cta_taux`, `turpe_part_fixe`, une période par
 délibération TURPE, au 1er août). Ce calcul redonne au centime les grilles EDF d'août 2025 et d'août 2026 ; le JSON le
-signale par `taxes.cta_calculee`.
+signale par `taxes.cta_calculee`. Périodes configurées : août 2023 → octobre 2024 (vérifiée sur la grille EDF de
+février 2024), puis à partir d'août 2025 (vérifiées sur août 2025 et août 2026).
 
 Chaque source produit le même schéma commun (`scripts/tarif_kwh/schema.py`), puis `reconcile.py` recoupe :
 

@@ -82,7 +82,6 @@ def test_recoupement_jourtempo_seul_2023(jt):
     assert pb == []
     assert g["statut"] == "en_vigueur" and g["ttc_estime"] is True
     assert g["puissances"]["9"]["prix_ttc"] == {"normal": 0.1518, "pointe": 1.4958}
-    assert g["puissances"]["9"]["abonnement_ttc"] is None  # TURPE de 2023 non configuré
 
 
 # --- CTA calculée par le TURPE ----------------------------------------------------------
@@ -98,6 +97,29 @@ def test_cta_turpe_redonne_grille_edf(ejp_cre, d, fixture):
         assert round(ttc / 12 + 1e-9, 2) == edf.puissances[k].abonnement_ttc_mensuel, k
 
 
+def test_cta_turpe_2023_redonne_grille_edf_fevrier_2024():
+    """TURPE du 1er août 2023 (reporté jusqu'au 31 octobre 2024), TVA 5,5 % : grille EDF de février 2024 au centime."""
+    from conftest import ANNEXE_2024, EDF_EJP_2024
+
+    cre = cre_deliberation.parse_annexe_b(ANNEXE_2024.read_bytes(), "u", date(2024, 2, 1))["ejp"]
+    edf = edf_grille.parse_grille_ejp(EDF_EJP_2024.read_bytes())["ejp"]
+    for k in KVAS:
+        cta, src = taxes.cta_turpe("ejp", date(2024, 2, 1), k, CONFIG)
+        ttc = taxes.abonnement_ttc(cre.puissances[k].abonnement_ht, cta, 0.055)
+        assert round(ttc / 12 + 1e-9, 2) == edf.puissances[k].abonnement_ttc_mensuel, k
+    assert "2023-137" in src
+
+
+def test_cta_turpe_aout_2023(jt):
+    """Août 2023 : arrêté seul, pas de grille EDF archivée ; abonnement calculé."""
+    g, pb = reconcile.recouper("ejp", date(2023, 8, 1), {"jourtempo": jt[("ejp", date(2023, 8, 1))]}, {}, CONFIG, date(2026, 11, 23))
+    assert pb == []
+    assert {k: p["abonnement_ttc_mensuel"] for k, p in g["puissances"].items()} == {
+        "9": 15.63, "12": 18.6, "15": 21.62, "18": 24.55, "36": 42.96,
+    }
+    assert "21.93%" in g["taxes"]["cta_calculee"]
+
+
 def test_cta_turpe_fevrier_2026(ejp_cre):
     """Pas de grille EDF archivée : le calcul donne les montants de la grille EDF de février 2026
     (19,20 / 22,71 / 26,27 / 29,74 / 51,31 €/mois, recopiés par plusieurs comparateurs)."""
@@ -110,7 +132,7 @@ def test_cta_turpe_fevrier_2026(ejp_cre):
     assert mensuel == {9: 19.20, 12: 22.71, 15: 26.27, 18: 29.74, 36: 51.31}
 
 
-@pytest.mark.parametrize("option,d", [("ejp", date(2025, 2, 1)), ("ejp", date(2027, 8, 1)), ("tempo", date(2026, 2, 1))])
+@pytest.mark.parametrize("option,d", [("ejp", date(2023, 2, 1)), ("ejp", date(2025, 2, 1)), ("ejp", date(2027, 8, 1)), ("tempo", date(2026, 2, 1))])
 def test_cta_turpe_hors_perimetre(option, d):
     assert taxes.cta_turpe(option, d, 9, CONFIG) is None
 

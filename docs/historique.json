@@ -7411,7 +7411,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 152.28,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 187.59,
               "prix_ht": {
                 "normal": 0.1255,
                 "pointe": 1.2455
@@ -7423,7 +7423,7 @@
             },
             "12": {
               "abonnement_ht": 180.12,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 223.2,
               "prix_ht": {
                 "normal": 0.1255,
                 "pointe": 1.2455
@@ -7435,7 +7435,7 @@
             },
             "15": {
               "abonnement_ht": 208.56,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 259.45,
               "prix_ht": {
                 "normal": 0.1255,
                 "pointe": 1.2455
@@ -7447,7 +7447,7 @@
             },
             "18": {
               "abonnement_ht": 235.92,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 294.57,
               "prix_ht": {
                 "normal": 0.1255,
                 "pointe": 1.2455
@@ -7459,7 +7459,7 @@
             },
             "36": {
               "abonnement_ht": 409.8,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 515.49,
               "prix_ht": {
                 "normal": 0.1255,
                 "pointe": 1.2455
@@ -7928,5 +7928,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T12:41:02+00:00"
+  "mis_a_jour_le": "2026-11-23T12:58:13+00:00"
 }
