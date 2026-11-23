@@ -5,7 +5,8 @@ from datetime import date
 import pytest
 from conftest import ANNEXES, EDF_EJP, EDF_EJP_2025, FIX
 
-from tarif_kwh import reconcile, taxes
+from tarif_kwh import publish, reconcile, taxes
+from tarif_kwh.reconcile import grille_to_dict
 from tarif_kwh.sources import cre_deliberation, edf_grille, jourtempo
 
 JT_HIST = FIX / "jourtempo_trve-historique.csv"
@@ -126,6 +127,34 @@ def test_cta_turpe_novembre_2024_fevrier_2025_redonne_grille_edf(jt, d, fixture,
         ttc = taxes.abonnement_ttc(ht.puissances[k].abonnement_ht, cta, 0.055)
         assert round(ttc / 12 + 1e-9, 2) == edf.puissances[k].abonnement_ttc_mensuel, k
     assert delib in src
+
+
+def test_historique_revision_novembre_2024(jt):
+    """TURPE du 1er novembre 2024 sans nouveau barème : l'historique EJP ouvre une période
+    au TTC recalculé, qui redonne la grille EDF du 1er novembre 2024 au centime."""
+    from conftest import EDF_EJP_2024
+
+    r = {"grilles": {"ejp": {}}}
+    for d in ("2024-02-01", "2025-02-01"):
+        r["grilles"]["ejp"][d] = {"jourtempo": grille_to_dict(jt[("ejp", date.fromisoformat(d))])}
+    r["grilles"]["ejp"]["2024-02-01"]["edf_grille"] = grille_to_dict(
+        edf_grille.parse_grille_ejp(EDF_EJP_2024.read_bytes())["ejp"])
+    jour = date(2026, 11, 23)
+    validees = {"ejp": publish.grilles_validees("ejp", r, CONFIG, jour, [])[0]}
+    h = publish.construire_historique(None, None, validees, jour, {"ejp": set(r["grilles"]["ejp"])}, CONFIG)
+    g = h["options"]["ejp"]["grilles"]
+    assert [(x["date_debut"], x["date_fin"], x["ttc_estime"]) for x in g[:3]] == [
+        ("2024-02-01", "2024-10-31", False), ("2024-11-01", "2025-01-31", True), ("2025-02-01", "2025-07-31", True)]
+    fev, nov = g[0], g[1]
+    assert nov["prix_ttc"] == fev["prix_ttc"] and nov["sources"] == fev["sources"]
+    assert "2024-122" in nov["revision_ttc"]["motifs"][0] and "revision_ttc" not in fev
+    edf = edf_grille.parse_grille_ejp((FIX / "edf_grille_ejp_2024-11-01.pdf").read_bytes())["ejp"]
+    for k in KVAS:
+        assert nov["puissances"][str(k)]["abonnement_ht"] == fev["puissances"][str(k)]["abonnement_ht"]
+        assert round(nov["puissances"][str(k)]["abonnement_ttc"] / 12 + 1e-9, 2) == edf.puissances[k].abonnement_ttc_mensuel, k
+    # sans configuration des taxes : pas de période révisée
+    sans = publish.construire_historique(None, None, validees, jour, {"ejp": set(r["grilles"]["ejp"])})
+    assert [x["date_debut"] for x in sans["options"]["ejp"]["grilles"]] == ["2024-02-01", "2025-02-01"]
 
 
 def test_cta_turpe_aout_2023(jt):

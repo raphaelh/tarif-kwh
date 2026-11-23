@@ -397,9 +397,11 @@ def test_accise_changee_en_cours_de_grille(tmp_path, cfg):
     b = lire(tmp_path, "base.json")["actuelle"]  # prix propre à chaque puissance
     assert "prix_ttc" not in b
     assert b["puissances"]["6"]["prix_ttc"]["base"] == round((b["puissances"]["6"]["prix_ht"]["base"] + 0.035) * 1.2, 4)
-    # l'historique garde le TTC publié par la CRE
-    h = lire(tmp_path, "historique.json")["options"]["tempo"]["grilles"][-1]
-    assert h["prix_ttc"]["rouge_hp"] == 0.7295
+    # l'historique garde le TTC publié par la CRE jusqu'à la veille, puis ouvre une période révisée
+    *_, h, rev = lire(tmp_path, "historique.json")["options"]["tempo"]["grilles"]
+    assert (h["date_debut"], h["date_fin"], h["prix_ttc"]["rouge_hp"]) == ("2026-08-01", "2027-01-31", 0.7295)
+    assert (rev["date_debut"], rev["date_fin"], rev["prix_ttc"]["rouge_hp"]) == ("2027-02-01", None, a["prix_ttc"]["rouge_hp"])
+    assert rev["ttc_estime"] and rev["revision_ttc"]["date"] == "2027-02-01" and rev["sources"] == h["sources"]
 
 
 def test_taux_cta_change_en_cours_de_grille(tmp_path, cfg):

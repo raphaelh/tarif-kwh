@@ -6,7 +6,7 @@
     "abonnement_ht": "EUR/an",
     "abonnement_ttc": "EUR/an"
   },
-  "note": "date_fin = dernier jour d'application (inclus), null pour la grille en vigueur. TTC tel que publié par la CRE avec les taxes de l'époque (CSPE, TCFE, CTA, TVA), ou calculé si ttc_estime vaut true. Une période sans grille est une grille non publiée (rejetée par les contrôles). Pas d'historique EJP dans l'open data CRE.",
+  "note": "date_fin = dernier jour d'application (inclus), null pour la grille en vigueur. TTC tel que publié par la CRE avec les taxes de l'époque (CSPE, TCFE, CTA, TVA), ou calculé si ttc_estime vaut true. Une période sans grille est une grille non publiée (rejetée par les contrôles). Une taxe changée en cours de grille ouvre une période au TTC recalculé (revision_ttc). Pas d'historique EJP dans l'open data CRE.",
   "options": {
     "base": {
       "libelle": "Tarif Bleu résidentiel - option Base",
@@ -7481,7 +7481,7 @@
         },
         {
           "date_debut": "2024-02-01",
-          "date_fin": "2025-01-31",
+          "date_fin": "2024-10-31",
           "statut": "en_vigueur",
           "ttc_estime": false,
           "sources": [
@@ -7559,6 +7559,102 @@
                 "pointe": 1.5197
               }
             }
+          },
+          "prix_ht": {
+            "normal": 0.1255,
+            "pointe": 1.2454
+          },
+          "prix_ttc": {
+            "normal": 0.1758,
+            "pointe": 1.5197
+          }
+        },
+        {
+          "date_debut": "2024-11-01",
+          "date_fin": "2025-01-31",
+          "statut": "en_vigueur",
+          "ttc_estime": true,
+          "sources": [
+            {
+              "type": "cre_deliberation",
+              "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/240118_2024-05_TRVE_2024_annexe_B.pdf"
+            },
+            {
+              "type": "jourtempo",
+              "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/240118_2024-05_TRVE_2024_annexe_B.pdf"
+            },
+            {
+              "type": "edf_grille",
+              "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 154.2,
+              "abonnement_ttc": 190.75,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2454
+              },
+              "prix_ttc": {
+                "normal": 0.1758,
+                "pointe": 1.5197
+              }
+            },
+            "12": {
+              "abonnement_ht": 181.92,
+              "abonnement_ttc": 226.49,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2454
+              },
+              "prix_ttc": {
+                "normal": 0.1758,
+                "pointe": 1.5197
+              }
+            },
+            "15": {
+              "abonnement_ht": 210.36,
+              "abonnement_ttc": 262.99,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2454
+              },
+              "prix_ttc": {
+                "normal": 0.1758,
+                "pointe": 1.5197
+              }
+            },
+            "18": {
+              "abonnement_ht": 237.72,
+              "abonnement_ttc": 298.35,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2454
+              },
+              "prix_ttc": {
+                "normal": 0.1758,
+                "pointe": 1.5197
+              }
+            },
+            "36": {
+              "abonnement_ht": 411.72,
+              "abonnement_ttc": 520.9,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2454
+              },
+              "prix_ttc": {
+                "normal": 0.1758,
+                "pointe": 1.5197
+              }
+            }
+          },
+          "revision_ttc": {
+            "date": "2024-11-01",
+            "motifs": [
+              "turpe_part_fixe au 2024-11-01 (TURPE 6 HTA-BT au 1er novembre 2024, CRE délibération n° 2024-122 du 26 juin 2024, entrée en vigueur reportée par la délibération n° 2024-158 du 10 septembre 2024 (CU4 9,37 arrondi à 9,36))"
+            ]
           },
           "prix_ht": {
             "normal": 0.1255,
@@ -7928,5 +8024,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T12:58:13+00:00"
+  "mis_a_jour_le": "2026-11-23T13:33:50+00:00"
 }

@@ -76,7 +76,7 @@
         "cta_deduite_de": {"description": "Présent si le TTC de l'abonnement est estimé : grille dont la CTA est reprise.", "type": "string"},
         "cta_calculee": {"description": "Présent si la CTA de l'abonnement est calculée (taux × part fixe du TURPE) : méthode et texte de référence.", "type": "string"},
         "revision_ttc": {
-          "description": "Présent si une taxe a changé depuis la date d'effet sans nouveau barème (grille actuelle seulement) : le TTC est recalculé avec les taxes du jour (ttc_estime vaut alors true).",
+          "description": "Présent si une taxe a changé depuis la date d'effet sans nouveau barème (grille actuelle ; dans historique.json, au niveau de la période) : le TTC est recalculé avec les taxes du jour (ttc_estime vaut alors true).",
           "type": "object",
           "required": ["date", "motifs"],
           "properties": {
@@ -207,7 +207,11 @@
         "prix_ht": {"$ref": "#/$defs/prix"},
         "prix_ttc": {"$ref": "#/$defs/prix"},
         "puissances": {"$ref": "#/$defs/puissances"},
-        "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}}
+        "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}},
+        "revision_ttc": {
+          "description": "Présent si la période est ouverte par un changement de taxe en cours de grille (même barème HT que la période précédente, TTC recalculé).",
+          "$ref": "#/$defs/taxes/properties/revision_ttc"
+        }
       }
     },
     "fichier_historique": {

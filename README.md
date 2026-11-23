@@ -225,7 +225,10 @@ jour** : recalculé à partir du HT avec les taxes en vigueur, `ttc_estime: true
 Le statut et le HT ne changent pas. Une intégration qui lit le prix du kWh chaque jour (Home Assistant…) suit donc la taxe
 dès la collecte du matin (5 h 17 UTC), à condition que la ligne ait été ajoutée à la configuration. Limite : pour
 Base, HP/HC et Tempo, un changement de TURPE en cours de grille (rare : 1er novembre 2024) ne se recalcule pas, faute
-de formule vérifiée ; seul l'abonnement serait touché. `historique.json` garde le TTC publié par la CRE.
+de formule vérifiée ; seul l'abonnement serait touché. Dans `historique.json`, la grille garde le TTC publié jusqu'à la
+veille du changement, puis une **période révisée** s'ouvre (même HT et mêmes sources, TTC recalculé, `ttc_estime: true`,
+`revision_ttc`). C'est le cas de l'EJP au 1er novembre 2024 (TURPE reporté : seul l'abonnement change, et le calcul
+redonne la grille EDF de ce jour au centime). L'open data CRE n'a pas de telle période pour Base, HP/HC et Tempo.
 
 ### Planification
 

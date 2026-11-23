@@ -100,12 +100,49 @@ def _prix_communs(grille: dict) -> dict:
     return grille
 
 
+def _grille_historique(debut: str, g: dict) -> dict:
+    h = {
+        "date_debut": debut,
+        "date_fin": None,
+        "statut": g["statut"],
+        "ttc_estime": g["ttc_estime"],
+        "sources": [{"type": s["type"], "url": s["url"]} for s in g["sources"]],
+        "puissances": {
+            k: {c: v for c, v in p.items() if c != "abonnement_ttc_mensuel"}
+            for k, p in g["puissances"].items()
+        },
+    }
+    if "revision_ttc" in g.get("taxes", {}):
+        h["revision_ttc"] = g["taxes"]["revision_ttc"]
+    return _prix_communs(h)
+
+
+def _revisions(d: str, g: dict, bornes: set[str], aujourd_hui: date, config_taxes: dict | None) -> list[tuple[str, dict]]:
+    """La grille du ``d``, puis une grille révisée à chaque changement de taxe avant la date d'effet suivante."""
+    out = [(d, g)]
+    if not config_taxes:
+        return out
+    suivante = min((b for b in bornes if b > d), default=None)
+    changements = sorted({
+        e["debut"]
+        for serie in config_taxes.values() if isinstance(serie, list)
+        for e in serie if isinstance(e, dict) and "debut" in e
+        if d < e["debut"] <= aujourd_hui.isoformat() and (suivante is None or e["debut"] < suivante)
+    })
+    for c in changements:
+        r = taxes.reviser_ttc(g, date.fromisoformat(c), config_taxes)
+        if r is not g and r["puissances"] != out[-1][1]["puissances"]:
+            out.append((c, r))
+    return out
+
+
 def construire_historique(
     opendata: dict | None,
     ancien: dict | None,
     validees: dict[str, dict[str, dict]],
     aujourd_hui: date,
     dates_connues: dict[str, set[str]] | None = None,
+    config_taxes: dict | None = None,
 ) -> dict:
     """Toutes les grilles entrées en vigueur, par option, de la plus ancienne à l'actuelle.
 
@@ -116,6 +153,9 @@ def construire_historique(
     - ``dates_connues`` : toutes les dates d'effet du registre, même celles dont la grille
       est rejetée : une grille rejetée clôt quand même la précédente (on laisse un trou
       plutôt que de prolonger à tort l'ancienne grille).
+    - ``config_taxes`` : une taxe qui change en cours de grille (TURPE de l'EJP au 1er
+      novembre 2024, par exemple) ouvre une période révisée, au TTC recalculé
+      (``taxes.reviser_ttc``, ``ttc_estime: true``, ``revision_ttc``).
     """
     options: dict[str, dict] = {}
     for option, opt in OPTIONS.items():
@@ -129,20 +169,14 @@ def construire_historique(
             precedent = ((ancien or {}).get("options") or {}).get(option, {}).get("grilles", [])
             od = [g for g in precedent if [s["type"] for s in g.get("sources", [])] == ["cre_opendata"]]
         dernier = od[-1]["date_debut"] if od else ""
+        retenues = {
+            d: g for d, g in validees.get(option, {}).items() if dernier < d <= aujourd_hui.isoformat()
+        }
+        bornes = set(retenues) | set((dates_connues or {}).get(option, ()))
         suite = [
-            _prix_communs({
-                "date_debut": d,
-                "date_fin": None,
-                "statut": g["statut"],
-                "ttc_estime": g["ttc_estime"],
-                "sources": [{"type": s["type"], "url": s["url"]} for s in g["sources"]],
-                "puissances": {
-                    k: {c: v for c, v in p.items() if c != "abonnement_ttc_mensuel"}
-                    for k, p in g["puissances"].items()
-                },
-            })
-            for d, g in sorted(validees.get(option, {}).items())
-            if dernier < d <= aujourd_hui.isoformat()
+            _grille_historique(debut, g)
+            for d, g in sorted(retenues.items())
+            for debut, g in _revisions(d, g, bornes, aujourd_hui, config_taxes)
         ]
         grilles = [dict(g) for g in od + suite]
         debuts = sorted({g["date_debut"] for g in grilles} | {
@@ -158,7 +192,8 @@ def construire_historique(
         "note": "date_fin = dernier jour d'application (inclus), null pour la grille en vigueur. "
         "TTC tel que publié par la CRE avec les taxes de l'époque (CSPE, TCFE, CTA, TVA), "
         "ou calculé si ttc_estime vaut true. Une période sans grille est une grille non publiée "
-        "(rejetée par les contrôles). Pas d'historique EJP dans l'open data CRE.",
+        "(rejetée par les contrôles). Une taxe changée en cours de grille ouvre une période au TTC "
+        "recalculé (revision_ttc). Pas d'historique EJP dans l'open data CRE.",
         "options": options,
     }
 
@@ -236,6 +271,7 @@ def publier(
             **construire_historique(
                 historique_opendata, ancien_hist, validees, aujourd_hui,
                 {o: set(registre.get("grilles", {}).get(o, {})) for o in OPTIONS},
+                config_taxes,
             ),
         },
         horodatage,
