@@ -39,7 +39,7 @@ def coherence(g: GrilleSource) -> list[str]:
     nom = f"{g.source} {g.option} {g.date_effet}"
     kvas = sorted(g.puissances)
     # Tempo d'avant août 2016 (Jour Tempo, arrêtés) : 9, 12, 15, 18, 30 et 36 kVA, comme les grilles EDF.
-    minimum = 6 if (g.option, g.source) == ("tempo", "jourtempo") else opt.min_puissances
+    minimum = 6 if g.option == "tempo" and g.source in ("jourtempo", "arrete") else opt.min_puissances
     if len(kvas) < minimum and g.source != "cre_opendata":
         pb.append(f"{nom}: {len(kvas)} puissances, {minimum} attendues au minimum")
     hors = set(kvas) - set(opt.puissances)

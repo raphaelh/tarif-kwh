@@ -22,7 +22,7 @@ TOL_KWH = 0.00011  # arrondi à 4 décimales des deux côtés
 TOL_ABO = 0.011  # €/an
 TOL_MENSUEL = 0.01  # 1 % entre abonnement mensuel EDF ×12 et annuel
 
-ORDRE_SOURCES = ("cre_deliberation", "jourtempo", "edf_grille", "cre_opendata")
+ORDRE_SOURCES = ("cre_deliberation", "jourtempo", "arrete", "edf_grille", "cre_opendata")
 
 # EJP d'avant février 2023 : le TTC comprenait des taxes locales (TCFE) qu'on ne sait pas
 # recalculer. On reprend les taxes au kWh (CSPE + TCFE) que la CRE a appliquées aux
@@ -172,7 +172,11 @@ def recouper(
             for per, v in q.prix_ht.items():
                 if abs(p.prix_ht.get(per, -1) - v) > TOL_KWH / 2:
                     pb.append(f"{option} {date_effet} {k} kVA {per}: HT CRE {p.prix_ht.get(per)} ≠ Jour Tempo {v}")
-    delib = delib or jt
+    # Barème recopié d'un arrêté (config/baremes_arretes.json) : seulement là où aucune autre source HT n'existe.
+    arr = obs.get("arrete")
+    if arr and (delib or jt or od):
+        pb.append(f"{option} {date_effet}: barème d'arrêté en config alors qu'une autre source HT existe : le retirer")
+    delib = delib or jt or arr
     if not (delib or od):
         if edf:
             pb.append(
@@ -443,7 +447,7 @@ TOL_ABO_MENSUEL = 0.006  # €/mois
 
 
 def _ht_ejp(obs: dict) -> dict | None:
-    return obs.get("cre_deliberation") or obs.get("jourtempo")
+    return obs.get("cre_deliberation") or obs.get("jourtempo") or obs.get("arrete")
 
 
 def ejp_hors_turpe(registre: dict, config_taxes: dict) -> list[str]:

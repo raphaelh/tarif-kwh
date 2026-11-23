@@ -20,7 +20,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tarif_kwh import calendrier, http, issues, page, publish, reconcile, taxes  # noqa: E402
-from tarif_kwh.sources import cre_deliberation, cre_opendata, edf_grille, jorf, jourtempo  # noqa: E402
+from tarif_kwh.sources import arretes, cre_deliberation, cre_opendata, edf_grille, jorf, jourtempo  # noqa: E402
 
 RACINE = Path(__file__).resolve().parents[1]
 REGISTRE = RACINE / "data" / "registre.json"
@@ -136,6 +136,10 @@ def collecter(registre: dict, forcer: list[str], erreurs: list, historique: dict
     except Exception as e:
         print(f"Jour Tempo indisponible : {e}", file=sys.stderr)
 
+    # 2 ter. Barèmes HT recopiés d'arrêtés (config) : Tempo et EJP au 23 juillet 2012.
+    for g in etape("Barèmes des arrêtés (config)", erreurs, arretes.collecter) or []:
+        enregistrer_obs(registre, g)
+
     # 3. Open data CRE
     grilles = etape("Open data CRE", erreurs, cre_opendata.collecter, historique)
     for g in (grilles or {}).values():
@@ -183,7 +187,7 @@ def amorcer_captures_ejp(registre: dict) -> None:
     connues = registre.get("grilles", {}).get("ejp", {})
     for g in grilles:
         d = g.date_effet.isoformat()
-        if not {"cre_deliberation", "jourtempo"} & set(connues.get(d, {})):
+        if not {"cre_deliberation", "jourtempo", "arrete"} & set(connues.get(d, {})):
             print(f"grille EDF EJP du {d} ignorée : aucune grille HT (CRE, Jour Tempo) à cette date", file=sys.stderr)
             continue
         enregistrer_obs(registre, g)

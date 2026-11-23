@@ -89,7 +89,7 @@ class GrilleSource:
 
     option: str
     date_effet: date
-    source: str  # 'cre_deliberation', 'jourtempo', 'edf_grille', 'cre_opendata'
+    source: str  # 'cre_deliberation', 'jourtempo', 'arrete', 'edf_grille', 'cre_opendata'
     url: str
     puissances: dict[int, Puissance] = field(default_factory=dict)
     meta: dict = field(default_factory=dict)  # ex. accise lue, date de publication

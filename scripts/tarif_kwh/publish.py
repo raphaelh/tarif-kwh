@@ -299,7 +299,7 @@ def construire_historique(
       (None si non téléchargé : on reprend alors la partie open data de ``ancien``).
     - ``validees`` : grilles recoupées du registre, qui complètent l'open data : après sa
       dernière grille (publiée ≈ 4 semaines après la date d'effet), avant sa première (Tempo
-      2013-2016, d'après Jour Tempo et les grilles EDF archivées), et l'EJP, qui n'y est pas.
+      2012-2016, d'après l'arrêté de 2012, Jour Tempo et les grilles EDF archivées), et l'EJP, qui n'y est pas.
     - ``dates_connues`` : toutes les dates d'effet du registre, même celles dont la grille
       est rejetée : une grille rejetée clôt quand même la précédente (on laisse un trou
       plutôt que de prolonger à tort l'ancienne grille).

@@ -59,7 +59,7 @@
       "type": "object",
       "required": ["type", "url"],
       "properties": {
-        "type": {"enum": ["cre_deliberation", "jourtempo", "edf_grille", "cre_opendata"]},
+        "type": {"enum": ["cre_deliberation", "jourtempo", "arrete", "edf_grille", "cre_opendata"]},
         "url": {"type": "string", "format": "uri"},
         "recupere_le": {"description": "Date de récupération (absent de historique.json).", "type": "string"}
       }
