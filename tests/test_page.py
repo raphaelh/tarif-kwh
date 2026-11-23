@@ -1,5 +1,8 @@
 """Page HTML du site Pages (un tableau par option)."""
 import json
+from html import escape
+
+import pytest
 
 from tarif_kwh import page
 
@@ -82,6 +85,19 @@ def test_page_mensuel_egal_annuel_sur_douze(tmp_path):
     assert "30,79" in html and "30,69" not in html
     assert '<td class="num">19,52</td><td class="num">—</td>' in html
     assert html.count("annuel ÷ 12") == 3  # une note par grille TTC (tempo, ejp, ejp prochaine)
+
+
+@pytest.mark.parametrize("code,sources,attendu", [
+    ("ejp", ["cre_deliberation", "jourtempo", "edf_grille"],
+     "Grille en vigueur, recoupée avec la grille EDF (l'EJP ne figure pas dans l'open data CRE)."),
+    ("ejp", ["cre_deliberation"], "Grille en vigueur (l'EJP ne figure pas dans l'open data CRE)."),
+    ("tempo", ["cre_deliberation", "edf_grille"], "Grille en vigueur (non encore recoupée par l'open data CRE)."),
+])
+def test_page_statut_en_vigueur(code, sources, attendu):
+    g = _grille("2026-08-01", ["normal", "pointe"], {9: 234.24}, statut="en_vigueur",
+                sources=[{"type": s, "url": "u"} for s in sources])
+    html = page._grille(code, "En vigueur depuis le {}", g, ["normal", "pointe"])
+    assert escape(attendu) in html
 
 
 def test_page_sans_etat(tmp_path):

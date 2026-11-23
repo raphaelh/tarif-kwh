@@ -100,8 +100,18 @@ def _tableau(grille: dict, periodes: list[str], taxe: str) -> str:
     )
 
 
-def _grille(titre: str, grille: dict, periodes: list[str]) -> str:
-    statut = STATUTS.get(grille.get("statut", ""), grille.get("statut", ""))
+def _statut(code: str, grille: dict) -> str:
+    """Libellé du statut. L'EJP n'est jamais dans l'open data CRE : « en vigueur » est son meilleur statut."""
+    statut = grille.get("statut", "")
+    if code == "ejp" and statut == "en_vigueur":
+        sources = {s.get("type") for s in grille.get("sources", [])}
+        recoupe = ", recoupée avec la grille EDF" if "edf_grille" in sources else ""
+        return f"en vigueur{recoupe} (l'EJP ne figure pas dans l'open data CRE)"
+    return STATUTS.get(statut, statut)
+
+
+def _grille(code: str, titre: str, grille: dict, periodes: list[str]) -> str:
+    statut = _statut(code, grille)
     estime = " TTC calculé (pas encore publié par une source officielle)." if grille.get("ttc_estime") else ""
     return (
         f"<h3>{escape(titre.format(_date(grille['date_effet'])))}</h3>"
@@ -130,9 +140,9 @@ def _option(code: str, bloc: dict, etat: dict) -> str:
         infos.append(bloc["note"])
     if infos:
         morceaux.append("".join(f'<p class="note">{escape(i)}</p>' for i in infos))
-    morceaux.append(_grille("En vigueur depuis le {}", bloc["actuelle"], periodes))
+    morceaux.append(_grille(code, "En vigueur depuis le {}", bloc["actuelle"], periodes))
     if bloc.get("prochaine"):
-        morceaux.append(_grille("Prochaine grille, à partir du {}", bloc["prochaine"], periodes))
+        morceaux.append(_grille(code, "Prochaine grille, à partir du {}", bloc["prochaine"], periodes))
     morceaux.append(
         f'<p class="lien">Données : <a href="{escape(code)}.json">{escape(code)}.json</a></p></section>'
     )
