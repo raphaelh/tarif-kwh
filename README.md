@@ -151,9 +151,22 @@ passée ou tracer l'évolution des prix.
   du 1er août 2016. L'abonnement est recalculé avec le TURPE du 1er août 2015 puis du 1er août 2016 (délibérations
   CRE du 28 mai 2015 et du 2 juin 2016, même règle, même fichier) et redonne les grilles EDF à 1 centime près,
   révision de janvier 2016 comprise (`revision_abonnement`, `ttc_estime: true`, `statut: en_vigueur`). La Base et
-  Tempo de ces deux dates sont déjà justes : un abonnement à 1 centime près du calcul n'est pas touché. Après
-  juillet 2017 (TURPE 5), les grilles EDF n'impriment plus que l'abonnement mensuel, qui ne permet pas de vérifier la
-  règle au centime : l'abonnement de l'open data est publié tel quel.
+  Tempo de ces deux dates sont déjà justes : un abonnement à 1 centime près du calcul n'est pas touché.
+- **Abonnement TTC Base, août 2017 à janvier 2018** : l'open data garde la CTA d'août 2016 (TURPE 4), au centime.
+  Avec le TURPE 5 (délibération CRE du 17 novembre 2016 : gestion provisoire 6,96 €/an, comptage 19,80 €/an,
+  courte utilisation 4,32 €/kVA/an), il vaut de 9,66 €/an de moins (15 kVA) à 1,43 €/an de plus (9 kVA). La même
+  règle redonne au centime l'open data HP/HC et Tempo de cette date, qui ne sont pas touchés.
+- **Abonnement TTC depuis 2018 : open data CRE ≠ grille EDF.** Les grilles Tarif Bleu EDF archivées suivent
+  exactement la formule de la CTA (taux × (gestion + comptage + coefficient × kVA)), avec une version du TURPE par
+  option et puissance : courte utilisation pour la Base, moyenne utilisation pour HP/HC jusqu'à 24 ou 30 kVA,
+  versions à 4 plages depuis août 2022, courte utilisation à 4 plages pour tous depuis août 2025. L'open data CRE
+  colle à ces versions jusqu'en 2019 (sauf Tempo, et HP/HC 24 kVA en février 2018), mais **depuis février 2020 elle
+  ne correspond à aucune version** : la CRE y intègre un « TURPE optimisé », moyenne des options choisies client par
+  client, estimée par EDF à partir de ses propres données (délibération TRVE n° 2026-06). L'abonnement TTC publié
+  ici, celui de l'open data, s'écarte donc du montant affiché par EDF de −9 à +9 €/an selon l'option et la
+  puissance (−4 à +7 €/an pour Tempo dès 2018). Ce n'est pas une erreur que l'on corrige : c'est la méthode de la
+  CRE, et la CTA réellement facturée dépend encore de la version du TURPE retenue pour chaque client. Pour le
+  montant affiché par EDF, voir sa grille Tarif Bleu.
 - **EJP** n'est pas dans l'open data CRE : son historique commence au **1er août 2013**. Le HT vient de la
   délibération CRE et du jeu Jour Tempo (qui cite l'arrêté du JORF ou la délibération CRE appliquée), le TTC de la
   grille EDF EJP archivée sur web.archive.org. Sans grille EDF, le TTC est calculé (`ttc_estime: true`) :

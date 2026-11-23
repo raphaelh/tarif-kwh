@@ -11,7 +11,7 @@ from tarif_kwh.sources import cre_opendata, jourtempo
 
 CONFIG = taxes.charger_config()
 CONF = taxes.charger_revisions_abonnement()
-T3, T4, T4_AOUT, T15, T16 = CONF["periodes"]
+T3, T4, T4_AOUT, T15, T16, T17 = CONF["periodes"]
 AUJOURD_HUI = date(2026, 11, 23)
 ARCHIVEES = {a["date"]: a for a in reconcile.charger_grilles_edf_archivees()}
 TOL = 0.011  # €/an : EDF et la CRE arrondissent parfois la CTA différemment
@@ -204,3 +204,28 @@ def test_open_data_intacte_et_relecture_stable(historique):
 def test_sans_configuration_rien(od_hist):
     h = publish.construire_historique(od_hist, None, {}, AUJOURD_HUI, None, CONFIG)
     assert not any("revision_abonnement" in g for b in h["options"].values() for g in b["grilles"])
+
+
+def test_turpe5_aout_2017(od):
+    """TURPE 5 (gestion provisoire) : open data HP/HC et Tempo d'août 2017 au centime ; la Base garde la CTA d'août 2016."""
+    for o in ("hphc", "tempo"):
+        for k, p in od[o]["2017-08-01"]["puissances"].items():
+            assert p["abonnement_ttc"] == _abo(o, int(k), p["abonnement_ht"], T17), (o, k)
+    for k, p in od["base"]["2017-08-01"]["puissances"].items():
+        assert p["abonnement_ttc"] == _abo("base", int(k), p["abonnement_ht"], T16), k
+        assert p["abonnement_ttc"] != _abo("base", int(k), p["abonnement_ht"], T17), k
+
+
+def test_historique_aout_2017(historique, od):
+    """Base d'août 2017 à janvier 2018 révisée (TURPE 5) ; HP/HC, Tempo et la Base de février 2018 intacts."""
+    h, _, _ = historique
+    base = _periodes(h, "base")
+    g = base["2017-08-01"]
+    assert g["revision_abonnement"]["date"] == "2017-08-01" and g["revision_abonnement"]["sources"] == [T17["url"]]
+    assert g["statut"] == "en_vigueur" and g["ttc_estime"] is True
+    assert {k: p["abonnement_ttc"] for k, p in g["puissances"].items()} == {
+        "3": 67.03, "6": 100.73, "9": 118.74, "12": 137.12, "15": 155.63,
+    }
+    assert g["date_fin"] == "2018-01-31" and "revision_abonnement" not in base["2018-02-01"]
+    for o in ("hphc", "tempo"):
+        assert "revision_abonnement" not in _periodes(h, o)["2017-08-01"], o
