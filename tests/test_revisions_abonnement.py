@@ -11,7 +11,7 @@ from tarif_kwh.sources import cre_opendata, jourtempo
 
 CONFIG = taxes.charger_config()
 CONF = taxes.charger_revisions_abonnement()
-T3, T4, T4_AOUT, T15 = CONF["periodes"]
+T3, T4, T4_AOUT, T15, T16 = CONF["periodes"]
 AUJOURD_HUI = date(2026, 11, 23)
 ARCHIVEES = {a["date"]: a for a in reconcile.charger_grilles_edf_archivees()}
 TOL = 0.011  # €/an : EDF et la CRE arrondissent parfois la CTA différemment
@@ -108,10 +108,42 @@ def test_historique_aout_2015(historique):
         for k, p in g["puissances"].items():
             assert abs(p["abonnement_ttc"] - EDF_AOUT_2015["hphc"][int(k)]) <= TOL, k
     assert hphc["2015-08-01"]["date_fin"] == "2015-12-31"
-    assert "revision_abonnement" not in hphc["2016-08-01"]
+    assert hphc["2016-08-01"]["revision_abonnement"]["date"] == "2016-08-01"
     for o in ("base", "tempo"):
-        for d in ("2015-08-01", "2016-01-01"):
+        for d in ("2015-08-01", "2016-01-01", "2016-08-01"):
             assert "revision_abonnement" not in _periodes(h, o)[d], (o, d)
+
+
+# Grille Tarif Bleu EDF annuelle « applicable au 1er août 2016 » (web.archive.org, 18/10/2016) : dernière grille
+# EDF à imprimer l'abonnement annuel ; ensuite, seulement le mensuel, qui ne permet pas un contrôle au centime.
+EDF_AOUT_2016 = {
+    "base": {6: 96.50, 9: 111.35, 12: 172.78, 15: 199.59},
+    "hphc": {6: 100.51, 9: 117.50, 12: 183.25, 15: 212.05, 18: 239.84, 24: 495.65, 30: 599.74, 36: 703.07},
+    "tempo": {9: 116.24, 12: 181.98, 15: 210.02, 18: 237.05, 30: 597.21, 36: 700.80},
+}
+
+
+def test_turpe_aout_2016_redonne_grille_edf(od):
+    """TURPE au 1er août 2016 : grille EDF annuelle d'août 2016 ; l'open data HP/HC garde la CTA de novembre 2014."""
+    for o, abos in EDF_AOUT_2016.items():
+        ht = od[o]["2016-08-01"]["puissances"]
+        for kva, v in abos.items():
+            assert abs(_abo(o, kva, ht[str(kva)]["abonnement_ht"], T16) - v) <= TOL, (o, kva)
+    for k, p in od["hphc"]["2016-08-01"]["puissances"].items():
+        assert p["abonnement_ttc"] == _abo("hphc", int(k), p["abonnement_ht"], T4_AOUT), k
+        assert p["abonnement_ttc"] < EDF_AOUT_2016["hphc"][int(k)] - 0.1, k
+
+
+def test_historique_aout_2016(historique):
+    """HP/HC d'août 2016 à juillet 2017 corrigé ; la grille d'août 2017 (TURPE 5) n'est pas touchée."""
+    h, _, _ = historique
+    hphc = _periodes(h, "hphc")
+    g = hphc["2016-08-01"]
+    assert g["date_fin"] == "2017-07-31" and g["statut"] == "en_vigueur" and g["ttc_estime"] is True
+    assert g["revision_abonnement"]["sources"] == [T16["url"]]
+    for k, p in g["puissances"].items():
+        assert abs(p["abonnement_ttc"] - EDF_AOUT_2016["hphc"][int(k)]) <= TOL, k
+    assert "revision_abonnement" not in hphc["2017-08-01"]
 
 
 def _periodes(h, option):

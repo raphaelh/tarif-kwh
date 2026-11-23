@@ -146,12 +146,14 @@ passée ou tracer l'évolution des prix.
   novembre 2014 (TURPE d'août 2014). La date de la grille EDF de février n'est que celle de sa réédition : le TURPE 4,
   et donc la CTA, s'appliquent depuis le 1er janvier. L'EJP n'est pas concernée : son abonnement TTC vaut `null`
   avant août 2018.
-- **Abonnement TTC HP/HC, août 2015 à juillet 2016** : l'open data CRE garde la CTA du TURPE d'août 2014, soit
-  0,03 à 0,04 €/an de moins que la grille Tarif Bleu EDF du 1er août 2015. L'abonnement est recalculé avec le TURPE
-  du 1er août 2015 (délibération CRE du 28 mai 2015, même règle, même fichier) et redonne la grille EDF à 1 centime
-  près, révision de janvier 2016 comprise (`revision_abonnement`, `ttc_estime: true`, `statut: en_vigueur`). La Base
-  et Tempo d'août 2015, repris de la grille EDF, sont déjà justes : un abonnement à 1 centime près du calcul n'est
-  pas touché.
+- **Abonnement TTC HP/HC, août 2015 à juillet 2017** : l'open data CRE garde la CTA du TURPE d'août 2014, soit
+  0,03 à 0,04 €/an de moins que la grille Tarif Bleu EDF du 1er août 2015, puis 0,13 à 1,37 €/an de moins que celle
+  du 1er août 2016. L'abonnement est recalculé avec le TURPE du 1er août 2015 puis du 1er août 2016 (délibérations
+  CRE du 28 mai 2015 et du 2 juin 2016, même règle, même fichier) et redonne les grilles EDF à 1 centime près,
+  révision de janvier 2016 comprise (`revision_abonnement`, `ttc_estime: true`, `statut: en_vigueur`). La Base et
+  Tempo de ces deux dates sont déjà justes : un abonnement à 1 centime près du calcul n'est pas touché. Après
+  juillet 2017 (TURPE 5), les grilles EDF n'impriment plus que l'abonnement mensuel, qui ne permet pas de vérifier la
+  règle au centime : l'abonnement de l'open data est publié tel quel.
 - **EJP** n'est pas dans l'open data CRE : son historique commence au **1er août 2013**. Le HT vient de la
   délibération CRE et du jeu Jour Tempo (qui cite l'arrêté du JORF ou la délibération CRE appliquée), le TTC de la
   grille EDF EJP archivée sur web.archive.org. Sans grille EDF, le TTC est calculé (`ttc_estime: true`) :

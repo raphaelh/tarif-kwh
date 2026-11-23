@@ -221,7 +221,7 @@ TOL_ABONNEMENT = 0.011  # €/an : arrondi de la CTA, qui diffère parfois d'un 
 
 def _revisions_abonnement(option: str, grilles: list[dict], conf: dict) -> list[dict]:
     """Abonnement TTC révisé quand le TURPE change sans nouveau barème (2014), ou quand l'open
-    data garde la CTA du TURPE précédent (HP/HC au 1er août 2015).
+    data garde la CTA d'un TURPE précédent (HP/HC aux 1er août 2015 et 2016).
 
     Pour chaque période de config/revisions_abonnement.json après la première, la grille
     en cours à sa date de début voit son abonnement TTC recalculé avec la CTA de ce TURPE
