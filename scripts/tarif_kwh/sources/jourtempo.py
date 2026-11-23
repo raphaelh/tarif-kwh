@@ -7,7 +7,9 @@ officiel dont elle vient (arrêté ou décision au JORF, délibération CRE). Il
 les tarifs réellement appliqués : en 2023 (bouclier tarifaire), ceux des arrêtés
 et non les propositions de la CRE.
 
-On ne lit que l'EJP, absente de l'open data CRE, depuis août 2013. Avant février
+On ne lit que ce que l'open data CRE n'a pas : l'EJP depuis août 2013, et Tempo
+d'août 2013 à juillet 2016 (l'open data Tempo commence au 1er août 2016 ; après,
+Jour Tempo ne sert pas pour Tempo, ni comme source ni comme contrôle). Avant février
 2023, le TTC comprenait des taxes locales (TCFE) qu'on ne sait pas recalculer : on
 reprend les taxes au kWh de l'open data CRE à la même date (voir
 ``reconcile.taxes_kwh_opendata``), sans abonnement TTC. C'est une source HT, au même
@@ -27,8 +29,13 @@ SOURCE = "jourtempo"
 URL_HISTORIQUE = "https://jourtempo.fr/api/v1/trve-historique.csv"
 URL_SOURCES = "https://jourtempo.fr/api/v1/trve-sources.csv"
 DATE_MIN = date(2013, 8, 1)
-OPTIONS_LUES = ("ejp",)
-COMPOSANTES = {"ejp": {"kwh_ejp_normal": "normal", "kwh_ejp_pointe": "pointe"}}
+OPTIONS_LUES = ("ejp", "tempo")
+# Date d'effet exclue à partir de laquelle l'open data CRE couvre l'option.
+DATE_MAX = {"tempo": date(2016, 8, 1)}
+COMPOSANTES = {
+    "ejp": {"kwh_ejp_normal": "normal", "kwh_ejp_pointe": "pointe"},
+    "tempo": {f"kwh_{c}_{h}": f"{c}_{h}" for c in ("bleu", "blanc", "rouge") for h in ("hc", "hp")},
+}
 
 
 class ParseError(ValueError):
@@ -49,7 +56,7 @@ def parse(historique: bytes, sources: bytes) -> dict[tuple[str, date], GrilleSou
         if option not in OPTIONS_LUES or r["ht_ttc"] != "HT":
             continue
         d = date.fromisoformat(r["date_effet"])
-        if d < DATE_MIN:
+        if d < DATE_MIN or (option in DATE_MAX and d >= DATE_MAX[option]):
             continue
         if r["source_id"] not in urls:
             raise ParseError(f"source inconnue {r['source_id']} ({option} {d})")

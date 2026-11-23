@@ -1,0 +1,377 @@
+{
+  "_commentaire": "Grilles Tarif Bleu EDF archivées (web.archive.org) d'avant l'open data CRE, transcrites du PDF (pdftotext). « date » : date d'application imprimée. Prix TTC au kWh en €/kWh, abonnement TTC en €/an. Elles servent à l'historique Tempo d'avant août 2016 (barème HT de Jour Tempo, d'après les arrêtés) : contrôle du TTC au kWh (reconcile.ecarts_grilles_edf_archivees) et abonnement TTC (reconcile.abonnement_edf_archive). Une coquille du PDF est corrigée et signalée dans « coquilles ».",
+  "grilles": [
+    {
+      "option": "tempo",
+      "date": "2013-08-01",
+      "source": "https://web.archive.org/web/20131008142756/http://particuliers.edf.com/fichiers/fckeditor/Particuliers/Offres/CGV_CRE/CRE_TB.pdf",
+      "puissances": {
+        "9": {
+          "abonnement_ttc": 121.94,
+          "prix_ttc": {
+            "bleu_hc": 0.0799,
+            "bleu_hp": 0.0962,
+            "blanc_hc": 0.1133,
+            "blanc_hp": 0.1358,
+            "rouge_hc": 0.2097,
+            "rouge_hp": 0.5537
+          }
+        },
+        "12": {
+          "abonnement_ttc": 199.67,
+          "prix_ttc": {
+            "bleu_hc": 0.0799,
+            "bleu_hp": 0.0962,
+            "blanc_hc": 0.1133,
+            "blanc_hp": 0.1358,
+            "rouge_hc": 0.2097,
+            "rouge_hp": 0.5537
+          }
+        },
+        "15": {
+          "abonnement_ttc": 231.94,
+          "prix_ttc": {
+            "bleu_hc": 0.0799,
+            "bleu_hp": 0.0962,
+            "blanc_hc": 0.1133,
+            "blanc_hp": 0.1358,
+            "rouge_hc": 0.2097,
+            "rouge_hp": 0.5537
+          }
+        },
+        "18": {
+          "abonnement_ttc": 255.34,
+          "prix_ttc": {
+            "bleu_hc": 0.0799,
+            "bleu_hp": 0.0962,
+            "blanc_hc": 0.1133,
+            "blanc_hp": 0.1358,
+            "rouge_hc": 0.2097,
+            "rouge_hp": 0.5537
+          }
+        },
+        "30": {
+          "abonnement_ttc": 612.33,
+          "prix_ttc": {
+            "bleu_hc": 0.0799,
+            "bleu_hp": 0.0962,
+            "blanc_hc": 0.1133,
+            "blanc_hp": 0.1358,
+            "rouge_hc": 0.2097,
+            "rouge_hp": 0.5537
+          }
+        },
+        "36": {
+          "abonnement_ttc": 751.35,
+          "prix_ttc": {
+            "bleu_hc": 0.0799,
+            "bleu_hp": 0.0962,
+            "blanc_hc": 0.1133,
+            "blanc_hp": 0.1358,
+            "rouge_hc": 0.2097,
+            "rouge_hp": 0.5537
+          }
+        }
+      }
+    },
+    {
+      "option": "tempo",
+      "date": "2014-02-01",
+      "source": "https://web.archive.org/web/20140224173330/http://particuliers.edf.com/fichiers/fckeditor/Particuliers/Offres/CGV_CRE/CRE_TB.pdf",
+      "puissances": {
+        "9": {
+          "abonnement_ttc": 121.01,
+          "prix_ttc": {
+            "bleu_hc": 0.084,
+            "bleu_hp": 0.1003,
+            "blanc_hc": 0.1175,
+            "blanc_hp": 0.14,
+            "rouge_hc": 0.2142,
+            "rouge_hp": 0.5593
+          }
+        },
+        "12": {
+          "abonnement_ttc": 194.23,
+          "prix_ttc": {
+            "bleu_hc": 0.084,
+            "bleu_hp": 0.1003,
+            "blanc_hc": 0.1175,
+            "blanc_hp": 0.14,
+            "rouge_hc": 0.2142,
+            "rouge_hp": 0.5593
+          }
+        },
+        "15": {
+          "abonnement_ttc": 225.06,
+          "prix_ttc": {
+            "bleu_hc": 0.084,
+            "bleu_hp": 0.1003,
+            "blanc_hc": 0.1175,
+            "blanc_hp": 0.14,
+            "rouge_hc": 0.2142,
+            "rouge_hp": 0.5593
+          }
+        },
+        "18": {
+          "abonnement_ttc": 247.02,
+          "prix_ttc": {
+            "bleu_hc": 0.084,
+            "bleu_hp": 0.1003,
+            "blanc_hc": 0.1175,
+            "blanc_hp": 0.14,
+            "rouge_hc": 0.2142,
+            "rouge_hp": 0.5593
+          }
+        },
+        "30": {
+          "abonnement_ttc": 617.81,
+          "prix_ttc": {
+            "bleu_hc": 0.084,
+            "bleu_hp": 0.1003,
+            "blanc_hc": 0.1175,
+            "blanc_hp": 0.14,
+            "rouge_hc": 0.2142,
+            "rouge_hp": 0.5593
+          }
+        },
+        "36": {
+          "abonnement_ttc": 757.86,
+          "prix_ttc": {
+            "bleu_hc": 0.084,
+            "bleu_hp": 0.1003,
+            "blanc_hc": 0.1175,
+            "blanc_hp": 0.14,
+            "rouge_hc": 0.2142,
+            "rouge_hp": 0.5593
+          }
+        }
+      },
+      "note": "Grille datée « en vigueur à compter du 1er février 2014 » : TTC au kWh = taxes au kWh de 2014 (CSPE + 3 €/MWh au 1er janvier, TVA 20 %)."
+    },
+    {
+      "option": "tempo",
+      "date": "2015-01-01",
+      "source": "https://web.archive.org/web/20150412062614/https://particuliers.edf.com/fichiers/fckeditor/Particuliers/Offres/CGV_CRE/CRE_TB.pdf",
+      "puissances": {
+        "9": {
+          "abonnement_ttc": 125.98,
+          "prix_ttc": {
+            "bleu_hc": 0.0903,
+            "bleu_hp": 0.1075,
+            "blanc_hc": 0.1255,
+            "blanc_hp": 0.1491,
+            "rouge_hc": 0.227,
+            "rouge_hp": 0.5894
+          }
+        },
+        "12": {
+          "abonnement_ttc": 201.82,
+          "prix_ttc": {
+            "bleu_hc": 0.0903,
+            "bleu_hp": 0.1075,
+            "blanc_hc": 0.1255,
+            "blanc_hp": 0.1491,
+            "rouge_hc": 0.227,
+            "rouge_hp": 0.5894
+          }
+        },
+        "15": {
+          "abonnement_ttc": 233.68,
+          "prix_ttc": {
+            "bleu_hc": 0.0903,
+            "bleu_hp": 0.1075,
+            "blanc_hc": 0.1255,
+            "blanc_hp": 0.1491,
+            "rouge_hc": 0.227,
+            "rouge_hp": 0.5894
+          }
+        },
+        "18": {
+          "abonnement_ttc": 256.43,
+          "prix_ttc": {
+            "bleu_hc": 0.0903,
+            "bleu_hp": 0.1075,
+            "blanc_hc": 0.1255,
+            "blanc_hp": 0.1491,
+            "rouge_hc": 0.227,
+            "rouge_hp": 0.5894
+          }
+        },
+        "30": {
+          "abonnement_ttc": 641.62,
+          "prix_ttc": {
+            "bleu_hc": 0.0903,
+            "bleu_hp": 0.1075,
+            "blanc_hc": 0.1255,
+            "blanc_hp": 0.1491,
+            "rouge_hc": 0.227,
+            "rouge_hp": 0.5894
+          }
+        },
+        "36": {
+          "abonnement_ttc": 787.29,
+          "prix_ttc": {
+            "bleu_hc": 0.0903,
+            "bleu_hp": 0.1075,
+            "blanc_hc": 0.1255,
+            "blanc_hp": 0.1491,
+            "rouge_hc": 0.227,
+            "rouge_hp": 0.5894
+          }
+        }
+      },
+      "coquilles": [
+        "36 kVA, Blanc HC : la grille imprime 15,55 c€ au lieu de 12,55 c€ (valeur de toutes les autres puissances, et seule compatible avec le barème HT) ; corrigé ici."
+      ]
+    },
+    {
+      "option": "tempo",
+      "date": "2015-08-01",
+      "source": "https://web.archive.org/web/20150815095832/https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/CRE_tarif_bleu.pdf",
+      "puissances": {
+        "9": {
+          "abonnement_ttc": 131.33,
+          "prix_ttc": {
+            "bleu_hc": 0.0931,
+            "bleu_hp": 0.1111,
+            "blanc_hc": 0.13,
+            "blanc_hp": 0.1549,
+            "rouge_hc": 0.2366,
+            "rouge_hp": 0.6171
+          }
+        },
+        "12": {
+          "abonnement_ttc": 210.34,
+          "prix_ttc": {
+            "bleu_hc": 0.0931,
+            "bleu_hp": 0.1111,
+            "blanc_hc": 0.13,
+            "blanc_hp": 0.1549,
+            "rouge_hc": 0.2366,
+            "rouge_hp": 0.6171
+          }
+        },
+        "15": {
+          "abonnement_ttc": 243.46,
+          "prix_ttc": {
+            "bleu_hc": 0.0931,
+            "bleu_hp": 0.1111,
+            "blanc_hc": 0.13,
+            "blanc_hp": 0.1549,
+            "rouge_hc": 0.2366,
+            "rouge_hp": 0.6171
+          }
+        },
+        "18": {
+          "abonnement_ttc": 267.1,
+          "prix_ttc": {
+            "bleu_hc": 0.0931,
+            "bleu_hp": 0.1111,
+            "blanc_hc": 0.13,
+            "blanc_hp": 0.1549,
+            "rouge_hc": 0.2366,
+            "rouge_hp": 0.6171
+          }
+        },
+        "30": {
+          "abonnement_ttc": 667.74,
+          "prix_ttc": {
+            "bleu_hc": 0.0931,
+            "bleu_hp": 0.1111,
+            "blanc_hc": 0.13,
+            "blanc_hp": 0.1549,
+            "rouge_hc": 0.2366,
+            "rouge_hp": 0.6171
+          }
+        },
+        "36": {
+          "abonnement_ttc": 819.6,
+          "prix_ttc": {
+            "bleu_hc": 0.0931,
+            "bleu_hp": 0.1111,
+            "blanc_hc": 0.13,
+            "blanc_hp": 0.1549,
+            "rouge_hc": 0.2366,
+            "rouge_hp": 0.6171
+          }
+        }
+      },
+      "autres_copies": [
+        "https://web.archive.org/web/20161124114136/https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grilles%20des%20tarifs_TB_082015.pdf"
+      ]
+    },
+    {
+      "option": "tempo",
+      "date": "2016-01-01",
+      "source": "https://web.archive.org/web/20160330123519/https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_de_prix_TB_20160101.pdf",
+      "puissances": {
+        "9": {
+          "abonnement_ttc": 131.33,
+          "prix_ttc": {
+            "bleu_hc": 0.0967,
+            "bleu_hp": 0.1147,
+            "blanc_hc": 0.1336,
+            "blanc_hp": 0.1585,
+            "rouge_hc": 0.2402,
+            "rouge_hp": 0.6207
+          }
+        },
+        "12": {
+          "abonnement_ttc": 210.34,
+          "prix_ttc": {
+            "bleu_hc": 0.0967,
+            "bleu_hp": 0.1147,
+            "blanc_hc": 0.1336,
+            "blanc_hp": 0.1585,
+            "rouge_hc": 0.2402,
+            "rouge_hp": 0.6207
+          }
+        },
+        "15": {
+          "abonnement_ttc": 243.46,
+          "prix_ttc": {
+            "bleu_hc": 0.0967,
+            "bleu_hp": 0.1147,
+            "blanc_hc": 0.1336,
+            "blanc_hp": 0.1585,
+            "rouge_hc": 0.2402,
+            "rouge_hp": 0.6207
+          }
+        },
+        "18": {
+          "abonnement_ttc": 267.1,
+          "prix_ttc": {
+            "bleu_hc": 0.0967,
+            "bleu_hp": 0.1147,
+            "blanc_hc": 0.1336,
+            "blanc_hp": 0.1585,
+            "rouge_hc": 0.2402,
+            "rouge_hp": 0.6207
+          }
+        },
+        "30": {
+          "abonnement_ttc": 667.74,
+          "prix_ttc": {
+            "bleu_hc": 0.0967,
+            "bleu_hp": 0.1147,
+            "blanc_hc": 0.1336,
+            "blanc_hp": 0.1585,
+            "rouge_hc": 0.2402,
+            "rouge_hp": 0.6207
+          }
+        },
+        "36": {
+          "abonnement_ttc": 819.6,
+          "prix_ttc": {
+            "bleu_hc": 0.0967,
+            "bleu_hp": 0.1147,
+            "blanc_hc": 0.1336,
+            "blanc_hp": 0.1585,
+            "rouge_hc": 0.2402,
+            "rouge_hp": 0.6207
+          }
+        }
+      }
+    }
+  ]
+}

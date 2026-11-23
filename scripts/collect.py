@@ -129,7 +129,7 @@ def collecter(registre: dict, forcer: list[str], erreurs: list, historique: dict
         if g.meta.get("accise_eur_kwh"):
             registre.setdefault("accise_observee", {})[g.date_effet.isoformat()] = g.meta["accise_eur_kwh"]
 
-    # 2 bis. Jour Tempo (data.gouv) : HT EJP depuis 2013, texte officiel cité. Source d'appoint.
+    # 2 bis. Jour Tempo (data.gouv) : HT EJP depuis 2013 et Tempo 2013-2016, texte officiel cité. Source d'appoint.
     try:
         for g in jourtempo.collecter():
             enregistrer_obs(registre, g)

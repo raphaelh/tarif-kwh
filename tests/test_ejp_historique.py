@@ -29,9 +29,11 @@ def ejp_cre():
 # --- Jour Tempo ----------------------------------------------------------------------
 
 def test_jourtempo_ejp_depuis_2013(jt):
-    """EJP seulement, HT seulement, depuis août 2013."""
-    assert {o for o, _ in jt} == {"ejp"}
+    """EJP depuis août 2013, Tempo d'août 2013 à juillet 2016 seulement (open data CRE ensuite), HT seulement."""
+    assert {o for o, _ in jt} == {"ejp", "tempo"}
     assert min(d for _, d in jt) == date(2013, 8, 1)
+    # La fixture contient aussi Tempo au 1er août 2016 : ignoré, l'open data CRE couvre Tempo
+    assert sorted(d for o, d in jt if o == "tempo") == [date(2013, 8, 1), date(2014, 11, 1), date(2015, 8, 1)]
     # Délibération CRE n° 2017-166, tableau « TARIF BLEU - OPTION EJP RESIDENTIEL »
     g = jt[("ejp", date(2017, 8, 1))]
     assert g.puissances[9].abonnement_ht == 93.72 and g.puissances[36].abonnement_ht == 210.36

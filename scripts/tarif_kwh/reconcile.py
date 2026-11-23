@@ -10,8 +10,10 @@ Tout désaccord entre sources, ou toute incohérence, est BLOQUANT.
 """
 from __future__ import annotations
 
+import json
 from dataclasses import asdict
 from datetime import date, timedelta
+from pathlib import Path
 
 from . import checks, taxes
 from .schema import OPTIONS, GrilleSource, Puissance
@@ -27,6 +29,67 @@ ORDRE_SOURCES = ("cre_deliberation", "jourtempo", "edf_grille", "cre_opendata")
 # autres options à la même date. L'abonnement TTC reste inconnu (CTA non calculée).
 DEBUT_TAXES_NATIONALES = date(2023, 2, 1)
 TOL_TAXES_OPTIONS = 0.0005  # €/kWh : écart admis entre options (constaté : ≤ 0,00022 de 2013 à 2021)
+
+# Grilles Tarif Bleu EDF archivées d'avant l'open data CRE (Tempo 2013-2016), transcrites à la main.
+GRILLES_EDF_ARCHIVEES = Path(__file__).resolve().parents[2] / "config" / "grilles_edf_archivees.json"
+
+
+def charger_grilles_edf_archivees(path: Path = GRILLES_EDF_ARCHIVEES) -> list[dict]:
+    if not path.exists():
+        return []
+    return json.loads(path.read_text(encoding="utf-8"))["grilles"]
+
+
+def _taxes_kwh_au(taxes_od: dict[str, dict], jour: date, date_effet: date) -> float | None:
+    """Taxes au kWh d'avant 2023 en vigueur le ``jour`` d'une grille du ``date_effet``.
+
+    Celles de la grille open data du ``date_effet`` jusqu'au 31 décembre, puis celles
+    de la première grille open data de l'année (elles ne changeaient qu'au 1er janvier,
+    cf. ``publish._revisions_janvier``).
+    """
+    if jour.year == date_effet.year:
+        t = taxes_od.get(date_effet.isoformat())
+        return t["valeur"] if t else None
+    for d, t in sorted(taxes_od.items()):
+        if d.startswith(str(jour.year)) and t["ecart"] <= TOL_TAXES_OPTIONS:
+            return t["valeur"]
+    return None
+
+
+def controler_grille_edf_archivee(
+    a: dict, ht: GrilleSource, taxes_kwh: float | None, config_taxes: dict
+) -> tuple[float | None, list[str]]:
+    """Grille EDF archivée ``a`` contre le barème HT ``ht`` en vigueur à sa date.
+
+    Les taxes au kWh qu'elle implique (TTC / (1 + TVA) - HT) doivent être les mêmes pour
+    toutes les puissances et périodes, au centime d'arrondi près, et proches de celles de
+    l'open data CRE (``taxes_kwh``, TOL_TAXES_OPTIONS). Renvoie (taxes impliquées, problèmes).
+    """
+    jour = date.fromisoformat(a["date"])
+    tva = taxes.tva_energie(jour, config_taxes)
+    lieu = f"{ht.option} {ht.date_effet}, grille EDF archivée du {jour}"
+    implicites = []
+    pb = []
+    for k, e in sorted(a["puissances"].items(), key=lambda x: int(x[0])):
+        p = ht.puissances.get(int(k))
+        if p is None:
+            pb.append(f"{lieu} : {k} kVA absent du barème HT")
+            continue
+        implicites += [v / (1 + tva) - p.prix_ht[per] for per, v in e["prix_ttc"].items()]
+    if pb or not implicites:
+        return None, pb or [f"{lieu} : aucun prix"]
+    t = round(sorted(implicites)[len(implicites) // 2], 5)
+    for k, e in sorted(a["puissances"].items(), key=lambda x: int(x[0])):
+        p = ht.puissances[int(k)]
+        for per, v in e["prix_ttc"].items():
+            calc = taxes.kwh_ttc(p.prix_ht[per], t, tva)
+            if abs(v - calc) > TOL_KWH:
+                pb.append(f"{lieu} {k} kVA {per} : TTC EDF {v} ≠ HT {p.prix_ht[per]} + taxes {t} ({calc})")
+    if taxes_kwh is None:
+        pb.append(f"{lieu} : taxes au kWh de l'open data CRE inconnues à cette date")
+    elif abs(t - taxes_kwh) > TOL_TAXES_OPTIONS:
+        pb.append(f"{lieu} : taxes au kWh {t} €/kWh, open data CRE {taxes_kwh} €/kWh")
+    return t, pb
 
 
 # --- (dé)sérialisation du registre ---------------------------------------------
@@ -81,8 +144,14 @@ def recouper(
     config_taxes: dict,
     aujourd_hui: date,
     alertes_jorf: list[dict] | None = None,
+    archivees: list[dict] | None = None,
 ) -> tuple[dict | None, list[str]]:
-    """Fusionne les observations d'une (option, date). Renvoie (grille, problèmes)."""
+    """Fusionne les observations d'une (option, date). Renvoie (grille, problèmes).
+
+    ``archivees`` : grilles EDF archivées d'avant l'open data (``charger_grilles_edf_archivees``
+    si None). Celles de l'option datées entre ``date_effet`` et la date d'effet suivante
+    contrôlent le barème HT et donnent l'abonnement TTC (Tempo 2013-2016).
+    """
     pb: list[str] = []
     for g in obs.values():
         pb += checks.coherence(g)
@@ -130,7 +199,8 @@ def recouper(
     # Accise : lue dans la grille EDF de cette date, sinon configuration
     observees = registre.get("accise_observee", {})
     tva_e = taxes.tva(date_effet, config_taxes, "tva_energie")
-    if option == "ejp" and not (edf or od) and date_effet < DEBUT_TAXES_NATIONALES:
+    anciennes: list[tuple[dict, float]] = []
+    if not (edf or od) and date_effet < DEBUT_TAXES_NATIONALES:
         t = registre.get("taxes_kwh_opendata", {}).get(date_effet.isoformat())
         if t is None:
             return None, [f"{option} {date_effet}: aucune grille open data CRE à cette date, taxes au kWh inconnues"]
@@ -142,6 +212,18 @@ def recouper(
         accise_v = t["valeur"]
         accise_src = f"taxes au kWh (CSPE + TCFE) de l'open data CRE du {date_effet} (Base, HP/HC, Tempo)"
         tva_e = taxes.tva_energie(date_effet, config_taxes)
+        suivante = min((d for d in registre.get("grilles", {}).get(option, {}) if d > date_effet.isoformat()), default="9999")
+        for a in sorted(
+            (a for a in (charger_grilles_edf_archivees() if archivees is None else archivees)
+             if a["option"] == option and date_effet.isoformat() <= a["date"] < suivante),
+            key=lambda a: a["date"],
+        ):
+            attendues = _taxes_kwh_au(registre.get("taxes_kwh_opendata", {}), date.fromisoformat(a["date"]), date_effet)
+            _, pb_a = controler_grille_edf_archivee(a, delib, attendues, config_taxes)
+            pb += pb_a
+            anciennes.append(a)
+        if pb:
+            return None, pb
     elif edf and edf.meta.get("accise_eur_kwh"):
         accise_v = edf.meta["accise_eur_kwh"]
         accise_src = f"grille EDF ({edf.url})"
@@ -180,6 +262,9 @@ def recouper(
             abo_ttc = od.puissances[k].abonnement_ttc
         elif e and e.abonnement_ttc_mensuel:
             abo_ttc = round(e.abonnement_ttc_mensuel * 12, 2)
+        elif ancienne := next((a for a in anciennes if str(k) in a["puissances"]), None):
+            abo_ttc = ancienne["puissances"][str(k)]["abonnement_ttc"]
+            estime = True
         elif k in cta:
             abo_ttc = taxes.abonnement_ttc(abo_ht, cta[k], tva_a)
             estime = True
@@ -232,6 +317,7 @@ def recouper(
     for s in ORDRE_SOURCES:
         if s in obs:
             sources.append({"type": s, "url": obs[s].url, **({"recupere_le": obs[s].meta["recupere_le"]} if "recupere_le" in obs[s].meta else {})})
+    sources += [{"type": "edf_grille", "url": a["source"]} for a in anciennes]
 
     grille = {
         "option": option,
@@ -247,6 +333,8 @@ def recouper(
             "tva_abonnement": tva_a,
             **({"cta_deduite_de": f"open data CRE, grille du {cta_date}"} if estime and cta_date else {}),
             **({"cta_calculee": cta_calculee} if cta_calculee else {}),
+            **({"abonnement_ttc_de": f"grille EDF archivée du {anciennes[0]['date']}"} if anciennes else {}),
+            **({"grilles_edf_archivees": [a["date"] for a in anciennes]} if anciennes else {}),
         },
         "alertes": [f"JORF {a['date_publication']}: {a['titre']} ({a['url']})" for a in alertes],
     }

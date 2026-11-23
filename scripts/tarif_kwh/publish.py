@@ -229,8 +229,9 @@ def construire_historique(
 
     - ``opendata`` : ``{option: {"url", "grilles"}}`` lu dans l'open data CRE ce passage
       (None si non téléchargé : on reprend alors la partie open data de ``ancien``).
-    - ``validees`` : grilles recoupées du registre, qui complètent l'open data (publié
-      ≈ 4 semaines après la date d'effet ; pas d'EJP).
+    - ``validees`` : grilles recoupées du registre, qui complètent l'open data : après sa
+      dernière grille (publiée ≈ 4 semaines après la date d'effet), avant sa première (Tempo
+      2013-2016, d'après Jour Tempo et les grilles EDF archivées), et l'EJP, qui n'y est pas.
     - ``dates_connues`` : toutes les dates d'effet du registre, même celles dont la grille
       est rejetée : une grille rejetée clôt quand même la précédente (on laisse un trou
       plutôt que de prolonger à tort l'ancienne grille).
@@ -259,21 +260,20 @@ def construire_historique(
                 g for g in precedent
                 if [s["type"] for s in g.get("sources", [])] == ["cre_opendata"] and "revision_ttc" not in g
             ]
-        dernier = od[-1]["date_debut"] if od else ""
-        retenues = {
-            d: g for d, g in validees.get(option, {}).items() if dernier < d <= aujourd_hui.isoformat()
-        }
+        premier, dernier = (od[0]["date_debut"], od[-1]["date_debut"]) if od else ("", "")
+        hors_od = lambda d: (dernier < d or d < premier) and d <= aujourd_hui.isoformat()  # noqa: E731
+        retenues = {d: g for d, g in validees.get(option, {}).items() if hors_od(d)}
         bornes = set(retenues) | set((dates_connues or {}).get(option, ()))
         suite = [
             _grille_historique(debut, g)
             for d, g in sorted(retenues.items())
             for debut, g in _revisions(d, g, bornes, aujourd_hui, config_taxes)
         ]
-        grilles = [dict(g) for g in od + suite]
+        grilles = sorted((dict(g) for g in od + suite), key=lambda g: g["date_debut"])
         if taxes_od and config_taxes:
             grilles = _revisions_janvier(grilles, taxes_od, config_taxes)
         debuts = sorted({g["date_debut"] for g in grilles} | {
-            d for d in (dates_connues or {}).get(option, ()) if dernier < d <= aujourd_hui.isoformat()
+            d for d in (dates_connues or {}).get(option, ()) if hors_od(d)
         })
         for g in grilles:  # la date d'effet suivante clôt la grille
             suivante = next((d for d in debuts if d > g["date_debut"]), None)
@@ -286,7 +286,7 @@ def construire_historique(
         "TTC tel que publié par la CRE avec les taxes de l'époque (CSPE, TCFE, CTA, TVA), "
         "ou calculé si ttc_estime vaut true. Une période sans grille est une grille non publiée "
         "(rejetée par les contrôles). Une taxe changée en cours de grille ouvre une période au TTC "
-        "recalculé (revision_ttc). Pas d'historique EJP dans l'open data CRE.",
+        "recalculé (revision_ttc). Pas d'historique EJP dans l'open data CRE, ni de Tempo avant août 2016.",
         "options": options,
     }
 

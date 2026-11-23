@@ -77,7 +77,8 @@ Ces deux champs n'existent que sur GitHub Pages (`https://raphaelh.github.io/…
 ### Historique (`historique.json`)
 
 Toutes les grilles entrées en vigueur, de la plus ancienne à l'actuelle : **depuis le 23/07/2012** pour Base et HP/HC,
-**depuis 2016** pour Tempo (open data CRE, statut `confirme`, HT et TTC officiels). Utile pour recalculer une facture
+**depuis le 01/08/2013** pour Tempo et EJP. Tempo vient de l'open data CRE depuis août 2016 (statut `confirme`, HT et
+TTC officiels), et d'avant (voir plus bas) des arrêtés et des grilles EDF archivées. Utile pour recalculer une facture
 passée ou tracer l'évolution des prix.
 
 ```json
@@ -115,13 +116,26 @@ passée ou tracer l'évolution des prix.
   celui de la date d'effet. Quand une grille traverse un 1er janvier et que ces taxes ont bougé de plus de 0,5 €/MWh,
   une période s'ouvre au 1er janvier (`revision_ttc`, `ttc_estime: true`) : TTC au kWh recalculé avec les taxes de
   l'année, lues dans la première grille open data de cette année (même HT, même abonnement). C'est le cas au
-  1er janvier 2014 (CSPE + 3 €/MWh, TVA 19,6 → 20 %), 2015 et 2016 (CSPE + 3 €/MWh), pour Base, HP/HC et EJP. Les
+  1er janvier 2014 (CSPE + 3 €/MWh, TVA 19,6 → 20 %), 2015 et 2016 (CSPE + 3 €/MWh), pour Base, HP/HC, Tempo et EJP. Les
   indexations annuelles des TCFE (≈ 0,1 €/MWh) se confondent avec l'arrondi de l'open data et ne sont pas reportées.
   Rien au 1er janvier 2022 : la baisse de 2022 (bouclier) date du 1er février, jour d'une nouvelle grille. Au
   **1er janvier 2023**, la TCCFE entre dans l'accise, seule taxe au kWh (1 €/MWh) : les grilles d'août 2022 de toutes
   les options sont révisées du 1er au 31 janvier 2023 avec l'accise de `config/taxes.json`.
 - L'open data CRE paraît ≈ 4 semaines après la date d'effet : en attendant, la grille la plus récente vient des autres
   sources (même `statut` que dans `tempo.json`…).
+- **Tempo d'août 2013 à juillet 2016**, avant l'open data CRE : le HT est le barème des arrêtés du 26 juillet 2013,
+  du 30 octobre 2014 et du 30 juillet 2015, lu dans le jeu Jour Tempo (qui cite l'arrêté). Il est contrôlé par les cinq
+  grilles Tarif Bleu EDF archivées de la période (août 2013, février 2014, janvier 2015, août 2015, janvier 2016,
+  transcrites dans [`config/grilles_edf_archivees.json`](config/grilles_edf_archivees.json)) : chacune redonne le
+  barème au centime, avec des taxes au kWh uniques et à moins de 0,5 €/MWh de celles de la CRE, sinon la grille est
+  rejetée. Le TTC au kWh est calculé comme celui de l'EJP (HT + taxes au kWh de l'open data CRE + TVA,
+  `ttc_estime: true`, `statut: en_vigueur`), révisé au 1er janvier : au plus 0,04 c€/kWh d'écart avec EDF (TCFE de la
+  CRE). L'abonnement TTC est celui de la première grille EDF de la période (celle de janvier 2015 pour le barème de
+  novembre 2014). Deux limites : le 24 kVA de l'arrêté n'est pas sur les grilles EDF (abonnement TTC `null`), et
+  l'abonnement TTC de 2014 garde celui d'août 2013, comme l'open data CRE le fait pour Base et HP/HC, alors que la
+  grille EDF « en vigueur à compter du 1er février 2014 » en imprime un autre (de −3,3 % en 18 kVA à +0,9 % en 30 et
+  36 kVA ; sans doute la CTA du TURPE 4, entré en vigueur début 2014, à date incertaine). La grille EDF de janvier 2015 imprime
+  15,55 c€ en Blanc HC 36 kVA au lieu de 12,55 c€ : coquille corrigée dans la transcription.
 - **EJP** n'est pas dans l'open data CRE : son historique commence au **1er août 2013**. Le HT vient de la
   délibération CRE et du jeu Jour Tempo (qui cite l'arrêté du JORF ou la délibération CRE appliquée), le TTC de la
   grille EDF EJP archivée sur web.archive.org. Sans grille EDF, le TTC est calculé (`ttc_estime: true`) :
@@ -200,7 +214,9 @@ de [`scripts/tarif_kwh/sources/`](scripts/tarif_kwh/sources), par ordre d'arriv�
    2024, où seul le TTC de l'abonnement change avec la CTA).
 2 bis. **Jour Tempo** ([jeu data.gouv.fr](https://www.data.gouv.fr/datasets/tarifs-reglementes-delectricite-depuis-2014-base-heures-creuses-tempo-ejp-et-textes-officiels),
    Licence Ouverte) : barèmes HT, chaque valeur avec le texte officiel dont elle vient (son URL est celle de la source
-   `jourtempo`). Lu pour l'EJP seulement (depuis août 2013) ; recoupé avec la délibération CRE quand elle existe.
+   `jourtempo`). Lu pour l'EJP (depuis août 2013), recoupé avec la délibération CRE quand elle existe, et pour Tempo
+   d'août 2013 à juillet 2016 seulement, avant l'open data CRE (contrôlé par les grilles EDF archivées de
+   `config/grilles_edf_archivees.json`). Jamais pour Tempo ensuite, ni pour Base et HP/HC.
 3. **Open data CRE** (`Option_Base.csv`, `Option_HPHC.csv`, `Option_Tempo.csv`) : lignes sans `DATE_FIN` pour la grille en
    cours ; toutes les lignes pour `historique.json`.
 4. **Journal officiel** (flux ouvert DILA) : tout texte dont le titre parle de TRVE ou d'accise sur l'électricité ouvre une issue.
