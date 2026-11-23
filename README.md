@@ -1,5 +1,16 @@
 # tarif-kwh
 
+[![Collecte](https://github.com/raphaelh/tarif-kwh/actions/workflows/collecte.yml/badge.svg)](https://github.com/raphaelh/tarif-kwh/actions/workflows/collecte.yml)
+[![Publication](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraphaelh.github.io%2Ftarif-kwh%2Fetat.json&query=%24.options.*.publication&label=publication)](https://raphaelh.github.io/tarif-kwh/etat.json)
+
+État détaillé des derniers contrôles (par option, problèmes, remarques) : [`etat.json`](https://raphaelh.github.io/tarif-kwh/etat.json).
+
+> **English** — Regulated French electricity prices (EDF *Tarif Bleu* / TRVE: Base, Peak/Off-peak, Tempo, EJP) as JSON,
+> updated automatically twice a day from official sources (CRE deliberations and open data, EDF price sheets, Journal
+> officiel) and cross-checked before publishing. Per option: kWh price and subscription, excl. and incl. tax, for every
+> kVA rating, the current grid and the upcoming one with its effective date, plus full history since 2012. Ready to use
+> in Home Assistant, Jeedom, Domoticz or any script: see the URLs below and the Home Assistant example.
+
 Les prix réglementés de l'électricité en France (**TRVE**, « Tarif Bleu » résidentiel d'**EDF**), publiés en **JSON**
 et mis à jour automatiquement depuis les sources officielles. Options couvertes : **Base**, **Heures Pleines / Heures Creuses**,
 **Tempo** (bleu / blanc / rouge × HC / HP) et **EJP** (clients existants).
