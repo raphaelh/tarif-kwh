@@ -22,6 +22,10 @@ STATUTS = {
     "en_vigueur": "en vigueur (non encore recoupée par l'open data CRE)",
     "propose": "proposée par la CRE, pas encore publiée au Journal officiel",
 }
+NOTE_ABONNEMENT = (
+    "Abonnement en €/mois : abonnement annuel ÷ 12. EDF le facture au prorata des jours ; "
+    "la CTA réellement facturée peut différer de quelques euros par an selon le contrat."
+)
 FICHIERS = ("tarifs.json", "base.json", "hphc.json", "tempo.json", "ejp.json", "historique.json", "etat.json", "schema.json")
 
 
@@ -78,9 +82,12 @@ def _tableau(grille: dict, periodes: list[str], taxe: str) -> str:
     lignes = []
     for kva, p in sorted(grille["puissances"].items(), key=lambda kv: int(kv[0])):
         an = p.get(f"abonnement_{taxe}")
-        mois = p.get("abonnement_ttc_mensuel") if taxe == "ttc" else None
-        if mois is None and an is not None:
-            mois = round(an / 12, 2)
+        # €/mois = annuel ÷ 12 (EDF facture l'abonnement annuel au prorata des jours) ; le
+        # mensuel imprimé par EDF, arrondi et parfois différent de ~0,5 %, ne sert qu'à défaut.
+        if an is not None:
+            mois = round(an / 12 + 1e-9, 2)
+        else:
+            mois = p.get("abonnement_ttc_mensuel") if taxe == "ttc" else None
         prix = p.get(f"prix_{taxe}") or {}
         cellules = "".join(f'<td class="num">{_nombre(prix.get(per), 4)}</td>' for per in periodes)
         lignes.append(
@@ -100,6 +107,7 @@ def _grille(titre: str, grille: dict, periodes: list[str]) -> str:
         f"<h3>{escape(titre.format(_date(grille['date_effet'])))}</h3>"
         f'<p class="meta">Grille {escape(statut)}.{escape(estime)} Prix du kWh en €.</p>'
         f"{_tableau(grille, periodes, 'ttc')}"
+        f'<p class="note">{escape(NOTE_ABONNEMENT)}</p>'
         "<details><summary>Hors taxes</summary>"
         f"{_tableau(grille, periodes, 'ht')}</details>"
     )

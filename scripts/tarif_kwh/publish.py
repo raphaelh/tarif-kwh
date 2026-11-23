@@ -1,6 +1,7 @@
 """Construction des JSON publiés dans docs/ à partir du registre."""
 from __future__ import annotations
 
+import copy
 import json
 import shutil
 from datetime import date, datetime, timedelta, timezone
@@ -136,6 +137,71 @@ def _revisions(d: str, g: dict, bornes: set[str], aujourd_hui: date, config_taxe
     return out
 
 
+def taxes_annuelles(taxes_od: dict[str, dict]) -> dict[int, tuple[str, float]]:
+    """Taxes au kWh (CSPE + TCFE) de chaque année d'avant 2023 : (date de la grille lue, valeur).
+
+    Avant 2023, ces taxes ne changeaient qu'au 1er janvier : celles de l'année Y sont celles
+    de la première grille open data datée de Y. Une date aux taxes incohérentes entre options
+    (2022) ne fournit rien.
+    """
+    out: dict[int, tuple[str, float]] = {}
+    for d, t in sorted(taxes_od.items()):
+        if t["ecart"] <= reconcile.TOL_TAXES_OPTIONS:
+            out.setdefault(int(d[:4]), (d, t["valeur"]))
+    return out
+
+
+# Variation annuelle sous laquelle on ne révise pas : l'indexation des TCFE (≈ 0,1 €/MWh)
+# se confond avec le bruit d'arrondi de l'open data (jusqu'à 0,2 €/MWh entre deux grilles
+# d'une même année). Les hausses de CSPE (3 €/MWh en 2014, 2015, 2016) passent largement.
+SEUIL_REVISION_JANVIER = 0.0005  # €/kWh
+
+
+def _revisions_janvier(grilles: list[dict], taxes_od: dict[str, dict], config_taxes: dict) -> list[dict]:
+    """Avant 2023, une période révisée au 1er janvier quand la CSPE (ou la TVA, en 2014) a changé.
+
+    Le TTC publié d'une grille (open data CRE, ou EJP calculé) est celui de sa date d'effet ;
+    il reste valable jusqu'au 31 décembre. Au 1er janvier Y suivant, si les taxes au kWh de Y
+    (lues dans l'open data) diffèrent, le TTC au kWh est recalculé avec elles. L'abonnement
+    ne change pas (TVA à 5,5 % et taux de CTA stables sur la période).
+    """
+    annuelles = taxes_annuelles(taxes_od)
+    debuts = sorted(g["date_debut"] for g in grilles)
+    out = []
+    for g in grilles:
+        out.append(g)
+        d = g["date_debut"]
+        t0 = taxes_od.get(d)
+        if d >= reconcile.DEBUT_TAXES_NATIONALES.isoformat() or t0 is None or "revision_ttc" in g:
+            continue
+        suivante = next((x for x in debuts if x > d), None)
+        tva0 = taxes.tva_energie(date.fromisoformat(d), config_taxes)
+        courante = g
+        for annee in range(int(d[:4]) + 1, reconcile.DEBUT_TAXES_NATIONALES.year):
+            jan = date(annee, 1, 1)
+            if suivante and jan.isoformat() >= suivante:
+                break
+            if annee not in annuelles:
+                break  # taxes de l'année inconnues (2022) : on n'invente rien
+            lue, tax = annuelles[annee]
+            tva = taxes.tva_energie(jan, config_taxes)
+            if abs(tax - t0["valeur"]) <= SEUIL_REVISION_JANVIER and tva == tva0:
+                continue
+            r = copy.deepcopy(courante)
+            r["date_debut"], r["date_fin"] = jan.isoformat(), None
+            r["ttc_estime"] = True
+            for p in r["puissances"].values():
+                p["prix_ttc"] = {per: taxes.kwh_ttc(v, tax, tva) for per, v in p["prix_ht"].items()}
+            r.pop("prix_ttc", None)
+            motifs = [f"taxes au kWh (CSPE + TCFE) au {jan} : {tax} €/kWh, lues dans l'open data CRE du {lue}"]
+            if tva != tva0:
+                motifs.append(f"TVA sur l'énergie au {jan} : {tva:.1%}")
+            r["revision_ttc"] = {"date": jan.isoformat(), "motifs": motifs}
+            out.append(_prix_communs(r))
+            courante, t0, tva0 = r, {"valeur": tax}, tva
+    return out
+
+
 def construire_historique(
     opendata: dict | None,
     ancien: dict | None,
@@ -143,6 +209,7 @@ def construire_historique(
     aujourd_hui: date,
     dates_connues: dict[str, set[str]] | None = None,
     config_taxes: dict | None = None,
+    taxes_od: dict[str, dict] | None = None,
 ) -> dict:
     """Toutes les grilles entrées en vigueur, par option, de la plus ancienne à l'actuelle.
 
@@ -156,6 +223,8 @@ def construire_historique(
     - ``config_taxes`` : une taxe qui change en cours de grille (TURPE de l'EJP au 1er
       novembre 2024, par exemple) ouvre une période révisée, au TTC recalculé
       (``taxes.reviser_ttc``, ``ttc_estime: true``, ``revision_ttc``).
+    - ``taxes_od`` : taxes au kWh d'avant 2023 par date (``reconcile.taxes_kwh_opendata``) :
+      période révisée au 1er janvier quand elles changent (``_revisions_janvier``).
     """
     options: dict[str, dict] = {}
     for option, opt in OPTIONS.items():
@@ -172,7 +241,10 @@ def construire_historique(
             ]
         else:
             precedent = ((ancien or {}).get("options") or {}).get(option, {}).get("grilles", [])
-            od = [g for g in precedent if [s["type"] for s in g.get("sources", [])] == ["cre_opendata"]]
+            od = [
+                g for g in precedent
+                if [s["type"] for s in g.get("sources", [])] == ["cre_opendata"] and "revision_ttc" not in g
+            ]
         dernier = od[-1]["date_debut"] if od else ""
         retenues = {
             d: g for d, g in validees.get(option, {}).items() if dernier < d <= aujourd_hui.isoformat()
@@ -184,6 +256,8 @@ def construire_historique(
             for debut, g in _revisions(d, g, bornes, aujourd_hui, config_taxes)
         ]
         grilles = [dict(g) for g in od + suite]
+        if taxes_od and config_taxes:
+            grilles = _revisions_janvier(grilles, taxes_od, config_taxes)
         debuts = sorted({g["date_debut"] for g in grilles} | {
             d for d in (dates_connues or {}).get(option, ()) if dernier < d <= aujourd_hui.isoformat()
         })
@@ -277,6 +351,7 @@ def publier(
                 historique_opendata, ancien_hist, validees, aujourd_hui,
                 {o: set(registre.get("grilles", {}).get(o, {})) for o in OPTIONS},
                 config_taxes,
+                registre.get("taxes_kwh_opendata"),
             ),
         },
         horodatage,

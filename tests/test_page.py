@@ -69,6 +69,21 @@ def test_page_un_tableau_par_option(tmp_path):
     assert "23 novembre 2026 à 17:17 UTC" in html
 
 
+def test_page_mensuel_egal_annuel_sur_douze(tmp_path):
+    """Le mensuel EDF (arrondi, ici 30,69) n'est pas affiché : annuel ÷ 12 (369,49 / 12 = 30,79)."""
+    tarifs = json.loads(json.dumps(TARIFS))
+    p = tarifs["options"]["tempo"]["actuelle"]["puissances"]["6"]
+    p["abonnement_ttc"], p["abonnement_ttc_mensuel"] = 369.49, 30.69
+    ejp9 = tarifs["options"]["ejp"]["actuelle"]["puissances"]["9"]
+    ejp9["abonnement_ttc_mensuel"] = 19.52  # annuel inconnu : mensuel EDF à défaut
+    (tmp_path / "tarifs.json").write_text(json.dumps(tarifs), encoding="utf-8")
+    page.ecrire_index(tmp_path)
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "30,79" in html and "30,69" not in html
+    assert '<td class="num">19,52</td><td class="num">—</td>' in html
+    assert html.count("annuel ÷ 12") == 3  # une note par grille TTC (tempo, ejp, ejp prochaine)
+
+
 def test_page_sans_etat(tmp_path):
     (tmp_path / "tarifs.json").write_text(json.dumps(TARIFS), encoding="utf-8")
     page.ecrire_index(tmp_path)
