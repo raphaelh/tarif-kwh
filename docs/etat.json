@@ -20,10 +20,13 @@
       "publication": "ok",
       "problemes": [],
       "remarques": [
+        "ejp 2017-08-01: variation > 40% vs grille du 2016-08-01 : 36 kVA abonnement_ht: 526.44 → 210.36 (-60%) (validée à la main dans config/validations.json)",
+        "ejp 2018-08-01: variation > 40% vs grille du 2018-02-01 : 9 kVA prix_ht.pointe: 0.279 → 0.1654 (-41%); 12 kVA prix_ht.pointe: 0.279 → 0.1654 (-41%); 15 kVA prix_ht.pointe: 0.279 → 0.1654 (-41%); 18 kVA prix_ht.pointe: 0.279 → 0.1654 (-41%); 36 kVA prix_ht.pointe: 0.279 → 0.1654 (-41%) (validée à la main dans config/validations.json)",
+        "ejp 2023-02-01: variation > 40% vs grille du 2021-08-01 : 9 kVA prix_ht.pointe: 0.2793 → 1.2279 (+340%); 12 kVA prix_ht.pointe: 0.2793 → 1.2279 (+340%); 15 kVA prix_ht.pointe: 0.2793 → 1.2279 (+340%); 18 kVA prix_ht.pointe: 0.2793 → 1.2279 (+340%); 36 kVA prix_ht.pointe: 0.2793 → 1.2279 (+340%) (confirmée par plusieurs sources)",
         "ejp 2026-02-01: variation > 40% vs grille du 2025-08-01 : 9 kVA prix_ht.pointe: 0.8756 → 0.2558 (-71%); 12 kVA prix_ht.pointe: 0.8756 → 0.2558 (-71%); 15 kVA prix_ht.pointe: 0.8756 → 0.2558 (-71%); 18 kVA prix_ht.pointe: 0.8756 → 0.2558 (-71%); 36 kVA prix_ht.pointe: 0.8756 → 0.2558 (-71%) (validée à la main dans config/validations.json)"
       ]
     }
   },
   "jorf_textes_signales": [],
-  "mis_a_jour_le": "2026-11-23T11:01:49+00:00"
+  "mis_a_jour_le": "2026-11-23T13:44:17+00:00"
 }

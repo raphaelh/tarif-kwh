@@ -7,6 +7,20 @@
       "motif": "Restructuration de l'option EJP par la CRE : pointe mobile 87,56 -> 25,58 c€/kWh HT (-71 %), heures normales 8,82 -> 11,76 c€/kWh HT (+33 %). Même mouvement sur l'EJP non résidentiel (84,24 -> 25,12). Lecture du PDF vérifiée.",
       "source": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf",
       "valide_le": "2026-11-23"
+    },
+    {
+      "option": "ejp",
+      "date_effet": "2017-08-01",
+      "motif": "Lissage en structure de l'option EJP résidentiel par la CRE (cible atteinte à l'été 2018) : abonnements 12 à 36 kVA en forte baisse, 36 kVA 526,44 -> 210,36 €/an HT (-60 %) ; pointe mobile 36,86 -> 27,93 c€/kWh HT. Tableau « TARIF BLEU - OPTION EJP RESIDENTIEL » de la délibération n° 2017-166 lu dans le PDF.",
+      "source": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/170706-166-PROPOSITION_TRVE.pdf",
+      "valide_le": "2026-11-23"
+    },
+    {
+      "option": "ejp",
+      "date_effet": "2018-08-01",
+      "motif": "Fin du lissage en structure de l'option EJP résidentiel : pointe mobile 27,90 -> 16,54 c€/kWh HT (-41 %), heures normales 8,66 c€/kWh HT. Tableau « TARIF BLEU - OPTION EJP RESIDENTIEL » (version standard) des annexes de la délibération n° 2018-157 lu dans le PDF.",
+      "source": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/180712-Annexes-PROPOSITION_TRVE.pdf",
+      "valide_le": "2026-11-23"
     }
   ]
 }

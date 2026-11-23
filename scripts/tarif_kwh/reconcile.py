@@ -22,6 +22,12 @@ TOL_MENSUEL = 0.01  # 1 % entre abonnement mensuel EDF ×12 et annuel
 
 ORDRE_SOURCES = ("cre_deliberation", "jourtempo", "edf_grille", "cre_opendata")
 
+# EJP d'avant février 2023 : le TTC comprenait des taxes locales (TCFE) qu'on ne sait pas
+# recalculer. On reprend les taxes au kWh (CSPE + TCFE) que la CRE a appliquées aux
+# autres options à la même date. L'abonnement TTC reste inconnu (CTA non calculée).
+DEBUT_TAXES_NATIONALES = date(2023, 2, 1)
+TOL_TAXES_OPTIONS = 0.0005  # €/kWh : écart admis entre options (constaté : ≤ 0,00022 de 2013 à 2021)
+
 
 # --- (dé)sérialisation du registre ---------------------------------------------
 
@@ -123,12 +129,24 @@ def recouper(
 
     # Accise : lue dans la grille EDF de cette date, sinon configuration
     observees = registre.get("accise_observee", {})
-    if edf and edf.meta.get("accise_eur_kwh"):
+    tva_e = taxes.tva(date_effet, config_taxes, "tva_energie")
+    if option == "ejp" and not (edf or od) and date_effet < DEBUT_TAXES_NATIONALES:
+        t = registre.get("taxes_kwh_opendata", {}).get(date_effet.isoformat())
+        if t is None:
+            return None, [f"{option} {date_effet}: aucune grille open data CRE à cette date, taxes au kWh inconnues"]
+        if t["ecart"] > TOL_TAXES_OPTIONS:
+            return None, [
+                f"{option} {date_effet}: taxes au kWh incohérentes entre options dans l'open data CRE "
+                f"({t['options']}), TTC non estimable"
+            ]
+        accise_v = t["valeur"]
+        accise_src = f"taxes au kWh (CSPE + TCFE) de l'open data CRE du {date_effet} (Base, HP/HC, Tempo)"
+        tva_e = taxes.tva_energie(date_effet, config_taxes)
+    elif edf and edf.meta.get("accise_eur_kwh"):
         accise_v = edf.meta["accise_eur_kwh"]
         accise_src = f"grille EDF ({edf.url})"
     else:
         accise_v, accise_src = taxes.accise(date_effet, config_taxes, observees)
-    tva_e = taxes.tva(date_effet, config_taxes, "tva_energie")
     tva_a = taxes.tva(date_effet, config_taxes, "tva_abonnement")
     cta, cta_date = _cta_connues(registre, option, date_effet)
 
@@ -254,6 +272,37 @@ def verifier_variation(grille: dict, precedente: dict | None, nb_sources: int, v
     return [msg + " — en attente d'une seconde source"], []
 
 
+def taxes_kwh_opendata(historique: dict, config_taxes: dict) -> dict[str, dict]:
+    """Taxes au kWh (TTC / (1 + TVA) - HT) de l'open data CRE, par date d'effet antérieure à 2023.
+
+    ``historique`` : ``{option: {"url", "grilles"}}`` (cre_opendata.collecter). Pour chaque date :
+    médiane toutes options, puissances et périodes confondues (``valeur``), médiane par option
+    (``options``) et écart entre extrêmes (``ecart``). Sert au TTC de l'EJP d'avant 2023.
+    """
+    par_date: dict[str, dict[str, list[float]]] = {}
+    for option, bloc in historique.items():
+        for g in bloc["grilles"]:
+            d = g["date_debut"]
+            if d >= DEBUT_TAXES_NATIONALES.isoformat():
+                continue
+            tva = taxes.tva_energie(date.fromisoformat(d), config_taxes)
+            par_date.setdefault(d, {}).setdefault(option, []).extend(
+                p["prix_ttc"][k] / (1 + tva) - p["prix_ht"][k]
+                for p in g["puissances"].values()
+                for k in p["prix_ht"]
+            )
+    mediane = lambda v: sorted(v)[len(v) // 2]  # noqa: E731
+    out = {}
+    for d, opts in sorted(par_date.items()):
+        tout = [x for v in opts.values() for x in v]
+        out[d] = {
+            "valeur": round(mediane(tout), 5),
+            "ecart": round(max(tout) - min(tout), 5),
+            "options": {o: round(mediane(v), 5) for o, v in sorted(opts.items())},
+        }
+    return out
+
+
 # --- contrôle de l'accise appliquée --------------------------------------------
 
 TOL_ACCISE = 0.0001  # €/kWh (0,1 €/MWh) : le TTC publié est arrondi au 1/10000
@@ -328,6 +377,8 @@ def ejp_hors_turpe(registre: dict, config_taxes: dict) -> list[str]:
         kva = int(next(iter(ht["puissances"])))
         if taxes.cta_turpe("ejp", de, kva, config_taxes) is not None:
             continue
+        if de < DEBUT_TAXES_NATIONALES:
+            continue  # abonnement TTC inconnu par construction (CTA non calculée avant 2023)
         if de > derniere_fin:
             pb.append(f"grille EJP du {d} : après la dernière période TURPE configurée (fin {derniere_fin})")
         elif "edf_grille" not in obs:

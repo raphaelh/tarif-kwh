@@ -54,6 +54,17 @@ def tva(d: date, config: dict, cle: str) -> float:
     return e["valeur"]
 
 
+# Avant 2014, la TVA sur l'énergie était de 19,6 %. config/taxes.json ne la porte pas :
+# une ligne au 1er janvier 2014 y ouvrirait une révision du TTC des grilles de 2013,
+# sans accise connue à cette date. Elle ne sert qu'aux grilles EJP d'avant 2023.
+TVA_ENERGIE_AVANT_2014 = 0.196
+
+
+def tva_energie(d: date, config: dict) -> float:
+    """TVA sur l'énergie au jour d, y compris avant 2014 (19,6 %)."""
+    return TVA_ENERGIE_AVANT_2014 if d < date(2014, 1, 1) else tva(d, config, "tva_energie")
+
+
 def kwh_ttc(ht: float, accise_v: float, tva_v: float) -> float:
     return round((ht + accise_v) * (1 + tva_v) + 1e-9, 4)
 

@@ -7,10 +7,12 @@ officiel dont elle vient (arrêté ou décision au JORF, délibération CRE). Il
 les tarifs réellement appliqués : en 2023 (bouclier tarifaire), ceux des arrêtés
 et non les propositions de la CRE.
 
-On ne lit que l'EJP, absente de l'open data CRE, à partir de février 2023 : avant,
-le TTC comprenait des taxes locales (TCFE) qu'on ne sait pas recalculer. C'est
-une source HT, au même titre que la délibération CRE, recoupée avec elle et avec
-la grille EDF quand elles existent.
+On ne lit que l'EJP, absente de l'open data CRE, depuis août 2013. Avant février
+2023, le TTC comprenait des taxes locales (TCFE) qu'on ne sait pas recalculer : on
+reprend les taxes au kWh de l'open data CRE à la même date (voir
+``reconcile.taxes_kwh_opendata``), sans abonnement TTC. C'est une source HT, au même
+titre que la délibération CRE, recoupée avec elle et avec la grille EDF quand elles
+existent.
 """
 from __future__ import annotations
 
@@ -24,7 +26,7 @@ from ..schema import OPTIONS, GrilleSource, Puissance
 SOURCE = "jourtempo"
 URL_HISTORIQUE = "https://jourtempo.fr/api/v1/trve-historique.csv"
 URL_SOURCES = "https://jourtempo.fr/api/v1/trve-sources.csv"
-DATE_MIN = date(2023, 2, 1)
+DATE_MIN = date(2013, 8, 1)
 OPTIONS_LUES = ("ejp",)
 COMPOSANTES = {"ejp": {"kwh_ejp_normal": "normal", "kwh_ejp_pointe": "pointe"}}
 

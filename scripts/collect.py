@@ -129,7 +129,7 @@ def collecter(registre: dict, forcer: list[str], erreurs: list, historique: dict
         if g.meta.get("accise_eur_kwh"):
             registre.setdefault("accise_observee", {})[g.date_effet.isoformat()] = g.meta["accise_eur_kwh"]
 
-    # 2 bis. Jour Tempo (data.gouv) : HT EJP depuis 2023, texte officiel cité. Source d'appoint.
+    # 2 bis. Jour Tempo (data.gouv) : HT EJP depuis 2013, texte officiel cité. Source d'appoint.
     try:
         for g in jourtempo.collecter():
             enregistrer_obs(registre, g)
@@ -140,6 +140,8 @@ def collecter(registre: dict, forcer: list[str], erreurs: list, historique: dict
     grilles = etape("Open data CRE", erreurs, cre_opendata.collecter, historique)
     for g in (grilles or {}).values():
         enregistrer_obs(registre, g)
+    if historique:  # taxes au kWh d'avant 2023, pour le TTC de l'EJP (gardées hors ligne)
+        registre["taxes_kwh_opendata"] = reconcile.taxes_kwh_opendata(historique, taxes.charger_config())
 
     # 4. JORF
     # On relit les 6 dernières éditions (~3 jours) à chaque passage et on

@@ -101,10 +101,19 @@ passée ou tracer l'évolution des prix.
   août 2025…). Une puissance absente n'était pas proposée à cette date (ex. Tempo 6 kVA avant février 2023 dans ces données).
 - L'open data CRE paraît ≈ 4 semaines après la date d'effet : en attendant, la grille la plus récente vient des autres
   sources (même `statut` que dans `tempo.json`…).
-- **EJP** n'est pas dans l'open data CRE : son historique commence au **1er février 2023**. Le HT vient de la
-  délibération CRE et du jeu Jour Tempo (qui cite l'arrêté du JORF pour 2023, où la proposition de la CRE n'a pas été
-  appliquée), le TTC de la grille EDF EJP archivée sur web.archive.org. Sans grille EDF, le TTC est calculé
-  (`ttc_estime: true`, abonnement par la CTA calculée, voir plus bas) : août 2023 et février 2026. Avant 2023, le TTC comprenait des taxes locales (TCFE) qu'on ne sait pas recalculer : pas d'EJP.
+- **EJP** n'est pas dans l'open data CRE : son historique commence au **1er août 2013**. Le HT vient de la
+  délibération CRE et du jeu Jour Tempo (qui cite l'arrêté du JORF ou la délibération CRE appliquée), le TTC de la
+  grille EDF EJP archivée sur web.archive.org. Sans grille EDF, le TTC est calculé (`ttc_estime: true`) :
+  - depuis février 2023 (août 2023, février 2026) : accise nationale et abonnement par la CTA calculée (voir plus bas) ;
+  - **d'août 2013 à janvier 2022** : le TTC comprenait des taxes locales (TCFE). On reprend les taxes au kWh
+    (CSPE + TCFE) que la CRE a appliquées à Base, HP/HC et Tempo à la même date (open data, TVA 19,6 % avant 2014) :
+    le **TTC au kWh** est donc celui de ses hypothèses, à 0,0003 €/kWh près (écart entre options). L'**abonnement TTC
+    vaut `null`** (CTA non calculée). La méthode redonne au centime les TTC au kWh des grilles EDF de 2023 à 2026 ;
+  - **2022 n'est pas publié** : l'open data CRE y applique 7,6 €/MWh de taxes à Base et HP/HC, 10,9 €/MWh à Tempo,
+    sans qu'on sache lequel vaut pour l'EJP.
+
+  Comme pour les autres options avant 2023, une grille garde le TTC de sa date d'effet jusqu'au mouvement suivant, même
+  quand une taxe change au 1er janvier (CSPE, TVA 19,6 → 20 % en 2014).
   Une grille rejetée par les contrôles laisse un **trou** plutôt que de prolonger à tort la précédente.
 - Pas de `prochaine` ici : elle est dans les fichiers par option.
 
@@ -170,7 +179,7 @@ de [`scripts/tarif_kwh/sources/`](scripts/tarif_kwh/sources), par ordre d'arriv�
    2024, où seul le TTC de l'abonnement change avec la CTA).
 2 bis. **Jour Tempo** ([jeu data.gouv.fr](https://www.data.gouv.fr/datasets/tarifs-reglementes-delectricite-depuis-2014-base-heures-creuses-tempo-ejp-et-textes-officiels),
    Licence Ouverte) : barèmes HT, chaque valeur avec le texte officiel dont elle vient (son URL est celle de la source
-   `jourtempo`). Lu pour l'EJP depuis février 2023 seulement ; recoupé avec la délibération CRE quand elle existe.
+   `jourtempo`). Lu pour l'EJP seulement (depuis août 2013) ; recoupé avec la délibération CRE quand elle existe.
 3. **Open data CRE** (`Option_Base.csv`, `Option_HPHC.csv`, `Option_Tempo.csv`) : lignes sans `DATE_FIN` pour la grille en
    cours ; toutes les lignes pour `historique.json`.
 4. **Journal officiel** (flux ouvert DILA) : tout texte dont le titre parle de TRVE ou d'accise sur l'électricité ouvre une issue.
