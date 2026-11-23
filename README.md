@@ -121,6 +121,13 @@ passée ou tracer l'évolution des prix.
   Rien au 1er janvier 2022 : la baisse de 2022 (bouclier) date du 1er février, jour d'une nouvelle grille. Au
   **1er janvier 2023**, la TCCFE entre dans l'accise, seule taxe au kWh (1 €/MWh) : les grilles d'août 2022 de toutes
   les options sont révisées du 1er au 31 janvier 2023 avec l'accise de `config/taxes.json`.
+- **Juillet-décembre 2012 : l'open data CRE applique déjà les taxes de 2013.** Son TTC du 23 juillet 2012 contient
+  2,28 c€/kWh de taxes (CSPE 13,5 €/MWh + TCFE), comme en août 2013, alors que la CSPE était de 10,5 €/MWh jusqu'au
+  31 décembre 2012 (13,5 au 1er janvier 2013). La grille Tarif Bleu EDF du 1er juillet 2012 donne 1,964 c€/kWh
+  (CSPE 1,05 + TCFE 0,914). Pour toutes les options, la grille du 23 juillet 2012 s'arrête au 31 décembre 2012, avec
+  un TTC au kWh recalculé avec ces taxes (`correction_ttc`, `ttc_estime: true`, `statut: en_vigueur` ; −0,38 c€/kWh) ;
+  une période s'ouvre au 1er janvier 2013 avec les taxes de l'open data (`revision_ttc`). Même HT, même abonnement
+  (`corrections_taxes_kwh` de `config/taxes.json`).
 - L'open data CRE paraît ≈ 4 semaines après la date d'effet : en attendant, la grille la plus récente vient des autres
   sources (même `statut` que dans `tempo.json`…).
 - **Tempo d'août 2013 à juillet 2016**, avant l'open data CRE : le HT est le barème des arrêtés du 26 juillet 2013,
@@ -180,8 +187,8 @@ passée ou tracer l'évolution des prix.
   (depuis août 2013) ne les couvrent, et aucune grille EDF postérieure au mouvement n'a été archivée (la dernière est
   celle du 1er juillet 2012). Le barème HT est recopié à la main de l'arrêté du 20 juillet 2012 (JORF du 22 juillet,
   NOR DEVR1230094A) dans `config/baremes_arretes.json` (source `arrete`). Le **TTC au kWh** reprend les taxes au kWh
-  de l'open data Base et HP/HC à la même date (2,28 c€/kWh, TVA 19,6 %), qui redonnent le TTC de l'open data Base au
-  centime ; l'**abonnement TTC vaut `null`** (aucune grille EDF pour le vérifier). Tempo « 24-30 kVA » est publié en
+  de la Base et de HP/HC (TVA 19,6 %) : 1,964 c€/kWh jusqu'au 31 décembre 2012, 2,28 c€/kWh ensuite (point
+  « juillet-décembre 2012 » plus haut) ; l'**abonnement TTC vaut `null`** (aucune grille EDF pour le vérifier). Tempo « 24-30 kVA » est publié en
   30 kVA seulement, comme en 2013-2016. Ce sont les tarifs de l'arrêté, réellement facturés à l'époque : le Conseil
   d'État l'a annulé en 2014 (tarifs jugés trop bas) et l'arrêté du 28 juillet 2014 a fixé pour cette période un
   barème plus élevé, appliqué sous forme de rattrapage sur les factures de 2014-2015 ; l'open data CRE de la Base

@@ -15,6 +15,9 @@
     {"debut": "2000-01-01", "valeur": 0.055},
     {"debut": "2025-08-01", "valeur": 0.2, "source": "loi de finances 2025 : TVA à 20 % sur l'abonnement"}
   ],
+  "corrections_taxes_kwh": [
+    {"debut": "2012-07-23", "fin": "2012-12-31", "taxes_kwh": 0.01964, "motif": "CSPE 1,05 c€/kWh (10,5 €/MWh du 1er juillet au 31 décembre 2012) + TCFE 0,914 c€/kWh, d'après la grille Tarif Bleu EDF « en vigueur à compter du 01 juillet 2012 » (archive.org, capture du 10 juillet 2012). L'open data CRE du 23 juillet 2012 applique 2,28 c€/kWh, les taxes de 2013 (CSPE 13,5 €/MWh au 1er janvier 2013, TCFE indexée), comme en août 2013.", "sources": ["https://web.archive.org/web/20120710190444/http://particuliers.edf.com/fichiers/fckeditor/Particuliers/Offres/CGV_CRE/CRE_TB.pdf", "https://www.cre.fr/content/download/9669/file/121009_CSPE2013.pdf"]}
+  ],
   "_commentaire_cta": "cta_taux et turpe_part_fixe servent à calculer la CTA de l'EJP (absente de l'open data CRE) : taux × (gestion + comptage compteur communicant + soutirage fixe × kVA), en €/an. Part puissance : clé soutirage_fixe_cu (tarif CU, TURPE 5) ou soutirage_fixe_cu4 (tarif CU4, TURPE 6 et suivants), une seule par période. Avant août 2018, aucune grille EDF EJP ne permet de vérifier le calcul : pas de période, abonnement null. Le TURPE change en principe chaque 1er août (exceptions : 1er novembre 2024, 1er février 2025) : ajouter une période (début, fin) à chaque grille TURPE ; hors période couverte, l'abonnement EJP TTC reste inconnu tant qu'EDF n'a pas publié sa grille.",
   "cta_taux": [
     {"debut": "2018-08-01", "valeur": 0.2704, "source": "27,04 % de la part acheminement de l'abonnement jusqu'au 31 juillet 2021 ; vérifié au centime sur les grilles EDF EJP d'août 2018, août 2019 et août 2020 (seules grilles connues d'avant le TURPE 6)"},

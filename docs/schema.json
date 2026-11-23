@@ -223,7 +223,7 @@
           }
         },
         "correction_ttc": {
-          "description": "Présent si le TTC au kWh de l'open data CRE est reconnu faux (config/corrections_opendata.json) : recalculé avec HT open data + taxes_kwh + TVA (ttc_estime vaut alors true, statut en_vigueur). L'abonnement reste celui de l'open data, sauf si bareme vaut true : l'open data reprenait un barème périmé, remplacé (HT, abonnement HT et TTC) par celui du texte officiel.",
+          "description": "Présent si le TTC au kWh de l'open data CRE est reconnu faux (config/corrections_opendata.json, ou corrections_taxes_kwh de config/taxes.json : taxes de 2013 appliquées dès juillet 2012, aussi pour Tempo et EJP) : recalculé avec HT open data + taxes_kwh + TVA (ttc_estime vaut alors true, statut en_vigueur). L'abonnement reste celui de l'open data, sauf si bareme vaut true : l'open data reprenait un barème périmé, remplacé (HT, abonnement HT et TTC) par celui du texte officiel.",
           "type": "object",
           "required": ["taxes_kwh", "motif", "sources"],
           "properties": {

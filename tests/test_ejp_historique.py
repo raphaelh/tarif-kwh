@@ -210,7 +210,8 @@ def test_revisions_janvier(od_hist, taxes_od):
         o: [(g["date_debut"], g["date_fin"]) for g in b["grilles"] if "revision_ttc" in g and g["date_debut"] < "2023-02"]
         for o, b in h["options"].items()
     }
-    attendu = [("2014-01-01", "2014-10-31"), ("2015-01-01", "2015-07-31"), ("2016-01-01", "2016-07-31")]
+    # 2013 : taxes de l'open data reprises au 1er janvier, après la correction de juillet-décembre 2012 (test_taxes_2012)
+    attendu = [("2013-01-01", "2013-07-31"), ("2014-01-01", "2014-10-31"), ("2015-01-01", "2015-07-31"), ("2016-01-01", "2016-07-31")]
     assert rev["base"] == rev["hphc"] == attendu + [("2023-01-01", "2023-01-31")]
     assert rev["tempo"] == [("2023-01-01", "2023-01-31")]  # open data Tempo depuis août 2016
     base = {g["date_debut"]: g for g in h["options"]["base"]["grilles"]}

@@ -216,6 +216,49 @@ def _revisions_janvier(grilles: list[dict], taxes_od: dict[str, dict], config_ta
     return out
 
 
+def _corrections_taxes_kwh(grilles: list[dict], taxes_od: dict[str, dict], config_taxes: dict) -> list[dict]:
+    """Taxes au kWh de l'open data reconnues fausses sur une partie de la période d'une grille
+    (``corrections_taxes_kwh`` de config/taxes.json ; 2012 : CSPE de 2013 appliquée dès juillet).
+
+    La grille qui commence à ``debut`` garde sa date de début ; son TTC au kWh est recalculé
+    avec ``taxes_kwh`` jusqu'à ``fin`` (``correction_ttc``, ``ttc_estime``,
+    statut ``en_vigueur``). Le lendemain de ``fin``, une période (``revision_ttc``) reprend
+    les taxes de l'open data. Recalcul depuis le HT : sans effet si appliqué deux fois.
+    """
+    out = list(grilles)
+    for c in config_taxes.get("corrections_taxes_kwh", []):
+        g = next((x for x in out if x["date_debut"] == c["debut"]), None)
+        t = taxes_od.get(c["debut"])
+        if g is None or t is None:
+            continue
+        lendemain = (date.fromisoformat(c["fin"]) + timedelta(days=1)).isoformat()
+        tva = taxes.tva_energie(date.fromisoformat(c["debut"]), config_taxes)
+        corrigee = c["taxes_kwh"]
+
+        def recalculer(grille: dict, tax: float) -> dict:
+            r = copy.deepcopy(grille)
+            for p in r["puissances"].values():
+                p["prix_ttc"] = {per: taxes.kwh_ttc(v, tax, tva) for per, v in p["prix_ht"].items()}
+            r.pop("prix_ttc", None)
+            r["ttc_estime"] = True
+            if r.get("statut") == "confirme":
+                r["statut"] = "en_vigueur"
+            return _prix_communs(r)
+
+        r1 = recalculer(g, corrigee)
+        r1["correction_ttc"] = {"taxes_kwh": corrigee, "motif": c["motif"], "sources": c["sources"]}
+        out[out.index(g)] = r1
+        if not any(x["date_debut"] == lendemain for x in out):
+            r2 = recalculer(g, t["valeur"])
+            r2.pop("correction_ttc", None)
+            r2["date_debut"], r2["date_fin"] = lendemain, None
+            r2["revision_ttc"] = {"date": lendemain, "motifs": [
+                f"taxes au kWh (CSPE + TCFE) au {lendemain} : {t['valeur']} €/kWh, d'après l'open data CRE du {c['debut']}"
+            ]}
+            out.append(r2)
+    return sorted(out, key=lambda x: x["date_debut"])
+
+
 TOL_ABONNEMENT = 0.011  # €/an : arrondi de la CTA, qui diffère parfois d'un centime entre EDF, la CRE et le calcul
 
 
@@ -342,6 +385,7 @@ def construire_historique(
         grilles = sorted((dict(g) for g in od + suite), key=lambda g: g["date_debut"])
         if taxes_od and config_taxes:
             grilles = _revisions_janvier(grilles, taxes_od, config_taxes)
+            grilles = _corrections_taxes_kwh(grilles, taxes_od, config_taxes)
         grilles = _revisions_abonnement(option, grilles, revisions_abonnement or {})
         debuts = sorted({g["date_debut"] for g in grilles} | {
             d for d in (dates_connues or {}).get(option, ()) if hors_od(d)
