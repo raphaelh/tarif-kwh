@@ -2980,7 +2980,7 @@
           "puissances": {
             "6": {
               "abonnement_ht": 80.64,
-              "abonnement_ttc": 100.37,
+              "abonnement_ttc": 100.51,
               "prix_ht": {
                 "hc": 0.0738,
                 "hp": 0.0979
@@ -2992,7 +2992,7 @@
             },
             "9": {
               "abonnement_ht": 93.24,
-              "abonnement_ttc": 117.37,
+              "abonnement_ttc": 117.51,
               "prix_ht": {
                 "hc": 0.0738,
                 "hp": 0.0979
@@ -3004,7 +3004,7 @@
             },
             "12": {
               "abonnement_ht": 142.32,
-              "abonnement_ttc": 182.7,
+              "abonnement_ttc": 183.25,
               "prix_ht": {
                 "hc": 0.0738,
                 "hp": 0.0979
@@ -3016,7 +3016,7 @@
             },
             "15": {
               "abonnement_ht": 163.68,
-              "abonnement_ttc": 211.4,
+              "abonnement_ttc": 212.06,
               "prix_ht": {
                 "hc": 0.0738,
                 "hp": 0.0979
@@ -3028,7 +3028,7 @@
             },
             "18": {
               "abonnement_ht": 184.08,
-              "abonnement_ttc": 239.08,
+              "abonnement_ttc": 239.83,
               "prix_ht": {
                 "hc": 0.0738,
                 "hp": 0.0979
@@ -3040,7 +3040,7 @@
             },
             "24": {
               "abonnement_ht": 377.04,
-              "abonnement_ttc": 494.69,
+              "abonnement_ttc": 495.65,
               "prix_ht": {
                 "hc": 0.0738,
                 "hp": 0.0979
@@ -3052,7 +3052,7 @@
             },
             "30": {
               "abonnement_ht": 454.68,
-              "abonnement_ttc": 598.58,
+              "abonnement_ttc": 599.75,
               "prix_ht": {
                 "hc": 0.0738,
                 "hp": 0.0979
@@ -3064,7 +3064,7 @@
             },
             "36": {
               "abonnement_ht": 531.6,
-              "abonnement_ttc": 701.7,
+              "abonnement_ttc": 703.07,
               "prix_ht": {
                 "hc": 0.0738,
                 "hp": 0.0979
@@ -3075,8 +3075,8 @@
               }
             }
           },
-          "ttc_estime": false,
-          "statut": "confirme",
+          "ttc_estime": true,
+          "statut": "en_vigueur",
           "sources": [
             {
               "type": "cre_opendata",
@@ -3090,6 +3090,13 @@
           "prix_ttc": {
             "hc": 0.127,
             "hp": 0.156
+          },
+          "revision_abonnement": {
+            "date": "2016-08-01",
+            "motif": "abonnement TTC au 2016-08-01 : CTA 27.04% de la part fixe du nouveau TURPE (TURPE 4 HTA-BT au 1er août 2016, CRE délibération du 2 juin 2016 ; abonnements de la grille Tarif Bleu EDF annuelle du 1er août 2016 retrouvés à 1 centime près (Base, HP/HC, Tempo), alors que l'open data CRE HP/HC garde la CTA de novembre 2014)",
+            "sources": [
+              "https://www.cre.fr/fileadmin/Documents/Deliberations/import/160602Evolution_TURPE_HTA_BT.pdf"
+            ]
           }
         },
         {
@@ -12315,5 +12322,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T16:17:41+00:00"
+  "mis_a_jour_le": "2026-11-23T16:27:54+00:00"
 }
