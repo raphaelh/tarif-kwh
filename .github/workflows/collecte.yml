@@ -1,0 +1,62 @@
+name: Collecte des tarifs
+
+on:
+  schedule:
+    # Deux passages par jour : une nouvelle délibération CRE est publiée
+    # dans la journée, on la reprend au plus tard ~12 h après.
+    - cron: "17 5 * * *"
+    - cron: "17 17 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # commit des JSON
+  issues: write     # alertes
+  actions: write    # maintien en vie de la planification
+
+concurrency:
+  group: collecte
+  cancel-in-progress: false
+
+jobs:
+  collecte:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Tests (sources réelles enregistrées)
+        run: pytest -q
+
+      - name: Collecte et publication
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/collect.py
+
+      - name: Commit des changements
+        run: |
+          git add docs data
+          if git diff --cached --quiet; then
+            echo "Aucun changement."
+          else
+            git -c user.name="tarif-kwh[bot]" \
+                -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+                commit -m "Mise à jour des tarifs ($(date -u +%F))"
+            git push
+          fi
+
+      # GitHub désactive les workflows planifiés après 60 jours sans activité
+      # sur le dépôt. Comme les tarifs ne changent que deux fois par an, on
+      # réactive explicitement le workflow à chaque passage (appel d'API, sans
+      # commit factice).
+      - name: Maintien en vie de la planification
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/collecte.yml/enable"

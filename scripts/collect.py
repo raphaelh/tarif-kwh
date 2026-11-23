@@ -1,0 +1,150 @@
+#!/usr/bin/env python3
+"""Collecte quotidienne : sources -> data/registre.json -> docs/*.json.
+
+Usage :
+    python scripts/collect.py                 # collecte complète
+    python scripts/collect.py --hors-ligne    # reconstruit docs/ depuis le registre
+    python scripts/collect.py --annexe URL    # force la lecture d'une annexe B CRE
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import sys
+import traceback
+from datetime import date, datetime, timezone
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from tarif_kwh import http, issues, publish, reconcile, taxes  # noqa: E402
+from tarif_kwh.sources import cre_deliberation, cre_opendata, edf_grille, jorf  # noqa: E402
+
+RACINE = Path(__file__).resolve().parents[1]
+REGISTRE = RACINE / "data" / "registre.json"
+SOURCES = RACINE / "config" / "sources.json"
+DOCS = RACINE / "docs"
+
+
+def charger(path: Path, defaut: dict) -> dict:
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else defaut
+
+
+def maintenant() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def enregistrer_obs(registre: dict, g) -> bool:
+    """Ajoute/actualise l'observation d'une source. Renvoie True si nouvelle ou modifiée."""
+    d = reconcile.grille_to_dict(g)
+    place = registre.setdefault("grilles", {}).setdefault(g.option, {}).setdefault(g.date_effet.isoformat(), {})
+    ancien = place.get(g.source)
+    if ancien:
+        a = {**ancien, "meta": {k: v for k, v in ancien["meta"].items() if k != "recupere_le"}}
+        if a == d:
+            return False
+    d["meta"]["recupere_le"] = maintenant()
+    place[g.source] = d
+    return True
+
+
+def etape(nom: str, erreurs: list[tuple[str, str]], fn, *args):
+    try:
+        return fn(*args)
+    except Exception as e:  # une source en panne ne doit pas bloquer les autres
+        erreurs.append((nom, f"{type(e).__name__}: {e}\n\n```\n{traceback.format_exc()[-3000:]}\n```"))
+        return None
+
+
+def collecter(registre: dict, forcer: list[str], erreurs: list) -> None:
+    traitees = registre.setdefault("annexes_traitees", {})
+    # 1. Délibérations CRE (annexe B) : connues + découvertes + forcées
+    connues = charger(SOURCES, {}).get("annexes_b_connues", [])
+    decouvertes = etape("Découverte des délibérations CRE", erreurs, cre_deliberation.decouvrir, set(traitees)) or []
+    for url in dict.fromkeys(connues + decouvertes + forcer):
+        if url in traitees and url not in forcer:
+            continue
+        contenu = etape(f"Téléchargement {url}", erreurs, http.get, url)
+        if contenu is None:
+            continue
+        grilles = etape(f"Lecture de l'annexe B {url}", erreurs, cre_deliberation.parse_annexe_b, contenu, url)
+        if grilles is None:
+            continue
+        for g in grilles.values():
+            enregistrer_obs(registre, g)
+        traitees[url] = {
+            "sha256": hashlib.sha256(contenu).hexdigest(),
+            "date_effet": next(iter(grilles.values())).date_effet.isoformat(),
+            "traitee_le": maintenant(),
+        }
+
+    # 2. Grille EDF
+    grilles = etape("Grille Tarif Bleu EDF", erreurs, edf_grille.collecter)
+    for g in (grilles or {}).values():
+        enregistrer_obs(registre, g)
+        if g.meta.get("accise_eur_kwh"):
+            registre.setdefault("accise_observee", {})[g.date_effet.isoformat()] = g.meta["accise_eur_kwh"]
+
+    # 3. Open data CRE
+    grilles = etape("Open data CRE", erreurs, cre_opendata.collecter)
+    for g in (grilles or {}).values():
+        enregistrer_obs(registre, g)
+
+    # 4. JORF
+    # On relit les 6 dernières éditions (~3 jours) à chaque passage et on
+    # dédoublonne par URL : pas de curseur à committer chaque jour.
+    j = registre.setdefault("jorf", {"textes": []})
+    j.pop("derniere_archive", None)
+    res = etape("Veille JORF", erreurs, jorf.collecter, None, 6)
+    if res:
+        textes, _ = res
+        connus = {t["url"] for t in j["textes"]}
+        for t in textes:
+            if t["url"] not in connus:
+                j["textes"].append(t)
+                issues.alerter(
+                    f"JORF : texte à vérifier — {t['titre'][:90]}",
+                    f"Un texte publié au Journal officiel concerne peut-être les TRVE ou l'accise :\n\n"
+                    f"- **{t['titre']}**\n- {t['nature']} publié le {t['date_publication']}\n- {t['url']}\n\n"
+                    "Vérifier s'il modifie ou bloque les prix proposés par la CRE, ou change les taxes "
+                    "(mettre à jour `config/taxes.json`).",
+                )
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--hors-ligne", action="store_true", help="ne télécharge rien")
+    ap.add_argument("--annexe", action="append", default=[], help="URL d'annexe B à lire")
+    ap.add_argument("--date", help="date du jour simulée (AAAA-MM-JJ)")
+    args = ap.parse_args()
+
+    registre = charger(REGISTRE, {"schema_version": 1})
+    erreurs: list[tuple[str, str]] = []
+    if not args.hors_ligne:
+        collecter(registre, args.annexe, erreurs)
+
+    aujourd_hui = date.fromisoformat(args.date) if args.date else date.today()
+    etat = publish.publier(
+        DOCS, registre, taxes.charger_config(), aujourd_hui, registre.get("jorf", {}).get("textes", [])
+    )
+    REGISTRE.parent.mkdir(exist_ok=True)
+    REGISTRE.write_text(json.dumps(registre, ensure_ascii=False, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+
+    for nom, detail in erreurs:
+        issues.alerter(f"Source en échec : {nom[:100]}", detail)
+    for option, e in etat.items():
+        if e["publication"] == "bloquee":
+            issues.alerter(
+                f"Publication bloquée : option {option}",
+                "Les contrôles ont échoué ; le JSON précédent de cette option est conservé.\n\n"
+                + "\n".join(f"- {p}" for p in e["problemes"]),
+            )
+        for r in e["remarques"]:
+            print("remarque:", r, file=sys.stderr)
+    print(json.dumps({o: e["publication"] for o, e in etat.items()}, ensure_ascii=False))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

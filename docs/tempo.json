@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "avertissement": "Projet NON officiel, sans lien avec EDF, la CRE ou les pouvoirs publics. Données issues des publications officielles (délibérations CRE, grille Tarif Bleu EDF, open data CRE), sans garantie. Vérifiez sur votre facture.",
+  "option": "tempo",
+  "libelle": "Tarif Bleu résidentiel - option Tempo",
+  "offre": "Tarif réglementé de vente d'électricité (TRVE) - Tarif Bleu résidentiel, France métropolitaine continentale",
+  "fournisseur": "EDF",
+  "type_prix": "reglemente",
+  "periodes": [
+    "bleu_hc",
+    "bleu_hp",
+    "blanc_hc",
+    "blanc_hp",
+    "rouge_hc",
+    "rouge_hp"
+  ],
+  "plages_horaires": {
+    "hc": "22:00-06:00",
+    "hp": "06:00-22:00"
+  },
+  "note": "Couleur du jour annoncée la veille par RTE (22 jours rouges, 43 blancs).",
+  "unites": {
+    "prix": "EUR/kWh",
+    "abonnement_ht": "EUR/an",
+    "abonnement_ttc": "EUR/an",
+    "abonnement_ttc_mensuel": "EUR/mois"
+  },
+  "actuelle": {
+    "option": "tempo",
+    "date_effet": "2026-08-01",
+    "statut": "confirme",
+    "ttc_estime": false,
+    "puissances": {
+      "6": {
+        "abonnement_ht": 142.68,
+        "abonnement_ttc": 189.98,
+        "abonnement_ttc_mensuel": 15.8,
+        "prix_ht": {
+          "bleu_hc": 0.0824,
+          "bleu_hp": 0.1072,
+          "blanc_hc": 0.0974,
+          "blanc_hp": 0.1295,
+          "rouge_hc": 0.104,
+          "rouge_hp": 0.5773
+        },
+        "prix_ttc": {
+          "bleu_hc": 0.1356,
+          "bleu_hp": 0.1654,
+          "blanc_hc": 0.1536,
+          "blanc_hp": 0.1921,
+          "rouge_hc": 0.1615,
+          "rouge_hp": 0.7295
+        }
+      },
+      "9": {
+        "abonnement_ht": 177.0,
+        "abonnement_ttc": 237.34,
+        "abonnement_ttc_mensuel": 19.7,
+        "prix_ht": {
+          "bleu_hc": 0.0824,
+          "bleu_hp": 0.1072,
+          "blanc_hc": 0.0974,
+          "blanc_hp": 0.1295,
+          "rouge_hc": 0.104,
+          "rouge_hp": 0.5773
+        },
+        "prix_ttc": {
+          "bleu_hc": 0.1356,
+          "bleu_hp": 0.1654,
+          "blanc_hc": 0.1536,
+          "blanc_hp": 0.1921,
+          "rouge_hc": 0.1615,
+          "rouge_hp": 0.7295
+        }
+      },
+      "12": {
+        "abonnement_ht": 210.24,
+        "abonnement_ttc": 283.21,
+        "abonnement_ttc_mensuel": 23.5,
+        "prix_ht": {
+          "bleu_hc": 0.0824,
+          "bleu_hp": 0.1072,
+          "blanc_hc": 0.0974,
+          "blanc_hp": 0.1295,
+          "rouge_hc": 0.104,
+          "rouge_hp": 0.5773
+        },
+        "prix_ttc": {
+          "bleu_hc": 0.1356,
+          "bleu_hp": 0.1654,
+          "blanc_hc": 0.1536,
+          "blanc_hp": 0.1921,
+          "rouge_hc": 0.1615,
+          "rouge_hp": 0.7295
+        }
+      },
+      "15": {
+        "abonnement_ht": 240.72,
+        "abonnement_ttc": 325.28,
+        "abonnement_ttc_mensuel": 27.01,
+        "prix_ht": {
+          "bleu_hc": 0.0824,
+          "bleu_hp": 0.1072,
+          "blanc_hc": 0.0974,
+          "blanc_hp": 0.1295,
+          "rouge_hc": 0.104,
+          "rouge_hp": 0.5773
+        },
+        "prix_ttc": {
+          "bleu_hc": 0.1356,
+          "bleu_hp": 0.1654,
+          "blanc_hc": 0.1536,
+          "blanc_hp": 0.1921,
+          "rouge_hc": 0.1615,
+          "rouge_hp": 0.7295
+        }
+      },
+      "18": {
+        "abonnement_ht": 272.76,
+        "abonnement_ttc": 369.49,
+        "abonnement_ttc_mensuel": 30.69,
+        "prix_ht": {
+          "bleu_hc": 0.0824,
+          "bleu_hp": 0.1072,
+          "blanc_hc": 0.0974,
+          "blanc_hp": 0.1295,
+          "rouge_hc": 0.104,
+          "rouge_hp": 0.5773
+        },
+        "prix_ttc": {
+          "bleu_hc": 0.1356,
+          "bleu_hp": 0.1654,
+          "blanc_hc": 0.1536,
+          "blanc_hp": 0.1921,
+          "rouge_hc": 0.1615,
+          "rouge_hp": 0.7295
+        }
+      },
+      "24": {
+        "abonnement_ht": 338.64,
+        "abonnement_ttc": 460.41,
+        "abonnement_ttc_mensuel": 38.21,
+        "prix_ht": {
+          "bleu_hc": 0.0824,
+          "bleu_hp": 0.1072,
+          "blanc_hc": 0.0974,
+          "blanc_hp": 0.1295,
+          "rouge_hc": 0.104,
+          "rouge_hp": 0.5773
+        },
+        "prix_ttc": {
+          "bleu_hc": 0.1356,
+          "bleu_hp": 0.1654,
+          "blanc_hc": 0.1536,
+          "blanc_hp": 0.1921,
+          "rouge_hc": 0.1615,
+          "rouge_hp": 0.7295
+        }
+      },
+      "30": {
+        "abonnement_ht": 405.36,
+        "abonnement_ttc": 552.48,
+        "abonnement_ttc_mensuel": 45.82,
+        "prix_ht": {
+          "bleu_hc": 0.0824,
+          "bleu_hp": 0.1072,
+          "blanc_hc": 0.0974,
+          "blanc_hp": 0.1295,
+          "rouge_hc": 0.104,
+          "rouge_hp": 0.5773
+        },
+        "prix_ttc": {
+          "bleu_hc": 0.1356,
+          "bleu_hp": 0.1654,
+          "blanc_hc": 0.1536,
+          "blanc_hp": 0.1921,
+          "rouge_hc": 0.1615,
+          "rouge_hp": 0.7295
+        }
+      },
+      "36": {
+        "abonnement_ht": 475.32,
+        "abonnement_ttc": 649.02,
+        "abonnement_ttc_mensuel": 53.76,
+        "prix_ht": {
+          "bleu_hc": 0.0824,
+          "bleu_hp": 0.1072,
+          "blanc_hc": 0.0974,
+          "blanc_hp": 0.1295,
+          "rouge_hc": 0.104,
+          "rouge_hp": 0.5773
+        },
+        "prix_ttc": {
+          "bleu_hc": 0.1356,
+          "bleu_hp": 0.1654,
+          "blanc_hc": 0.1536,
+          "blanc_hp": 0.1921,
+          "rouge_hc": 0.1615,
+          "rouge_hp": 0.7295
+        }
+      }
+    },
+    "sources": [
+      {
+        "type": "cre_deliberation",
+        "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf",
+        "recupere_le": "2026-11-23T08:51:23+00:00"
+      },
+      {
+        "type": "edf_grille",
+        "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_Tarif_Bleu.pdf",
+        "recupere_le": "2026-11-23T08:51:27+00:00"
+      },
+      {
+        "type": "cre_opendata",
+        "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Tempo.csv",
+        "recupere_le": "2026-11-23T08:51:28+00:00"
+      }
+    ],
+    "taxes": {
+      "accise_eur_kwh": 0.03062,
+      "accise_source": "grille EDF (https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_Tarif_Bleu.pdf)",
+      "tva_energie": 0.2,
+      "tva_abonnement": 0.2
+    },
+    "alertes": [],
+    "prix_ht": {
+      "bleu_hc": 0.0824,
+      "bleu_hp": 0.1072,
+      "blanc_hc": 0.0974,
+      "blanc_hp": 0.1295,
+      "rouge_hc": 0.104,
+      "rouge_hp": 0.5773
+    },
+    "prix_ttc": {
+      "bleu_hc": 0.1356,
+      "bleu_hp": 0.1654,
+      "blanc_hc": 0.1536,
+      "blanc_hp": 0.1921,
+      "rouge_hc": 0.1615,
+      "rouge_hp": 0.7295
+    }
+  },
+  "prochaine": null,
+  "mis_a_jour_le": "2026-11-23T08:51:57+00:00"
+}

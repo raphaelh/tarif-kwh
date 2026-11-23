@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "avertissement": "Projet NON officiel, sans lien avec EDF, la CRE ou les pouvoirs publics. Données issues des publications officielles (délibérations CRE, grille Tarif Bleu EDF, open data CRE), sans garantie. Vérifiez sur votre facture.",
+  "option": "ejp",
+  "libelle": "Tarif Bleu résidentiel - option EJP (clients existants)",
+  "offre": "Tarif réglementé de vente d'électricité (TRVE) - Tarif Bleu résidentiel, France métropolitaine continentale",
+  "fournisseur": "EDF",
+  "type_prix": "reglemente",
+  "periodes": [
+    "normal",
+    "pointe"
+  ],
+  "plages_horaires": {
+    "pointe": "07:00-01:00 les 22 jours de pointe mobile"
+  },
+  "note": "Option en extinction, réservée aux clients existants.",
+  "unites": {
+    "prix": "EUR/kWh",
+    "abonnement_ht": "EUR/an",
+    "abonnement_ttc": "EUR/an",
+    "abonnement_ttc_mensuel": "EUR/mois"
+  },
+  "actuelle": {
+    "option": "ejp",
+    "date_effet": "2026-08-01",
+    "statut": "en_vigueur",
+    "ttc_estime": true,
+    "puissances": {
+      "9": {
+        "abonnement_ht": 175.2,
+        "abonnement_ttc": null,
+        "abonnement_ttc_mensuel": null,
+        "prix_ht": {
+          "normal": 0.1185,
+          "pointe": 0.3297
+        },
+        "prix_ttc": {
+          "normal": 0.1789,
+          "pointe": 0.4324
+        }
+      },
+      "12": {
+        "abonnement_ht": 206.64,
+        "abonnement_ttc": null,
+        "abonnement_ttc_mensuel": null,
+        "prix_ht": {
+          "normal": 0.1185,
+          "pointe": 0.3297
+        },
+        "prix_ttc": {
+          "normal": 0.1789,
+          "pointe": 0.4324
+        }
+      },
+      "15": {
+        "abonnement_ht": 238.68,
+        "abonnement_ttc": null,
+        "abonnement_ttc_mensuel": null,
+        "prix_ht": {
+          "normal": 0.1185,
+          "pointe": 0.3297
+        },
+        "prix_ttc": {
+          "normal": 0.1789,
+          "pointe": 0.4324
+        }
+      },
+      "18": {
+        "abonnement_ht": 269.64,
+        "abonnement_ttc": null,
+        "abonnement_ttc_mensuel": null,
+        "prix_ht": {
+          "normal": 0.1185,
+          "pointe": 0.3297
+        },
+        "prix_ttc": {
+          "normal": 0.1789,
+          "pointe": 0.4324
+        }
+      },
+      "36": {
+        "abonnement_ht": 463.8,
+        "abonnement_ttc": null,
+        "abonnement_ttc_mensuel": null,
+        "prix_ht": {
+          "normal": 0.1185,
+          "pointe": 0.3297
+        },
+        "prix_ttc": {
+          "normal": 0.1789,
+          "pointe": 0.4324
+        }
+      }
+    },
+    "sources": [
+      {
+        "type": "cre_deliberation",
+        "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf",
+        "recupere_le": "2026-11-23T08:51:23+00:00"
+      }
+    ],
+    "taxes": {
+      "accise_eur_kwh": 0.03062,
+      "accise_source": "grille Tarif Bleu EDF du 1er août 2026 (3,062 c€/kWh) (en vigueur au 2026-08-01)",
+      "tva_energie": 0.2,
+      "tva_abonnement": 0.2
+    },
+    "alertes": [],
+    "prix_ht": {
+      "normal": 0.1185,
+      "pointe": 0.3297
+    },
+    "prix_ttc": {
+      "normal": 0.1789,
+      "pointe": 0.4324
+    }
+  },
+  "prochaine": null,
+  "mis_a_jour_le": "2026-11-23T08:51:57+00:00"
+}

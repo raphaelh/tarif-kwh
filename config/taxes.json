@@ -1,0 +1,16 @@
+{
+  "_commentaire": "Taxes servant UNIQUEMENT à estimer le TTC d'une grille proposée par la CRE avant que EDF / l'open data CRE ne publient le TTC officiel. Les valeurs lues dans la grille EDF (accise) sont ajoutées automatiquement dans data/registre.json. Ajouter ici une ligne dès qu'une loi de finances change l'accise.",
+  "accise_eur_kwh": [
+    {"debut": "2025-02-01", "valeur": 0.0337, "source": "déduit de l'open data CRE (TTC/1,2 - HT)"},
+    {"debut": "2025-08-01", "valeur": 0.02998, "source": "déduit de l'open data CRE (TTC/1,2 - HT)"},
+    {"debut": "2026-02-01", "valeur": 0.03085, "source": "déduit de l'open data CRE (TTC/1,2 - HT)"},
+    {"debut": "2026-08-01", "valeur": 0.03062, "source": "grille Tarif Bleu EDF du 1er août 2026 (3,062 c€/kWh)"}
+  ],
+  "tva_energie": [
+    {"debut": "2000-01-01", "valeur": 0.20}
+  ],
+  "tva_abonnement": [
+    {"debut": "2000-01-01", "valeur": 0.055},
+    {"debut": "2025-08-01", "valeur": 0.20, "source": "loi de finances 2025 : TVA à 20 % sur l'abonnement"}
+  ]
+}

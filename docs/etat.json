@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "options": {
+    "base": {
+      "publication": "ok",
+      "problemes": [],
+      "remarques": []
+    },
+    "hphc": {
+      "publication": "ok",
+      "problemes": [],
+      "remarques": []
+    },
+    "tempo": {
+      "publication": "ok",
+      "problemes": [],
+      "remarques": []
+    },
+    "ejp": {
+      "publication": "ok",
+      "problemes": [],
+      "remarques": []
+    }
+  },
+  "jorf_textes_signales": [],
+  "mis_a_jour_le": "2026-11-23T08:51:57+00:00"
+}

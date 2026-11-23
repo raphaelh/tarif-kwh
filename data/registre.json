@@ -1,0 +1,1863 @@
+{
+ "accise_observee": {
+  "2026-08-01": 0.03062
+ },
+ "annexes_traitees": {
+  "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250619_2025-155_Proposition_TRVE_inf_36_annexe_B.pdf": {
+   "date_effet": "2025-08-01",
+   "sha256": "2d054818d3469f3d4fd519ce8e2ade51bdd2f68c263949e1691c492b84a3593b",
+   "traitee_le": "2026-11-23T08:51:26+00:00"
+  },
+  "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf": {
+   "date_effet": "2026-02-01",
+   "sha256": "3151b39332cbc42cd45a9fab4a5706a7675906baedf06a0a8d84a810bc8fe9be",
+   "traitee_le": "2026-11-23T08:51:20+00:00"
+  },
+  "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf": {
+   "date_effet": "2026-08-01",
+   "sha256": "32b2ed689efb7fdf228372f60eb36215a840ff943da73e968eae97a6b701d40a",
+   "traitee_le": "2026-11-23T08:51:23+00:00"
+  }
+ },
+ "grilles": {
+  "base": {
+   "2025-08-01": {
+    "cre_deliberation": {
+     "date_effet": "2025-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:26+00:00"
+     },
+     "option": "base",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 198.12,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1327
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 228.84,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1327
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 259.2,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1327
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 326.16,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1327
+       },
+       "prix_ttc": {}
+      },
+      "3": {
+       "abonnement_ht": 102.12,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1327
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 389.4,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1327
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 454.56,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1327
+       },
+       "prix_ttc": {}
+      },
+      "6": {
+       "abonnement_ht": 132.84,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1327
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 165.48,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1327
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250619_2025-155_Proposition_TRVE_inf_36_annexe_B.pdf"
+    }
+   },
+   "2026-02-01": {
+    "cre_deliberation": {
+     "date_effet": "2026-02-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:20+00:00"
+     },
+     "option": "base",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 209.16,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1297
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 239.88,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1297
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 271.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1297
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 340.2,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1297
+       },
+       "prix_ttc": {}
+      },
+      "3": {
+       "abonnement_ht": 109.92,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1308
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 402.36,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1297
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 465.0,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1297
+       },
+       "prix_ttc": {}
+      },
+      "6": {
+       "abonnement_ht": 141.6,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1308
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 176.16,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1297
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf"
+    }
+   },
+   "2026-08-01": {
+    "cre_deliberation": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:23+00:00"
+     },
+     "option": "base",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 212.88,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1348
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 244.56,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1348
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 277.32,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1348
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 347.88,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1348
+       },
+       "prix_ttc": {}
+      },
+      "3": {
+       "abonnement_ht": 110.64,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1361
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 411.84,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1348
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 476.52,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1348
+       },
+       "prix_ttc": {}
+      },
+      "6": {
+       "abonnement_ht": 143.28,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1361
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 178.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1348
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf"
+    },
+    "cre_opendata": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:28+00:00"
+     },
+     "option": "base",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 212.88,
+       "abonnement_ttc": 286.86,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1348
+       },
+       "prix_ttc": {
+        "base": 0.1985
+       }
+      },
+      "15": {
+       "abonnement_ht": 244.56,
+       "abonnement_ttc": 330.57,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1348
+       },
+       "prix_ttc": {
+        "base": 0.1985
+       }
+      },
+      "3": {
+       "abonnement_ht": 110.64,
+       "abonnement_ttc": 145.76,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1361
+       },
+       "prix_ttc": {
+        "base": 0.2001
+       }
+      },
+      "6": {
+       "abonnement_ht": 143.28,
+       "abonnement_ttc": 190.81,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1361
+       },
+       "prix_ttc": {
+        "base": 0.2001
+       }
+      },
+      "9": {
+       "abonnement_ht": 178.8,
+       "abonnement_ttc": 239.84,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "base": 0.1348
+       },
+       "prix_ttc": {
+        "base": 0.1985
+       }
+      }
+     },
+     "source": "cre_opendata",
+     "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Base.csv"
+    },
+    "edf_grille": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "accise_eur_kwh": 0.03062,
+      "recupere_le": "2026-11-23T08:51:27+00:00"
+     },
+     "option": "base",
+     "puissances": {
+      "12": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 23.76,
+       "prix_ht": {},
+       "prix_ttc": {
+        "base": 0.1985
+       }
+      },
+      "15": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 27.4,
+       "prix_ht": {},
+       "prix_ttc": {
+        "base": 0.1985
+       }
+      },
+      "18": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 31.14,
+       "prix_ht": {},
+       "prix_ttc": {
+        "base": 0.1985
+       }
+      },
+      "24": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 39.14,
+       "prix_ht": {},
+       "prix_ttc": {
+        "base": 0.1985
+       }
+      },
+      "3": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 12.13,
+       "prix_ht": {},
+       "prix_ttc": {
+        "base": 0.2001
+       }
+      },
+      "30": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 46.47,
+       "prix_ht": {},
+       "prix_ttc": {
+        "base": 0.1985
+       }
+      },
+      "36": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 53.88,
+       "prix_ht": {},
+       "prix_ttc": {
+        "base": 0.1985
+       }
+      },
+      "6": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 15.86,
+       "prix_ht": {},
+       "prix_ttc": {
+        "base": 0.2001
+       }
+      },
+      "9": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 19.88,
+       "prix_ht": {},
+       "prix_ttc": {
+        "base": 0.1985
+       }
+      }
+     },
+     "source": "edf_grille",
+     "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_Tarif_Bleu.pdf"
+    }
+   }
+  },
+  "ejp": {
+   "2025-08-01": {
+    "cre_deliberation": {
+     "date_effet": "2025-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:26+00:00"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 195.24,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0882,
+        "pointe": 0.8756
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 226.32,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0882,
+        "pointe": 0.8756
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 256.32,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0882,
+        "pointe": 0.8756
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 444.84,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0882,
+        "pointe": 0.8756
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 164.76,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0882,
+        "pointe": 0.8756
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250619_2025-155_Proposition_TRVE_inf_36_annexe_B.pdf"
+    }
+   },
+   "2026-02-01": {
+    "cre_deliberation": {
+     "date_effet": "2026-02-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:20+00:00"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 203.04,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1176,
+        "pointe": 0.2558
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 234.12,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1176,
+        "pointe": 0.2558
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 264.24,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1176,
+        "pointe": 0.2558
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 452.64,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1176,
+        "pointe": 0.2558
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 172.56,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1176,
+        "pointe": 0.2558
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf"
+    }
+   },
+   "2026-08-01": {
+    "cre_deliberation": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:23+00:00"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 206.64,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1185,
+        "pointe": 0.3297
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 238.68,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1185,
+        "pointe": 0.3297
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 269.64,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1185,
+        "pointe": 0.3297
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 463.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1185,
+        "pointe": 0.3297
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 175.2,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1185,
+        "pointe": 0.3297
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf"
+    }
+   }
+  },
+  "hphc": {
+   "2025-08-01": {
+    "cre_deliberation": {
+     "date_effet": "2025-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:26+00:00"
+     },
+     "option": "hphc",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 202.44,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1063,
+        "hp": 0.1434
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 233.16,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1063,
+        "hp": 0.1434
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 264.96,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1063,
+        "hp": 0.1434
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 333.0,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1063,
+        "hp": 0.1434
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 395.16,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1063,
+        "hp": 0.1434
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 457.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1063,
+        "hp": 0.1434
+       },
+       "prix_ttc": {}
+      },
+      "6": {
+       "abonnement_ht": 135.6,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1063,
+        "hp": 0.1434
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 169.68,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1063,
+        "hp": 0.1434
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250619_2025-155_Proposition_TRVE_inf_36_annexe_B.pdf"
+    }
+   },
+   "2026-02-01": {
+    "cre_deliberation": {
+     "date_effet": "2026-02-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:20+00:00"
+     },
+     "option": "hphc",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 209.16,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1007,
+        "hp": 0.1412
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 239.88,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1007,
+        "hp": 0.1412
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 271.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1007,
+        "hp": 0.1412
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 340.2,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1007,
+        "hp": 0.1412
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 402.36,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1007,
+        "hp": 0.1412
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 465.0,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1007,
+        "hp": 0.1412
+       },
+       "prix_ttc": {}
+      },
+      "6": {
+       "abonnement_ht": 141.6,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1007,
+        "hp": 0.1412
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 176.16,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1007,
+        "hp": 0.1412
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf"
+    }
+   },
+   "2026-08-01": {
+    "cre_deliberation": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:23+00:00"
+     },
+     "option": "hphc",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 212.88,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 244.56,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 277.32,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 347.88,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {}
+      },
+      "3": {
+       "abonnement_ht": 110.64,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 411.84,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 476.52,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {}
+      },
+      "6": {
+       "abonnement_ht": 143.28,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 178.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf"
+    },
+    "cre_opendata": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:28+00:00"
+     },
+     "option": "hphc",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 212.88,
+       "abonnement_ttc": 286.86,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "15": {
+       "abonnement_ht": 244.56,
+       "abonnement_ttc": 330.57,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "18": {
+       "abonnement_ht": 277.32,
+       "abonnement_ttc": 375.8,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "24": {
+       "abonnement_ht": 347.88,
+       "abonnement_ttc": 473.16,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "3": {
+       "abonnement_ht": 110.64,
+       "abonnement_ttc": 145.76,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "30": {
+       "abonnement_ht": 411.84,
+       "abonnement_ttc": 561.43,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "36": {
+       "abonnement_ht": 476.52,
+       "abonnement_ttc": 650.69,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "6": {
+       "abonnement_ht": 143.28,
+       "abonnement_ttc": 190.81,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "9": {
+       "abonnement_ht": 178.8,
+       "abonnement_ttc": 239.84,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "hc": 0.1018,
+        "hp": 0.1479
+       },
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      }
+     },
+     "source": "cre_opendata",
+     "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_HPHC.csv"
+    },
+    "edf_grille": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "accise_eur_kwh": 0.03062,
+      "recupere_le": "2026-11-23T08:51:27+00:00"
+     },
+     "option": "hphc",
+     "puissances": {
+      "12": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 23.76,
+       "prix_ht": {},
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "15": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 27.4,
+       "prix_ht": {},
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "18": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 31.14,
+       "prix_ht": {},
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "24": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 39.14,
+       "prix_ht": {},
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "3": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 12.13,
+       "prix_ht": {},
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "30": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 46.47,
+       "prix_ht": {},
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "36": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 53.88,
+       "prix_ht": {},
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "6": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 15.86,
+       "prix_ht": {},
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      },
+      "9": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 19.88,
+       "prix_ht": {},
+       "prix_ttc": {
+        "hc": 0.1589,
+        "hp": 0.2142
+       }
+      }
+     },
+     "source": "edf_grille",
+     "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_Tarif_Bleu.pdf"
+    }
+   }
+  },
+  "tempo": {
+   "2025-08-01": {
+    "cre_deliberation": {
+     "date_effet": "2025-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:26+00:00"
+     },
+     "option": "tempo",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 198.72,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0859,
+        "blanc_hp": 0.1142,
+        "bleu_hc": 0.0727,
+        "bleu_hp": 0.0945,
+        "rouge_hc": 0.0917,
+        "rouge_hp": 0.509
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 228.36,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0859,
+        "blanc_hp": 0.1142,
+        "bleu_hc": 0.0727,
+        "bleu_hp": 0.0945,
+        "rouge_hc": 0.0917,
+        "rouge_hp": 0.509
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 259.44,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0859,
+        "blanc_hp": 0.1142,
+        "bleu_hc": 0.0727,
+        "bleu_hp": 0.0945,
+        "rouge_hc": 0.0917,
+        "rouge_hp": 0.509
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 388.08,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0859,
+        "blanc_hp": 0.1142,
+        "bleu_hc": 0.0727,
+        "bleu_hp": 0.0945,
+        "rouge_hc": 0.0917,
+        "rouge_hp": 0.509
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 388.08,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0859,
+        "blanc_hp": 0.1142,
+        "bleu_hc": 0.0727,
+        "bleu_hp": 0.0945,
+        "rouge_hc": 0.0917,
+        "rouge_hp": 0.509
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 456.0,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0859,
+        "blanc_hp": 0.1142,
+        "bleu_hc": 0.0727,
+        "bleu_hp": 0.0945,
+        "rouge_hc": 0.0917,
+        "rouge_hp": 0.509
+       },
+       "prix_ttc": {}
+      },
+      "6": {
+       "abonnement_ht": 133.2,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0859,
+        "blanc_hp": 0.1142,
+        "bleu_hc": 0.0727,
+        "bleu_hp": 0.0945,
+        "rouge_hc": 0.0917,
+        "rouge_hp": 0.509
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 166.44,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0859,
+        "blanc_hp": 0.1142,
+        "bleu_hc": 0.0727,
+        "bleu_hp": 0.0945,
+        "rouge_hc": 0.0917,
+        "rouge_hp": 0.509
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250619_2025-155_Proposition_TRVE_inf_36_annexe_B.pdf"
+    }
+   },
+   "2026-02-01": {
+    "cre_deliberation": {
+     "date_effet": "2026-02-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:20+00:00"
+     },
+     "option": "tempo",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 206.64,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0941,
+        "blanc_hp": 0.1251,
+        "bleu_hc": 0.0796,
+        "bleu_hp": 0.1035,
+        "rouge_hc": 0.1004,
+        "rouge_hp": 0.5575
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 236.16,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0941,
+        "blanc_hp": 0.1251,
+        "bleu_hc": 0.0796,
+        "bleu_hp": 0.1035,
+        "rouge_hc": 0.1004,
+        "rouge_hp": 0.5575
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 267.24,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0941,
+        "blanc_hp": 0.1251,
+        "bleu_hc": 0.0796,
+        "bleu_hp": 0.1035,
+        "rouge_hc": 0.1004,
+        "rouge_hp": 0.5575
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 396.0,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0941,
+        "blanc_hp": 0.1251,
+        "bleu_hc": 0.0796,
+        "bleu_hp": 0.1035,
+        "rouge_hc": 0.1004,
+        "rouge_hp": 0.5575
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 396.0,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0941,
+        "blanc_hp": 0.1251,
+        "bleu_hc": 0.0796,
+        "bleu_hp": 0.1035,
+        "rouge_hc": 0.1004,
+        "rouge_hp": 0.5575
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 463.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0941,
+        "blanc_hp": 0.1251,
+        "bleu_hc": 0.0796,
+        "bleu_hp": 0.1035,
+        "rouge_hc": 0.1004,
+        "rouge_hp": 0.5575
+       },
+       "prix_ttc": {}
+      },
+      "6": {
+       "abonnement_ht": 141.0,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0941,
+        "blanc_hp": 0.1251,
+        "bleu_hc": 0.0796,
+        "bleu_hp": 0.1035,
+        "rouge_hc": 0.1004,
+        "rouge_hp": 0.5575
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 174.36,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0941,
+        "blanc_hp": 0.1251,
+        "bleu_hc": 0.0796,
+        "bleu_hp": 0.1035,
+        "rouge_hc": 0.1004,
+        "rouge_hp": 0.5575
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf"
+    }
+   },
+   "2026-08-01": {
+    "cre_deliberation": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:23+00:00"
+     },
+     "option": "tempo",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 210.24,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 240.72,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 272.76,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 338.64,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 405.36,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 475.32,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {}
+      },
+      "6": {
+       "abonnement_ht": 142.68,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 177.0,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf"
+    },
+    "cre_opendata": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T08:51:28+00:00"
+     },
+     "option": "tempo",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 210.24,
+       "abonnement_ttc": 283.21,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "15": {
+       "abonnement_ht": 240.72,
+       "abonnement_ttc": 325.28,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "18": {
+       "abonnement_ht": 272.76,
+       "abonnement_ttc": 369.49,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "24": {
+       "abonnement_ht": 338.64,
+       "abonnement_ttc": 460.41,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "30": {
+       "abonnement_ht": 405.36,
+       "abonnement_ttc": 552.48,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "36": {
+       "abonnement_ht": 475.32,
+       "abonnement_ttc": 649.02,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "6": {
+       "abonnement_ht": 142.68,
+       "abonnement_ttc": 189.98,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "9": {
+       "abonnement_ht": 177.0,
+       "abonnement_ttc": 237.34,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0974,
+        "blanc_hp": 0.1295,
+        "bleu_hc": 0.0824,
+        "bleu_hp": 0.1072,
+        "rouge_hc": 0.104,
+        "rouge_hp": 0.5773
+       },
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      }
+     },
+     "source": "cre_opendata",
+     "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Tempo.csv"
+    },
+    "edf_grille": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "accise_eur_kwh": 0.03062,
+      "recupere_le": "2026-11-23T08:51:27+00:00"
+     },
+     "option": "tempo",
+     "puissances": {
+      "12": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 23.5,
+       "prix_ht": {},
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "15": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 27.01,
+       "prix_ht": {},
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "18": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 30.69,
+       "prix_ht": {},
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "24": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 38.21,
+       "prix_ht": {},
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "30": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 45.82,
+       "prix_ht": {},
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "36": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 53.76,
+       "prix_ht": {},
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "6": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 15.8,
+       "prix_ht": {},
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      },
+      "9": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 19.7,
+       "prix_ht": {},
+       "prix_ttc": {
+        "blanc_hc": 0.1536,
+        "blanc_hp": 0.1921,
+        "bleu_hc": 0.1356,
+        "bleu_hp": 0.1654,
+        "rouge_hc": 0.1615,
+        "rouge_hp": 0.7295
+       }
+      }
+     },
+     "source": "edf_grille",
+     "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_Tarif_Bleu.pdf"
+    }
+   }
+  }
+ },
+ "jorf": {
+  "textes": []
+ },
+ "schema_version": 1
+}
