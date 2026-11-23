@@ -19,9 +19,11 @@
     "ejp": {
       "publication": "ok",
       "problemes": [],
-      "remarques": []
+      "remarques": [
+        "ejp 2026-02-01: variation > 40% vs grille du 2025-08-01 : 9 kVA prix_ht.pointe: 0.8756 → 0.2558 (-71%); 12 kVA prix_ht.pointe: 0.8756 → 0.2558 (-71%); 15 kVA prix_ht.pointe: 0.8756 → 0.2558 (-71%); 18 kVA prix_ht.pointe: 0.8756 → 0.2558 (-71%); 36 kVA prix_ht.pointe: 0.8756 → 0.2558 (-71%) (validée à la main dans config/validations.json)"
+      ]
     }
   },
   "jorf_textes_signales": [],
-  "mis_a_jour_le": "2026-11-23T10:05:33+00:00"
+  "mis_a_jour_le": "2026-11-23T11:01:49+00:00"
 }

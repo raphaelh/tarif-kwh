@@ -3,7 +3,7 @@ import copy
 import io
 import json
 import tarfile
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 import pytest
 from conftest import ANNEXES, CSV, EDF
@@ -292,3 +292,84 @@ def test_jorf_anciens_textes_ignores():
     a = _archive(["LOI n° 2026-1290 du 30 décembre 2026 de finances pour 2027"])  # publié le 2026-07-31
     assert jorf.textes_pertinents(a, date(2026, 7, 20))
     assert jorf.textes_pertinents(a, date(2026, 8, 5)) == []
+
+
+# --- historique.json -------------------------------------------------------------
+
+def historique_opendata():
+    return {o: {"url": p.name, "grilles": cre_opendata.parse_historique(p.read_bytes(), o)} for o, p in CSV.items()}
+
+
+def test_historique_depuis_2012(tmp_path, cfg):
+    publish.publier(tmp_path, registre_avec(), cfg, date(2026, 11, 23), [], T0, historique_opendata())
+    h = lire(tmp_path, "historique.json")["options"]
+    base = h["base"]["grilles"]
+    assert base[0]["date_debut"] == "2012-07-23" and base[0]["date_fin"] == "2013-07-31"
+    assert base[0]["puissances"]["6"]["prix_ttc"] == {"base": 0.1263}
+    assert base[-1]["date_debut"] == "2026-08-01" and base[-1]["date_fin"] is None
+    # périodes contiguës, sans trou ni chevauchement
+    for o in ("base", "hphc", "tempo"):
+        g = h[o]["grilles"]
+        for a, b in zip(g, g[1:]):
+            assert date.fromisoformat(a["date_fin"]) + timedelta(days=1) == date.fromisoformat(b["date_debut"])
+    tempo = h["tempo"]["grilles"]
+    assert tempo[0]["date_debut"] == "2016-08-01" and "6" not in tempo[0]["puissances"]  # pas de 6 kVA en 2016
+    assert tempo[-1]["prix_ttc"]["rouge_hp"] == 0.7295 and tempo[-1]["statut"] == "confirme"
+    # EJP absent de l'open data : seulement les grilles recoupées du registre
+    assert [g["date_debut"] for g in h["ejp"]["grilles"]] == ["2026-02-01", "2026-08-01"]
+    assert h["ejp"]["grilles"][0]["date_fin"] == "2026-07-31"
+
+
+def test_historique_complete_l_open_data_en_retard(tmp_path, cfg):
+    """Nouvelle grille en vigueur, pas encore dans l'open data : elle clôt la dernière grille CRE."""
+    od = historique_opendata()
+    for o in od:  # open data « d'avant » : la grille du 1er août n'y est pas encore
+        od[o]["grilles"] = od[o]["grilles"][:-1]
+        od[o]["grilles"][-1]["date_fin"] = None
+    r = registre_avec(opendata=False)
+    publish.publier(tmp_path, r, cfg, date(2026, 8, 10), [], T0, od)
+    g = lire(tmp_path, "historique.json")["options"]["tempo"]["grilles"]
+    assert g[-2]["date_debut"] == "2026-02-01" and g[-2]["date_fin"] == "2026-07-31"
+    assert g[-2]["sources"] == [{"type": "cre_opendata", "url": CSV["tempo"].name}]
+    assert g[-1]["date_debut"] == "2026-08-01" and g[-1]["date_fin"] is None
+    assert g[-1]["statut"] == "en_vigueur" and "abonnement_ttc_mensuel" not in g[-1]["puissances"]["6"]
+
+
+def test_historique_conserve_sans_telechargement(tmp_path, cfg):
+    r = registre_avec()
+    publish.publier(tmp_path, r, cfg, date(2026, 11, 23), [], T0, historique_opendata())
+    avant = lire(tmp_path, "historique.json")
+    publish.publier(tmp_path, r, cfg, date(2026, 11, 24), [], datetime(2026, 11, 24, tzinfo=timezone.utc))
+    assert lire(tmp_path, "historique.json") == avant  # même contenu, même horodatage
+
+
+def test_historique_chevauchement_refuse():
+    contenu = CSV["base"].read_bytes().replace(b"01/08/2013;31/10/2014", b"01/07/2013;31/10/2014")
+    with pytest.raises(cre_opendata.ParseError):
+        cre_opendata.parse_historique(contenu, "base")
+
+
+def test_historique_grille_rejetee_laisse_un_trou(tmp_path, cfg):
+    """Une grille rejetée (variation forte, source unique) ne prolonge pas la précédente."""
+    r = registre_avec(edf=False, opendata=False)
+    fevrier = r["grilles"]["ejp"]["2026-02-01"]["cre_deliberation"]
+    for p in fevrier["puissances"].values():
+        p["prix_ht"]["pointe"] *= 3  # la grille d'août varie alors de -67 % : rejetée
+    publish.publier(tmp_path, r, cfg, date(2026, 11, 23), [], T0, historique_opendata())
+    g = lire(tmp_path, "historique.json")["options"]["ejp"]["grilles"]
+    assert [(x["date_debut"], x["date_fin"]) for x in g] == [("2026-02-01", "2026-07-31")]
+
+
+def test_restructuration_ejp_fevrier_2026_validee(tmp_path, cfg):
+    """Pointe EJP -71 % au 01/02/2026 (vraie refonte CRE) : validée dans config/validations.json."""
+    r = registre_avec(delibs=("2025-08-01", "2026-02-01", "2026-08-01"), edf=False, opendata=False)
+    ok, pb, _ = publish.grilles_validees("ejp", r, cfg, date(2026, 11, 23), [], set())
+    assert "2026-02-01" in pb  # sans validation : rejetée
+    ok, pb, rem = publish.grilles_validees("ejp", r, cfg, date(2026, 11, 23), [])  # validations du dépôt
+    assert not pb and list(ok) == ["2025-08-01", "2026-02-01", "2026-08-01"]
+    assert any("validée à la main" in x for x in rem)
+    assert ok["2026-02-01"]["prix_ht"] == {"normal": 0.1176, "pointe": 0.2558}
+    publish.publier(tmp_path, r, cfg, date(2026, 11, 23), [], T0, historique_opendata())
+    g = lire(tmp_path, "historique.json")["options"]["ejp"]["grilles"]
+    assert [(x["date_debut"], x["date_fin"]) for x in g] == [
+        ("2025-08-01", "2026-01-31"), ("2026-02-01", "2026-07-31"), ("2026-08-01", None)]

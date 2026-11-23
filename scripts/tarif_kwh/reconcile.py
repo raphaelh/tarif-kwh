@@ -220,12 +220,14 @@ def recouper(
     return grille, []
 
 
-def verifier_variation(grille: dict, precedente: dict | None, nb_sources: int) -> tuple[list[str], list[str]]:
+def verifier_variation(grille: dict, precedente: dict | None, nb_sources: int, validee: bool = False) -> tuple[list[str], list[str]]:
     """(bloquants, remarques) selon la variation vs grille précédente."""
     ecarts = checks.variations(grille, precedente)
     if not ecarts:
         return [], []
     msg = f"{grille['option']} {grille['date_effet']}: variation > {checks.VARIATION_MAX:.0%} vs grille du {precedente['date_effet']} : " + "; ".join(ecarts[:6])
+    if validee:
+        return [], [msg + " (validée à la main dans config/validations.json)"]
     if nb_sources > 1:
         return [], [msg + " (confirmée par plusieurs sources)"]
     return [msg + " — en attente d'une seconde source"], []

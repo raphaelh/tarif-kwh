@@ -22,9 +22,42 @@ Le JSON se lit avec n'importe quel outil : Home Assistant, Jeedom, Domoticz, tab
 | Heures Creuses | https://raphaelh.github.io/tarif-kwh/hphc.json | …/docs/hphc.json |
 | Tempo | https://raphaelh.github.io/tarif-kwh/tempo.json | …/docs/tempo.json |
 | EJP | https://raphaelh.github.io/tarif-kwh/ejp.json | …/docs/ejp.json |
+| Historique depuis 2012 | https://raphaelh.github.io/tarif-kwh/historique.json | …/docs/historique.json |
 | État des contrôles | https://raphaelh.github.io/tarif-kwh/etat.json | …/docs/etat.json |
 
-L'historique de chaque grille est l'historique git de ces fichiers.
+### Historique (`historique.json`)
+
+Toutes les grilles entrées en vigueur, de la plus ancienne à l'actuelle : **depuis le 23/07/2012** pour Base et HP/HC,
+**depuis 2016** pour Tempo (open data CRE, statut `confirme`, HT et TTC officiels). Utile pour recalculer une facture
+passée ou tracer l'évolution des prix.
+
+```json
+{
+  "options": {
+    "tempo": {
+      "periodes": ["bleu_hc", "…"],
+      "grilles": [
+        {"date_debut": "2016-08-01", "date_fin": "2017-07-31", "statut": "confirme", "ttc_estime": false,
+         "prix_ttc": {"bleu_hc": 0.1075, "…": 0}, "puissances": {"9": {"abonnement_ht": 92.04, "abonnement_ttc": 116.24, "prix_ht": {}, "prix_ttc": {}}},
+         "sources": [{"type": "cre_opendata", "url": "…"}]},
+        {"date_debut": "2026-08-01", "date_fin": null, "…": "…"}
+      ]
+    }
+  }
+}
+```
+
+- `date_fin` est le **dernier jour d'application (inclus)** ; `null` pour la grille en vigueur. Pour un jour `J`, prenez la
+  grille telle que `date_debut <= J` et (`date_fin` nul ou `J <= date_fin`).
+- Le TTC est celui **publié par la CRE avec les taxes de l'époque** (CSPE, TCFE, CTA, TVA à 5,5 % sur l'abonnement avant
+  août 2025…). Une puissance absente n'était pas proposée à cette date (ex. Tempo 6 kVA avant février 2023 dans ces données).
+- L'open data CRE paraît ≈ 4 semaines après la date d'effet : en attendant, la grille la plus récente vient des autres
+  sources (même `statut` que dans `tempo.json`…).
+- **EJP** n'est pas dans l'open data CRE : son historique ne commence qu'avec les délibérations lues par le collecteur.
+  Une grille rejetée par les contrôles laisse un **trou** plutôt que de prolonger à tort la précédente.
+- Pas de `prochaine` ici : elle est dans les fichiers par option.
+
+L'historique de chaque fichier est aussi celui de git.
 
 ### Format (extrait de `tempo.json`)
 
@@ -80,7 +113,8 @@ de [`scripts/tarif_kwh/sources/`](scripts/tarif_kwh/sources), par ordre d'arriv�
    contourne pas ce filtrage, on lit seulement la **dernière capture déjà faite par la Wayback Machine** (web.archive.org,
    copie brute identique au PDF d'EDF). Elle apporte le TTC officiel et l'accise appliquée, souvent dès le jour d'effet ;
    si aucune capture n'est disponible, rien n'est bloqué.
-3. **Open data CRE** (`Option_Base.csv`, `Option_HPHC.csv`, `Option_Tempo.csv`) : lignes sans `DATE_FIN`.
+3. **Open data CRE** (`Option_Base.csv`, `Option_HPHC.csv`, `Option_Tempo.csv`) : lignes sans `DATE_FIN` pour la grille en
+   cours ; toutes les lignes pour `historique.json`.
 4. **Journal officiel** (flux ouvert DILA) : tout texte dont le titre parle de TRVE ou d'accise sur l'électricité ouvre une issue.
 
 Chaque source produit le même schéma commun (`scripts/tarif_kwh/schema.py`), puis `reconcile.py` recoupe :

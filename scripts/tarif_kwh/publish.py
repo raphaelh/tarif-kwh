@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import json
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from . import reconcile
@@ -32,8 +32,8 @@ def charger_validations(path: Path = VALIDATIONS) -> set[tuple[str, str]]:
     return {(v["option"], v["date_effet"]) for v in json.loads(path.read_text(encoding="utf-8"))["validations"]}
 
 
-def evaluer_option(option: str, registre: dict, config_taxes: dict, aujourd_hui: date, alertes_jorf: list[dict], validations: set | None = None):
-    """Renvoie (bloc publié ou None si bloqué, problèmes, remarques)."""
+def grilles_validees(option: str, registre: dict, config_taxes: dict, aujourd_hui: date, alertes_jorf: list[dict], validations: set | None = None):
+    """Recoupe toutes les grilles du registre : (grilles sans problème par date, problèmes par date, remarques)."""
     validations = charger_validations() if validations is None else validations
     dates = sorted(registre.get("grilles", {}).get(option, {}))
     ok: dict[str, dict] = {}
@@ -44,8 +44,7 @@ def evaluer_option(option: str, registre: dict, config_taxes: dict, aujourd_hui:
         obs = {s: reconcile.grille_from_dict(v) for s, v in registre["grilles"][option][d].items()}
         g, pb = reconcile.recouper(option, date.fromisoformat(d), obs, registre, config_taxes, aujourd_hui, alertes_jorf)
         if g:
-            nb = len(obs) + (1 if (option, d) in validations else 0)
-            bloq, rem = reconcile.verifier_variation(g, precedente, nb)
+            bloq, rem = reconcile.verifier_variation(g, precedente, len(obs), (option, d) in validations)
             pb += bloq
             remarques += rem
         if g:
@@ -54,6 +53,12 @@ def evaluer_option(option: str, registre: dict, config_taxes: dict, aujourd_hui:
             problemes[d] = pb
         else:
             ok[d] = g
+    return ok, problemes, remarques
+
+
+def evaluer_option(option: str, registre: dict, config_taxes: dict, aujourd_hui: date, alertes_jorf: list[dict], validations: set | None = None):
+    """Renvoie (bloc publié ou None si bloqué, problèmes, remarques)."""
+    ok, problemes, remarques = grilles_validees(option, registre, config_taxes, aujourd_hui, alertes_jorf, validations)
 
     passees = [d for d in ok if d <= aujourd_hui.isoformat()]
     futures = [d for d in ok if d > aujourd_hui.isoformat()]
@@ -84,6 +89,78 @@ def evaluer_option(option: str, registre: dict, config_taxes: dict, aujourd_hui:
     return bloc, [], remarques
 
 
+def _prix_communs(grille: dict) -> dict:
+    """Remonte prix_ht / prix_ttc au niveau de la grille s'ils sont identiques pour toutes les puissances."""
+    for champ in ("prix_ht", "prix_ttc"):
+        valeurs = [p[champ] for p in grille["puissances"].values()]
+        if valeurs and all(v == valeurs[0] for v in valeurs):
+            grille[champ] = valeurs[0]
+    return grille
+
+
+def construire_historique(
+    opendata: dict | None,
+    ancien: dict | None,
+    validees: dict[str, dict[str, dict]],
+    aujourd_hui: date,
+    dates_connues: dict[str, set[str]] | None = None,
+) -> dict:
+    """Toutes les grilles entrées en vigueur, par option, de la plus ancienne à l'actuelle.
+
+    - ``opendata`` : ``{option: {"url", "grilles"}}`` lu dans l'open data CRE ce passage
+      (None si non téléchargé : on reprend alors la partie open data de ``ancien``).
+    - ``validees`` : grilles recoupées du registre, qui complètent l'open data (publié
+      ≈ 4 semaines après la date d'effet ; pas d'EJP).
+    - ``dates_connues`` : toutes les dates d'effet du registre, même celles dont la grille
+      est rejetée : une grille rejetée clôt quand même la précédente (on laisse un trou
+      plutôt que de prolonger à tort l'ancienne grille).
+    """
+    options: dict[str, dict] = {}
+    for option, opt in OPTIONS.items():
+        if opendata and option in opendata:
+            url = opendata[option]["url"]
+            od = [
+                _prix_communs({**g, "statut": "confirme", "ttc_estime": False, "sources": [{"type": "cre_opendata", "url": url}]})
+                for g in opendata[option]["grilles"]
+            ]
+        else:
+            precedent = ((ancien or {}).get("options") or {}).get(option, {}).get("grilles", [])
+            od = [g for g in precedent if [s["type"] for s in g.get("sources", [])] == ["cre_opendata"]]
+        dernier = od[-1]["date_debut"] if od else ""
+        suite = [
+            _prix_communs({
+                "date_debut": d,
+                "date_fin": None,
+                "statut": g["statut"],
+                "ttc_estime": g["ttc_estime"],
+                "sources": [{"type": s["type"], "url": s["url"]} for s in g["sources"]],
+                "puissances": {
+                    k: {c: v for c, v in p.items() if c != "abonnement_ttc_mensuel"}
+                    for k, p in g["puissances"].items()
+                },
+            })
+            for d, g in sorted(validees.get(option, {}).items())
+            if dernier < d <= aujourd_hui.isoformat()
+        ]
+        grilles = [dict(g) for g in od + suite]
+        debuts = sorted({g["date_debut"] for g in grilles} | {
+            d for d in (dates_connues or {}).get(option, ()) if dernier < d <= aujourd_hui.isoformat()
+        })
+        for g in grilles:  # la date d'effet suivante clôt la grille
+            suivante = next((d for d in debuts if d > g["date_debut"]), None)
+            if suivante and (g["date_fin"] is None or g["date_fin"] >= suivante):
+                g["date_fin"] = (date.fromisoformat(suivante) - timedelta(days=1)).isoformat()
+        options[option] = {"libelle": opt.libelle, "periodes": list(opt.periodes), "grilles": grilles}
+    return {
+        "unites": {"prix": "EUR/kWh", "abonnement_ht": "EUR/an", "abonnement_ttc": "EUR/an"},
+        "note": "date_fin = dernier jour d'application (inclus), null pour la grille en vigueur. "
+        "TTC tel que publié par la CRE avec les taxes de l'époque (CSPE, TCFE, CTA, TVA), "
+        "ou calculé si ttc_estime vaut true. Une période sans grille est une grille non publiée "
+        "(rejetée par les contrôles). Pas d'historique EJP dans l'open data CRE.",
+        "options": options,
+    }
+
+
 def _stable_write(path: Path, data: dict, horodatage: str) -> bool:
     """Écrit le fichier si le contenu (hors horodatage) a changé. Renvoie True si écrit."""
     ancien = None
@@ -111,8 +188,9 @@ def publier(
     aujourd_hui: date,
     alertes_jorf: list[dict],
     maintenant: datetime | None = None,
+    historique_opendata: dict | None = None,
 ) -> dict:
-    """Écrit docs/<option>.json, docs/tarifs.json et docs/etat.json.
+    """Écrit docs/<option>.json, docs/tarifs.json, docs/historique.json et docs/etat.json.
 
     Une option bloquée garde son fichier précédent (rien de nouveau n'est publié).
     Renvoie l'état : {option: {"publication", "problemes", "remarques"}}.
@@ -140,6 +218,24 @@ def publier(
     _stable_write(
         docs / "tarifs.json",
         {"schema_version": SCHEMA_VERSION, "avertissement": AVERTISSEMENT, "options": blocs},
+        horodatage,
+    )
+    f_hist = docs / "historique.json"
+    try:
+        ancien_hist = json.loads(f_hist.read_text(encoding="utf-8")) if f_hist.exists() else None
+    except json.JSONDecodeError:
+        ancien_hist = None
+    validees = {o: grilles_validees(o, registre, config_taxes, aujourd_hui, alertes_jorf)[0] for o in OPTIONS}
+    _stable_write(
+        f_hist,
+        {
+            "schema_version": SCHEMA_VERSION,
+            "avertissement": AVERTISSEMENT,
+            **construire_historique(
+                historique_opendata, ancien_hist, validees, aujourd_hui,
+                {o: set(registre.get("grilles", {}).get(o, {})) for o in OPTIONS},
+            ),
+        },
         horodatage,
     )
     _stable_write(

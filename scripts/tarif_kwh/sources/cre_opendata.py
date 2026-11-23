@@ -80,9 +80,48 @@ def parse_csv(contenu: bytes, option: str, url: str = "") -> GrilleSource:
     return g
 
 
-def collecter() -> dict[str, GrilleSource]:
+def parse_historique(contenu: bytes, option: str) -> list[dict]:
+    """Toutes les grilles du CSV (depuis 2012), de la plus ancienne à la plus récente.
+
+    Chaque grille : ``{"date_debut", "date_fin" (dernier jour inclus, ou None pour
+    la grille en cours), "puissances": {"<kVA>": {...}}}``. Une puissance sans
+    valeur (ex. Tempo 6 kVA avant son ouverture) est omise.
+    """
+    texte = contenu.decode("utf-8-sig", "replace")
+    grilles: dict[tuple, dict] = {}
+    for l in csv.DictReader(io.StringIO(texte), delimiter=";"):
+        valeurs = [l.get(c, "").strip() for c in ("PART_FIXE_HT", "PART_FIXE_TTC")]
+        valeurs += [l.get(c, "").strip() for cols in COLONNES[option].values() for c in cols]
+        if not all(valeurs):
+            continue
+        fin = (l.get("DATE_FIN") or "").strip()
+        cle = (parse_date(l["DATE_DEBUT"]), parse_date(fin) if fin else None)
+        g = grilles.setdefault(cle, {"date_debut": cle[0].isoformat(), "date_fin": cle[1] and cle[1].isoformat(), "puissances": {}})
+        g["puissances"][str(int(l["P_SOUSCRITE"]))] = {
+            "abonnement_ht": round(parse_nombre_fr(l["PART_FIXE_HT"]), 2),
+            "abonnement_ttc": round(parse_nombre_fr(l["PART_FIXE_TTC"]), 2),
+            "prix_ht": {per: round(parse_nombre_fr(l[ht]), 6) for per, (ht, _) in COLONNES[option].items()},
+            "prix_ttc": {per: round(parse_nombre_fr(l[ttc]), 6) for per, (_, ttc) in COLONNES[option].items()},
+        }
+    out = [grilles[k] for k in sorted(grilles)]
+    for g in out:
+        g["puissances"] = dict(sorted(g["puissances"].items(), key=lambda kv: int(kv[0])))
+    debuts = [g["date_debut"] for g in out]
+    if len(set(debuts)) != len(debuts):
+        raise ParseError(f"{option}: plusieurs grilles commencent à la même date")
+    for a, b in zip(out, out[1:]):
+        if a["date_fin"] is None or a["date_fin"] >= b["date_debut"]:
+            raise ParseError(f"{option}: grilles qui se chevauchent ({a['date_debut']} / {b['date_debut']})")
+    return out
+
+
+def collecter(historique: dict | None = None) -> dict[str, GrilleSource]:
+    """Grilles en cours ; si ``historique`` est fourni, y range aussi toutes les grilles par option."""
     out = {}
     for option, fichier in FICHIERS.items():
         url = BASE + fichier
-        out[option] = parse_csv(http.get(url), option, url)
+        contenu = http.get(url)
+        out[option] = parse_csv(contenu, option, url)
+        if historique is not None:
+            historique[option] = {"url": url, "grilles": parse_historique(contenu, option)}
     return out

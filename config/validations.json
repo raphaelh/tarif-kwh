@@ -1,4 +1,12 @@
 {
   "_commentaire": "Grilles dont une forte variation (> 40 %) a été vérifiée à la main. Une grille n'ayant qu'une source (ex. EJP) et variant fortement n'est publiée qu'après ajout ici. Indiquer le motif et la source consultée.",
-  "validations": []
+  "validations": [
+    {
+      "option": "ejp",
+      "date_effet": "2026-02-01",
+      "motif": "Restructuration de l'option EJP par la CRE : pointe mobile 87,56 -> 25,58 c€/kWh HT (-71 %), heures normales 8,82 -> 11,76 c€/kWh HT (+33 %). Même mouvement sur l'EJP non résidentiel (84,24 -> 25,12). Lecture du PDF vérifiée.",
+      "source": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf",
+      "valide_le": "2026-11-23"
+    }
+  ]
 }

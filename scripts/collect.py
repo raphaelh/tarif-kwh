@@ -73,7 +73,7 @@ def etape(nom: str, erreurs: list[tuple[str, str]], fn, *args):
         return None
 
 
-def collecter(registre: dict, forcer: list[str], erreurs: list) -> None:
+def collecter(registre: dict, forcer: list[str], erreurs: list, historique: dict) -> None:
     traitees = registre.setdefault("annexes_traitees", {})
     # 1. Délibérations CRE (annexe B) : connues + découvertes + forcées
     connues = charger(SOURCES, {}).get("annexes_b_connues", [])
@@ -108,7 +108,7 @@ def collecter(registre: dict, forcer: list[str], erreurs: list) -> None:
             registre.setdefault("accise_observee", {})[g.date_effet.isoformat()] = g.meta["accise_eur_kwh"]
 
     # 3. Open data CRE
-    grilles = etape("Open data CRE", erreurs, cre_opendata.collecter)
+    grilles = etape("Open data CRE", erreurs, cre_opendata.collecter, historique)
     for g in (grilles or {}).values():
         enregistrer_obs(registre, g)
 
@@ -145,12 +145,14 @@ def main() -> int:
 
     registre = charger(REGISTRE, {"schema_version": 1})
     erreurs: list[tuple[str, str]] = []
+    historique: dict = {}  # open data CRE complet, pour docs/historique.json
     if not args.hors_ligne:
-        collecter(registre, args.annexe, erreurs)
+        collecter(registre, args.annexe, erreurs, historique)
 
     aujourd_hui = date.fromisoformat(args.date) if args.date else date.today()
     etat = publish.publier(
-        DOCS, registre, taxes.charger_config(), aujourd_hui, registre.get("jorf", {}).get("textes", [])
+        DOCS, registre, taxes.charger_config(), aujourd_hui, registre.get("jorf", {}).get("textes", []),
+        historique_opendata=historique or None,
     )
     REGISTRE.parent.mkdir(exist_ok=True)
     REGISTRE.write_text(json.dumps(registre, ensure_ascii=False, indent=1, sort_keys=True) + "\n", encoding="utf-8")
