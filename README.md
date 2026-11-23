@@ -99,18 +99,24 @@ passée ou tracer l'évolution des prix.
   grille telle que `date_debut <= J` et (`date_fin` nul ou `J <= date_fin`).
 - Le TTC est celui **publié par la CRE avec les taxes de l'époque** (CSPE, TCFE, CTA, TVA à 5,5 % sur l'abonnement avant
   août 2025…). Une puissance absente n'était pas proposée à cette date (ex. Tempo 6 kVA avant février 2023 dans ces données).
+- **Tempo, 2022 (février et août)** : l'open data CRE applique 10,9 €/MWh de taxes au kWh, contre 7,6 €/MWh pour
+  Base et HP/HC. Les grilles Tarif Bleu EDF archivées de ces deux dates tranchent pour 7,63 €/MWh (TCFE 0,6630 + CSPE
+  0,10 c€/kWh) : le TTC au kWh Tempo publié ici est recalculé (HT CRE + 7,63 €/MWh + TVA), égal au centime aux grilles
+  EDF, avec `ttc_estime: true`, `statut: en_vigueur` et `correction_ttc` (motif, sources). L'abonnement reste celui de
+  l'open data. Ces corrections sont listées dans [`config/corrections_opendata.json`](config/corrections_opendata.json).
 - L'open data CRE paraît ≈ 4 semaines après la date d'effet : en attendant, la grille la plus récente vient des autres
   sources (même `statut` que dans `tempo.json`…).
 - **EJP** n'est pas dans l'open data CRE : son historique commence au **1er août 2013**. Le HT vient de la
   délibération CRE et du jeu Jour Tempo (qui cite l'arrêté du JORF ou la délibération CRE appliquée), le TTC de la
   grille EDF EJP archivée sur web.archive.org. Sans grille EDF, le TTC est calculé (`ttc_estime: true`) :
   - depuis février 2023 (août 2023, février 2026) : accise nationale et abonnement par la CTA calculée (voir plus bas) ;
-  - **d'août 2013 à janvier 2022** : le TTC comprenait des taxes locales (TCFE). On reprend les taxes au kWh
+  - **d'août 2013 à janvier 2023** : le TTC comprenait des taxes locales (TCFE). On reprend les taxes au kWh
     (CSPE + TCFE) que la CRE a appliquées à Base, HP/HC et Tempo à la même date (open data, TVA 19,6 % avant 2014) :
     le **TTC au kWh** est donc celui de ses hypothèses, à 0,0003 €/kWh près (écart entre options). L'**abonnement TTC
     vaut `null`** (CTA non calculée). La méthode redonne au centime les TTC au kWh des grilles EDF de 2023 à 2026 ;
-  - **2022 n'est pas publié** : l'open data CRE y applique 7,6 €/MWh de taxes à Base et HP/HC, 10,9 €/MWh à Tempo,
-    sans qu'on sache lequel vaut pour l'EJP.
+  - **2022** : 7,63 €/MWh, une fois Tempo corrigé (voir plus haut). **Février à juillet 2022 reste un trou** : la
+    pointe mobile y passe de 27,93 à 77,72 c€/kWh HT (+178 %), une variation qui doit être vérifiée dans le barème de
+    l'arrêté du 28 janvier 2022 avant d'être ajoutée à `config/validations.json`.
 
   Comme pour les autres options avant 2023, une grille garde le TTC de sa date d'effet jusqu'au mouvement suivant, même
   quand une taxe change au 1er janvier (CSPE, TVA 19,6 → 20 % en 2014).

@@ -91,26 +91,44 @@ def test_recoupement_jourtempo_seul_2023(jt):
 
 # --- Avant 2023 : taxes au kWh de l'open data CRE ------------------------------------------
 
-@pytest.fixture(scope="module")
-def taxes_od():
+def _hist_opendata(corrige: bool) -> dict:
     from conftest import CSV
 
     from tarif_kwh.sources import cre_opendata
 
     hist = {o: {"url": "u", "grilles": cre_opendata.parse_historique(p.read_bytes(), o)} for o, p in CSV.items()}
-    return reconcile.taxes_kwh_opendata(hist, CONFIG)
+    if corrige:  # comme collect.py
+        cre_opendata.corriger(hist, cre_opendata.charger_corrections(), CONFIG)
+    return hist
 
 
-def test_taxes_kwh_opendata(taxes_od):
-    """CSPE + TCFE de la CRE par date : cohérentes entre options de 2013 à 2021, pas en 2022."""
+@pytest.fixture(scope="module")
+def taxes_od():
+    """Taxes au kWh de l'open data, Tempo 2022 corrigé (config/corrections_opendata.json)."""
+    return reconcile.taxes_kwh_opendata(_hist_opendata(True), CONFIG)
+
+
+@pytest.fixture(scope="module")
+def taxes_od_brut():
+    """Taxes au kWh de l'open data telle que publiée par la CRE (Tempo 2022 faux)."""
+    return reconcile.taxes_kwh_opendata(_hist_opendata(False), CONFIG)
+
+
+def test_taxes_kwh_opendata(taxes_od, taxes_od_brut):
+    """CSPE + TCFE de la CRE par date : cohérentes entre options de 2013 à 2022, une fois Tempo 2022 corrigé."""
     assert max(taxes_od) < "2023-02-01"
     assert taxes_od["2013-08-01"]["valeur"] == 0.02278  # TVA 19,6 % avant 2014
     assert taxes_od["2021-08-01"]["valeur"] == 0.03245
     for d, t in taxes_od.items():
-        assert (t["ecart"] > reconcile.TOL_TAXES_OPTIONS) == d.startswith("2022"), d
-    # 2022 : Base et HP/HC à 7,6 €/MWh, Tempo à 10,9 €/MWh
-    assert taxes_od["2022-02-01"]["options"]["base"] == 0.0076
-    assert taxes_od["2022-02-01"]["options"]["tempo"] == 0.01093
+        assert t["ecart"] <= reconcile.TOL_TAXES_OPTIONS, d
+        assert (taxes_od_brut[d]["ecart"] > reconcile.TOL_TAXES_OPTIONS) == d.startswith("2022"), d
+    # Open data brute, 2022 : Base et HP/HC à 7,6 €/MWh, Tempo à 10,9 €/MWh
+    assert taxes_od_brut["2022-02-01"]["options"]["base"] == 0.0076
+    assert taxes_od_brut["2022-02-01"]["options"]["tempo"] == 0.01093
+    # Corrigée d'après les grilles EDF 2022 : 7,6 €/MWh partout
+    for d in ("2022-02-01", "2022-08-01"):
+        assert taxes_od[d]["valeur"] == 0.00763  # = TCFE 0,6630 + CSPE 0,10 c€ des grilles EDF 2022
+        assert all(abs(v - 0.0076) <= 0.0001 for v in taxes_od[d]["options"].values()), taxes_od[d]  # arrondi
 
 
 def test_recoupement_avant_2023(jt, taxes_od):
@@ -128,17 +146,21 @@ def test_recoupement_avant_2023(jt, taxes_od):
     assert g["prix_ttc"] == {"normal": taxes.kwh_ttc(0.0673, 0.02278, 0.196), "pointe": taxes.kwh_ttc(0.4313, 0.02278, 0.196)}
 
 
-def test_recoupement_avant_2023_rejete(jt, taxes_od):
-    """2022 (taxes incohérentes entre options) et date sans open data : grille rejetée, pas de TTC inventé."""
+def test_recoupement_avant_2023_rejete(jt, taxes_od_brut):
+    """Taxes incohérentes entre options (2022 sans correction) et date sans open data : grille rejetée."""
     obs = {"jourtempo": jt[("ejp", date(2022, 2, 1))]}
-    g, pb = reconcile.recouper("ejp", date(2022, 2, 1), obs, {"taxes_kwh_opendata": taxes_od}, CONFIG, date(2026, 11, 23))
+    g, pb = reconcile.recouper("ejp", date(2022, 2, 1), obs, {"taxes_kwh_opendata": taxes_od_brut}, CONFIG, date(2026, 11, 23))
     assert g is None and "incohérentes" in pb[0]
     g, pb = reconcile.recouper("ejp", date(2022, 2, 1), obs, {}, CONFIG, date(2026, 11, 23))
     assert g is None and "aucune grille open data" in pb[0]
 
 
-def test_historique_trou_2022(jt, taxes_od):
-    """2022 rejeté : août 2021 se termine le 31 janvier 2022, rien jusqu'à février 2023."""
+def test_historique_2022(jt, taxes_od):
+    """Tempo 2022 corrigé : les taxes de l'EJP 2022 sont connues (7,63 €/MWh).
+
+    Février 2022 reste bloqué par le contrôle de variation (pointe 27,93 -> 77,72 c€ HT, +178 %)
+    tant qu'il n'est pas validé dans config/validations.json ; une fois validé, plus de trou.
+    """
     dates = [date(2021, 8, 1), date(2022, 2, 1), date(2022, 8, 1), date(2023, 2, 1)]
     r = {
         "taxes_kwh_opendata": taxes_od,
@@ -147,11 +169,17 @@ def test_historique_trou_2022(jt, taxes_od):
     g23 = edf_grille.parse_grille_ejp(EDF_EJP_2023.read_bytes())["ejp"]
     r["grilles"]["ejp"]["2023-02-01"]["edf_grille"] = grille_to_dict(g23)
     ok, pb, _ = publish.grilles_validees("ejp", r, CONFIG, date(2026, 11, 23), [], set())
-    assert sorted(ok) == ["2021-08-01", "2023-02-01"] and sorted(pb) == ["2022-02-01", "2022-08-01"]
+    assert sorted(pb) == ["2022-02-01"] and "variation > 40%" in pb["2022-02-01"][0]
+    ok, pb, _ = publish.grilles_validees("ejp", r, CONFIG, date(2026, 11, 23), [], {("ejp", "2022-02-01")})
+    assert sorted(ok) == [d.isoformat() for d in dates] and pb == {}
+    for d in ("2022-02-01", "2022-08-01"):
+        g = ok[d]
+        assert g["ttc_estime"] is True and "open data CRE du " + d in g["taxes"]["accise_source"]
+        assert g["prix_ttc"] == {"normal": taxes.kwh_ttc(0.0993, 0.00763, 0.2), "pointe": taxes.kwh_ttc(0.7772, 0.00763, 0.2)}
     h = publish.construire_historique(None, None, {"ejp": ok}, date(2026, 11, 23), {"ejp": set(r["grilles"]["ejp"])}, CONFIG)
     # (février 2023 est ensuite révisé à chaque changement de taxe de config/taxes.json)
-    assert [(g["date_debut"], g["date_fin"]) for g in h["options"]["ejp"]["grilles"]][:2] == [
-        ("2021-08-01", "2022-01-31"), ("2023-02-01", "2023-07-31"),
+    assert [(g["date_debut"], g["date_fin"]) for g in h["options"]["ejp"]["grilles"]][:4] == [
+        ("2021-08-01", "2022-01-31"), ("2022-02-01", "2022-07-31"), ("2022-08-01", "2023-01-31"), ("2023-02-01", "2023-07-31"),
     ]
 
 

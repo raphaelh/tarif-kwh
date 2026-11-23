@@ -162,7 +162,12 @@ def construire_historique(
         if opendata and option in opendata:
             url = opendata[option]["url"]
             od = [
-                _prix_communs({**g, "statut": "confirme", "ttc_estime": False, "sources": [{"type": "cre_opendata", "url": url}]})
+                _prix_communs({
+                    **g, "ttc_estime": "correction_ttc" in g,
+                    # TTC corrigé : HT de l'open data, TTC d'après la grille EDF (cf. README, statuts)
+                    "statut": "en_vigueur" if "correction_ttc" in g else "confirme",
+                    "sources": [{"type": "cre_opendata", "url": url}],
+                })
                 for g in opendata[option]["grilles"]
             ]
         else:

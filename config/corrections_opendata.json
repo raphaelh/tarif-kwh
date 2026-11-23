@@ -1,0 +1,16 @@
+{
+  "_commentaire": "TTC au kWh de l'open data CRE reconnus faux, recalculés avant toute publication : TTC = (HT open data + taxes_kwh) × (1 + TVA). Une correction ne s'ajoute que sur une source officielle qui tranche (grille EDF archivée, texte de loi), citée dans motif et sources. Elle ne s'applique que si le TTC publié diffère réellement du calcul : si la CRE corrige son fichier, elle devient sans effet.",
+  "corrections": [
+    {
+      "option": "tempo",
+      "dates_effet": ["2022-02-01", "2022-08-01"],
+      "taxes_kwh": 0.00763,
+      "motif": "L'open data CRE applique à Tempo 10,9 €/MWh de taxes (CSPE + TCFE) en 2022, contre 7,6 €/MWh à Base et HP/HC. Les grilles Tarif Bleu EDF des 1er février et 1er août 2022 tranchent pour 7,63 €/MWh (TCFE 0,6630 + CSPE 0,10 c€/kWh) : leurs prix Tempo TTC valent HT CRE + 7,63 €/MWh + TVA 20 %, au centime, sur les six périodes. Les 3,3 €/MWh de trop de l'open data Tempo correspondent à l'ancienne TDCFE (fondue dans l'accise en 2022, que le bouclier tarifaire a ramenée au minimum au 1er février).",
+      "sources": [
+        "https://web.archive.org/web/20220307212025/https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_Tarif_Bleu.pdf",
+        "https://web.archive.org/web/20220828023838/https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_Tarif_Bleu.pdf"
+      ],
+      "verifie_le": "2026-11-23"
+    }
+  ]
+}

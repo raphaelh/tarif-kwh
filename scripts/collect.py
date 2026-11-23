@@ -140,6 +140,9 @@ def collecter(registre: dict, forcer: list[str], erreurs: list, historique: dict
     grilles = etape("Open data CRE", erreurs, cre_opendata.collecter, historique)
     for g in (grilles or {}).values():
         enregistrer_obs(registre, g)
+    if historique:  # TTC reconnus faux (Tempo 2022), avant d'en déduire les taxes de l'EJP
+        for ligne in cre_opendata.corriger(historique, cre_opendata.charger_corrections(), taxes.charger_config()):
+            print(ligne, file=sys.stderr)
     if historique:  # taxes au kWh d'avant 2023, pour le TTC de l'EJP (gardées hors ligne)
         registre["taxes_kwh_opendata"] = reconcile.taxes_kwh_opendata(historique, taxes.charger_config())
 

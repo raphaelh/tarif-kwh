@@ -11,10 +11,12 @@ from __future__ import annotations
 
 import csv
 import io
+import json
 import re
 from datetime import date
+from pathlib import Path
 
-from .. import http
+from .. import http, taxes
 from ..schema import GrilleSource, Puissance, parse_nombre_fr
 
 SOURCE = "cre_opendata"
@@ -34,6 +36,10 @@ COLONNES = {
         for h in ("hc", "hp")
     },
 }
+
+
+CORRECTIONS = Path(__file__).resolve().parents[3] / "config" / "corrections_opendata.json"
+TOL_CORRECTION = 0.00011  # €/kWh : en deçà, le TTC publié est juste (arrondi à 4 décimales)
 
 
 class ParseError(ValueError):
@@ -125,3 +131,39 @@ def collecter(historique: dict | None = None) -> dict[str, GrilleSource]:
         if historique is not None:
             historique[option] = {"url": url, "grilles": parse_historique(contenu, option)}
     return out
+
+
+def charger_corrections(path: Path = CORRECTIONS) -> list[dict]:
+    return json.loads(path.read_text(encoding="utf-8"))["corrections"]
+
+
+def corriger(historique: dict, corrections: list[dict], config_taxes: dict) -> list[str]:
+    """Recalcule les TTC au kWh reconnus faux de l'historique (``config/corrections_opendata.json``).
+
+    TTC = (HT + ``taxes_kwh``) × (1 + TVA), pour toutes les puissances de la grille ; la grille
+    porte alors ``correction_ttc`` (motif, sources). L'abonnement n'est pas touché. Une grille
+    dont le TTC publié est déjà juste (la CRE a corrigé son fichier) reste telle quelle.
+    Renvoie une ligne par grille examinée.
+    """
+    journal = []
+    for c in corrections:
+        grilles = {g["date_debut"]: g for g in historique.get(c["option"], {}).get("grilles", [])}
+        for d in c["dates_effet"]:
+            g = grilles.get(d)
+            if g is None:
+                journal.append(f"correction {c['option']} {d} : grille absente de l'open data")
+                continue
+            tva = taxes.tva_energie(date.fromisoformat(d), config_taxes)
+            calc = {
+                k: {per: taxes.kwh_ttc(v, c["taxes_kwh"], tva) for per, v in p["prix_ht"].items()}
+                for k, p in g["puissances"].items()
+            }
+            ecart = max(abs(calc[k][per] - p["prix_ttc"][per]) for k, p in g["puissances"].items() for per in p["prix_ttc"])
+            if ecart <= TOL_CORRECTION:
+                journal.append(f"correction {c['option']} {d} : TTC open data déjà juste, sans effet")
+                continue
+            for k, p in g["puissances"].items():
+                p["prix_ttc"] = calc[k]
+            g["correction_ttc"] = {"taxes_kwh": c["taxes_kwh"], "motif": c["motif"], "sources": list(c["sources"])}
+            journal.append(f"correction {c['option']} {d} : TTC au kWh recalculé (écart max {ecart:.4f} €/kWh)")
+    return journal
