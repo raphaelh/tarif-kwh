@@ -2,7 +2,7 @@
 name = "tarif-kwh"
 version = "0.1.0"
 description = "Prix réglementés de l'électricité (TRVE Tarif Bleu) en JSON, depuis les sources officielles"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 license = "MIT"
 
 [tool.pytest.ini_options]

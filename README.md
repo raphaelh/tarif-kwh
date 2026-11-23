@@ -121,6 +121,10 @@ GitHub suffit). La collecte suivante recalcule les TTC estimés.
 - GitHub désactive les workflows planifiés d'un dépôt sans activité depuis 60 jours. Les tarifs ne changeant que deux fois
   par an, chaque passage **réactive explicitement le workflow** par l'API GitHub (`PUT …/actions/workflows/collecte.yml/enable`),
   sans commit factice. Un échec du workflow vous est notifié par GitHub.
+- Si, **7 jours avant le 1er février ou le 1er août**, aucune grille n'est connue pour cette échéance (délibération CRE non
+  découverte, page CRE modifiée, blocage…), une issue « Délibération TRVE attendue non trouvée » est ouverte, avec la marche
+  à suivre (ajouter l'annexe B dans `config/sources.json`). L'alerte reste active jusqu'à 45 jours après l'échéance.
+- **Dependabot** propose chaque mois, par PR testée, les nouvelles versions des actions GitHub et des dépendances Python.
 
 ## Utilisation avec Home Assistant
 

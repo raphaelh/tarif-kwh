@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from tarif_kwh import http, issues, publish, reconcile, taxes  # noqa: E402
+from tarif_kwh import calendrier, http, issues, publish, reconcile, taxes  # noqa: E402
 from tarif_kwh.sources import cre_deliberation, cre_opendata, edf_grille, jorf  # noqa: E402
 
 RACINE = Path(__file__).resolve().parents[1]
@@ -155,6 +155,10 @@ def main() -> int:
     REGISTRE.parent.mkdir(exist_ok=True)
     REGISTRE.write_text(json.dumps(registre, ensure_ascii=False, indent=1, sort_keys=True) + "\n", encoding="utf-8")
 
+    manque = calendrier.deliberation_manquante(registre, aujourd_hui)
+    if manque:
+        d = calendrier.echeance_surveillee(aujourd_hui)
+        issues.alerter(f"Délibération TRVE attendue non trouvée (échéance du {d:%d/%m/%Y})", manque)
     ecarts = reconcile.ecarts_accise(registre, taxes.charger_config())
     if ecarts:
         issues.alerter(
