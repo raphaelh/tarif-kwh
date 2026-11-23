@@ -157,3 +157,97 @@ def test_amorcage_accepte_grille_jourtempo(monkeypatch):
     collect.amorcer_captures_ejp(registre)
     assert "edf_grille" in registre["grilles"]["ejp"]["2023-02-01"]
     assert registre["accise_observee"] == {"2023-02-01": 0.001}
+
+
+# --- Garde-fous : configuration TURPE périmée ----------------------------------------------
+
+@pytest.fixture(scope="module")
+def registre_ejp(ejp_cre):
+    """Registre EJP réel d'août 2025 et août 2026 : délibération CRE + grille EDF."""
+    grilles = {}
+    for d, fixture in (("2025-08-01", EDF_EJP_2025), ("2026-08-01", EDF_EJP)):
+        edf = edf_grille.parse_grille_ejp(fixture.read_bytes())["ejp"]
+        grilles[d] = {
+            "cre_deliberation": reconcile.grille_to_dict(ejp_cre[d]),
+            "edf_grille": reconcile.grille_to_dict(edf),
+        }
+    grilles["2026-02-01"] = {"cre_deliberation": reconcile.grille_to_dict(ejp_cre["2026-02-01"])}
+    return {"grilles": {"ejp": grilles}}
+
+
+def test_turpe_a_jour_aucune_alerte(registre_ejp):
+    assert reconcile.ejp_hors_turpe(registre_ejp, CONFIG) == []
+    assert reconcile.ecarts_abonnement_ejp(registre_ejp, CONFIG) == []
+
+
+def test_turpe_nouvelle_grille_hors_periode(registre_ejp):
+    """Grille du 1er août 2027 proposée par la CRE, TURPE 2027 pas encore ajouté : signalée."""
+    r = copy.deepcopy(registre_ejp)
+    g = copy.deepcopy(r["grilles"]["ejp"]["2026-08-01"]["cre_deliberation"])
+    g["date_effet"] = "2027-08-01"
+    r["grilles"]["ejp"]["2027-08-01"] = {"cre_deliberation": g}
+    pb = reconcile.ejp_hors_turpe(r, CONFIG)
+    assert len(pb) == 1 and "2027-08-01" in pb[0] and "2027-07-31" in pb[0]
+
+
+def test_turpe_periode_oubliee_meme_avec_grille_edf(registre_ejp):
+    """TURPE d'août 2026 non ajouté : signalé même si la grille EDF donne l'abonnement."""
+    cfg = copy.deepcopy(CONFIG)
+    cfg["turpe_part_fixe"] = [p for p in cfg["turpe_part_fixe"] if p["debut"] != "2026-08-01"]
+    pb = reconcile.ejp_hors_turpe(registre_ejp, cfg)
+    assert len(pb) == 1 and "2026-08-01" in pb[0]
+
+
+def test_turpe_trou_historique(registre_ejp, ejp_cre):
+    """Février 2025 (période TURPE retirée) : silencieux avec la grille EDF, signalé sans elle."""
+    cfg = copy.deepcopy(CONFIG)
+    cfg["turpe_part_fixe"] = [p for p in cfg["turpe_part_fixe"] if p["debut"] != "2025-02-01"]
+    r = copy.deepcopy(registre_ejp)
+    g = copy.deepcopy(r["grilles"]["ejp"]["2025-08-01"]["cre_deliberation"])
+    g["date_effet"] = "2025-02-01"
+    r["grilles"]["ejp"]["2025-02-01"] = {"cre_deliberation": g, "edf_grille": {"puissances": {}}}
+    assert reconcile.ejp_hors_turpe(r, cfg) == []
+    del r["grilles"]["ejp"]["2025-02-01"]["edf_grille"]
+    pb = reconcile.ejp_hors_turpe(r, cfg)
+    assert len(pb) == 1 and "2025-02-01" in pb[0] and "pas de grille EDF" in pb[0]
+
+
+def test_taux_cta_non_reporte(registre_ejp):
+    """Passage de la CTA à 15 % (février 2026) non reporté : la grille EDF d'août 2026 diverge."""
+    cfg = copy.deepcopy(CONFIG)
+    cfg["cta_taux"] = [t for t in cfg["cta_taux"] if t["debut"] != "2026-02-01"]
+    pb = reconcile.ecarts_abonnement_ejp(registre_ejp, cfg)
+    assert {e.split(",")[0] for e in pb} == {"grille EJP du 2026-08-01"}
+    assert len(pb) == len(KVAS)
+
+
+def test_turpe_faux_detecte(registre_ejp):
+    """Coefficient CU4 mal recopié (10,24 au lieu de 10,42) : écart sur la grille EDF d'août 2026."""
+    cfg = copy.deepcopy(CONFIG)
+    next(p for p in cfg["turpe_part_fixe"] if p["debut"] == "2026-08-01")["soutirage_fixe_cu4"] = 10.24
+    pb = reconcile.ecarts_abonnement_ejp(registre_ejp, cfg)
+    assert pb and all("2026-08-01" in e for e in pb)
+    assert any("36 kVA" in e for e in pb)
+
+
+def test_collecte_ouvre_les_issues_turpe(monkeypatch, tmp_path, registre_ejp):
+    """main() hors ligne : une grille hors période ouvre l'issue TURPE."""
+    import json
+
+    import collect
+    from tarif_kwh import issues
+
+    r = copy.deepcopy(registre_ejp)
+    g = copy.deepcopy(r["grilles"]["ejp"]["2026-08-01"]["cre_deliberation"])
+    g["date_effet"] = "2027-08-01"
+    r["grilles"]["ejp"]["2027-08-01"] = {"cre_deliberation": g}
+    reg = tmp_path / "registre.json"
+    reg.write_text(json.dumps(r), encoding="utf-8")
+    monkeypatch.setattr(collect, "REGISTRE", reg)
+    monkeypatch.setattr(collect, "DOCS", tmp_path / "docs")
+    titres = []
+    monkeypatch.setattr(issues, "alerter", lambda titre, corps: titres.append((titre, corps)))
+    monkeypatch.setattr("sys.argv", ["collect.py", "--hors-ligne", "--date", "2026-11-23"])
+    collect.main()
+    turpe = [c for t, c in titres if t.startswith("TURPE à ajouter")]
+    assert len(turpe) == 1 and "2027-08-01" in turpe[0] and "soutirage_fixe_cu4" in turpe[0]

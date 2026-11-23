@@ -296,3 +296,67 @@ def ecarts_accise(registre: dict, config_taxes: dict) -> list[str]:
             attendu = f"{e['valeur']} (ligne du {e['debut']})" if e else "aucune valeur"
             pb.append(f"grille du {d} : accise appliquée {v} €/kWh ({src}), config/taxes.json : {attendu}")
     return pb
+
+
+# --- contrôle de la configuration TURPE (CTA de l'EJP) ------------------------------
+
+# EDF imprime l'abonnement mensuel arrondi au centime : le calcul doit tomber à moins
+# d'un demi-centime. Un point de taux de CTA décale l'abonnement d'environ 0,10 €/mois.
+TOL_ABO_MENSUEL = 0.006  # €/mois
+
+
+def _ht_ejp(obs: dict) -> dict | None:
+    return obs.get("cre_deliberation") or obs.get("jourtempo")
+
+
+def ejp_hors_turpe(registre: dict, config_taxes: dict) -> list[str]:
+    """Grilles EJP dont l'abonnement TTC ne peut pas être calculé faute de période TURPE.
+
+    Signalées : les grilles sans grille EDF (abonnement publié à null) et toutes celles
+    postérieures à la dernière période configurée (TURPE du 1er août non ajouté). Les
+    trous historiques couverts par une grille EDF (février 2023, février 2025) sont
+    volontaires et ne sont pas signalés.
+    """
+    periodes = config_taxes.get("turpe_part_fixe", [])
+    derniere_fin = max((date.fromisoformat(p["fin"]) for p in periodes), default=date.min)
+    pb = []
+    for d, obs in sorted(registre.get("grilles", {}).get("ejp", {}).items()):
+        ht = _ht_ejp(obs)
+        if not ht or not ht.get("puissances"):
+            continue
+        de = date.fromisoformat(d)
+        kva = int(next(iter(ht["puissances"])))
+        if taxes.cta_turpe("ejp", de, kva, config_taxes) is not None:
+            continue
+        if de > derniere_fin:
+            pb.append(f"grille EJP du {d} : après la dernière période TURPE configurée (fin {derniere_fin})")
+        elif "edf_grille" not in obs:
+            pb.append(f"grille EJP du {d} : aucune période TURPE ne la couvre et pas de grille EDF (abonnement TTC inconnu)")
+    return pb
+
+
+def ecarts_abonnement_ejp(registre: dict, config_taxes: dict) -> list[str]:
+    """Abonnement EJP calculé (HT + CTA TURPE, TVA) comparé à celui de chaque grille EDF.
+
+    Un écart signale une période TURPE fausse ou un changement de taux de CTA non reporté.
+    """
+    pb = []
+    for d, obs in sorted(registre.get("grilles", {}).get("ejp", {}).items()):
+        ht, edf = _ht_ejp(obs), obs.get("edf_grille")
+        if not ht or not edf:
+            continue
+        de = date.fromisoformat(d)
+        tva = taxes.tva(de, config_taxes, "tva_abonnement")
+        for k, e in sorted(edf["puissances"].items(), key=lambda x: int(x[0])):
+            mensuel_edf = e.get("abonnement_ttc_mensuel")
+            p = ht["puissances"].get(k)
+            calc = taxes.cta_turpe("ejp", de, int(k), config_taxes)
+            if mensuel_edf is None or p is None or calc is None:
+                continue
+            mensuel = taxes.abonnement_ttc(p["abonnement_ht"], calc[0], tva) / 12
+            if abs(mensuel - mensuel_edf) > TOL_ABO_MENSUEL:
+                pb.append(
+                    f"grille EJP du {d}, {k} kVA : EDF {mensuel_edf:.2f} €/mois, calcul {mensuel:.2f} €/mois "
+                    f"(HT {p['abonnement_ht']} + CTA {calc[0]:.2f} €/an, TVA {tva:.1%})"
+                )
+    return pb

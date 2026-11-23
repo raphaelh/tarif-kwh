@@ -176,7 +176,9 @@ data CRE. L'EJP n'y est pas : sa CTA est calculée, taux de CTA × (composante d
 soutirage fixe CU4 × kVA) du TURPE, d'après `config/taxes.json` (`cta_taux`, `turpe_part_fixe`, une période par
 délibération TURPE, au 1er août). Ce calcul redonne au centime les grilles EDF d'août 2025 et d'août 2026 ; le JSON le
 signale par `taxes.cta_calculee`. Périodes configurées : août 2023 → octobre 2024 (vérifiée sur la grille EDF de
-février 2024), puis à partir d'août 2025 (vérifiées sur août 2025 et août 2026).
+février 2024), puis à partir d'août 2025 (vérifiées sur août 2025 et août 2026). Deux garde-fous ouvrent une issue : une grille EJP
+hors des périodes configurées (TURPE du 1er août pas encore ajouté), et un abonnement calculé qui diffère de plus d'un
+demi-centime par mois de celui d'une grille EDF (période TURPE fausse ou taux de CTA changé sans être reporté).
 
 Chaque source produit le même schéma commun (`scripts/tarif_kwh/schema.py`), puis `reconcile.py` recoupe :
 

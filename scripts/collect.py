@@ -42,6 +42,22 @@ Si le texte ne change pas l'accise, fermer simplement cette issue.
 """
 
 
+PROCEDURE_TURPE = """### Mettre à jour la configuration TURPE
+
+L'abonnement TTC de l'EJP (absente de l'open data CRE) est calculé : (HT + CTA) × (1 + TVA), avec
+CTA = taux × (gestion + comptage + soutirage fixe CU4 × kVA) du TURPE HTA-BT.
+
+1. Trouver la délibération CRE sur le TURPE applicable au 1er août (cre.fr, « TURPE HTA-BT », publiée vers mai-juin) :
+   composante annuelle de gestion (contrat unique), de comptage (compteur communicant), et coefficient de
+   soutirage fixe **CU4** (b, €/kVA/an).
+2. Ajouter une période à `turpe_part_fixe` dans `config/taxes.json` :
+   `{"debut": "AAAA-08-01", "fin": "AAAA+1-07-31", "gestion": …, "comptage": …, "soutirage_fixe_cu4": …, "source": "<délibération>"}`
+3. Si l'écart vient du taux de CTA (formulaire DGFIP 2040-TIC-SD, facture EDF), ajouter une ligne à `cta_taux`.
+4. Les tests vérifient le fichier ; la collecte suivante (ou *Actions → Collecte des tarifs → Run workflow*)
+   recalcule l'abonnement EJP et compare de nouveau aux grilles EDF.
+"""
+
+
 def charger(path: Path, defaut: dict) -> dict:
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else defaut
 
@@ -210,6 +226,22 @@ def main() -> int:
             "L'accise appliquée par les sources officielles diffère de `config/taxes.json` : les TTC "
             "estimés des prochaines grilles seraient faux.\n\n"
             + "\n".join(f"- {e}" for e in ecarts) + "\n\n" + PROCEDURE_ACCISE,
+        )
+    hors = reconcile.ejp_hors_turpe(registre, taxes.charger_config())
+    if hors:
+        issues.alerter(
+            "TURPE à ajouter dans config/taxes.json (abonnement EJP)",
+            "Une grille EJP tombe hors des périodes TURPE configurées : son abonnement TTC ne peut pas être "
+            "calculé (publié à `null` tant qu'EDF n'a pas publié sa grille).\n\n"
+            + "\n".join(f"- {e}" for e in hors) + "\n\n" + PROCEDURE_TURPE,
+        )
+    ecarts_ejp = reconcile.ecarts_abonnement_ejp(registre, taxes.charger_config())
+    if ecarts_ejp:
+        issues.alerter(
+            "Abonnement EJP calculé ≠ grille EDF : vérifier config/taxes.json",
+            "L'abonnement EJP calculé par la CTA du TURPE diffère de celui imprimé sur la grille EDF : période "
+            "TURPE ou taux de CTA à corriger, sinon les abonnements calculés (grilles sans grille EDF) sont faux.\n\n"
+            + "\n".join(f"- {e}" for e in ecarts_ejp) + "\n\n" + PROCEDURE_TURPE,
         )
     for nom, detail in erreurs:
         issues.alerter(f"Source en échec : {nom[:100]}", detail)
