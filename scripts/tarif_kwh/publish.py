@@ -216,6 +216,54 @@ def _revisions_janvier(grilles: list[dict], taxes_od: dict[str, dict], config_ta
     return out
 
 
+def _revisions_abonnement(option: str, grilles: list[dict], conf: dict) -> list[dict]:
+    """Abonnement TTC révisé à chaque changement du TURPE sans nouveau barème (2014).
+
+    Pour chaque période de config/revisions_abonnement.json après la première, la grille
+    en cours à sa date de début voit son abonnement TTC recalculé avec la CTA de ce TURPE
+    (``taxes.abonnement_ttc_turpe``) : sur place si elle commence ce jour-là (grille open
+    data CRE ou révision de janvier, qui gardaient la CTA précédente), sinon dans une
+    nouvelle période (``revision_ttc``). Les deux portent ``revision_abonnement``,
+    ``ttc_estime: true``, et une grille open data passe en ``en_vigueur``. Rien si
+    l'abonnement est déjà le bon (grille relue hors ligne).
+    """
+    if not conf or option not in conf.get("options", []):
+        return grilles
+    out = list(grilles)
+    for per in conf["periodes"][1:]:
+        d = per["debut"]
+        avant = [g for g in out if g["date_debut"] <= d]
+        if not avant:
+            continue
+        g = max(avant, key=lambda g: g["date_debut"])
+        nouveaux = {
+            k: taxes.abonnement_ttc_turpe(option, int(k), p["abonnement_ht"], per, conf)
+            for k, p in g["puissances"].items()
+            if p.get("abonnement_ht") is not None and p.get("abonnement_ttc") is not None
+        }
+        if all(g["puissances"][k]["abonnement_ttc"] == v for k, v in nouveaux.items()):
+            continue
+        motif = (
+            f"abonnement TTC au {d} : CTA {conf['cta_taux']:.2%} de la part fixe du nouveau TURPE "
+            f"({per['source']})"
+        )
+        if g["date_debut"] == d:
+            r = copy.deepcopy(g)  # les puissances sont partagées avec l'open data lue
+            out[out.index(g)] = r
+            if r["statut"] == "confirme":
+                r["statut"] = "en_vigueur"
+        else:
+            r = copy.deepcopy(g)
+            r["date_debut"], r["date_fin"] = d, None
+            r["revision_ttc"] = {"date": d, "motifs": [motif]}
+            out.append(r)
+        for k, v in nouveaux.items():
+            r["puissances"][k]["abonnement_ttc"] = v
+        r["ttc_estime"] = True
+        r["revision_abonnement"] = {"date": d, "motif": motif, "sources": [per["url"]]}
+    return sorted(out, key=lambda g: g["date_debut"])
+
+
 def construire_historique(
     opendata: dict | None,
     ancien: dict | None,
@@ -224,6 +272,7 @@ def construire_historique(
     dates_connues: dict[str, set[str]] | None = None,
     config_taxes: dict | None = None,
     taxes_od: dict[str, dict] | None = None,
+    revisions_abonnement: dict | None = None,
 ) -> dict:
     """Toutes les grilles entrées en vigueur, par option, de la plus ancienne à l'actuelle.
 
@@ -240,6 +289,8 @@ def construire_historique(
       (``taxes.reviser_ttc``, ``ttc_estime: true``, ``revision_ttc``).
     - ``taxes_od`` : taxes au kWh d'avant 2023 par date (``reconcile.taxes_kwh_opendata``) :
       période révisée au 1er janvier quand elles changent (``_revisions_janvier``).
+    - ``revisions_abonnement`` : TURPE changé sans nouveau barème (2014), abonnement TTC
+      révisé (``_revisions_abonnement``, config/revisions_abonnement.json).
     """
     options: dict[str, dict] = {}
     for option, opt in OPTIONS.items():
@@ -272,6 +323,7 @@ def construire_historique(
         grilles = sorted((dict(g) for g in od + suite), key=lambda g: g["date_debut"])
         if taxes_od and config_taxes:
             grilles = _revisions_janvier(grilles, taxes_od, config_taxes)
+        grilles = _revisions_abonnement(option, grilles, revisions_abonnement or {})
         debuts = sorted({g["date_debut"] for g in grilles} | {
             d for d in (dates_connues or {}).get(option, ()) if hors_od(d)
         })
@@ -366,6 +418,7 @@ def publier(
                 {o: set(registre.get("grilles", {}).get(o, {})) for o in OPTIONS},
                 config_taxes,
                 registre.get("taxes_kwh_opendata"),
+                taxes.charger_revisions_abonnement(),
             ),
         },
         horodatage,

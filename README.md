@@ -131,11 +131,21 @@ passée ou tracer l'évolution des prix.
   rejetée. Le TTC au kWh est calculé comme celui de l'EJP (HT + taxes au kWh de l'open data CRE + TVA,
   `ttc_estime: true`, `statut: en_vigueur`), révisé au 1er janvier : au plus 0,04 c€/kWh d'écart avec EDF (TCFE de la
   CRE). L'abonnement TTC est celui de la première grille EDF de la période (celle de janvier 2015 pour le barème de
-  novembre 2014). Deux limites : le 24 kVA de l'arrêté n'est pas sur les grilles EDF (abonnement TTC `null`), et
-  l'abonnement TTC de 2014 garde celui d'août 2013, comme l'open data CRE le fait pour Base et HP/HC, alors que la
-  grille EDF « en vigueur à compter du 1er février 2014 » en imprime un autre (de −3,3 % en 18 kVA à +0,9 % en 30 et
-  36 kVA ; sans doute la CTA du TURPE 4, entré en vigueur début 2014, à date incertaine). La grille EDF de janvier 2015 imprime
-  15,55 c€ en Blanc HC 36 kVA au lieu de 12,55 c€ : coquille corrigée dans la transcription.
+  novembre 2014), révisé en 2014 comme celui des autres options (point suivant). Le 24 kVA de l'arrêté n'est pas
+  sur les grilles EDF : abonnement TTC `null`. La grille EDF de janvier 2015 imprime 15,55 c€ en Blanc HC 36 kVA au
+  lieu de 12,55 c€ : coquille corrigée dans la transcription.
+- **Abonnement TTC en 2014 (Base, HP/HC, Tempo)** : le TURPE, dont la part fixe sert d'assiette à la CTA (27,04 %),
+  change deux fois sans nouveau barème TRVE : TURPE 4 au **1er janvier 2014** (délibération CRE du 12 décembre
+  2013), puis indexation au **1er août 2014** (délibération du 4 juin 2014). L'open data CRE garde l'abonnement d'août
+  2013 jusqu'en octobre 2014. Ici, il est recalculé à ces deux dates (`revision_abonnement`, `ttc_estime: true`,
+  `statut: en_vigueur` ; période 2014-08-01 → 2014-10-31 ajoutée) : CTA = 27,04 % × (gestion + comptage + soutirage
+  fixe × kVA), soutirage « courte utilisation » pour la Base et au-delà de 18 kVA, « moyenne utilisation » pour HP/HC
+  et Tempo jusqu'à 18 kVA ([`config/revisions_abonnement.json`](config/revisions_abonnement.json)). Cette règle
+  redonne à 1 centime près l'open data d'août 2013 (TURPE 3), la grille EDF « en vigueur à compter du 1er février
+  2014 » (TURPE 4 ; de −3,3 % à +0,9 % selon la puissance par rapport à 2013, +0,6 % en Base 6 kVA) et l'open data de
+  novembre 2014 (TURPE d'août 2014). La date de la grille EDF de février n'est que celle de sa réédition : le TURPE 4,
+  et donc la CTA, s'appliquent depuis le 1er janvier. L'EJP n'est pas concernée : son abonnement TTC vaut `null`
+  avant août 2018.
 - **EJP** n'est pas dans l'open data CRE : son historique commence au **1er août 2013**. Le HT vient de la
   délibération CRE et du jeu Jour Tempo (qui cite l'arrêté du JORF ou la délibération CRE appliquée), le TTC de la
   grille EDF EJP archivée sur web.archive.org. Sans grille EDF, le TTC est calculé (`ttc_estime: true`) :

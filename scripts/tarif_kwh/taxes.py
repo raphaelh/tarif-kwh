@@ -109,6 +109,27 @@ def cta_turpe(option: str, d: date, kva: int, config: dict) -> tuple[float, str]
     )
 
 
+# --- abonnement TTC révisé par le TURPE avant 2018 (Base, HP/HC, Tempo) ----------------
+
+REVISIONS_ABONNEMENT = Path(__file__).resolve().parents[2] / "config" / "revisions_abonnement.json"
+
+
+def charger_revisions_abonnement(path: Path = REVISIONS_ABONNEMENT) -> dict:
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+
+
+def abonnement_ttc_turpe(option: str, kva: int, ht: float, periode: dict, conf: dict) -> float:
+    """Abonnement TTC = (HT + CTA) × (1 + TVA), CTA = taux × part fixe du TURPE de ``periode``.
+
+    Soutirage « courte utilisation » pour la Base et au-delà de 18 kVA, « moyenne
+    utilisation » pour HP/HC et Tempo jusqu'à 18 kVA (config/revisions_abonnement.json).
+    """
+    tranche = 0 if kva <= 9 else 1 if kva <= 18 else 2
+    tarif = "cu" if option == "base" or kva > 18 else "mu"
+    part_fixe = periode["gestion"] + periode["comptage"][kva > 18] + periode[tarif][tranche] * kva
+    return abonnement_ttc(ht, round(conf["cta_taux"] * part_fixe + 1e-9, 2), conf["tva_abonnement"])
+
+
 # --- révision du TTC en cours de grille ----------------------------------------------
 
 def _changements(serie: list[dict], apres: date, jusqu_a: date) -> list[dict]:

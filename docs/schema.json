@@ -212,6 +212,16 @@
           "description": "Présent si la période est ouverte par un changement de taxe en cours de grille (même barème HT que la période précédente, TTC recalculé).",
           "$ref": "#/$defs/taxes/properties/revision_ttc"
         },
+        "revision_abonnement": {
+          "description": "Présent si l'abonnement TTC de la période a été recalculé parce que le TURPE (assiette de la CTA) a changé sans nouveau barème (2014, config/revisions_abonnement.json) ; ttc_estime vaut alors true.",
+          "type": "object",
+          "required": ["date", "motif", "sources"],
+          "properties": {
+            "date": {"$ref": "#/$defs/date"},
+            "motif": {"type": "string"},
+            "sources": {"type": "array", "minItems": 1, "items": {"type": "string", "format": "uri"}}
+          }
+        },
         "correction_ttc": {
           "description": "Présent si le TTC au kWh de l'open data CRE est reconnu faux (config/corrections_opendata.json) : recalculé avec HT open data + taxes_kwh + TVA (ttc_estime vaut alors true, statut en_vigueur). L'abonnement reste celui de l'open data, sauf si bareme vaut true : l'open data reprenait un barème périmé, remplacé (HT, abonnement HT et TTC) par celui du texte officiel.",
           "type": "object",
