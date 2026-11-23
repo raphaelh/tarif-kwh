@@ -704,7 +704,7 @@
           "puissances": {
             "3": {
               "abonnement_ht": 52.8,
-              "abonnement_ttc": 66.83,
+              "abonnement_ttc": 67.03,
               "prix_ht": {
                 "base": 0.0968
               },
@@ -714,7 +714,7 @@
             },
             "6": {
               "abonnement_ht": 81.24,
-              "abonnement_ttc": 99.92,
+              "abonnement_ttc": 100.73,
               "prix_ht": {
                 "base": 0.0901
               },
@@ -724,7 +724,7 @@
             },
             "9": {
               "abonnement_ht": 94.8,
-              "abonnement_ttc": 117.31,
+              "abonnement_ttc": 118.74,
               "prix_ht": {
                 "base": 0.0915
               },
@@ -734,7 +734,7 @@
             },
             "12": {
               "abonnement_ht": 108.72,
-              "abonnement_ttc": 144.93,
+              "abonnement_ttc": 137.12,
               "prix_ht": {
                 "base": 0.0915
               },
@@ -744,7 +744,7 @@
             },
             "15": {
               "abonnement_ht": 122.76,
-              "abonnement_ttc": 165.29,
+              "abonnement_ttc": 155.63,
               "prix_ht": {
                 "base": 0.0915
               },
@@ -753,14 +753,21 @@
               }
             }
           },
-          "ttc_estime": false,
-          "statut": "confirme",
+          "ttc_estime": true,
+          "statut": "en_vigueur",
           "sources": [
             {
               "type": "cre_opendata",
               "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Base.csv"
             }
-          ]
+          ],
+          "revision_abonnement": {
+            "date": "2017-08-01",
+            "motif": "abonnement TTC au 2017-08-01 : CTA 27.04% de la part fixe du nouveau TURPE (TURPE 5 HTA-BT au 1er août 2017, CRE délibération du 17 novembre 2016 (gestion temporaire « contrat conclu par le fournisseur » 6,96 €/an, tableau 2 ; comptage 19,80 ; courte utilisation 4,32 et moyenne utilisation à 2 plages 6,84 €/kVA/an) ; redonne au centime l'open data HP/HC et Tempo du 1er août 2017, alors que l'open data Base garde la CTA d'août 2016)",
+            "sources": [
+              "https://www.cre.fr/fileadmin/Documents/Deliberations/import/161117_TURPE-HTA-BT.pdf"
+            ]
+          }
         },
         {
           "date_debut": "2018-02-01",
@@ -12322,5 +12329,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T16:27:54+00:00"
+  "mis_a_jour_le": "2026-11-23T17:58:26+00:00"
 }
