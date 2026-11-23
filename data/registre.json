@@ -1,5 +1,6 @@
 {
  "accise_observee": {
+  "2023-02-01": 0.001,
   "2024-02-01": 0.021,
   "2025-02-01": 0.0337,
   "2025-08-01": 0.02998,
@@ -665,6 +666,197 @@
    }
   },
   "ejp": {
+   "2023-02-01": {
+    "edf_grille": {
+     "date_effet": "2023-02-01",
+     "meta": {
+      "accise_eur_kwh": 0.001,
+      "copie_archive": "https://web.archive.org/web/20230705134908id_/https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf",
+      "recupere_le": "2026-11-23T12:41:02+00:00"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 17.69,
+       "prix_ht": {},
+       "prix_ttc": {
+        "normal": 0.1306,
+        "pointe": 1.4747
+       }
+      },
+      "15": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 20.51,
+       "prix_ht": {},
+       "prix_ttc": {
+        "normal": 0.1306,
+        "pointe": 1.4747
+       }
+      },
+      "18": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 23.27,
+       "prix_ht": {},
+       "prix_ttc": {
+        "normal": 0.1306,
+        "pointe": 1.4747
+       }
+      },
+      "36": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 40.86,
+       "prix_ht": {},
+       "prix_ttc": {
+        "normal": 0.1306,
+        "pointe": 1.4747
+       }
+      },
+      "9": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 14.92,
+       "prix_ht": {},
+       "prix_ttc": {
+        "normal": 0.1306,
+        "pointe": 1.4747
+       }
+      }
+     },
+     "source": "edf_grille",
+     "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
+    },
+    "jourtempo": {
+     "date_effet": "2023-02-01",
+     "meta": {
+      "recupere_le": "2026-11-23T12:40:00+00:00",
+      "texte": "jorf_arrete_2023-01-30"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 171.48,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1078,
+        "pointe": 1.2279
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 198.0,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1078,
+        "pointe": 1.2279
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 223.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1078,
+        "pointe": 1.2279
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 390.24,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1078,
+        "pointe": 1.2279
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 145.56,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1078,
+        "pointe": 1.2279
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "jourtempo",
+     "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000047074589"
+    }
+   },
+   "2023-08-01": {
+    "jourtempo": {
+     "date_effet": "2023-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T12:40:00+00:00",
+      "texte": "jorf_arrete_2023-07-28"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 180.12,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1255,
+        "pointe": 1.2455
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 208.56,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1255,
+        "pointe": 1.2455
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 235.92,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1255,
+        "pointe": 1.2455
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 409.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1255,
+        "pointe": 1.2455
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 152.28,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1255,
+        "pointe": 1.2455
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "jourtempo",
+     "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000047903718"
+    }
+   },
    "2024-02-01": {
     "cre_deliberation": {
      "date_effet": "2024-02-01",
@@ -789,6 +981,68 @@
      },
      "source": "edf_grille",
      "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
+    },
+    "jourtempo": {
+     "date_effet": "2024-02-01",
+     "meta": {
+      "recupere_le": "2026-11-23T12:40:00+00:00",
+      "texte": "cre_2024-05_annexeB"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 181.92,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1255,
+        "pointe": 1.2454
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 210.36,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1255,
+        "pointe": 1.2454
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 237.72,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1255,
+        "pointe": 1.2454
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 411.72,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1255,
+        "pointe": 1.2454
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 154.2,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1255,
+        "pointe": 1.2454
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "jourtempo",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/240118_2024-05_TRVE_2024_annexe_B.pdf"
     }
    },
    "2025-02-01": {
@@ -915,6 +1169,68 @@
      },
      "source": "edf_grille",
      "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
+    },
+    "jourtempo": {
+     "date_effet": "2025-02-01",
+     "meta": {
+      "recupere_le": "2026-11-23T12:40:00+00:00",
+      "texte": "cre_2025-10_annexeB"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 198.0,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0893,
+        "pointe": 0.8861
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 229.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0893,
+        "pointe": 0.8861
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 259.56,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0893,
+        "pointe": 0.8861
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 451.2,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0893,
+        "pointe": 0.8861
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 167.16,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0893,
+        "pointe": 0.8861
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "jourtempo",
+     "url": "https://cre.fr/fileadmin/Documents/Deliberations/2025/250115_2025-10_TRVE_inf_36_annexe_B.pdf"
     }
    },
    "2025-08-01": {
@@ -1041,6 +1357,68 @@
      },
      "source": "edf_grille",
      "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
+    },
+    "jourtempo": {
+     "date_effet": "2025-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T12:40:00+00:00",
+      "texte": "cre_2025-155_annexeB"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 195.24,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0882,
+        "pointe": 0.8756
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 226.32,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0882,
+        "pointe": 0.8756
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 256.32,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0882,
+        "pointe": 0.8756
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 444.84,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0882,
+        "pointe": 0.8756
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 164.76,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.0882,
+        "pointe": 0.8756
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "jourtempo",
+     "url": "https://cre.fr/fileadmin/Documents/Deliberations/2025/250619_2025-155_Proposition_TRVE_inf_36_annexe_B.pdf"
     }
    },
    "2026-02-01": {
@@ -1103,6 +1481,68 @@
       }
      },
      "source": "cre_deliberation",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf"
+    },
+    "jourtempo": {
+     "date_effet": "2026-02-01",
+     "meta": {
+      "recupere_le": "2026-11-23T12:40:00+00:00",
+      "texte": "cre_2026-06_annexeB"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 203.04,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1176,
+        "pointe": 0.2558
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 234.12,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1176,
+        "pointe": 0.2558
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 264.24,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1176,
+        "pointe": 0.2558
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 452.64,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1176,
+        "pointe": 0.2558
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 172.56,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1176,
+        "pointe": 0.2558
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "jourtempo",
      "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf"
     }
    },
@@ -1230,6 +1670,68 @@
      },
      "source": "edf_grille",
      "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
+    },
+    "jourtempo": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T12:40:00+00:00",
+      "texte": "cre_2026-147_annexeB"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 206.64,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1185,
+        "pointe": 0.3297
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 238.68,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1185,
+        "pointe": 0.3297
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 269.64,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1185,
+        "pointe": 0.3297
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 463.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1185,
+        "pointe": 0.3297
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 175.2,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "normal": 0.1185,
+        "pointe": 0.3297
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "jourtempo",
+     "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf"
     }
    }
   },

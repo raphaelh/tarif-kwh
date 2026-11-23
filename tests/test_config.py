@@ -6,7 +6,8 @@ import pytest
 from conftest import RACINE
 
 TAXES = json.loads((RACINE / "config" / "taxes.json").read_text(encoding="utf-8"))
-BORNES = {"accise_eur_kwh": (0.01, 0.1), "tva_energie": (0.0, 0.3), "tva_abonnement": (0.0, 0.3)}
+BORNES = {"accise_eur_kwh": (0.0005, 0.1),  # 0,1 c€/kWh sous le bouclier tarifaire (2022-2024)
+          "tva_energie": (0.0, 0.3), "tva_abonnement": (0.0, 0.3)}
 
 
 @pytest.mark.parametrize("cle", sorted(BORNES))

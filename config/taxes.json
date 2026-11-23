@@ -1,6 +1,7 @@
 {
   "_commentaire": "Taxes servant UNIQUEMENT à estimer le TTC d'une grille proposée par la CRE avant que EDF / l'open data CRE ne publient le TTC officiel. Les valeurs lues dans la grille EDF (accise) sont ajoutées automatiquement dans data/registre.json. Ajouter ici une ligne dès qu'une loi de finances change l'accise.",
   "accise_eur_kwh": [
+    {"debut": "2022-02-01", "valeur": 0.001, "source": "bouclier tarifaire : accise (ex-CSPE) à 1 €/MWh, grille EDF EJP du 1er février 2023 (0,10 c€/kWh)"},
     {"debut": "2024-02-01", "valeur": 0.021, "source": "grilles Tarif Bleu EDF du 1er février 2024 (2,10 c€/kWh)"},
     {"debut": "2025-02-01", "valeur": 0.0337, "source": "déduit de l'open data CRE (TTC/1,2 - HT)"},
     {"debut": "2025-08-01", "valeur": 0.02998, "source": "déduit de l'open data CRE (TTC/1,2 - HT)"},
@@ -8,10 +9,19 @@
     {"debut": "2026-08-01", "valeur": 0.03062, "source": "grille Tarif Bleu EDF du 1er août 2026 (3,062 c€/kWh)"}
   ],
   "tva_energie": [
-    {"debut": "2000-01-01", "valeur": 0.20}
+    {"debut": "2000-01-01", "valeur": 0.2}
   ],
   "tva_abonnement": [
     {"debut": "2000-01-01", "valeur": 0.055},
-    {"debut": "2025-08-01", "valeur": 0.20, "source": "loi de finances 2025 : TVA à 20 % sur l'abonnement"}
+    {"debut": "2025-08-01", "valeur": 0.2, "source": "loi de finances 2025 : TVA à 20 % sur l'abonnement"}
+  ],
+  "_commentaire_cta": "cta_taux et turpe_part_fixe servent à calculer la CTA de l'EJP (absente de l'open data CRE) : taux × (gestion + comptage compteur communicant + soutirage fixe CU4 × kVA), en €/an. Le TURPE change chaque 1er août : ajouter une période (début, fin) à chaque délibération TURPE ; hors période couverte, l'abonnement EJP TTC reste inconnu tant qu'EDF n'a pas publié sa grille.",
+  "cta_taux": [
+    {"debut": "2025-08-01", "valeur": 0.2193, "source": "formulaire DGFIP n° 2040-TIC-SD 2026 ; facture EDF (21,93 % de la part acheminement de l'abonnement)"},
+    {"debut": "2026-02-01", "valeur": 0.15, "source": "formulaire DGFIP n° 2040-TIC-SD 2026 ; facture EDF (15,00 % à compter du 01/02/2026)"}
+  ],
+  "turpe_part_fixe": [
+    {"debut": "2025-08-01", "fin": "2026-07-31", "gestion": 16.8, "comptage": 22.0, "soutirage_fixe_cu4": 10.11, "source": "TURPE 7 HTA-BT au 1er août 2025, CRE délibération n° 2025-78 du 13 mars 2025"},
+    {"debut": "2026-08-01", "fin": "2027-07-31", "gestion": 17.12, "comptage": 22.67, "soutirage_fixe_cu4": 10.42, "source": "TURPE 7 HTA-BT au 1er août 2026, CRE délibération n° 2026-105 du 21 mai 2026"}
   ]
 }

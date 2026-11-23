@@ -7312,6 +7312,174 @@
       ],
       "grilles": [
         {
+          "date_debut": "2023-02-01",
+          "date_fin": "2023-07-31",
+          "statut": "en_vigueur",
+          "ttc_estime": false,
+          "sources": [
+            {
+              "type": "jourtempo",
+              "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000047074589"
+            },
+            {
+              "type": "edf_grille",
+              "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 145.56,
+              "abonnement_ttc": 179.04,
+              "prix_ht": {
+                "normal": 0.1078,
+                "pointe": 1.2279
+              },
+              "prix_ttc": {
+                "normal": 0.1306,
+                "pointe": 1.4747
+              }
+            },
+            "12": {
+              "abonnement_ht": 171.48,
+              "abonnement_ttc": 212.28,
+              "prix_ht": {
+                "normal": 0.1078,
+                "pointe": 1.2279
+              },
+              "prix_ttc": {
+                "normal": 0.1306,
+                "pointe": 1.4747
+              }
+            },
+            "15": {
+              "abonnement_ht": 198.0,
+              "abonnement_ttc": 246.12,
+              "prix_ht": {
+                "normal": 0.1078,
+                "pointe": 1.2279
+              },
+              "prix_ttc": {
+                "normal": 0.1306,
+                "pointe": 1.4747
+              }
+            },
+            "18": {
+              "abonnement_ht": 223.8,
+              "abonnement_ttc": 279.24,
+              "prix_ht": {
+                "normal": 0.1078,
+                "pointe": 1.2279
+              },
+              "prix_ttc": {
+                "normal": 0.1306,
+                "pointe": 1.4747
+              }
+            },
+            "36": {
+              "abonnement_ht": 390.24,
+              "abonnement_ttc": 490.32,
+              "prix_ht": {
+                "normal": 0.1078,
+                "pointe": 1.2279
+              },
+              "prix_ttc": {
+                "normal": 0.1306,
+                "pointe": 1.4747
+              }
+            }
+          },
+          "prix_ht": {
+            "normal": 0.1078,
+            "pointe": 1.2279
+          },
+          "prix_ttc": {
+            "normal": 0.1306,
+            "pointe": 1.4747
+          }
+        },
+        {
+          "date_debut": "2023-08-01",
+          "date_fin": "2024-01-31",
+          "statut": "en_vigueur",
+          "ttc_estime": true,
+          "sources": [
+            {
+              "type": "jourtempo",
+              "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000047903718"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 152.28,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2455
+              },
+              "prix_ttc": {
+                "normal": 0.1518,
+                "pointe": 1.4958
+              }
+            },
+            "12": {
+              "abonnement_ht": 180.12,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2455
+              },
+              "prix_ttc": {
+                "normal": 0.1518,
+                "pointe": 1.4958
+              }
+            },
+            "15": {
+              "abonnement_ht": 208.56,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2455
+              },
+              "prix_ttc": {
+                "normal": 0.1518,
+                "pointe": 1.4958
+              }
+            },
+            "18": {
+              "abonnement_ht": 235.92,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2455
+              },
+              "prix_ttc": {
+                "normal": 0.1518,
+                "pointe": 1.4958
+              }
+            },
+            "36": {
+              "abonnement_ht": 409.8,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2455
+              },
+              "prix_ttc": {
+                "normal": 0.1518,
+                "pointe": 1.4958
+              }
+            }
+          },
+          "prix_ht": {
+            "normal": 0.1255,
+            "pointe": 1.2455
+          },
+          "prix_ttc": {
+            "normal": 0.1518,
+            "pointe": 1.4958
+          }
+        },
+        {
           "date_debut": "2024-02-01",
           "date_fin": "2025-01-31",
           "statut": "en_vigueur",
@@ -7319,6 +7487,10 @@
           "sources": [
             {
               "type": "cre_deliberation",
+              "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/240118_2024-05_TRVE_2024_annexe_B.pdf"
+            },
+            {
+              "type": "jourtempo",
               "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/240118_2024-05_TRVE_2024_annexe_B.pdf"
             },
             {
@@ -7408,6 +7580,10 @@
               "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250115_2025-10_TRVE_inf_36_annexe_B.pdf"
             },
             {
+              "type": "jourtempo",
+              "url": "https://cre.fr/fileadmin/Documents/Deliberations/2025/250115_2025-10_TRVE_inf_36_annexe_B.pdf"
+            },
+            {
               "type": "edf_grille",
               "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
             }
@@ -7494,6 +7670,10 @@
               "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250619_2025-155_Proposition_TRVE_inf_36_annexe_B.pdf"
             },
             {
+              "type": "jourtempo",
+              "url": "https://cre.fr/fileadmin/Documents/Deliberations/2025/250619_2025-155_Proposition_TRVE_inf_36_annexe_B.pdf"
+            },
+            {
               "type": "edf_grille",
               "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
             }
@@ -7578,12 +7758,16 @@
             {
               "type": "cre_deliberation",
               "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf"
+            },
+            {
+              "type": "jourtempo",
+              "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf"
             }
           ],
           "puissances": {
             "9": {
               "abonnement_ht": 172.56,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 230.43,
               "prix_ht": {
                 "normal": 0.1176,
                 "pointe": 0.2558
@@ -7595,7 +7779,7 @@
             },
             "12": {
               "abonnement_ht": 203.04,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 272.47,
               "prix_ht": {
                 "normal": 0.1176,
                 "pointe": 0.2558
@@ -7607,7 +7791,7 @@
             },
             "15": {
               "abonnement_ht": 234.12,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 315.23,
               "prix_ht": {
                 "normal": 0.1176,
                 "pointe": 0.2558
@@ -7619,7 +7803,7 @@
             },
             "18": {
               "abonnement_ht": 264.24,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 356.83,
               "prix_ht": {
                 "normal": 0.1176,
                 "pointe": 0.2558
@@ -7631,7 +7815,7 @@
             },
             "36": {
               "abonnement_ht": 452.64,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 615.66,
               "prix_ht": {
                 "normal": 0.1176,
                 "pointe": 0.2558
@@ -7659,6 +7843,10 @@
           "sources": [
             {
               "type": "cre_deliberation",
+              "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf"
+            },
+            {
+              "type": "jourtempo",
               "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf"
             },
             {
@@ -7740,5 +7928,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T11:55:32+00:00"
+  "mis_a_jour_le": "2026-11-23T12:41:02+00:00"
 }

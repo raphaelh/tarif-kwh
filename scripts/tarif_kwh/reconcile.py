@@ -20,7 +20,7 @@ TOL_KWH = 0.00011  # arrondi à 4 décimales des deux côtés
 TOL_ABO = 0.011  # €/an
 TOL_MENSUEL = 0.01  # 1 % entre abonnement mensuel EDF ×12 et annuel
 
-ORDRE_SOURCES = ("cre_deliberation", "edf_grille", "cre_opendata")
+ORDRE_SOURCES = ("cre_deliberation", "jourtempo", "edf_grille", "cre_opendata")
 
 
 # --- (dé)sérialisation du registre ---------------------------------------------
@@ -83,11 +83,26 @@ def recouper(
     delib = obs.get("cre_deliberation")
     edf = obs.get("edf_grille")
     od = obs.get("cre_opendata")
+    # Jour Tempo (HT, texte officiel cité) : identique à la délibération quand les
+    # deux existent ; seule source HT pour les tarifs fixés par arrêté (2023).
+    jt = obs.get("jourtempo")
+    if delib and jt:
+        for k in sorted(set(delib.puissances) | set(jt.puissances)):
+            p, q = delib.puissances.get(k), jt.puissances.get(k)
+            if p is None or q is None:
+                pb.append(f"{option} {date_effet}: {k} kVA absent de la délibération CRE ou de Jour Tempo")
+                continue
+            if abs(p.abonnement_ht - q.abonnement_ht) > TOL_ABO:
+                pb.append(f"{option} {date_effet} {k} kVA: abonnement HT CRE {p.abonnement_ht} ≠ Jour Tempo {q.abonnement_ht}")
+            for per, v in q.prix_ht.items():
+                if abs(p.prix_ht.get(per, -1) - v) > TOL_KWH / 2:
+                    pb.append(f"{option} {date_effet} {k} kVA {per}: HT CRE {p.prix_ht.get(per)} ≠ Jour Tempo {v}")
+    delib = delib or jt
     if not (delib or od):
         if edf:
             pb.append(
-                f"{option} {date_effet}: grille EDF publiée mais aucune délibération CRE "
-                "ni open data correspondante (délibération non découverte ?)"
+                f"{option} {date_effet}: grille EDF publiée mais aucune délibération CRE, "
+                "ni Jour Tempo, ni open data correspondante (délibération non découverte ?)"
             )
         return None, pb
     if pb:
@@ -120,6 +135,7 @@ def recouper(
     kvas = sorted(set(delib.puissances if delib else {}) | set(od.puissances if od else {}))
     puissances: dict[str, dict] = {}
     estime = False
+    cta_calculee: str | None = None
     for k in kvas:
         src_ht = od.puissances[k] if od and k in od.puissances else delib.puissances[k]
         e = edf.puissances.get(k) if edf else None
@@ -148,6 +164,10 @@ def recouper(
             abo_ttc = round(e.abonnement_ttc_mensuel * 12, 2)
         elif k in cta:
             abo_ttc = taxes.abonnement_ttc(abo_ht, cta[k], tva_a)
+            estime = True
+        elif (calc_cta := taxes.cta_turpe(option, date_effet, k, config_taxes)) is not None:
+            abo_ttc = taxes.abonnement_ttc(abo_ht, calc_cta[0], tva_a)
+            cta_calculee = calc_cta[1]
             estime = True
         else:
             abo_ttc = None
@@ -208,6 +228,7 @@ def recouper(
             "tva_energie": tva_e,
             "tva_abonnement": tva_a,
             **({"cta_deduite_de": f"open data CRE, grille du {cta_date}"} if estime and cta_date else {}),
+            **({"cta_calculee": cta_calculee} if cta_calculee else {}),
         },
         "alertes": [f"JORF {a['date_publication']}: {a['titre']} ({a['url']})" for a in alertes],
     }

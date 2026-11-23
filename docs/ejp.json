@@ -99,6 +99,11 @@
         "recupere_le": "2026-11-23T08:51:23+00:00"
       },
       {
+        "type": "jourtempo",
+        "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf",
+        "recupere_le": "2026-11-23T12:40:00+00:00"
+      },
+      {
         "type": "edf_grille",
         "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf",
         "recupere_le": "2026-11-23T11:39:23+00:00"
@@ -121,5 +126,5 @@
     }
   },
   "prochaine": null,
-  "mis_a_jour_le": "2026-11-23T11:40:12+00:00"
+  "mis_a_jour_le": "2026-11-23T12:41:02+00:00"
 }

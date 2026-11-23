@@ -5,8 +5,10 @@ abonnement TTC = (HT + CTA) × (1 + TVA abonnement)
 
 La CTA dépend de la part fixe du tarif d'acheminement (TURPE), propre à chaque
 option et puissance, et change chaque 1er août : on la déduit de la dernière
-grille officielle connue (open data CRE). Un TTC calculé ainsi est une
-ESTIMATION, signalée par ``ttc_estime: true`` dans les JSON.
+grille officielle connue (open data CRE). Pour l'EJP, absente de l'open data,
+on la calcule : taux de CTA × part fixe du TURPE (composantes de gestion et de
+comptage + soutirage fixe CU4 × puissance), d'après config/taxes.json. Un TTC
+calculé ainsi est une ESTIMATION, signalée par ``ttc_estime: true`` dans les JSON.
 """
 from __future__ import annotations
 
@@ -57,3 +59,29 @@ def kwh_ttc(ht: float, accise_v: float, tva_v: float) -> float:
 
 def abonnement_ttc(ht: float, cta: float, tva_v: float) -> float:
     return round((ht + cta) * (1 + tva_v) + 1e-9, 2)
+
+
+# Formule tarifaire d'acheminement dont la part fixe sert d'assiette à la CTA.
+# EJP : CU4 (vérifié au centime sur les grilles EDF d'août 2025 et août 2026).
+FORMULE_TURPE = {"ejp": "soutirage_fixe_cu4"}
+
+
+def cta_turpe(option: str, d: date, kva: int, config: dict) -> tuple[float, str] | None:
+    """CTA annuelle (€/an HT) calculée à partir du TURPE, ou None si la date n'est pas couverte."""
+    champ = FORMULE_TURPE.get(option)
+    if champ is None:
+        return None
+    periode = next(
+        (e for e in config.get("turpe_part_fixe", [])
+         if date.fromisoformat(e["debut"]) <= d <= date.fromisoformat(e["fin"])),
+        None,
+    )
+    taux = valeur_au(config.get("cta_taux", []), d)
+    if periode is None or taux is None:
+        return None
+    part_fixe = periode["gestion"] + periode["comptage"] + periode[champ] * kva
+    return (
+        taux["valeur"] * part_fixe,
+        f"CTA {taux['valeur']:.2%} × part fixe TURPE (gestion + comptage + CU4 × kVA, "
+        f"{periode['source']})",
+    )

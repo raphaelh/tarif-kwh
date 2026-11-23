@@ -59,7 +59,7 @@
       "type": "object",
       "required": ["type", "url"],
       "properties": {
-        "type": {"enum": ["cre_deliberation", "edf_grille", "cre_opendata"]},
+        "type": {"enum": ["cre_deliberation", "jourtempo", "edf_grille", "cre_opendata"]},
         "url": {"type": "string", "format": "uri"},
         "recupere_le": {"description": "Date de récupération (absent de historique.json).", "type": "string"}
       }
@@ -73,7 +73,8 @@
         "accise_source": {"type": "string"},
         "tva_energie": {"description": "Taux, ex. 0.2 pour 20 %.", "type": "number", "minimum": 0, "maximum": 1},
         "tva_abonnement": {"type": "number", "minimum": 0, "maximum": 1},
-        "cta_deduite_de": {"description": "Présent si le TTC de l'abonnement est estimé : grille dont la CTA est reprise.", "type": "string"}
+        "cta_deduite_de": {"description": "Présent si le TTC de l'abonnement est estimé : grille dont la CTA est reprise.", "type": "string"},
+        "cta_calculee": {"description": "Présent si la CTA de l'abonnement est calculée (taux × part fixe du TURPE) : méthode et texte de référence.", "type": "string"}
       }
     },
     "grille": {

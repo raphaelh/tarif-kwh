@@ -20,7 +20,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from tarif_kwh import calendrier, http, issues, publish, reconcile, taxes  # noqa: E402
-from tarif_kwh.sources import cre_deliberation, cre_opendata, edf_grille, jorf  # noqa: E402
+from tarif_kwh.sources import cre_deliberation, cre_opendata, edf_grille, jorf, jourtempo  # noqa: E402
 
 RACINE = Path(__file__).resolve().parents[1]
 REGISTRE = RACINE / "data" / "registre.json"
@@ -113,6 +113,13 @@ def collecter(registre: dict, forcer: list[str], erreurs: list, historique: dict
         if g.meta.get("accise_eur_kwh"):
             registre.setdefault("accise_observee", {})[g.date_effet.isoformat()] = g.meta["accise_eur_kwh"]
 
+    # 2 bis. Jour Tempo (data.gouv) : HT EJP depuis 2023, texte officiel cité. Source d'appoint.
+    try:
+        for g in jourtempo.collecter():
+            enregistrer_obs(registre, g)
+    except Exception as e:
+        print(f"Jour Tempo indisponible : {e}", file=sys.stderr)
+
     # 3. Open data CRE
     grilles = etape("Open data CRE", erreurs, cre_opendata.collecter, historique)
     for g in (grilles or {}).values():
@@ -145,8 +152,8 @@ def collecter(registre: dict, forcer: list[str], erreurs: list, historique: dict
 def amorcer_captures_ejp(registre: dict) -> None:
     """Lit toutes les captures archivées de la grille EDF EJP (amorçage de l'historique).
 
-    Une grille EDF n'est retenue que si la CRE a publié une grille EJP à la même
-    date : sinon (ex. révision du seul TTC au 1er novembre 2024, après une
+    Une grille EDF n'est retenue que si une grille EJP HT existe à la même date
+    (délibération CRE ou Jour Tempo) : sinon (ex. révision du seul TTC au 1er novembre 2024, après une
     hausse de la CTA) elle n'est pas une nouvelle grille tarifaire.
     """
     grilles, illisibles = edf_grille.collecter_captures_ejp()
@@ -155,8 +162,8 @@ def amorcer_captures_ejp(registre: dict) -> None:
     connues = registre.get("grilles", {}).get("ejp", {})
     for g in grilles:
         d = g.date_effet.isoformat()
-        if "cre_deliberation" not in connues.get(d, {}):
-            print(f"grille EDF EJP du {d} ignorée : aucune grille CRE à cette date", file=sys.stderr)
+        if not {"cre_deliberation", "jourtempo"} & set(connues.get(d, {})):
+            print(f"grille EDF EJP du {d} ignorée : aucune grille HT (CRE, Jour Tempo) à cette date", file=sys.stderr)
             continue
         enregistrer_obs(registre, g)
         if g.meta.get("accise_eur_kwh"):

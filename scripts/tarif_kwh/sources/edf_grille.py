@@ -30,7 +30,10 @@ MOIS = {
     "decembre": 12, "décembre": 12,
 }
 RE_APPLICABLE = re.compile(r"Applicable au (\d{1,2})(?:er)?\s+([a-zéû]+)\s+(20\d\d)", re.I)
-RE_ACCISE = re.compile(r"Accise sur l.électricité\S*,?\s*d.un montant de\s*([\d,]+)\s*cts", re.I)
+# 2023 : « Contribution au Service Public de l'Electricité (CSPE)1, d'un montant de 0,10 cts »
+RE_ACCISE = re.compile(
+    r"(?:Accise sur l.électricité|\(CSPE\))\S*,?\s*d.un montant de\s*([\d,]+)\s*cts", re.I
+)
 RE_LIGNE = re.compile(r"^(\d{1,2})\s+((?:\d+,\d+\s*)+)$")
 RE_NOMBRE = re.compile(r"\d+,\d+")
 
