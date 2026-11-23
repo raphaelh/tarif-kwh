@@ -12,6 +12,7 @@
 > officiel) and cross-checked before publishing. Per option: kWh price and subscription, excl. and incl. tax, for every
 > kVA rating, the current grid and the upcoming one with its effective date, plus full history since 2012. Ready to use
 > in Home Assistant, Jeedom, Domoticz or any script: see the URLs below and the Home Assistant example.
+> Human-readable tables (in French): <https://raphaelh.github.io/tarif-kwh/>.
 
 Les prix réglementés de l'électricité en France (**TRVE**, « Tarif Bleu » résidentiel d'**EDF**), publiés en **JSON**
 et mis à jour automatiquement depuis les sources officielles. Options couvertes : **Base**, **Heures Pleines / Heures Creuses**,
@@ -19,6 +20,8 @@ et mis à jour automatiquement depuis les sources officielles. Options couvertes
 
 Pour chaque option : prix du kWh **HT et TTC**, abonnement annuel **HT et TTC** (et mensuel TTC) par puissance souscrite (kVA),
 la **grille actuelle** et la **prochaine grille** avec sa date d'effet, dès que la CRE la propose (≈ 2 semaines avant le 1er février / 1er août).
+
+👉 **Consulter les tarifs en clair** : [raphaelh.github.io/tarif-kwh/](https://raphaelh.github.io/tarif-kwh/), un tableau par option (TTC, HT dépliable).
 
 Le JSON se lit avec n'importe quel outil : Home Assistant, Jeedom, Domoticz, tableur, script…
 
@@ -30,6 +33,7 @@ Le JSON se lit avec n'importe quel outil : Home Assistant, Jeedom, Domoticz, tab
 
 | Fichier | GitHub Pages | Brut |
 |---|---|---|
+| Page lisible (HTML) | https://raphaelh.github.io/tarif-kwh/ | — |
 | Tout | https://raphaelh.github.io/tarif-kwh/tarifs.json | https://raw.githubusercontent.com/raphaelh/tarif-kwh/main/docs/tarifs.json |
 | Base | https://raphaelh.github.io/tarif-kwh/base.json | …/docs/base.json |
 | Heures Creuses | https://raphaelh.github.io/tarif-kwh/hphc.json | …/docs/hphc.json |
