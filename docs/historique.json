@@ -5139,158 +5139,158 @@
               "abonnement_ht": 96.6,
               "abonnement_ttc": 121.94,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.0961,
-                "bleu_hc": 0.0799,
-                "blanc_hp": 0.1357,
                 "blanc_hc": 0.1132,
-                "rouge_hp": 0.5536,
-                "rouge_hc": 0.2096
+                "blanc_hp": 0.1357,
+                "bleu_hc": 0.0799,
+                "bleu_hp": 0.0961,
+                "rouge_hc": 0.2096,
+                "rouge_hp": 0.5536
               }
             },
             "12": {
               "abonnement_ht": 152.76,
               "abonnement_ttc": 199.67,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.0961,
-                "bleu_hc": 0.0799,
-                "blanc_hp": 0.1357,
                 "blanc_hc": 0.1132,
-                "rouge_hp": 0.5536,
-                "rouge_hc": 0.2096
+                "blanc_hp": 0.1357,
+                "bleu_hc": 0.0799,
+                "bleu_hp": 0.0961,
+                "rouge_hc": 0.2096,
+                "rouge_hp": 0.5536
               }
             },
             "15": {
               "abonnement_ht": 176.04,
               "abonnement_ttc": 231.94,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.0961,
-                "bleu_hc": 0.0799,
-                "blanc_hp": 0.1357,
                 "blanc_hc": 0.1132,
-                "rouge_hp": 0.5536,
-                "rouge_hc": 0.2096
+                "blanc_hp": 0.1357,
+                "bleu_hc": 0.0799,
+                "bleu_hp": 0.0961,
+                "rouge_hc": 0.2096,
+                "rouge_hp": 0.5536
               }
             },
             "18": {
               "abonnement_ht": 190.92,
               "abonnement_ttc": 255.34,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.0961,
-                "bleu_hc": 0.0799,
-                "blanc_hp": 0.1357,
                 "blanc_hc": 0.1132,
-                "rouge_hp": 0.5536,
-                "rouge_hc": 0.2096
+                "blanc_hp": 0.1357,
+                "bleu_hc": 0.0799,
+                "bleu_hp": 0.0961,
+                "rouge_hc": 0.2096,
+                "rouge_hp": 0.5536
               }
             },
             "24": {
               "abonnement_ht": 471.84,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.0961,
-                "bleu_hc": 0.0799,
-                "blanc_hp": 0.1357,
                 "blanc_hc": 0.1132,
-                "rouge_hp": 0.5536,
-                "rouge_hc": 0.2096
+                "blanc_hp": 0.1357,
+                "bleu_hc": 0.0799,
+                "bleu_hp": 0.0961,
+                "rouge_hc": 0.2096,
+                "rouge_hp": 0.5536
               }
             },
             "30": {
               "abonnement_ht": 471.84,
               "abonnement_ttc": 612.33,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.0961,
-                "bleu_hc": 0.0799,
-                "blanc_hp": 0.1357,
                 "blanc_hc": 0.1132,
-                "rouge_hp": 0.5536,
-                "rouge_hc": 0.2096
+                "blanc_hp": 0.1357,
+                "bleu_hc": 0.0799,
+                "bleu_hp": 0.0961,
+                "rouge_hc": 0.2096,
+                "rouge_hp": 0.5536
               }
             },
             "36": {
               "abonnement_ht": 583.56,
               "abonnement_ttc": 751.35,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.0961,
-                "bleu_hc": 0.0799,
-                "blanc_hp": 0.1357,
                 "blanc_hc": 0.1132,
-                "rouge_hp": 0.5536,
-                "rouge_hc": 0.2096
+                "blanc_hp": 0.1357,
+                "bleu_hc": 0.0799,
+                "bleu_hp": 0.0961,
+                "rouge_hc": 0.2096,
+                "rouge_hp": 0.5536
               }
             }
           },
           "prix_ht": {
-            "bleu_hp": 0.0576,
-            "bleu_hc": 0.044,
-            "blanc_hp": 0.0907,
             "blanc_hc": 0.0719,
-            "rouge_hp": 0.4401,
-            "rouge_hc": 0.1525
+            "blanc_hp": 0.0907,
+            "bleu_hc": 0.044,
+            "bleu_hp": 0.0576,
+            "rouge_hc": 0.1525,
+            "rouge_hp": 0.4401
           },
           "prix_ttc": {
-            "bleu_hp": 0.0961,
-            "bleu_hc": 0.0799,
-            "blanc_hp": 0.1357,
             "blanc_hc": 0.1132,
-            "rouge_hp": 0.5536,
-            "rouge_hc": 0.2096
+            "blanc_hp": 0.1357,
+            "bleu_hc": 0.0799,
+            "bleu_hp": 0.0961,
+            "rouge_hc": 0.2096,
+            "rouge_hp": 0.5536
           }
         },
         {
@@ -5317,150 +5317,150 @@
               "abonnement_ht": 96.6,
               "abonnement_ttc": 121.94,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.1001,
-                "bleu_hc": 0.0838,
-                "blanc_hp": 0.1399,
                 "blanc_hc": 0.1173,
-                "rouge_hp": 0.5591,
-                "rouge_hc": 0.214
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
               }
             },
             "12": {
               "abonnement_ht": 152.76,
               "abonnement_ttc": 199.67,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.1001,
-                "bleu_hc": 0.0838,
-                "blanc_hp": 0.1399,
                 "blanc_hc": 0.1173,
-                "rouge_hp": 0.5591,
-                "rouge_hc": 0.214
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
               }
             },
             "15": {
               "abonnement_ht": 176.04,
               "abonnement_ttc": 231.94,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.1001,
-                "bleu_hc": 0.0838,
-                "blanc_hp": 0.1399,
                 "blanc_hc": 0.1173,
-                "rouge_hp": 0.5591,
-                "rouge_hc": 0.214
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
               }
             },
             "18": {
               "abonnement_ht": 190.92,
               "abonnement_ttc": 255.34,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.1001,
-                "bleu_hc": 0.0838,
-                "blanc_hp": 0.1399,
                 "blanc_hc": 0.1173,
-                "rouge_hp": 0.5591,
-                "rouge_hc": 0.214
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
               }
             },
             "24": {
               "abonnement_ht": 471.84,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.1001,
-                "bleu_hc": 0.0838,
-                "blanc_hp": 0.1399,
                 "blanc_hc": 0.1173,
-                "rouge_hp": 0.5591,
-                "rouge_hc": 0.214
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
               }
             },
             "30": {
               "abonnement_ht": 471.84,
               "abonnement_ttc": 612.33,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.1001,
-                "bleu_hc": 0.0838,
-                "blanc_hp": 0.1399,
                 "blanc_hc": 0.1173,
-                "rouge_hp": 0.5591,
-                "rouge_hc": 0.214
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
               }
             },
             "36": {
               "abonnement_ht": 583.56,
               "abonnement_ttc": 751.35,
               "prix_ht": {
-                "bleu_hp": 0.0576,
-                "bleu_hc": 0.044,
-                "blanc_hp": 0.0907,
                 "blanc_hc": 0.0719,
-                "rouge_hp": 0.4401,
-                "rouge_hc": 0.1525
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
               },
               "prix_ttc": {
-                "bleu_hp": 0.1001,
-                "bleu_hc": 0.0838,
-                "blanc_hp": 0.1399,
                 "blanc_hc": 0.1173,
-                "rouge_hp": 0.5591,
-                "rouge_hc": 0.214
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
               }
             }
           },
           "prix_ht": {
-            "bleu_hp": 0.0576,
-            "bleu_hc": 0.044,
-            "blanc_hp": 0.0907,
             "blanc_hc": 0.0719,
-            "rouge_hp": 0.4401,
-            "rouge_hc": 0.1525
+            "blanc_hp": 0.0907,
+            "bleu_hc": 0.044,
+            "bleu_hp": 0.0576,
+            "rouge_hc": 0.1525,
+            "rouge_hp": 0.4401
           },
           "revision_ttc": {
             "date": "2014-01-01",
@@ -5470,12 +5470,12 @@
             ]
           },
           "prix_ttc": {
-            "bleu_hp": 0.1001,
-            "bleu_hc": 0.0838,
-            "blanc_hp": 0.1399,
             "blanc_hc": 0.1173,
-            "rouge_hp": 0.5591,
-            "rouge_hc": 0.214
+            "blanc_hp": 0.1399,
+            "bleu_hc": 0.0838,
+            "bleu_hp": 0.1001,
+            "rouge_hc": 0.214,
+            "rouge_hp": 0.5591
           }
         },
         {
@@ -5498,158 +5498,158 @@
               "abonnement_ht": 101.4,
               "abonnement_ttc": 125.98,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1036,
-                "bleu_hc": 0.0865,
-                "blanc_hp": 0.1453,
                 "blanc_hc": 0.1216,
-                "rouge_hp": 0.5855,
-                "rouge_hc": 0.2231
+                "blanc_hp": 0.1453,
+                "bleu_hc": 0.0865,
+                "bleu_hp": 0.1036,
+                "rouge_hc": 0.2231,
+                "rouge_hp": 0.5855
               }
             },
             "12": {
               "abonnement_ht": 160.44,
               "abonnement_ttc": 201.82,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1036,
-                "bleu_hc": 0.0865,
-                "blanc_hp": 0.1453,
                 "blanc_hc": 0.1216,
-                "rouge_hp": 0.5855,
-                "rouge_hc": 0.2231
+                "blanc_hp": 0.1453,
+                "bleu_hc": 0.0865,
+                "bleu_hp": 0.1036,
+                "rouge_hc": 0.2231,
+                "rouge_hp": 0.5855
               }
             },
             "15": {
               "abonnement_ht": 184.8,
               "abonnement_ttc": 233.68,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1036,
-                "bleu_hc": 0.0865,
-                "blanc_hp": 0.1453,
                 "blanc_hc": 0.1216,
-                "rouge_hp": 0.5855,
-                "rouge_hc": 0.2231
+                "blanc_hp": 0.1453,
+                "bleu_hc": 0.0865,
+                "bleu_hp": 0.1036,
+                "rouge_hc": 0.2231,
+                "rouge_hp": 0.5855
               }
             },
             "18": {
               "abonnement_ht": 200.52,
               "abonnement_ttc": 256.43,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1036,
-                "bleu_hc": 0.0865,
-                "blanc_hp": 0.1453,
                 "blanc_hc": 0.1216,
-                "rouge_hp": 0.5855,
-                "rouge_hc": 0.2231
+                "blanc_hp": 0.1453,
+                "bleu_hc": 0.0865,
+                "bleu_hp": 0.1036,
+                "rouge_hc": 0.2231,
+                "rouge_hp": 0.5855
               }
             },
             "24": {
               "abonnement_ht": 495.48,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1036,
-                "bleu_hc": 0.0865,
-                "blanc_hp": 0.1453,
                 "blanc_hc": 0.1216,
-                "rouge_hp": 0.5855,
-                "rouge_hc": 0.2231
+                "blanc_hp": 0.1453,
+                "bleu_hc": 0.0865,
+                "bleu_hp": 0.1036,
+                "rouge_hc": 0.2231,
+                "rouge_hp": 0.5855
               }
             },
             "30": {
               "abonnement_ht": 495.48,
               "abonnement_ttc": 641.62,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1036,
-                "bleu_hc": 0.0865,
-                "blanc_hp": 0.1453,
                 "blanc_hc": 0.1216,
-                "rouge_hp": 0.5855,
-                "rouge_hc": 0.2231
+                "blanc_hp": 0.1453,
+                "bleu_hc": 0.0865,
+                "bleu_hp": 0.1036,
+                "rouge_hc": 0.2231,
+                "rouge_hp": 0.5855
               }
             },
             "36": {
               "abonnement_ht": 612.72,
               "abonnement_ttc": 787.29,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1036,
-                "bleu_hc": 0.0865,
-                "blanc_hp": 0.1453,
                 "blanc_hc": 0.1216,
-                "rouge_hp": 0.5855,
-                "rouge_hc": 0.2231
+                "blanc_hp": 0.1453,
+                "bleu_hc": 0.0865,
+                "bleu_hp": 0.1036,
+                "rouge_hc": 0.2231,
+                "rouge_hp": 0.5855
               }
             }
           },
           "prix_ht": {
-            "bleu_hp": 0.0605,
-            "bleu_hc": 0.0462,
-            "blanc_hp": 0.0952,
             "blanc_hc": 0.0755,
-            "rouge_hp": 0.4621,
-            "rouge_hc": 0.1601
+            "blanc_hp": 0.0952,
+            "bleu_hc": 0.0462,
+            "bleu_hp": 0.0605,
+            "rouge_hc": 0.1601,
+            "rouge_hp": 0.4621
           },
           "prix_ttc": {
-            "bleu_hp": 0.1036,
-            "bleu_hc": 0.0865,
-            "blanc_hp": 0.1453,
             "blanc_hc": 0.1216,
-            "rouge_hp": 0.5855,
-            "rouge_hc": 0.2231
+            "blanc_hp": 0.1453,
+            "bleu_hc": 0.0865,
+            "bleu_hp": 0.1036,
+            "rouge_hc": 0.2231,
+            "rouge_hp": 0.5855
           }
         },
         {
@@ -5672,150 +5672,150 @@
               "abonnement_ht": 101.4,
               "abonnement_ttc": 125.98,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1071,
-                "bleu_hc": 0.09,
-                "blanc_hp": 0.1488,
                 "blanc_hc": 0.1251,
-                "rouge_hp": 0.5891,
-                "rouge_hc": 0.2267
+                "blanc_hp": 0.1488,
+                "bleu_hc": 0.09,
+                "bleu_hp": 0.1071,
+                "rouge_hc": 0.2267,
+                "rouge_hp": 0.5891
               }
             },
             "12": {
               "abonnement_ht": 160.44,
               "abonnement_ttc": 201.82,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1071,
-                "bleu_hc": 0.09,
-                "blanc_hp": 0.1488,
                 "blanc_hc": 0.1251,
-                "rouge_hp": 0.5891,
-                "rouge_hc": 0.2267
+                "blanc_hp": 0.1488,
+                "bleu_hc": 0.09,
+                "bleu_hp": 0.1071,
+                "rouge_hc": 0.2267,
+                "rouge_hp": 0.5891
               }
             },
             "15": {
               "abonnement_ht": 184.8,
               "abonnement_ttc": 233.68,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1071,
-                "bleu_hc": 0.09,
-                "blanc_hp": 0.1488,
                 "blanc_hc": 0.1251,
-                "rouge_hp": 0.5891,
-                "rouge_hc": 0.2267
+                "blanc_hp": 0.1488,
+                "bleu_hc": 0.09,
+                "bleu_hp": 0.1071,
+                "rouge_hc": 0.2267,
+                "rouge_hp": 0.5891
               }
             },
             "18": {
               "abonnement_ht": 200.52,
               "abonnement_ttc": 256.43,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1071,
-                "bleu_hc": 0.09,
-                "blanc_hp": 0.1488,
                 "blanc_hc": 0.1251,
-                "rouge_hp": 0.5891,
-                "rouge_hc": 0.2267
+                "blanc_hp": 0.1488,
+                "bleu_hc": 0.09,
+                "bleu_hp": 0.1071,
+                "rouge_hc": 0.2267,
+                "rouge_hp": 0.5891
               }
             },
             "24": {
               "abonnement_ht": 495.48,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1071,
-                "bleu_hc": 0.09,
-                "blanc_hp": 0.1488,
                 "blanc_hc": 0.1251,
-                "rouge_hp": 0.5891,
-                "rouge_hc": 0.2267
+                "blanc_hp": 0.1488,
+                "bleu_hc": 0.09,
+                "bleu_hp": 0.1071,
+                "rouge_hc": 0.2267,
+                "rouge_hp": 0.5891
               }
             },
             "30": {
               "abonnement_ht": 495.48,
               "abonnement_ttc": 641.62,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1071,
-                "bleu_hc": 0.09,
-                "blanc_hp": 0.1488,
                 "blanc_hc": 0.1251,
-                "rouge_hp": 0.5891,
-                "rouge_hc": 0.2267
+                "blanc_hp": 0.1488,
+                "bleu_hc": 0.09,
+                "bleu_hp": 0.1071,
+                "rouge_hc": 0.2267,
+                "rouge_hp": 0.5891
               }
             },
             "36": {
               "abonnement_ht": 612.72,
               "abonnement_ttc": 787.29,
               "prix_ht": {
-                "bleu_hp": 0.0605,
-                "bleu_hc": 0.0462,
-                "blanc_hp": 0.0952,
                 "blanc_hc": 0.0755,
-                "rouge_hp": 0.4621,
-                "rouge_hc": 0.1601
+                "blanc_hp": 0.0952,
+                "bleu_hc": 0.0462,
+                "bleu_hp": 0.0605,
+                "rouge_hc": 0.1601,
+                "rouge_hp": 0.4621
               },
               "prix_ttc": {
-                "bleu_hp": 0.1071,
-                "bleu_hc": 0.09,
-                "blanc_hp": 0.1488,
                 "blanc_hc": 0.1251,
-                "rouge_hp": 0.5891,
-                "rouge_hc": 0.2267
+                "blanc_hp": 0.1488,
+                "bleu_hc": 0.09,
+                "bleu_hp": 0.1071,
+                "rouge_hc": 0.2267,
+                "rouge_hp": 0.5891
               }
             }
           },
           "prix_ht": {
-            "bleu_hp": 0.0605,
-            "bleu_hc": 0.0462,
-            "blanc_hp": 0.0952,
             "blanc_hc": 0.0755,
-            "rouge_hp": 0.4621,
-            "rouge_hc": 0.1601
+            "blanc_hp": 0.0952,
+            "bleu_hc": 0.0462,
+            "bleu_hp": 0.0605,
+            "rouge_hc": 0.1601,
+            "rouge_hp": 0.4621
           },
           "revision_ttc": {
             "date": "2015-01-01",
@@ -5824,12 +5824,12 @@
             ]
           },
           "prix_ttc": {
-            "bleu_hp": 0.1071,
-            "bleu_hc": 0.09,
-            "blanc_hp": 0.1488,
             "blanc_hc": 0.1251,
-            "rouge_hp": 0.5891,
-            "rouge_hc": 0.2267
+            "blanc_hp": 0.1488,
+            "bleu_hc": 0.09,
+            "bleu_hp": 0.1071,
+            "rouge_hc": 0.2267,
+            "rouge_hp": 0.5891
           }
         },
         {
@@ -5856,158 +5856,158 @@
               "abonnement_ht": 106.44,
               "abonnement_ttc": 131.33,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1107,
-                "bleu_hc": 0.0927,
-                "blanc_hp": 0.1545,
                 "blanc_hc": 0.1297,
-                "rouge_hp": 0.6168,
-                "rouge_hc": 0.2363
+                "blanc_hp": 0.1545,
+                "bleu_hc": 0.0927,
+                "bleu_hp": 0.1107,
+                "rouge_hc": 0.2363,
+                "rouge_hp": 0.6168
               }
             },
             "12": {
               "abonnement_ht": 168.48,
               "abonnement_ttc": 210.34,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1107,
-                "bleu_hc": 0.0927,
-                "blanc_hp": 0.1545,
                 "blanc_hc": 0.1297,
-                "rouge_hp": 0.6168,
-                "rouge_hc": 0.2363
+                "blanc_hp": 0.1545,
+                "bleu_hc": 0.0927,
+                "bleu_hp": 0.1107,
+                "rouge_hc": 0.2363,
+                "rouge_hp": 0.6168
               }
             },
             "15": {
               "abonnement_ht": 194.04,
               "abonnement_ttc": 243.46,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1107,
-                "bleu_hc": 0.0927,
-                "blanc_hp": 0.1545,
                 "blanc_hc": 0.1297,
-                "rouge_hp": 0.6168,
-                "rouge_hc": 0.2363
+                "blanc_hp": 0.1545,
+                "bleu_hc": 0.0927,
+                "bleu_hp": 0.1107,
+                "rouge_hc": 0.2363,
+                "rouge_hp": 0.6168
               }
             },
             "18": {
               "abonnement_ht": 210.6,
               "abonnement_ttc": 267.1,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1107,
-                "bleu_hc": 0.0927,
-                "blanc_hp": 0.1545,
                 "blanc_hc": 0.1297,
-                "rouge_hp": 0.6168,
-                "rouge_hc": 0.2363
+                "blanc_hp": 0.1545,
+                "bleu_hc": 0.0927,
+                "bleu_hp": 0.1107,
+                "rouge_hc": 0.2363,
+                "rouge_hp": 0.6168
               }
             },
             "24": {
               "abonnement_ht": 520.2,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1107,
-                "bleu_hc": 0.0927,
-                "blanc_hp": 0.1545,
                 "blanc_hc": 0.1297,
-                "rouge_hp": 0.6168,
-                "rouge_hc": 0.2363
+                "blanc_hp": 0.1545,
+                "bleu_hc": 0.0927,
+                "bleu_hp": 0.1107,
+                "rouge_hc": 0.2363,
+                "rouge_hp": 0.6168
               }
             },
             "30": {
               "abonnement_ht": 520.2,
               "abonnement_ttc": 667.74,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1107,
-                "bleu_hc": 0.0927,
-                "blanc_hp": 0.1545,
                 "blanc_hc": 0.1297,
-                "rouge_hp": 0.6168,
-                "rouge_hc": 0.2363
+                "blanc_hp": 0.1545,
+                "bleu_hc": 0.0927,
+                "bleu_hp": 0.1107,
+                "rouge_hc": 0.2363,
+                "rouge_hp": 0.6168
               }
             },
             "36": {
               "abonnement_ht": 643.32,
               "abonnement_ttc": 819.6,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1107,
-                "bleu_hc": 0.0927,
-                "blanc_hp": 0.1545,
                 "blanc_hc": 0.1297,
-                "rouge_hp": 0.6168,
-                "rouge_hc": 0.2363
+                "blanc_hp": 0.1545,
+                "bleu_hc": 0.0927,
+                "bleu_hp": 0.1107,
+                "rouge_hc": 0.2363,
+                "rouge_hp": 0.6168
               }
             }
           },
           "prix_ht": {
-            "bleu_hp": 0.0635,
-            "bleu_hc": 0.0485,
-            "blanc_hp": 0.1,
             "blanc_hc": 0.0793,
-            "rouge_hp": 0.4852,
-            "rouge_hc": 0.1681
+            "blanc_hp": 0.1,
+            "bleu_hc": 0.0485,
+            "bleu_hp": 0.0635,
+            "rouge_hc": 0.1681,
+            "rouge_hp": 0.4852
           },
           "prix_ttc": {
-            "bleu_hp": 0.1107,
-            "bleu_hc": 0.0927,
-            "blanc_hp": 0.1545,
             "blanc_hc": 0.1297,
-            "rouge_hp": 0.6168,
-            "rouge_hc": 0.2363
+            "blanc_hp": 0.1545,
+            "bleu_hc": 0.0927,
+            "bleu_hp": 0.1107,
+            "rouge_hc": 0.2363,
+            "rouge_hp": 0.6168
           }
         },
         {
@@ -6034,150 +6034,150 @@
               "abonnement_ht": 106.44,
               "abonnement_ttc": 131.33,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1147,
-                "bleu_hc": 0.0967,
-                "blanc_hp": 0.1585,
                 "blanc_hc": 0.1337,
-                "rouge_hp": 0.6207,
-                "rouge_hc": 0.2402
+                "blanc_hp": 0.1585,
+                "bleu_hc": 0.0967,
+                "bleu_hp": 0.1147,
+                "rouge_hc": 0.2402,
+                "rouge_hp": 0.6207
               }
             },
             "12": {
               "abonnement_ht": 168.48,
               "abonnement_ttc": 210.34,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1147,
-                "bleu_hc": 0.0967,
-                "blanc_hp": 0.1585,
                 "blanc_hc": 0.1337,
-                "rouge_hp": 0.6207,
-                "rouge_hc": 0.2402
+                "blanc_hp": 0.1585,
+                "bleu_hc": 0.0967,
+                "bleu_hp": 0.1147,
+                "rouge_hc": 0.2402,
+                "rouge_hp": 0.6207
               }
             },
             "15": {
               "abonnement_ht": 194.04,
               "abonnement_ttc": 243.46,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1147,
-                "bleu_hc": 0.0967,
-                "blanc_hp": 0.1585,
                 "blanc_hc": 0.1337,
-                "rouge_hp": 0.6207,
-                "rouge_hc": 0.2402
+                "blanc_hp": 0.1585,
+                "bleu_hc": 0.0967,
+                "bleu_hp": 0.1147,
+                "rouge_hc": 0.2402,
+                "rouge_hp": 0.6207
               }
             },
             "18": {
               "abonnement_ht": 210.6,
               "abonnement_ttc": 267.1,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1147,
-                "bleu_hc": 0.0967,
-                "blanc_hp": 0.1585,
                 "blanc_hc": 0.1337,
-                "rouge_hp": 0.6207,
-                "rouge_hc": 0.2402
+                "blanc_hp": 0.1585,
+                "bleu_hc": 0.0967,
+                "bleu_hp": 0.1147,
+                "rouge_hc": 0.2402,
+                "rouge_hp": 0.6207
               }
             },
             "24": {
               "abonnement_ht": 520.2,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1147,
-                "bleu_hc": 0.0967,
-                "blanc_hp": 0.1585,
                 "blanc_hc": 0.1337,
-                "rouge_hp": 0.6207,
-                "rouge_hc": 0.2402
+                "blanc_hp": 0.1585,
+                "bleu_hc": 0.0967,
+                "bleu_hp": 0.1147,
+                "rouge_hc": 0.2402,
+                "rouge_hp": 0.6207
               }
             },
             "30": {
               "abonnement_ht": 520.2,
               "abonnement_ttc": 667.74,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1147,
-                "bleu_hc": 0.0967,
-                "blanc_hp": 0.1585,
                 "blanc_hc": 0.1337,
-                "rouge_hp": 0.6207,
-                "rouge_hc": 0.2402
+                "blanc_hp": 0.1585,
+                "bleu_hc": 0.0967,
+                "bleu_hp": 0.1147,
+                "rouge_hc": 0.2402,
+                "rouge_hp": 0.6207
               }
             },
             "36": {
               "abonnement_ht": 643.32,
               "abonnement_ttc": 819.6,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.1147,
-                "bleu_hc": 0.0967,
-                "blanc_hp": 0.1585,
                 "blanc_hc": 0.1337,
-                "rouge_hp": 0.6207,
-                "rouge_hc": 0.2402
+                "blanc_hp": 0.1585,
+                "bleu_hc": 0.0967,
+                "bleu_hp": 0.1147,
+                "rouge_hc": 0.2402,
+                "rouge_hp": 0.6207
               }
             }
           },
           "prix_ht": {
-            "bleu_hp": 0.0635,
-            "bleu_hc": 0.0485,
-            "blanc_hp": 0.1,
             "blanc_hc": 0.0793,
-            "rouge_hp": 0.4852,
-            "rouge_hc": 0.1681
+            "blanc_hp": 0.1,
+            "bleu_hc": 0.0485,
+            "bleu_hp": 0.0635,
+            "rouge_hc": 0.1681,
+            "rouge_hp": 0.4852
           },
           "revision_ttc": {
             "date": "2016-01-01",
@@ -6186,12 +6186,12 @@
             ]
           },
           "prix_ttc": {
-            "bleu_hp": 0.1147,
-            "bleu_hc": 0.0967,
-            "blanc_hp": 0.1585,
             "blanc_hc": 0.1337,
-            "rouge_hp": 0.6207,
-            "rouge_hc": 0.2402
+            "blanc_hp": 0.1585,
+            "bleu_hc": 0.0967,
+            "bleu_hp": 0.1147,
+            "rouge_hc": 0.2402,
+            "rouge_hp": 0.6207
           }
         },
         {
@@ -7876,140 +7876,140 @@
               "abonnement_ht": 106.44,
               "abonnement_ttc": 131.33,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.0774,
-                "bleu_hc": 0.0594,
-                "blanc_hp": 0.1212,
                 "blanc_hc": 0.0964,
-                "rouge_hp": 0.5834,
-                "rouge_hc": 0.2029
+                "blanc_hp": 0.1212,
+                "bleu_hc": 0.0594,
+                "bleu_hp": 0.0774,
+                "rouge_hc": 0.2029,
+                "rouge_hp": 0.5834
               }
             },
             "12": {
               "abonnement_ht": 168.48,
               "abonnement_ttc": 210.34,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.0774,
-                "bleu_hc": 0.0594,
-                "blanc_hp": 0.1212,
                 "blanc_hc": 0.0964,
-                "rouge_hp": 0.5834,
-                "rouge_hc": 0.2029
+                "blanc_hp": 0.1212,
+                "bleu_hc": 0.0594,
+                "bleu_hp": 0.0774,
+                "rouge_hc": 0.2029,
+                "rouge_hp": 0.5834
               }
             },
             "15": {
               "abonnement_ht": 194.04,
               "abonnement_ttc": 243.46,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.0774,
-                "bleu_hc": 0.0594,
-                "blanc_hp": 0.1212,
                 "blanc_hc": 0.0964,
-                "rouge_hp": 0.5834,
-                "rouge_hc": 0.2029
+                "blanc_hp": 0.1212,
+                "bleu_hc": 0.0594,
+                "bleu_hp": 0.0774,
+                "rouge_hc": 0.2029,
+                "rouge_hp": 0.5834
               }
             },
             "18": {
               "abonnement_ht": 210.6,
               "abonnement_ttc": 267.1,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.0774,
-                "bleu_hc": 0.0594,
-                "blanc_hp": 0.1212,
                 "blanc_hc": 0.0964,
-                "rouge_hp": 0.5834,
-                "rouge_hc": 0.2029
+                "blanc_hp": 0.1212,
+                "bleu_hc": 0.0594,
+                "bleu_hp": 0.0774,
+                "rouge_hc": 0.2029,
+                "rouge_hp": 0.5834
               }
             },
             "24": {
               "abonnement_ht": 520.2,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.0774,
-                "bleu_hc": 0.0594,
-                "blanc_hp": 0.1212,
                 "blanc_hc": 0.0964,
-                "rouge_hp": 0.5834,
-                "rouge_hc": 0.2029
+                "blanc_hp": 0.1212,
+                "bleu_hc": 0.0594,
+                "bleu_hp": 0.0774,
+                "rouge_hc": 0.2029,
+                "rouge_hp": 0.5834
               }
             },
             "30": {
               "abonnement_ht": 520.2,
               "abonnement_ttc": 667.74,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.0774,
-                "bleu_hc": 0.0594,
-                "blanc_hp": 0.1212,
                 "blanc_hc": 0.0964,
-                "rouge_hp": 0.5834,
-                "rouge_hc": 0.2029
+                "blanc_hp": 0.1212,
+                "bleu_hc": 0.0594,
+                "bleu_hp": 0.0774,
+                "rouge_hc": 0.2029,
+                "rouge_hp": 0.5834
               }
             },
             "36": {
               "abonnement_ht": 643.32,
               "abonnement_ttc": 819.6,
               "prix_ht": {
-                "bleu_hp": 0.0635,
-                "bleu_hc": 0.0485,
-                "blanc_hp": 0.1,
                 "blanc_hc": 0.0793,
-                "rouge_hp": 0.4852,
-                "rouge_hc": 0.1681
+                "blanc_hp": 0.1,
+                "bleu_hc": 0.0485,
+                "bleu_hp": 0.0635,
+                "rouge_hc": 0.1681,
+                "rouge_hp": 0.4852
               },
               "prix_ttc": {
-                "bleu_hp": 0.0774,
-                "bleu_hc": 0.0594,
-                "blanc_hp": 0.1212,
                 "blanc_hc": 0.0964,
-                "rouge_hp": 0.5834,
-                "rouge_hc": 0.2029
+                "blanc_hp": 0.1212,
+                "bleu_hc": 0.0594,
+                "bleu_hp": 0.0774,
+                "rouge_hc": 0.2029,
+                "rouge_hp": 0.5834
               }
             }
           },
@@ -8022,20 +8022,20 @@
             ]
           },
           "prix_ht": {
-            "bleu_hp": 0.0635,
-            "bleu_hc": 0.0485,
-            "blanc_hp": 0.1,
             "blanc_hc": 0.0793,
-            "rouge_hp": 0.4852,
-            "rouge_hc": 0.1681
+            "blanc_hp": 0.1,
+            "bleu_hc": 0.0485,
+            "bleu_hp": 0.0635,
+            "rouge_hc": 0.1681,
+            "rouge_hp": 0.4852
           },
           "prix_ttc": {
-            "bleu_hp": 0.0774,
-            "bleu_hc": 0.0594,
-            "blanc_hp": 0.1212,
             "blanc_hc": 0.0964,
-            "rouge_hp": 0.5834,
-            "rouge_hc": 0.2029
+            "blanc_hp": 0.1212,
+            "bleu_hc": 0.0594,
+            "bleu_hp": 0.0774,
+            "rouge_hc": 0.2029,
+            "rouge_hp": 0.5834
           }
         },
         {
@@ -10842,7 +10842,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 139.08,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 171.91,
               "prix_ht": {
                 "normal": 0.0924,
                 "pointe": 0.2793
@@ -10854,7 +10854,7 @@
             },
             "12": {
               "abonnement_ht": 164.28,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 204.41,
               "prix_ht": {
                 "normal": 0.0924,
                 "pointe": 0.2793
@@ -10866,7 +10866,7 @@
             },
             "15": {
               "abonnement_ht": 189.96,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 237.42,
               "prix_ht": {
                 "normal": 0.0924,
                 "pointe": 0.2793
@@ -10878,7 +10878,7 @@
             },
             "18": {
               "abonnement_ht": 214.92,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 269.66,
               "prix_ht": {
                 "normal": 0.0924,
                 "pointe": 0.2793
@@ -10890,7 +10890,7 @@
             },
             "36": {
               "abonnement_ht": 371.52,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 470.36,
               "prix_ht": {
                 "normal": 0.0924,
                 "pointe": 0.2793
@@ -10924,7 +10924,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 137.64,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 170.39,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -10936,7 +10936,7 @@
             },
             "12": {
               "abonnement_ht": 162.96,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 203.02,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -10948,7 +10948,7 @@
             },
             "15": {
               "abonnement_ht": 188.52,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 235.9,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -10960,7 +10960,7 @@
             },
             "18": {
               "abonnement_ht": 213.6,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 268.27,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -10972,7 +10972,7 @@
             },
             "36": {
               "abonnement_ht": 370.2,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 468.96,
               "prix_ht": {
                 "normal": 0.0993,
                 "pointe": 0.7772
@@ -11875,5 +11875,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T15:45:55+00:00"
+  "mis_a_jour_le": "2026-11-23T15:58:17+00:00"
 }

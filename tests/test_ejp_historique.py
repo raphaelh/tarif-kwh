@@ -134,17 +134,20 @@ def test_taxes_kwh_opendata(taxes_od, taxes_od_brut):
 
 
 def test_recoupement_avant_2023(jt, taxes_od):
-    """Août 2021 : TTC au kWh = (HT + taxes CRE) × 1,2, abonnement TTC inconnu."""
+    """Août 2021 : TTC au kWh = (HT + taxes CRE) × 1,2, abonnement TTC par la CTA du TURPE ;
+    août 2013 : abonnement TTC inconnu (aucune période TURPE)."""
     r = {"taxes_kwh_opendata": taxes_od}
     g, pb = reconcile.recouper("ejp", date(2021, 8, 1), {"jourtempo": jt[("ejp", date(2021, 8, 1))]}, r, CONFIG, date(2026, 11, 23))
     assert pb == []
     assert g["ttc_estime"] is True and g["statut"] == "en_vigueur"
     assert g["prix_ttc"] == {"normal": 0.1498, "pointe": 0.3741}
-    assert all(p["abonnement_ttc"] is None and p["abonnement_ht"] for p in g["puissances"].values())
+    assert [round(p["abonnement_ttc"] / 12 + 1e-9, 2) for p in g["puissances"].values()] == [
+        round(a / 12, 2) for a in EDF_EJP_AOUT_2021]
     assert "open data CRE du 2021-08-01" in g["taxes"]["accise_source"]
     # Août 2013 : TVA 19,6 %
     g, pb = reconcile.recouper("ejp", date(2013, 8, 1), {"jourtempo": jt[("ejp", date(2013, 8, 1))]}, r, CONFIG, date(2026, 11, 23))
     assert pb == [] and g["taxes"]["tva_energie"] == 0.196
+    assert all(p["abonnement_ttc"] is None and p["abonnement_ht"] for p in g["puissances"].values())
     assert g["prix_ttc"] == {"normal": taxes.kwh_ttc(0.0673, 0.02278, 0.196), "pointe": taxes.kwh_ttc(0.4313, 0.02278, 0.196)}
 
 
@@ -290,10 +293,15 @@ EDF_EJP_TURPE_5 = {
     "2018-08-01": (129.36, 148.68, 168.00, 187.20, 303.00),
     "2019-08-01": (140.52, 162.24, 183.96, 205.56, 336.84),
     "2020-08-01": (152.16, 176.28, 200.16, 224.04, 371.28),
+    # comparateur-energies.com, captures archive.org de septembre 2021 à juillet 2022
+    "2021-02-01": (151.56, 175.68, 199.56, 223.32, 370.56),
 }
+# Selectra, grille « à jour au 1er octobre 2021 », capture archive.org du 25 octobre 2021
+EDF_EJP_AOUT_2021 = (171.96, 204.36, 237.48, 269.64, 470.40)
 
 
-@pytest.mark.parametrize("d,delib", [("2018-08-01", "2018-148"), ("2019-08-01", "2019-138"), ("2020-08-01", "2020-095")])
+@pytest.mark.parametrize("d,delib", [("2018-08-01", "2018-148"), ("2019-08-01", "2019-138"), ("2020-08-01", "2020-095"),
+                                     ("2021-02-01", "2020-095")])
 def test_cta_turpe_5_cu_redonne_grilles_edf(jt, d, delib):
     """TURPE 5 bis, CTA 27,04 %, tarif CU (et non CU4) : grilles EDF EJP au centime."""
     de = date.fromisoformat(d)
@@ -302,6 +310,17 @@ def test_cta_turpe_5_cu_redonne_grilles_edf(jt, d, delib):
         ttc = taxes.abonnement_ttc(jt[("ejp", de)].puissances[k].abonnement_ht, cta, 0.055)
         assert round(ttc / 12 + 1e-9, 2) == round(annuel / 12, 2), k
         assert "27.04%" in src and "+ CU ×" in src and delib in src
+
+
+def test_cta_turpe_aout_2021_cu_redonne_grille_edf(jt):
+    """TURPE 6 d'août 2021, CTA 21,93 %, tarif CU, gestion déduite (13,92) : grille d'août 2021 au centime.
+    Avec la gestion de la délibération (7,46 + Rf TRV 6,26 = 13,72), 12 c€/an de moins sur 3 puissances."""
+    de = date(2021, 8, 1)
+    for k, annuel in zip(KVAS, EDF_EJP_AOUT_2021):
+        cta, src = taxes.cta_turpe("ejp", de, k, CONFIG)
+        ttc = taxes.abonnement_ttc(jt[("ejp", de)].puissances[k].abonnement_ht, cta, 0.055)
+        assert round(ttc / 12 + 1e-9, 2) == round(annuel / 12, 2), k
+    assert "21.93%" in src and "+ CU ×" in src and "2021-13" in src and "DÉDUITE" in src
 
 
 def test_cta_turpe_aout_2022_cu4_redonne_grille_edf_fevrier_2023(jt):
@@ -373,7 +392,7 @@ def test_cta_turpe_fevrier_2026(ejp_cre):
 
 
 @pytest.mark.parametrize("option,d", [
-    ("ejp", date(2018, 7, 31)), ("ejp", date(2021, 8, 1)), ("ejp", date(2022, 7, 31)),
+    ("ejp", date(2018, 7, 31)),
     ("ejp", date(2027, 8, 1)), ("tempo", date(2026, 2, 1)),
 ])
 def test_cta_turpe_hors_perimetre(option, d):

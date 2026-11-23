@@ -7,7 +7,7 @@ La CTA dépend de la part fixe du tarif d'acheminement (TURPE), propre à chaque
 option et puissance, et change chaque 1er août : on la déduit de la dernière
 grille officielle connue (open data CRE). Pour l'EJP, absente de l'open data,
 on la calcule : taux de CTA × part fixe du TURPE (composantes de gestion et de
-comptage + soutirage fixe × puissance, tarif CU jusqu'en juillet 2021 puis CU4),
+comptage + soutirage fixe × puissance, tarif CU jusqu'en juillet 2022 puis CU4),
 d'après config/taxes.json. Un TTC
 calculé ainsi est une ESTIMATION, signalée par ``ttc_estime: true`` dans les JSON.
 """
@@ -80,7 +80,7 @@ OPTIONS_TURPE = {"ejp"}
 # Part puissance du soutirage servant d'assiette à la CTA, propre à chaque période de
 # config/taxes.json (une seule des deux clés par période). EJP : tarif CU (sans
 # différenciation temporelle) sous le TURPE 5, vérifié au centime sur les grilles EDF
-# d'août 2018, 2019 et 2020 ; CU4 depuis le TURPE 6 au moins à partir d'août 2022, vérifié
+# d'août 2018, 2019, 2020 et 2021 ; CU4 à partir d'août 2022, vérifié
 # sur les grilles EDF de février 2023 à août 2026.
 FORMULES_SOUTIRAGE = {"soutirage_fixe_cu": "CU", "soutirage_fixe_cu4": "CU4"}
 
