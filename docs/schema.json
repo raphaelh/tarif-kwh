@@ -1,0 +1,271 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raphaelh.github.io/tarif-kwh/schema.json",
+  "title": "tarif-kwh — prix TRVE Tarif Bleu en JSON",
+  "description": "Schéma des fichiers publiés par tarif-kwh (schema_version 1) : <option>.json (base, hphc, tempo, ejp), tarifs.json, historique.json et etat.json. Chaque fichier peut être validé contre ce document entier, ou contre une définition précise : schema.json#/$defs/fichier_option, #/$defs/fichier_tarifs, #/$defs/fichier_historique, #/$defs/fichier_etat. Des champs peuvent être AJOUTÉS sans changer schema_version : ne rejetez pas les propriétés inconnues. Toute suppression, tout renommage ou changement de sens incrémente schema_version.",
+  "oneOf": [
+    {"$ref": "#/$defs/fichier_option"},
+    {"$ref": "#/$defs/fichier_tarifs"},
+    {"$ref": "#/$defs/fichier_historique"},
+    {"$ref": "#/$defs/fichier_etat"}
+  ],
+  "$defs": {
+    "schema_version": {
+      "description": "Version du format. Un consommateur écrit pour la version 1 doit refuser toute autre valeur.",
+      "const": 1
+    },
+    "horodatage": {
+      "description": "Date et heure (UTC, ISO 8601) de la dernière écriture du fichier ; ne change que si le contenu change.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "date": {"type": "string", "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+    "code_option": {"enum": ["base", "hphc", "tempo", "ejp"]},
+    "periode": {
+      "description": "Période tarifaire. base : base ; hphc : hp, hc ; tempo : bleu_hc, bleu_hp, blanc_hc, blanc_hp, rouge_hc, rouge_hp ; ejp : normal, pointe.",
+      "enum": ["base", "hp", "hc", "bleu_hc", "bleu_hp", "blanc_hc", "blanc_hp", "rouge_hc", "rouge_hp", "normal", "pointe"]
+    },
+    "statut": {
+      "description": "propose : délibération CRE (HT officiel, TTC calculé) ; en_vigueur : date d'effet atteinte sans texte JO signalé, ou grille EDF concordante ; confirme : open data CRE concordante.",
+      "enum": ["propose", "en_vigueur", "confirme"]
+    },
+    "prix": {
+      "description": "Prix du kWh par période, en EUR/kWh.",
+      "type": "object",
+      "propertyNames": {"$ref": "#/$defs/periode"},
+      "additionalProperties": {"type": "number", "exclusiveMinimum": 0, "maximum": 5}
+    },
+    "montant_ou_null": {"type": ["number", "null"], "minimum": 0},
+    "puissance": {
+      "description": "Barème pour une puissance souscrite.",
+      "type": "object",
+      "required": ["abonnement_ht", "abonnement_ttc", "prix_ht", "prix_ttc"],
+      "properties": {
+        "abonnement_ht": {"description": "EUR/an", "type": "number", "minimum": 0},
+        "abonnement_ttc": {"description": "EUR/an ; null si inconnu.", "$ref": "#/$defs/montant_ou_null"},
+        "abonnement_ttc_mensuel": {"description": "EUR/mois, tel que publié par EDF ; null si inconnu. Absent de historique.json.", "$ref": "#/$defs/montant_ou_null"},
+        "prix_ht": {"$ref": "#/$defs/prix"},
+        "prix_ttc": {"$ref": "#/$defs/prix"}
+      }
+    },
+    "puissances": {
+      "description": "Barème par puissance souscrite ; clé = puissance en kVA (\"3\", \"6\", \"9\", \"12\", \"15\", \"18\", \"24\", \"30\", \"36\"). Une puissance absente n'est pas proposée dans cette option à cette date.",
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"enum": ["3", "6", "9", "12", "15", "18", "24", "30", "36"]},
+      "additionalProperties": {"$ref": "#/$defs/puissance"}
+    },
+    "source": {
+      "type": "object",
+      "required": ["type", "url"],
+      "properties": {
+        "type": {"enum": ["cre_deliberation", "edf_grille", "cre_opendata"]},
+        "url": {"type": "string", "format": "uri"},
+        "recupere_le": {"description": "Date de récupération (absent de historique.json).", "type": "string"}
+      }
+    },
+    "taxes": {
+      "description": "Taxes utilisées pour calculer ou contrôler le TTC.",
+      "type": "object",
+      "required": ["accise_eur_kwh", "tva_energie", "tva_abonnement"],
+      "properties": {
+        "accise_eur_kwh": {"description": "Accise sur l'électricité, EUR/kWh.", "type": "number", "minimum": 0, "maximum": 0.2},
+        "accise_source": {"type": "string"},
+        "tva_energie": {"description": "Taux, ex. 0.2 pour 20 %.", "type": "number", "minimum": 0, "maximum": 1},
+        "tva_abonnement": {"type": "number", "minimum": 0, "maximum": 1},
+        "cta_deduite_de": {"description": "Présent si le TTC de l'abonnement est estimé : grille dont la CTA est reprise.", "type": "string"}
+      }
+    },
+    "grille": {
+      "description": "Barème d'une option à une date d'effet (champs actuelle et prochaine). prix_ht / prix_ttc au niveau de la grille n'existent que si le prix est le même pour toutes les puissances (absents en Base).",
+      "type": "object",
+      "required": ["option", "date_effet", "statut", "ttc_estime", "puissances", "sources", "taxes", "alertes"],
+      "properties": {
+        "option": {"$ref": "#/$defs/code_option"},
+        "date_effet": {"$ref": "#/$defs/date"},
+        "statut": {"$ref": "#/$defs/statut"},
+        "ttc_estime": {"description": "true : TTC calculé (HT + taxes connues), pas encore publié officiellement.", "type": "boolean"},
+        "prix_ht": {"$ref": "#/$defs/prix"},
+        "prix_ttc": {"$ref": "#/$defs/prix"},
+        "puissances": {"$ref": "#/$defs/puissances"},
+        "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}},
+        "taxes": {"$ref": "#/$defs/taxes"},
+        "alertes": {"description": "Textes du Journal officiel pouvant modifier cette grille.", "type": "array", "items": {"type": "string"}}
+      }
+    },
+    "periodes_par_option": {
+      "description": "Contraint les clés de prix à celles de l'option.",
+      "allOf": [
+        {"if": {"properties": {"option": {"const": "base"}}, "required": ["option"]}, "then": {"$ref": "#/$defs/_cles/base"}},
+        {"if": {"properties": {"option": {"const": "hphc"}}, "required": ["option"]}, "then": {"$ref": "#/$defs/_cles/hphc"}},
+        {"if": {"properties": {"option": {"const": "tempo"}}, "required": ["option"]}, "then": {"$ref": "#/$defs/_cles/tempo"}},
+        {"if": {"properties": {"option": {"const": "ejp"}}, "required": ["option"]}, "then": {"$ref": "#/$defs/_cles/ejp"}}
+      ]
+    },
+    "_cles": {
+      "$comment": "Pour chaque option : liste exacte des périodes, appliquée à periodes, aux prix de la grille et aux prix par puissance.",
+      "base": {"properties": {"periodes": {"const": ["base"]}, "actuelle": {"$ref": "#/$defs/_grille_base"}, "prochaine": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/_grille_base"}]}}},
+      "hphc": {"properties": {"periodes": {"const": ["hp", "hc"]}, "actuelle": {"$ref": "#/$defs/_grille_hphc"}, "prochaine": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/_grille_hphc"}]}}},
+      "tempo": {"properties": {"periodes": {"const": ["bleu_hc", "bleu_hp", "blanc_hc", "blanc_hp", "rouge_hc", "rouge_hp"]}, "actuelle": {"$ref": "#/$defs/_grille_tempo"}, "prochaine": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/_grille_tempo"}]}}},
+      "ejp": {"properties": {"periodes": {"const": ["normal", "pointe"]}, "actuelle": {"$ref": "#/$defs/_grille_ejp"}, "prochaine": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/_grille_ejp"}]}}}
+    },
+    "_prix_base": {"$ref": "#/$defs/prix", "required": ["base"], "propertyNames": {"enum": ["base"]}},
+    "_prix_hphc": {"$ref": "#/$defs/prix", "required": ["hp", "hc"], "propertyNames": {"enum": ["hp", "hc"]}},
+    "_prix_tempo": {"$ref": "#/$defs/prix", "required": ["bleu_hc", "bleu_hp", "blanc_hc", "blanc_hp", "rouge_hc", "rouge_hp"], "propertyNames": {"enum": ["bleu_hc", "bleu_hp", "blanc_hc", "blanc_hp", "rouge_hc", "rouge_hp"]}},
+    "_prix_ejp": {"$ref": "#/$defs/prix", "required": ["normal", "pointe"], "propertyNames": {"enum": ["normal", "pointe"]}},
+    "_grille_base": {"properties": {"prix_ht": {"$ref": "#/$defs/_prix_base"}, "prix_ttc": {"$ref": "#/$defs/_prix_base"}, "puissances": {"additionalProperties": {"properties": {"prix_ht": {"$ref": "#/$defs/_prix_base"}, "prix_ttc": {"$ref": "#/$defs/_prix_base"}}}}}},
+    "_grille_hphc": {"properties": {"prix_ht": {"$ref": "#/$defs/_prix_hphc"}, "prix_ttc": {"$ref": "#/$defs/_prix_hphc"}, "puissances": {"additionalProperties": {"properties": {"prix_ht": {"$ref": "#/$defs/_prix_hphc"}, "prix_ttc": {"$ref": "#/$defs/_prix_hphc"}}}}}},
+    "_grille_tempo": {"properties": {"prix_ht": {"$ref": "#/$defs/_prix_tempo"}, "prix_ttc": {"$ref": "#/$defs/_prix_tempo"}, "puissances": {"additionalProperties": {"properties": {"prix_ht": {"$ref": "#/$defs/_prix_tempo"}, "prix_ttc": {"$ref": "#/$defs/_prix_tempo"}}}}}},
+    "_grille_ejp": {"properties": {"prix_ht": {"$ref": "#/$defs/_prix_ejp"}, "prix_ttc": {"$ref": "#/$defs/_prix_ejp"}, "puissances": {"additionalProperties": {"properties": {"prix_ht": {"$ref": "#/$defs/_prix_ejp"}, "prix_ttc": {"$ref": "#/$defs/_prix_ejp"}}}}}},
+    "unites": {
+      "type": "object",
+      "required": ["prix", "abonnement_ht", "abonnement_ttc"],
+      "properties": {
+        "prix": {"const": "EUR/kWh"},
+        "abonnement_ht": {"const": "EUR/an"},
+        "abonnement_ttc": {"const": "EUR/an"},
+        "abonnement_ttc_mensuel": {"const": "EUR/mois"}
+      }
+    },
+    "bloc_option": {
+      "description": "Une option tarifaire : grille actuelle et prochaine grille connue.",
+      "type": "object",
+      "required": ["option", "libelle", "offre", "fournisseur", "type_prix", "periodes", "plages_horaires", "note", "unites", "actuelle", "prochaine"],
+      "properties": {
+        "option": {"$ref": "#/$defs/code_option"},
+        "libelle": {"type": "string"},
+        "offre": {"type": "string"},
+        "fournisseur": {"const": "EDF"},
+        "type_prix": {"const": "reglemente"},
+        "periodes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/periode"}},
+        "plages_horaires": {
+          "description": "Plages communes à tous les clients (Tempo, EJP) ; null quand elles dépendent du compteur (Base, HP/HC).",
+          "type": ["object", "null"],
+          "additionalProperties": {"type": "string"}
+        },
+        "note": {"type": "string"},
+        "unites": {"$ref": "#/$defs/unites"},
+        "actuelle": {"$ref": "#/$defs/grille"},
+        "prochaine": {
+          "description": "Prochaine grille avec sa date d'effet, ou null. À appliquer vous-même à partir de date_effet.",
+          "anyOf": [{"type": "null"}, {"$ref": "#/$defs/grille"}]
+        }
+      },
+      "allOf": [{"$ref": "#/$defs/periodes_par_option"}]
+    },
+    "fichier_option": {
+      "title": "base.json, hphc.json, tempo.json, ejp.json",
+      "allOf": [
+        {"$ref": "#/$defs/bloc_option"},
+        {
+          "type": "object",
+          "required": ["schema_version", "avertissement", "mis_a_jour_le"],
+          "properties": {
+            "schema_version": {"$ref": "#/$defs/schema_version"},
+            "avertissement": {"type": "string"},
+            "mis_a_jour_le": {"$ref": "#/$defs/horodatage"}
+          }
+        }
+      ]
+    },
+    "fichier_tarifs": {
+      "title": "tarifs.json",
+      "type": "object",
+      "required": ["schema_version", "avertissement", "options", "mis_a_jour_le"],
+      "properties": {
+        "schema_version": {"$ref": "#/$defs/schema_version"},
+        "avertissement": {"type": "string"},
+        "options": {
+          "type": "object",
+          "propertyNames": {"$ref": "#/$defs/code_option"},
+          "additionalProperties": {"$ref": "#/$defs/bloc_option"}
+        },
+        "mis_a_jour_le": {"$ref": "#/$defs/horodatage"}
+      }
+    },
+    "grille_historique": {
+      "type": "object",
+      "required": ["date_debut", "date_fin", "statut", "ttc_estime", "puissances", "sources"],
+      "properties": {
+        "date_debut": {"$ref": "#/$defs/date"},
+        "date_fin": {
+          "description": "Dernier jour d'application (inclus) ; null pour la grille en vigueur.",
+          "anyOf": [{"type": "null"}, {"$ref": "#/$defs/date"}]
+        },
+        "statut": {"$ref": "#/$defs/statut"},
+        "ttc_estime": {"type": "boolean"},
+        "prix_ht": {"$ref": "#/$defs/prix"},
+        "prix_ttc": {"$ref": "#/$defs/prix"},
+        "puissances": {"$ref": "#/$defs/puissances"},
+        "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}}
+      }
+    },
+    "fichier_historique": {
+      "title": "historique.json",
+      "type": "object",
+      "required": ["schema_version", "avertissement", "unites", "note", "options", "mis_a_jour_le"],
+      "properties": {
+        "schema_version": {"$ref": "#/$defs/schema_version"},
+        "avertissement": {"type": "string"},
+        "unites": {"$ref": "#/$defs/unites"},
+        "note": {"type": "string"},
+        "options": {
+          "type": "object",
+          "propertyNames": {"$ref": "#/$defs/code_option"},
+          "additionalProperties": {
+            "type": "object",
+            "required": ["libelle", "periodes", "grilles"],
+            "properties": {
+              "libelle": {"type": "string"},
+              "periodes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/periode"}},
+              "grilles": {
+                "description": "De la plus ancienne à la plus récente.",
+                "type": "array",
+                "items": {"$ref": "#/$defs/grille_historique"}
+              }
+            }
+          }
+        },
+        "mis_a_jour_le": {"$ref": "#/$defs/horodatage"}
+      }
+    },
+    "fichier_etat": {
+      "title": "etat.json",
+      "type": "object",
+      "required": ["schema_version", "options", "jorf_textes_signales", "mis_a_jour_le"],
+      "properties": {
+        "schema_version": {"$ref": "#/$defs/schema_version"},
+        "options": {
+          "type": "object",
+          "propertyNames": {"$ref": "#/$defs/code_option"},
+          "additionalProperties": {
+            "type": "object",
+            "required": ["publication", "problemes", "remarques"],
+            "properties": {
+              "publication": {
+                "description": "ok : fichier à jour ; bloquee : contrôles en échec, le fichier précédent est conservé.",
+                "enum": ["ok", "bloquee"]
+              },
+              "problemes": {"type": "array", "items": {"type": "string"}},
+              "remarques": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        },
+        "jorf_textes_signales": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["titre", "date_publication", "url"],
+            "properties": {
+              "titre": {"type": "string"},
+              "date_publication": {"$ref": "#/$defs/date"},
+              "nature": {"type": "string"},
+              "url": {"type": "string", "format": "uri"}
+            }
+          }
+        },
+        "mis_a_jour_le": {"$ref": "#/$defs/horodatage"}
+      }
+    }
+  }
+}

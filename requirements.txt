@@ -2,3 +2,4 @@ pdfplumber==0.11.11
 pdfminer.six==20260107
 requests==2.34.2
 pytest==9.2.0
+jsonschema==4.26.0

@@ -24,6 +24,24 @@ Le JSON se lit avec n'importe quel outil : Home Assistant, Jeedom, Domoticz, tab
 | EJP | https://raphaelh.github.io/tarif-kwh/ejp.json | …/docs/ejp.json |
 | Historique depuis 2012 | https://raphaelh.github.io/tarif-kwh/historique.json | …/docs/historique.json |
 | État des contrôles | https://raphaelh.github.io/tarif-kwh/etat.json | …/docs/etat.json |
+| Schéma JSON | https://raphaelh.github.io/tarif-kwh/schema.json | …/docs/schema.json |
+
+### Schéma JSON (`schema.json`)
+
+Le format est décrit formellement en [JSON Schema 2020-12](docs/schema.json), pour ceux qui intègrent le flux dans
+Jeedom, Domoticz ou un script : types, unités, statuts, puissances (kVA) et **périodes exactes de chaque option** (ex. les six
+clés Tempo). Validez un fichier contre le schéma entier, ou contre une définition précise :
+`schema.json#/$defs/fichier_option` (`base.json`, `hphc.json`, `tempo.json`, `ejp.json`), `#/$defs/fichier_tarifs`,
+`#/$defs/fichier_historique`, `#/$defs/fichier_etat`.
+
+```bash
+pip install check-jsonschema
+check-jsonschema --schemafile https://raphaelh.github.io/tarif-kwh/schema.json tempo.json
+```
+
+Règle de compatibilité : `schema_version` vaut `1`. Des champs peuvent être **ajoutés** sans changer de version (ne rejetez
+pas les propriétés inconnues) ; toute suppression, tout renommage ou changement de sens fera passer `schema_version` à `2`.
+Les tests du dépôt valident chaque fichier publié contre ce schéma.
 
 ### Historique (`historique.json`)
 

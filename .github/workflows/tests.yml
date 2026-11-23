@@ -9,11 +9,17 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3.12 : minimum de pyproject.toml ; 3.14 : version de la collecte (collecte.yml)
+        python-version: ["3.12", "3.14"]
+    name: tests (Python ${{ matrix.python-version }})
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
-          python-version: "3.14"
+          python-version: ${{ matrix.python-version }}
           cache: pip
       - run: pip install -r requirements.txt
       - run: pytest -q
