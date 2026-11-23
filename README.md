@@ -167,7 +167,18 @@ passée ou tracer l'évolution des prix.
   ici, celui de l'open data, s'écarte donc du montant affiché par EDF de −9 à +9 €/an selon l'option et la
   puissance (−4 à +7 €/an pour Tempo dès 2018). Ce n'est pas une erreur que l'on corrige : c'est la méthode de la
   CRE, et la CTA réellement facturée dépend encore de la version du TURPE retenue pour chaque client. Pour le
-  montant affiché par EDF, voir sa grille Tarif Bleu.
+  montant affiché par EDF, voir sa grille Tarif Bleu. Deux cas particuliers :
+  - **Tempo, août 2022 : abonnement TTC non mis à jour par la CRE.** Aucun prix HT ne change ce jour-là (bouclier
+    tarifaire) ; la grille open data du 1er août 2022 ne sert qu'à reporter la hausse du TURPE dans la CTA. La Base
+    et HP/HC la reçoivent (+0,5 à +1,9 €/an), EDF modifie aussi son abonnement Tempo, mais l'abonnement Tempo de
+    l'open data reste identique au centime à celui de février 2022. Il est publié tel quel : avec le « TURPE
+    optimisé », la bonne valeur de la CRE n'est pas calculable.
+  - **Tempo 6 kVA, 2023** : puissance créée en février 2023, son abonnement suit exactement le TURPE « courte
+    utilisation à 4 plages » jusqu'en août 2023, puis le « TURPE optimisé » comme les autres puissances à partir de
+    février 2024 (+3,49 €/an). Changement de méthode, pas une erreur.
+- **Avant le 1er août 2013, pas de Tempo ni d'EJP** : Jour Tempo commence à cette date, et aucune grille EDF
+  postérieure au mouvement du 23 juillet 2012 n'a été archivée (la dernière est celle du 1er juillet 2012). Seul
+  l'arrêté du 20 juillet 2012, lu à la main sur Légifrance, permettrait d'ajouter cette période.
 - **EJP** n'est pas dans l'open data CRE : son historique commence au **1er août 2013**. Le HT vient de la
   délibération CRE et du jeu Jour Tempo (qui cite l'arrêté du JORF ou la délibération CRE appliquée), le TTC de la
   grille EDF EJP archivée sur web.archive.org. Sans grille EDF, le TTC est calculé (`ttc_estime: true`) :
@@ -176,7 +187,7 @@ passée ou tracer l'évolution des prix.
     (CSPE + TCFE) que la CRE a appliquées à Base, HP/HC et Tempo à la même date (open data, TVA 19,6 % avant 2014) :
     le **TTC au kWh** est donc celui de ses hypothèses, à 0,0003 €/kWh près (écart entre options). L'**abonnement TTC**
     est calculé par la CTA (voir plus bas) d'août 2018 à janvier 2023 ; il **vaut `null`**
-    avant août 2018, faute de grille EDF pour vérifier le calcul. La méthode redonne au centime les TTC au kWh des grilles EDF de 2023 à 2026 ;
+    avant août 2018, faute de grille EDF pour vérifier le calcul (les grilles Tarif Bleu archivées de 2013 à 2016 n'ont pas d'EJP, la Wayback Machine n'a aucune grille EJP avant 2019, et la grille « février 2018 » recopiée par picbleu.fr est incohérente : abonnement TTC inférieur au HT + CTA). La méthode redonne au centime les TTC au kWh des grilles EDF de 2023 à 2026 ;
   - **2022** : 7,63 €/MWh, une fois Tempo corrigé (voir plus haut). La hausse de la pointe mobile au 1er février 2022
     (27,93 -> 77,72 c€/kWh HT, +178 %) est validée dans `config/validations.json` sur le barème de l'arrêté du
     28 janvier 2022.
@@ -226,7 +237,7 @@ L'historique de chaque fichier est aussi celui de git.
 |---|---|
 | `propose` | Grille proposée par la **délibération CRE**. Prix **HT officiels** ; TTC **calculé** (`ttc_estime: true`) avec les taxes connues : il peut différer de quelques dixièmes de centime si l'accise ou la CTA changent à la même date. |
 | `en_vigueur` | **Date d'effet atteinte** sans texte signalé au Journal officiel, ou grille Tarif Bleu EDF concordante au centime près. Tant que `ttc_estime` vaut `true`, le TTC reste calculé (HT CRE + taxes). |
-| `confirme` | L'**open data CRE** (HT et TTC, publié ≈ 4 semaines après) concorde. Le **HT** est alors sûr : recoupé avec les délibérations, les arrêtés et les grilles EDF, il n'a été trouvé faux qu'une fois (Base, août 2015 et août 2016). Le **TTC** est celui **publié par la CRE**, pas un TTC vérifié : la CRE recalcule elle-même les taxes et oublie parfois d'en reporter un changement (CTA, taxes au kWh). Les erreurs démontrées par un texte officiel ou une grille EDF sont corrigées, et la grille passe alors en `en_vigueur` (voir [Historique](#historique-historiquejson)). Le **prix du kWh TTC** a été comparé aux grilles Tarif Bleu EDF archivées : identique au centime, pour les trois options et toutes les puissances, à chaque date où une grille existe (août 2016, puis de février 2018 à août 2026 ; pas de grille archivée pour août 2017, août 2018, juin 2019 et février 2021), une fois les corrections ci-dessus appliquées. L'**abonnement TTC**, lui, s'écarte de la grille EDF depuis 2018 (voir [Historique](#historique-historiquejson)). |
+| `confirme` | L'**open data CRE** (HT et TTC, publié ≈ 4 semaines après) concorde. Le **HT** est alors sûr : recoupé avec les délibérations, les arrêtés et les grilles EDF, il n'a été trouvé faux qu'une fois (Base, août 2015 et août 2016). Le **TTC** est celui **publié par la CRE**, pas un TTC vérifié : la CRE recalcule elle-même les taxes et oublie parfois d'en reporter un changement (CTA, taxes au kWh). Les erreurs démontrées par un texte officiel ou une grille EDF sont corrigées, et la grille passe alors en `en_vigueur` (voir [Historique](#historique-historiquejson)). Le **prix du kWh TTC** a été comparé aux grilles Tarif Bleu EDF archivées : identique au centime, pour les trois options et toutes les puissances, à chaque date où une grille existe (août 2016, puis de février 2018 à août 2026, août 2018 compris grâce à une copie de la grille EDF sur lite.eco ; pas de grille retrouvée pour août 2017, juin 2019 et février 2021, où seul le prix Base relevé par des sites tiers concorde), une fois les corrections ci-dessus appliquées. L'**abonnement TTC**, lui, s'écarte de la grille EDF depuis 2018 (voir [Historique](#historique-historiquejson)). |
 
 ## Fonctionnement
 
