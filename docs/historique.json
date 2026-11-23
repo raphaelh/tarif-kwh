@@ -150,11 +150,11 @@
         },
         {
           "date_debut": "2014-01-01",
-          "date_fin": "2014-10-31",
+          "date_fin": "2014-07-31",
           "puissances": {
             "3": {
               "abonnement_ht": 38.88,
-              "abonnement_ttc": 51.7,
+              "abonnement_ttc": 52.11,
               "prix_ht": {
                 "base": 0.0883
               },
@@ -164,7 +164,7 @@
             },
             "6": {
               "abonnement_ht": 66.72,
-              "abonnement_ttc": 84.05,
+              "abonnement_ttc": 84.56,
               "prix_ht": {
                 "base": 0.0883
               },
@@ -174,7 +174,7 @@
             },
             "9": {
               "abonnement_ht": 89.76,
-              "abonnement_ttc": 111.33,
+              "abonnement_ttc": 111.95,
               "prix_ht": {
                 "base": 0.0883
               },
@@ -184,7 +184,7 @@
             },
             "12": {
               "abonnement_ht": 135.0,
-              "abonnement_ttc": 171.49,
+              "abonnement_ttc": 172.62,
               "prix_ht": {
                 "base": 0.0883
               },
@@ -194,7 +194,7 @@
             },
             "15": {
               "abonnement_ht": 153.84,
-              "abonnement_ttc": 196.7,
+              "abonnement_ttc": 198.04,
               "prix_ht": {
                 "base": 0.0883
               },
@@ -204,7 +204,7 @@
             }
           },
           "ttc_estime": true,
-          "statut": "confirme",
+          "statut": "en_vigueur",
           "sources": [
             {
               "type": "cre_opendata",
@@ -223,6 +223,96 @@
           },
           "prix_ttc": {
             "base": 0.137
+          },
+          "revision_abonnement": {
+            "date": "2014-01-01",
+            "motif": "abonnement TTC au 2014-01-01 : CTA 27.04% de la part fixe du nouveau TURPE (TURPE 4 HTA-BT, entré en vigueur le 1er janvier 2014, CRE délibération du 12 décembre 2013 ; abonnements de la grille Tarif Bleu EDF « en vigueur à compter du 1er février 2014 » retrouvés à 1 centime près)",
+            "sources": [
+              "https://www.cre.fr/content/download/11149/file/131212TURPE4.pdf"
+            ]
+          }
+        },
+        {
+          "date_debut": "2014-08-01",
+          "date_fin": "2014-10-31",
+          "puissances": {
+            "3": {
+              "abonnement_ht": 38.88,
+              "abonnement_ttc": 52.01,
+              "prix_ht": {
+                "base": 0.0883
+              },
+              "prix_ttc": {
+                "base": 0.137
+              }
+            },
+            "6": {
+              "abonnement_ht": 66.72,
+              "abonnement_ttc": 84.46,
+              "prix_ht": {
+                "base": 0.0883
+              },
+              "prix_ttc": {
+                "base": 0.137
+              }
+            },
+            "9": {
+              "abonnement_ht": 89.76,
+              "abonnement_ttc": 111.85,
+              "prix_ht": {
+                "base": 0.0883
+              },
+              "prix_ttc": {
+                "base": 0.137
+              }
+            },
+            "12": {
+              "abonnement_ht": 135.0,
+              "abonnement_ttc": 172.1,
+              "prix_ht": {
+                "base": 0.0883
+              },
+              "prix_ttc": {
+                "base": 0.137
+              }
+            },
+            "15": {
+              "abonnement_ht": 153.84,
+              "abonnement_ttc": 197.42,
+              "prix_ht": {
+                "base": 0.0883
+              },
+              "prix_ttc": {
+                "base": 0.137
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "en_vigueur",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Base.csv"
+            }
+          ],
+          "prix_ht": {
+            "base": 0.0883
+          },
+          "revision_ttc": {
+            "date": "2014-08-01",
+            "motifs": [
+              "abonnement TTC au 2014-08-01 : CTA 27.04% de la part fixe du nouveau TURPE (TURPE 4 HTA-BT au 1er août 2014, CRE délibération du 4 juin 2014 ; abonnements de l'open data CRE du 1er novembre 2014 (Base, HP/HC) et de la grille EDF de janvier 2015 (Tempo) retrouvés à 1 centime près)"
+            ]
+          },
+          "prix_ttc": {
+            "base": 0.137
+          },
+          "revision_abonnement": {
+            "date": "2014-08-01",
+            "motif": "abonnement TTC au 2014-08-01 : CTA 27.04% de la part fixe du nouveau TURPE (TURPE 4 HTA-BT au 1er août 2014, CRE délibération du 4 juin 2014 ; abonnements de l'open data CRE du 1er novembre 2014 (Base, HP/HC) et de la grille EDF de janvier 2015 (Tempo) retrouvés à 1 centime près)",
+            "sources": [
+              "https://www.cre.fr/fileadmin/Documents/Deliberations/import/140604_TURPE_HTA-BT.pdf"
+            ]
           }
         },
         {
@@ -2125,11 +2215,11 @@
         },
         {
           "date_debut": "2014-01-01",
-          "date_fin": "2014-10-31",
+          "date_fin": "2014-07-31",
           "puissances": {
             "6": {
               "abonnement_ht": 71.64,
-              "abonnement_ttc": 91.5,
+              "abonnement_ttc": 90.98,
               "prix_ht": {
                 "hc": 0.061,
                 "hp": 0.0998
@@ -2141,7 +2231,7 @@
             },
             "9": {
               "abonnement_ht": 97.44,
-              "abonnement_ttc": 122.82,
+              "abonnement_ttc": 121.91,
               "prix_ht": {
                 "hc": 0.061,
                 "hp": 0.0998
@@ -2153,7 +2243,7 @@
             },
             "12": {
               "abonnement_ht": 156.12,
-              "abonnement_ttc": 203.21,
+              "abonnement_ttc": 197.77,
               "prix_ht": {
                 "hc": 0.061,
                 "hp": 0.0998
@@ -2165,7 +2255,7 @@
             },
             "15": {
               "abonnement_ht": 180.0,
-              "abonnement_ttc": 236.11,
+              "abonnement_ttc": 229.23,
               "prix_ht": {
                 "hc": 0.061,
                 "hp": 0.0998
@@ -2177,7 +2267,7 @@
             },
             "18": {
               "abonnement_ht": 201.24,
-              "abonnement_ttc": 266.23,
+              "abonnement_ttc": 257.91,
               "prix_ht": {
                 "hc": 0.061,
                 "hp": 0.0998
@@ -2189,7 +2279,7 @@
             },
             "24": {
               "abonnement_ht": 420.12,
-              "abonnement_ttc": 536.62,
+              "abonnement_ttc": 541.07,
               "prix_ht": {
                 "hc": 0.061,
                 "hp": 0.0998
@@ -2201,7 +2291,7 @@
             },
             "30": {
               "abonnement_ht": 492.36,
-              "abonnement_ttc": 633.98,
+              "abonnement_ttc": 639.46,
               "prix_ht": {
                 "hc": 0.061,
                 "hp": 0.0998
@@ -2213,7 +2303,7 @@
             },
             "36": {
               "abonnement_ht": 562.68,
-              "abonnement_ttc": 729.32,
+              "abonnement_ttc": 735.83,
               "prix_ht": {
                 "hc": 0.061,
                 "hp": 0.0998
@@ -2225,7 +2315,7 @@
             }
           },
           "ttc_estime": true,
-          "statut": "confirme",
+          "statut": "en_vigueur",
           "sources": [
             {
               "type": "cre_opendata",
@@ -2246,6 +2336,144 @@
           "prix_ttc": {
             "hc": 0.1042,
             "hp": 0.1508
+          },
+          "revision_abonnement": {
+            "date": "2014-01-01",
+            "motif": "abonnement TTC au 2014-01-01 : CTA 27.04% de la part fixe du nouveau TURPE (TURPE 4 HTA-BT, entré en vigueur le 1er janvier 2014, CRE délibération du 12 décembre 2013 ; abonnements de la grille Tarif Bleu EDF « en vigueur à compter du 1er février 2014 » retrouvés à 1 centime près)",
+            "sources": [
+              "https://www.cre.fr/content/download/11149/file/131212TURPE4.pdf"
+            ]
+          }
+        },
+        {
+          "date_debut": "2014-08-01",
+          "date_fin": "2014-10-31",
+          "puissances": {
+            "6": {
+              "abonnement_ht": 71.64,
+              "abonnement_ttc": 90.88,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "9": {
+              "abonnement_ht": 97.44,
+              "abonnement_ttc": 121.8,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "12": {
+              "abonnement_ht": 156.12,
+              "abonnement_ttc": 197.26,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "15": {
+              "abonnement_ht": 180.0,
+              "abonnement_ttc": 228.62,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "18": {
+              "abonnement_ht": 201.24,
+              "abonnement_ttc": 257.19,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "24": {
+              "abonnement_ht": 420.12,
+              "abonnement_ttc": 540.14,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "30": {
+              "abonnement_ht": 492.36,
+              "abonnement_ttc": 638.33,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "36": {
+              "abonnement_ht": 562.68,
+              "abonnement_ttc": 734.49,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "en_vigueur",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_HPHC.csv"
+            }
+          ],
+          "prix_ht": {
+            "hc": 0.061,
+            "hp": 0.0998
+          },
+          "revision_ttc": {
+            "date": "2014-08-01",
+            "motifs": [
+              "abonnement TTC au 2014-08-01 : CTA 27.04% de la part fixe du nouveau TURPE (TURPE 4 HTA-BT au 1er août 2014, CRE délibération du 4 juin 2014 ; abonnements de l'open data CRE du 1er novembre 2014 (Base, HP/HC) et de la grille EDF de janvier 2015 (Tempo) retrouvés à 1 centime près)"
+            ]
+          },
+          "prix_ttc": {
+            "hc": 0.1042,
+            "hp": 0.1508
+          },
+          "revision_abonnement": {
+            "date": "2014-08-01",
+            "motif": "abonnement TTC au 2014-08-01 : CTA 27.04% de la part fixe du nouveau TURPE (TURPE 4 HTA-BT au 1er août 2014, CRE délibération du 4 juin 2014 ; abonnements de l'open data CRE du 1er novembre 2014 (Base, HP/HC) et de la grille EDF de janvier 2015 (Tempo) retrouvés à 1 centime près)",
+            "sources": [
+              "https://www.cre.fr/fileadmin/Documents/Deliberations/import/140604_TURPE_HTA-BT.pdf"
+            ]
           }
         },
         {
@@ -5295,7 +5523,7 @@
         },
         {
           "date_debut": "2014-01-01",
-          "date_fin": "2014-10-31",
+          "date_fin": "2014-07-31",
           "statut": "en_vigueur",
           "ttc_estime": true,
           "sources": [
@@ -5315,7 +5543,7 @@
           "puissances": {
             "9": {
               "abonnement_ht": 96.6,
-              "abonnement_ttc": 121.94,
+              "abonnement_ttc": 121.02,
               "prix_ht": {
                 "blanc_hc": 0.0719,
                 "blanc_hp": 0.0907,
@@ -5335,7 +5563,7 @@
             },
             "12": {
               "abonnement_ht": 152.76,
-              "abonnement_ttc": 199.67,
+              "abonnement_ttc": 194.23,
               "prix_ht": {
                 "blanc_hc": 0.0719,
                 "blanc_hp": 0.0907,
@@ -5355,7 +5583,7 @@
             },
             "15": {
               "abonnement_ht": 176.04,
-              "abonnement_ttc": 231.94,
+              "abonnement_ttc": 225.05,
               "prix_ht": {
                 "blanc_hc": 0.0719,
                 "blanc_hp": 0.0907,
@@ -5375,7 +5603,7 @@
             },
             "18": {
               "abonnement_ht": 190.92,
-              "abonnement_ttc": 255.34,
+              "abonnement_ttc": 247.02,
               "prix_ht": {
                 "blanc_hc": 0.0719,
                 "blanc_hp": 0.0907,
@@ -5415,7 +5643,7 @@
             },
             "30": {
               "abonnement_ht": 471.84,
-              "abonnement_ttc": 612.33,
+              "abonnement_ttc": 617.81,
               "prix_ht": {
                 "blanc_hc": 0.0719,
                 "blanc_hp": 0.0907,
@@ -5435,7 +5663,7 @@
             },
             "36": {
               "abonnement_ht": 583.56,
-              "abonnement_ttc": 751.35,
+              "abonnement_ttc": 757.86,
               "prix_ht": {
                 "blanc_hc": 0.0719,
                 "blanc_hp": 0.0907,
@@ -5476,6 +5704,204 @@
             "bleu_hp": 0.1001,
             "rouge_hc": 0.214,
             "rouge_hp": 0.5591
+          },
+          "revision_abonnement": {
+            "date": "2014-01-01",
+            "motif": "abonnement TTC au 2014-01-01 : CTA 27.04% de la part fixe du nouveau TURPE (TURPE 4 HTA-BT, entré en vigueur le 1er janvier 2014, CRE délibération du 12 décembre 2013 ; abonnements de la grille Tarif Bleu EDF « en vigueur à compter du 1er février 2014 » retrouvés à 1 centime près)",
+            "sources": [
+              "https://www.cre.fr/content/download/11149/file/131212TURPE4.pdf"
+            ]
+          }
+        },
+        {
+          "date_debut": "2014-08-01",
+          "date_fin": "2014-10-31",
+          "statut": "en_vigueur",
+          "ttc_estime": true,
+          "sources": [
+            {
+              "type": "jourtempo",
+              "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000027778284"
+            },
+            {
+              "type": "edf_grille",
+              "url": "https://web.archive.org/web/20131008142756/http://particuliers.edf.com/fichiers/fckeditor/Particuliers/Offres/CGV_CRE/CRE_TB.pdf"
+            },
+            {
+              "type": "edf_grille",
+              "url": "https://web.archive.org/web/20140224173330/http://particuliers.edf.com/fichiers/fckeditor/Particuliers/Offres/CGV_CRE/CRE_TB.pdf"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 96.6,
+              "abonnement_ttc": 120.91,
+              "prix_ht": {
+                "blanc_hc": 0.0719,
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1173,
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
+              }
+            },
+            "12": {
+              "abonnement_ht": 152.76,
+              "abonnement_ttc": 193.72,
+              "prix_ht": {
+                "blanc_hc": 0.0719,
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1173,
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
+              }
+            },
+            "15": {
+              "abonnement_ht": 176.04,
+              "abonnement_ttc": 224.44,
+              "prix_ht": {
+                "blanc_hc": 0.0719,
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1173,
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
+              }
+            },
+            "18": {
+              "abonnement_ht": 190.92,
+              "abonnement_ttc": 246.3,
+              "prix_ht": {
+                "blanc_hc": 0.0719,
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1173,
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
+              }
+            },
+            "24": {
+              "abonnement_ht": 471.84,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "blanc_hc": 0.0719,
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1173,
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
+              }
+            },
+            "30": {
+              "abonnement_ht": 471.84,
+              "abonnement_ttc": 616.68,
+              "prix_ht": {
+                "blanc_hc": 0.0719,
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1173,
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
+              }
+            },
+            "36": {
+              "abonnement_ht": 583.56,
+              "abonnement_ttc": 756.52,
+              "prix_ht": {
+                "blanc_hc": 0.0719,
+                "blanc_hp": 0.0907,
+                "bleu_hc": 0.044,
+                "bleu_hp": 0.0576,
+                "rouge_hc": 0.1525,
+                "rouge_hp": 0.4401
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1173,
+                "blanc_hp": 0.1399,
+                "bleu_hc": 0.0838,
+                "bleu_hp": 0.1001,
+                "rouge_hc": 0.214,
+                "rouge_hp": 0.5591
+              }
+            }
+          },
+          "prix_ht": {
+            "blanc_hc": 0.0719,
+            "blanc_hp": 0.0907,
+            "bleu_hc": 0.044,
+            "bleu_hp": 0.0576,
+            "rouge_hc": 0.1525,
+            "rouge_hp": 0.4401
+          },
+          "revision_ttc": {
+            "date": "2014-08-01",
+            "motifs": [
+              "abonnement TTC au 2014-08-01 : CTA 27.04% de la part fixe du nouveau TURPE (TURPE 4 HTA-BT au 1er août 2014, CRE délibération du 4 juin 2014 ; abonnements de l'open data CRE du 1er novembre 2014 (Base, HP/HC) et de la grille EDF de janvier 2015 (Tempo) retrouvés à 1 centime près)"
+            ]
+          },
+          "prix_ttc": {
+            "blanc_hc": 0.1173,
+            "blanc_hp": 0.1399,
+            "bleu_hc": 0.0838,
+            "bleu_hp": 0.1001,
+            "rouge_hc": 0.214,
+            "rouge_hp": 0.5591
+          },
+          "revision_abonnement": {
+            "date": "2014-08-01",
+            "motif": "abonnement TTC au 2014-08-01 : CTA 27.04% de la part fixe du nouveau TURPE (TURPE 4 HTA-BT au 1er août 2014, CRE délibération du 4 juin 2014 ; abonnements de l'open data CRE du 1er novembre 2014 (Base, HP/HC) et de la grille EDF de janvier 2015 (Tempo) retrouvés à 1 centime près)",
+            "sources": [
+              "https://www.cre.fr/fileadmin/Documents/Deliberations/import/140604_TURPE_HTA-BT.pdf"
+            ]
           }
         },
         {
@@ -11875,5 +12301,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T15:58:17+00:00"
+  "mis_a_jour_le": "2026-11-23T16:02:43+00:00"
 }
