@@ -65,7 +65,7 @@ L'historique de chaque grille est l'historique git de ces fichiers.
 | `statut` | Signification |
 |---|---|
 | `propose` | Grille proposée par la **délibération CRE**. Prix **HT officiels** ; TTC **calculé** (`ttc_estime: true`) avec les taxes connues : il peut différer de quelques dixièmes de centime si l'accise ou la CTA changent à la même date. |
-| `en_vigueur` | La **grille Tarif Bleu publiée par EDF** concorde au centime près avec la délibération (TTC officiel). EJP, absent de la grille EDF : date d'effet atteinte sans texte signalé au Journal officiel. |
+| `en_vigueur` | **Date d'effet atteinte** sans texte signalé au Journal officiel, ou grille Tarif Bleu EDF concordante au centime près. Tant que `ttc_estime` vaut `true`, le TTC reste calculé (HT CRE + taxes). |
 | `confirme` | L'**open data CRE** (HT et TTC, publié ≈ 4 semaines après) concorde. |
 
 ## Fonctionnement
@@ -76,8 +76,10 @@ de [`scripts/tarif_kwh/sources/`](scripts/tarif_kwh/sources), par ordre d'arriv�
 1. **Délibération CRE** « portant proposition des TRVE », annexe B (PDF, HT) — découverte sur la liste des délibérations et la
    page « Comprendre les TRVE » du site CRE, puis lue avec `pdfplumber` (barèmes Bleu résidentiel, métropole continentale,
    version standard). Les PDF déjà lus sont listés dans `data/registre.json` ; `config/sources.json` permet d'en forcer un.
-2. **Grille Tarif Bleu EDF** (PDF, TTC) à l'entrée en vigueur ; elle indique aussi l'accise appliquée. Le site d'EDF refuse
-   les serveurs de GitHub : la grille arrive par un relais (voir plus bas).
+2. **Grille Tarif Bleu EDF** (PDF, TTC), source d'appoint. Le site d'EDF refuse les serveurs de GitHub (HTTP 403) : on ne
+   contourne pas ce filtrage, on lit seulement la **dernière capture déjà faite par la Wayback Machine** (web.archive.org,
+   copie brute identique au PDF d'EDF). Elle apporte le TTC officiel et l'accise appliquée, souvent dès le jour d'effet ;
+   si aucune capture n'est disponible, rien n'est bloqué.
 3. **Open data CRE** (`Option_Base.csv`, `Option_HPHC.csv`, `Option_Tempo.csv`) : lignes sans `DATE_FIN`.
 4. **Journal officiel** (flux ouvert DILA) : tout texte dont le titre parle de TRVE ou d'accise sur l'électricité ouvre une issue.
 
@@ -105,31 +107,6 @@ de finances change l'accise, ajoutez la nouvelle valeur dans [`config/taxes.json
 - GitHub désactive les workflows planifiés d'un dépôt sans activité depuis 60 jours. Les tarifs ne changeant que deux fois
   par an, chaque passage **réactive explicitement le workflow** par l'API GitHub (`PUT …/actions/workflows/collecte.yml/enable`),
   sans commit factice. Un échec du workflow vous est notifié par GitHub.
-
-### Relais de la grille EDF
-
-`particulier.edf.fr` répond **HTTP 403** aux adresses de centres de données (GitHub, Vercel, y compris en région Paris), mais
-pas à une connexion domestique. Plutôt que de laisser chaque utilisateur interroger EDF, **une seule machine du mainteneur**
-lance [`scripts/relais_edf.py`](scripts/relais_edf.py) une fois par jour (Python 3, bibliothèque standard uniquement) :
-
-- il télécharge le PDF et, **s'il a changé**, le dépose dans `data/edf/Grille_prix_Tarif_Bleu.pdf`, ce qui déclenche la collecte ;
-- il met à jour la variable de dépôt `EDF_RELAIS_VU_LE` (signe de vie, sans commit) ;
-- le collecteur lit cette copie quand l'accès direct échoue, la contrôle et la recoupe comme l'original. Si le relais se tait
-  plus de 3 jours, une issue est ouverte (les données restent publiées, sans l'étape `en_vigueur` pour une nouvelle grille).
-
-Jeton : GitHub → Settings → Developer settings → *Fine-grained tokens*, dépôt `raphaelh/tarif-kwh` uniquement, permissions
-**Contents: Read and write** et **Variables: Read and write**.
-
-Exemple dans Home Assistant (le fichier du jeton n'est pas dans `secrets.yaml` exposé aux intégrations) :
-
-```yaml
-# configuration.yaml — copier scripts/relais_edf.py dans /config/scripts/
-shell_command:
-  relais_tarif_kwh: python3 /config/scripts/relais_edf.py --jeton-fichier /config/.tarif_kwh_token
-```
-
-puis une automatisation quotidienne (par ex. à 7 h 40) qui appelle `shell_command.relais_tarif_kwh`. Sur un PC ou un NAS :
-`40 7 * * * TARIF_KWH_TOKEN=… python3 relais_edf.py` dans la crontab. `--essai` télécharge sans rien envoyer.
 
 ## Utilisation avec Home Assistant
 

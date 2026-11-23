@@ -11,7 +11,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import sys
 import traceback
 from datetime import date, datetime, timezone
@@ -42,7 +41,7 @@ def enregistrer_obs(registre: dict, g) -> bool:
     place = registre.setdefault("grilles", {}).setdefault(g.option, {}).setdefault(g.date_effet.isoformat(), {})
     ancien = place.get(g.source)
     if ancien:
-        volatil = {"recupere_le", "via"}  # même grille, autre chemin d'accès : pas de changement
+        volatil = {"recupere_le", "copie_archive"}  # même grille, autre capture : pas de changement
         a = {**ancien, "meta": {k: v for k, v in ancien["meta"].items() if k not in volatil}}
         b = {**d, "meta": {k: v for k, v in d["meta"].items() if k not in volatil}}
         if a == b:
@@ -83,13 +82,12 @@ def collecter(registre: dict, forcer: list[str], erreurs: list) -> None:
         }
 
     # 2. Grille EDF
-    res = etape(
-        "Grille Tarif Bleu EDF", erreurs, edf_grille.collecter,
-        RACINE / "data" / "edf" / "Grille_prix_Tarif_Bleu.pdf", os.environ.get("EDF_RELAIS_VU_LE"),
-    )
-    grilles, avertissement = res or ({}, None)
-    if avertissement:
-        erreurs.append(("Relais de la grille EDF", avertissement + "\n\nVoir « Relais de la grille EDF » dans le README."))
+    # Copie archive.org (EDF refuse GitHub) : source d'appoint, son absence n'est pas une erreur.
+    try:
+        grilles = edf_grille.collecter()
+    except Exception as e:
+        print(f"grille EDF (archive.org) indisponible : {e}", file=sys.stderr)
+        grilles = {}
     for g in grilles.values():
         enregistrer_obs(registre, g)
         if g.meta.get("accise_eur_kwh"):

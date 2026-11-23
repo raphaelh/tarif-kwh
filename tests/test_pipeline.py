@@ -92,7 +92,9 @@ def test_grille_proposee_avant_entree_en_vigueur(tmp_path, cfg):
     assert p["prix_ttc"]["rouge_hp"] == pytest.approx(0.7295, abs=0.001)
     # Le jour J, la grille proposée devient l'actuelle
     publish.publier(tmp_path, r, cfg_sans_aout, date(2026, 8, 1), [], T0)
-    assert lire(tmp_path, "tempo.json")["actuelle"]["date_effet"] == "2026-08-01"
+    a = lire(tmp_path, "tempo.json")["actuelle"]
+    assert a["date_effet"] == "2026-08-01"
+    assert a["statut"] == "en_vigueur" and a["ttc_estime"]  # date atteinte, sans texte au JORF
 
 
 def test_abonnement_estime_proche_du_reel(tmp_path, cfg):

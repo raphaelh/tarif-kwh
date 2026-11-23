@@ -7,10 +7,6 @@ on:
     - cron: "17 5 * * *"
     - cron: "17 17 * * *"
   workflow_dispatch:
-  # Nouvelle grille EDF déposée par le relais (scripts/relais_edf.py)
-  push:
-    branches: [main]
-    paths: ["data/edf/**"]
 
 permissions:
   contents: write   # commit des JSON
@@ -41,7 +37,6 @@ jobs:
       - name: Collecte et publication
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          EDF_RELAIS_VU_LE: ${{ vars.EDF_RELAIS_VU_LE }}
         run: python scripts/collect.py
 
       - name: Commit des changements

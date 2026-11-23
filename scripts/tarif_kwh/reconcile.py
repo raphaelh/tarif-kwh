@@ -2,9 +2,8 @@
 
 Statuts (du moins sûr au plus sûr) :
 - ``propose``    : délibération CRE seule (prix HT officiels, TTC estimé) ;
-- ``en_vigueur`` : la grille EDF publiée à l'entrée en vigueur concorde
-                   (pour EJP, absente de la grille EDF : date d'effet atteinte
-                   sans texte au JORF) ;
+- ``en_vigueur`` : date d'effet atteinte sans texte signalé au JORF, ou
+                   grille EDF (copie archive.org) concordante ;
 - ``confirme``   : l'open data CRE (HT + TTC) concorde.
 
 Tout désaccord entre sources, ou toute incohérence, est BLOQUANT.
@@ -186,7 +185,7 @@ def recouper(
         statut = "confirme"
     elif edf:
         statut = "en_vigueur"
-    elif option == "ejp" and date_effet <= aujourd_hui and not alertes:
+    elif date_effet <= aujourd_hui and not alertes:
         statut = "en_vigueur"
     else:
         statut = "propose"

@@ -139,31 +139,32 @@ def test_open_data_grille_en_cours(option):
         assert g.puissances[6].abonnement_ttc == 190.81
 
 
-# --- relais de la grille EDF (EDF refuse les serveurs de GitHub) -------------------
 
-def test_edf_relais(monkeypatch, tmp_path):
-    from datetime import datetime, timezone
+# --- grille EDF lue sur web.archive.org (EDF refuse les serveurs de GitHub) --------
 
+def test_edf_copie_archive(monkeypatch):
     from tarif_kwh import http
 
-    def refus(url, **kw):
-        raise http.FetchError("HTTP 403 pour " + url)
+    appels = []
 
-    monkeypatch.setattr(http, "get", refus)
-    t0 = datetime(2026, 11, 23, 9, tzinfo=timezone.utc)
-    with pytest.raises(http.FetchError):
-        edf_grille.collecter(tmp_path / "absent.pdf")
-    g, avert = edf_grille.collecter(EDF, "2026-11-22T04:00:00+00:00", t0)
-    assert g["tempo"].puissances[6].prix_ttc == TEMPO_TTC_2026_08
-    assert g["tempo"].meta["via"] == "relais" and avert is None
-    _, avert = edf_grille.collecter(EDF, "2026-11-15T04:00:00+00:00", t0)
-    assert "8 jours" in avert
-    _, avert = edf_grille.collecter(EDF, None, t0)
-    assert "jamais" in avert
+    def faux_get(url, **kw):
+        appels.append(url)
+        if url.startswith(edf_grille.CDX):
+            return b'[["timestamp"],["20260801093110"]]'
+        assert url == edf_grille.url_capture("20260801093110")
+        return EDF.read_bytes()
+
+    monkeypatch.setattr(http, "get", faux_get)
+    t = edf_grille.collecter()["tempo"]
+    assert t.url == edf_grille.URL
+    assert t.meta["copie_archive"] == "https://web.archive.org/web/20260801093110id_/" + edf_grille.URL
+    assert t.puissances[6].prix_ttc == TEMPO_TTC_2026_08
+    assert edf_grille.URL not in appels  # EDF n'est jamais sollicité directement
+    assert not any("/save/" in u for u in appels)  # aucune capture demandée
 
 
-def test_relais_blob_sha():
-    import relais_edf
+def test_edf_sans_capture(monkeypatch):
+    from tarif_kwh import http
 
-    # SHA git d'un blob connu : « hello\n »
-    assert relais_edf.blob_sha(b"hello\n") == "ce013625030ba8dba906f756967f9e9ca394464a"
+    monkeypatch.setattr(http, "get", lambda url, **kw: b'[["timestamp"]]')
+    assert edf_grille.collecter() == {}

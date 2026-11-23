@@ -7,9 +7,10 @@ ce qui permet de recalculer le TTC à partir des prix HT de la CRE.
 from __future__ import annotations
 
 import io
+import json
 import re
-from datetime import date, datetime, timedelta, timezone
-from pathlib import Path
+from datetime import date
+from urllib.parse import urlencode
 
 import pdfplumber
 
@@ -97,33 +98,32 @@ def parse_grille(pdf_bytes: bytes, url: str = URL) -> dict[str, GrilleSource]:
     return grilles
 
 
-RELAIS_MAX_JOURS = 3
+# particulier.edf.fr refuse les serveurs de GitHub (HTTP 403, filtrage des
+# adresses de centres de données). On ne contourne pas ce filtrage : on lit
+# seulement, à la demande explicite du mainteneur, la dernière capture publique
+# du PDF déjà faite par la Wayback Machine (web.archive.org), sans lui demander
+# de nouvelle capture. Source d'appoint : son absence n'est pas une erreur.
+CDX = "https://web.archive.org/cdx/search/cdx"
 
 
-class RelaisInactif(RuntimeError):
-    """La copie relayée est utilisée mais le relais ne donne plus signe de vie."""
+def derniere_capture() -> str | None:
+    """Horodatage (AAAAMMJJhhmmss) de la dernière capture réussie, ou None."""
+    q = urlencode({"url": URL, "output": "json", "fl": "timestamp", "filter": "statuscode:200", "limit": "-1"})
+    lignes = json.loads(http.get(f"{CDX}?{q}"))
+    return lignes[-1][0] if len(lignes) > 1 else None
 
 
-def collecter(copie_relais: Path | None = None, relais_vu_le: str | None = None,
-              maintenant: datetime | None = None) -> tuple[dict[str, GrilleSource], str | None]:
-    """Grille EDF : accès direct, sinon copie déposée par scripts/relais_edf.py.
+def url_capture(ts: str) -> str:
+    """Copie brute (« id_ ») : octets identiques au PDF d'EDF."""
+    return f"https://web.archive.org/web/{ts}id_/{URL}"
 
-    Renvoie (grilles, avertissement éventuel sur le relais).
-    """
-    try:
-        return parse_grille(http.get(URL, tries=1), URL), None
-    except http.FetchError as direct:
-        if copie_relais is None or not copie_relais.exists():
-            raise http.FetchError(f"{direct} ; aucune copie relayée dans data/edf/") from direct
-    grilles = parse_grille(copie_relais.read_bytes(), URL)
+
+def collecter() -> dict[str, GrilleSource]:
+    ts = derniere_capture()
+    if ts is None:
+        return {}
+    copie = url_capture(ts)
+    grilles = parse_grille(http.get(copie), URL)
     for g in grilles.values():
-        g.meta["via"] = "relais"
-    maintenant = maintenant or datetime.now(timezone.utc)
-    avertissement = None
-    if not relais_vu_le:
-        avertissement = "le relais EDF n'a jamais signalé de passage (variable EDF_RELAIS_VU_LE absente)"
-    else:
-        age = maintenant - datetime.fromisoformat(relais_vu_le)
-        if age > timedelta(days=RELAIS_MAX_JOURS):
-            avertissement = f"le relais EDF ne s'est pas manifesté depuis {age.days} jours ({relais_vu_le})"
-    return grilles, avertissement
+        g.meta["copie_archive"] = copie
+    return grilles
