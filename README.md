@@ -22,6 +22,7 @@ Pour chaque option : prix du kWh **HT et TTC**, abonnement annuel **HT et TTC** 
 la **grille actuelle** et la **prochaine grille** avec sa date d'effet, dès que la CRE la propose (≈ 2 semaines avant le 1er février / 1er août).
 
 👉 **Consulter les tarifs en clair** : [raphaelh.github.io/tarif-kwh/](https://raphaelh.github.io/tarif-kwh/), un tableau par option (TTC, HT dépliable).
+L'abonnement mensuel y est l'annuel ÷ 12 : EDF facture l'abonnement annuel au prorata des jours.
 
 Le JSON se lit avec n'importe quel outil : Home Assistant, Jeedom, Domoticz, tableur, script…
 
@@ -315,7 +316,10 @@ template:
 Ce capteur « prix actuel » s'utilise directement dans le **tableau de bord Énergie** (« Utiliser une entité avec le prix actuel »).
 Pour les autres options, changez l'URL (`base.json`, `hphc.json`, `ejp.json`) et les clés (`hp`, `hc`, `normal`, `pointe` ;
 en Base : `g.puissances['6'].prix_ttc.base` selon votre puissance). L'abonnement est dans
-`g.puissances['<kVA>'].abonnement_ttc` (€/an) et `abonnement_ttc_mensuel` (€/mois).
+`g.puissances['<kVA>'].abonnement_ttc` (€/an) et `abonnement_ttc_mensuel` (€/mois). Le mensuel est celui imprimé
+sur la grille EDF quand elle existe : arrondi, il peut s'écarter d'environ 0,5 % de `abonnement_ttc` ÷ 12. Pour estimer un coût,
+préférez l'annuel : EDF facture l'abonnement annuel au prorata des jours (la CTA réellement facturée peut varier de quelques
+euros par an selon le contrat).
 
 ## Développement
 
