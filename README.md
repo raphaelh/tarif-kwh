@@ -131,8 +131,9 @@ passée ou tracer l'évolution des prix.
   rejetée. Le TTC au kWh est calculé comme celui de l'EJP (HT + taxes au kWh de l'open data CRE + TVA,
   `ttc_estime: true`, `statut: en_vigueur`), révisé au 1er janvier : au plus 0,04 c€/kWh d'écart avec EDF (TCFE de la
   CRE). L'abonnement TTC est celui de la première grille EDF de la période (celle de janvier 2015 pour le barème de
-  novembre 2014), révisé en 2014 comme celui des autres options (point suivant). Le 24 kVA de l'arrêté n'est pas
-  sur les grilles EDF : abonnement TTC `null`. La grille EDF de janvier 2015 imprime 15,55 c€ en Blanc HC 36 kVA au
+  novembre 2014), révisé en 2014 comme celui des autres options (point suivant). Pas de 24 kVA : Jour Tempo lui donne
+  toujours le barème du 30 kVA (jusqu'en février 2026), et cette puissance n'apparaît ni sur les grilles EDF ni dans
+  l'open data avant la création du Tempo 24 kVA en août 2026. La grille EDF de janvier 2015 imprime 15,55 c€ en Blanc HC 36 kVA au
   lieu de 12,55 c€ : coquille corrigée dans la transcription.
 - **Abonnement TTC en 2014 (Base, HP/HC, Tempo)** : le TURPE, dont la part fixe sert d'assiette à la CTA (27,04 %),
   change deux fois sans nouveau barème TRVE : TURPE 4 au **1er janvier 2014** (délibération CRE du 12 décembre

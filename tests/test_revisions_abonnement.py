@@ -188,7 +188,7 @@ def test_historique_valeurs(historique):
     assert _periodes(h, "base")["2014-08-01"]["puissances"]["6"]["abonnement_ttc"] == 84.46
     tempo = _periodes(h, "tempo")
     assert tempo["2014-01-01"]["puissances"]["9"]["abonnement_ttc"] == 121.02  # EDF : 121,01
-    assert tempo["2014-01-01"]["puissances"]["24"]["abonnement_ttc"] is None  # pas de 24 kVA chez EDF
+    assert "24" not in tempo["2014-01-01"]["puissances"]  # pas de Tempo 24 kVA avant août 2026
     assert tempo["2014-11-01"]["puissances"]["9"]["abonnement_ttc"] == 125.98  # grille EDF, inchangée
 
 

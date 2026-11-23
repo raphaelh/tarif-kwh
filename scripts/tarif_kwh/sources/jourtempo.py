@@ -32,6 +32,10 @@ DATE_MIN = date(2013, 8, 1)
 OPTIONS_LUES = ("ejp", "tempo")
 # Date d'effet exclue à partir de laquelle l'open data CRE couvre l'option.
 DATE_MAX = {"tempo": date(2016, 8, 1)}
+# Tempo 24 kVA : Jour Tempo lui donne le barème du 30 kVA à toutes les dates jusqu'en février 2026, alors que
+# cette puissance n'apparaît ni sur les grilles EDF ni dans l'open data CRE avant août 2026 (création du Tempo
+# 24 kVA). Ce n'est pas un tarif réellement proposé : on l'ignore.
+PUISSANCES_IGNOREES = {"tempo": {24}}
 COMPOSANTES = {
     "ejp": {"kwh_ejp_normal": "normal", "kwh_ejp_pointe": "pointe"},
     "tempo": {f"kwh_{c}_{h}": f"{c}_{h}" for c in ("bleu", "blanc", "rouge") for h in ("hc", "hp")},
@@ -60,6 +64,8 @@ def parse(historique: bytes, sources: bytes) -> dict[tuple[str, date], GrilleSou
             continue
         if r["source_id"] not in urls:
             raise ParseError(f"source inconnue {r['source_id']} ({option} {d})")
+        if int(r["puissance_kva"]) in PUISSANCES_IGNOREES.get(option, ()):
+            continue
         cle = (option, d)
         g = grilles.setdefault(cle, GrilleSource(option, d, SOURCE, urls[r["source_id"]]))
         if g.url != urls[r["source_id"]]:

@@ -46,7 +46,7 @@ def _recouper(jt, registre, d, archivees=None):
 def test_jourtempo_bareme_2013(jt):
     """Arrêté du 26 juillet 2013 : 9 à 36 kVA, six prix HT."""
     g = jt["2013-08-01"]
-    assert sorted(g.puissances) == [9, 12, 15, 18, 24, 30, 36]
+    assert sorted(g.puissances) == [9, 12, 15, 18, 30, 36]  # 24 kVA de Jour Tempo ignoré (= 30 kVA)
     assert g.puissances[9].abonnement_ht == 96.6
     assert g.puissances[9].prix_ht == {
         "bleu_hc": 0.044, "bleu_hp": 0.0576, "blanc_hc": 0.0719, "blanc_hp": 0.0907, "rouge_hc": 0.1525, "rouge_hp": 0.4401,
@@ -74,11 +74,11 @@ def test_bareme_concorde_avec_grilles_edf(jt, registre, d):
     attendues = {"2013-08-01": ["2013-08-01", "2014-02-01"], "2014-11-01": ["2015-01-01"], "2015-08-01": ["2015-08-01", "2016-01-01"]}[d]
     assert g["taxes"]["grilles_edf_archivees"] == attendues
     assert [s["type"] for s in g["sources"]] == ["jourtempo"] + ["edf_grille"] * len(attendues)
-    # Abonnement TTC : première grille EDF de la période ; 24 kVA absent des grilles EDF
+    # Abonnement TTC : première grille EDF de la période, mêmes puissances
     premiere = next(a for a in ARCHIVEES if a["date"] == attendues[0])
+    assert sorted(g["puissances"], key=int) == sorted(premiere["puissances"], key=int)
     for k, p in g["puissances"].items():
-        e = premiere["puissances"].get(k)
-        assert p["abonnement_ttc"] == (e["abonnement_ttc"] if e else None), k
+        assert p["abonnement_ttc"] == premiere["puissances"][k]["abonnement_ttc"], k
     # TTC au kWh : HT + taxes de l'open data CRE à la même date (comme l'EJP)
     t = registre["taxes_kwh_opendata"][d]["valeur"]
     tva = 0.196 if d < "2014" else 0.2
