@@ -1,14 +1,17 @@
-"""Source 2 : grille de prix « Tarif Bleu » publiée par EDF (PDF, TTC).
+"""Source 2 : grilles de prix « Tarif Bleu » publiées par EDF (PDF, TTC).
 
-Publiée à l'entrée en vigueur. Prix TTC : abonnement mensuel (€/mois) et kWh
-(c€/kWh). Pas d'option EJP. La page 2 indique le montant de l'accise appliqué,
-ce qui permet de recalculer le TTC à partir des prix HT de la CRE.
+Publiées à l'entrée en vigueur. Prix TTC : abonnement mensuel (€/mois) et kWh
+(c€/kWh). Deux documents : la grille Base / Heures Creuses / Tempo, et une
+grille à part pour l'option EJP (seule source officielle de l'abonnement EJP
+TTC). Chacune indique le montant de l'accise appliqué, ce qui permet de
+recalculer le TTC à partir des prix HT de la CRE.
 """
 from __future__ import annotations
 
 import io
 import json
 import re
+import sys
 from datetime import date
 from urllib.parse import urlencode
 
@@ -19,6 +22,7 @@ from ..schema import GrilleSource, Puissance, parse_nombre_fr
 
 SOURCE = "edf_grille"
 URL = "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_Tarif_Bleu.pdf"
+URL_EJP = "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
 
 MOIS = {
     "janvier": 1, "fevrier": 2, "février": 2, "mars": 3, "avril": 4, "mai": 5, "juin": 6,
@@ -34,6 +38,7 @@ COLONNES = {
     "base": ("base",),
     "hphc": ("hp", "hc"),
     "tempo": ("bleu_hc", "bleu_hp", "blanc_hc", "blanc_hp", "rouge_hc", "rouge_hp"),
+    "ejp": ("normal", "pointe"),
 }
 
 
@@ -60,15 +65,39 @@ def _table(texte: str, option: str, url: str, d: date) -> GrilleSource:
     return g
 
 
+def _date_applicable(texte: str) -> date:
+    m = RE_APPLICABLE.search(texte)
+    if not m or m.group(2).lower() not in MOIS:
+        raise ParseError("grille EDF : date « Applicable au … » introuvable")
+    return date(int(m.group(3)), MOIS[m.group(2).lower()], int(m.group(1)))
+
+
+def _ajouter_accise(grilles: dict[str, GrilleSource], tout: str) -> None:
+    ma = RE_ACCISE.search(tout.replace("\n", " "))
+    if ma:
+        accise = round(parse_nombre_fr(ma.group(1)) / 100, 6)  # €/kWh
+        for g in grilles.values():
+            g.meta["accise_eur_kwh"] = accise
+
+
+def parse_grille_ejp(pdf_bytes: bytes, url: str = URL_EJP) -> dict[str, GrilleSource]:
+    """Grille « Tarif Bleu option EJP » : un seul tableau (kVA, abonnement, normal, pointe)."""
+    with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
+        texte = pdf.pages[0].extract_text() or ""
+        tout = "\n".join((p.extract_text() or "") for p in pdf.pages)
+    if "Option EJP" not in texte:
+        raise ParseError("grille EDF EJP : titre « Option EJP » introuvable")
+    grilles = {"ejp": _table(texte, "ejp", url, _date_applicable(texte))}
+    _ajouter_accise(grilles, tout)
+    return grilles
+
+
 def parse_grille(pdf_bytes: bytes, url: str = URL) -> dict[str, GrilleSource]:
     with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
         page = pdf.pages[0]
         texte = page.extract_text() or ""
         tout = "\n".join((p.extract_text() or "") for p in pdf.pages)
-        m = RE_APPLICABLE.search(texte)
-        if not m or m.group(2).lower() not in MOIS:
-            raise ParseError("grille EDF : date « Applicable au … » introuvable")
-        d = date(int(m.group(3)), MOIS[m.group(2).lower()], int(m.group(1)))
+        d = _date_applicable(texte)
 
         mots = page.extract_words()
         options_y = [w for w in mots if w["text"] == "Option"]
@@ -90,11 +119,7 @@ def parse_grille(pdf_bytes: bytes, url: str = URL) -> dict[str, GrilleSource]:
         "hphc": _table(droite, "hphc", url, d),
         "tempo": _table(bas, "tempo", url, d),
     }
-    ma = RE_ACCISE.search(tout.replace("\n", " "))
-    if ma:
-        accise = round(parse_nombre_fr(ma.group(1)) / 100, 6)  # €/kWh
-        for g in grilles.values():
-            g.meta["accise_eur_kwh"] = accise
+    _ajouter_accise(grilles, tout)
     return grilles
 
 
@@ -106,24 +131,43 @@ def parse_grille(pdf_bytes: bytes, url: str = URL) -> dict[str, GrilleSource]:
 CDX = "https://web.archive.org/cdx/search/cdx"
 
 
-def derniere_capture() -> str | None:
+DOCUMENTS = ((URL, parse_grille), (URL_EJP, parse_grille_ejp))
+
+
+def derniere_capture(url: str = URL) -> str | None:
     """Horodatage (AAAAMMJJhhmmss) de la dernière capture réussie, ou None."""
-    q = urlencode({"url": URL, "output": "json", "fl": "timestamp", "filter": "statuscode:200", "limit": "-1"})
+    q = urlencode({"url": url, "output": "json", "fl": "timestamp", "filter": "statuscode:200", "limit": "-1"})
     lignes = json.loads(http.get(f"{CDX}?{q}"))
     return lignes[-1][0] if len(lignes) > 1 else None
 
 
-def url_capture(ts: str) -> str:
+def url_capture(ts: str, url: str = URL) -> str:
     """Copie brute (« id_ ») : octets identiques au PDF d'EDF."""
-    return f"https://web.archive.org/web/{ts}id_/{URL}"
+    return f"https://web.archive.org/web/{ts}id_/{url}"
+
+
+def _collecter_document(url: str, parse) -> dict[str, GrilleSource]:
+    ts = derniere_capture(url)
+    if ts is None:
+        return {}
+    copie = url_capture(ts, url)
+    grilles = parse(http.get(copie), url)
+    for g in grilles.values():
+        g.meta["copie_archive"] = copie
+    return grilles
 
 
 def collecter() -> dict[str, GrilleSource]:
-    ts = derniere_capture()
-    if ts is None:
-        return {}
-    copie = url_capture(ts)
-    grilles = parse_grille(http.get(copie), URL)
-    for g in grilles.values():
-        g.meta["copie_archive"] = copie
+    """Les deux grilles ; un document illisible n'empêche pas de lire l'autre."""
+    grilles: dict[str, GrilleSource] = {}
+    erreurs: list[str] = []
+    for url, parse in DOCUMENTS:
+        try:
+            grilles.update(_collecter_document(url, parse))
+        except Exception as e:  # noqa: BLE001 — source d'appoint
+            erreurs.append(f"{url.rsplit('/', 1)[-1]} : {e}")
+    if erreurs and not grilles:
+        raise http.FetchError(" ; ".join(erreurs))
+    for err in erreurs:
+        print(f"grille EDF (archive.org) ignorée : {err}", file=sys.stderr)
     return grilles

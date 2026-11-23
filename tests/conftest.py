@@ -15,6 +15,8 @@ ANNEXES = {
 }
 CSV = {o: FIX / f"Option_{f}_2026-11-23.csv" for o, f in (("base", "Base"), ("hphc", "HPHC"), ("tempo", "Tempo"))}
 EDF = FIX / "edf_grille_tarif_bleu_2026-08-01.pdf"
+EDF_EJP = FIX / "edf_grille_ejp_2026-08-01.pdf"
+EDF_EJP_2025 = FIX / "edf_grille_ejp_2025-08-01.pdf"  # capture archive.org
 
 
 def fr(s: str) -> float:

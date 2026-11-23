@@ -1,8 +1,9 @@
 """Lecture des sources réelles (PDF/CSV/HTML enregistrés dans tests/fixtures)."""
 from datetime import date
+from urllib.parse import quote
 
 import pytest
-from conftest import CSV, EDF, FIX, fr, lignes_csv
+from conftest import CSV, EDF, EDF_EJP, EDF_EJP_2025, FIX, fr, lignes_csv
 
 from tarif_kwh import taxes
 from tarif_kwh.sources import cre_deliberation, cre_opendata, edf_grille
@@ -120,6 +121,59 @@ def test_grille_edf():
     assert sorted(g["base"].puissances) == sorted(g["hphc"].puissances) == [3, 6, 9, 12, 15, 18, 24, 30, 36]
 
 
+def test_grille_edf_ejp():
+    g = edf_grille.parse_grille_ejp(EDF_EJP.read_bytes())
+    assert set(g) == {"ejp"}
+    e = g["ejp"]
+    assert e.date_effet == date(2026, 8, 1)
+    assert e.meta["accise_eur_kwh"] == 0.03062
+    assert {k: p.abonnement_ttc_mensuel for k, p in e.puissances.items()} == {
+        9: 19.52, 12: 23.14, 15: 26.81, 18: 30.37, 36: 52.60,
+    }
+    for p in e.puissances.values():
+        assert p.prix_ttc == {"normal": 0.1789, "pointe": 0.4324}
+
+
+def test_grille_edf_ejp_2025():
+    """Mise en page de l'année précédente (capture archive.org) : même lecture."""
+    e = edf_grille.parse_grille_ejp(EDF_EJP_2025.read_bytes())["ejp"]
+    assert e.date_effet == date(2025, 8, 1)
+    assert e.meta["accise_eur_kwh"] == 0.02998
+    assert e.puissances[9].abonnement_ttc_mensuel == 19.32
+    assert e.puissances[36].prix_ttc == {"normal": 0.1418, "pointe": 1.0867}
+
+
+def test_grille_edf_ejp_refuse_autre_grille():
+    with pytest.raises(edf_grille.ParseError):
+        edf_grille.parse_grille_ejp(EDF.read_bytes())
+
+
+def test_ejp_ttc_edf_egal_ht_cre_plus_taxes(annexes):
+    """kWh : TTC EDF = HT CRE + accise + TVA ; abonnement : TTC EDF > HT CRE (CTA + TVA)."""
+    cre = annexes["2026-08-01"]["ejp"]
+    edf = edf_grille.parse_grille_ejp(EDF_EJP.read_bytes())["ejp"]
+    assert sorted(cre.puissances) == sorted(edf.puissances)
+    for k, p in cre.puissances.items():
+        q = edf.puissances[k]
+        assert {per: taxes.kwh_ttc(v, 0.03062, 0.20) for per, v in p.prix_ht.items()} == q.prix_ttc
+        cta = q.abonnement_ttc_mensuel * 12 / 1.2 - p.abonnement_ht
+        assert 15 < cta < 70, (k, cta)
+
+
+def test_recoupement_ejp_abonnement_ttc_officiel(annexes):
+    from tarif_kwh import reconcile
+
+    obs = {
+        "cre_deliberation": annexes["2026-08-01"]["ejp"],
+        "edf_grille": edf_grille.parse_grille_ejp(EDF_EJP.read_bytes())["ejp"],
+    }
+    g, pb = reconcile.recouper("ejp", date(2026, 8, 1), obs, {}, taxes.charger_config(), date(2026, 11, 23))
+    assert pb == []
+    assert g["ttc_estime"] is False
+    assert g["puissances"]["9"]["abonnement_ttc"] == 234.24
+    assert g["puissances"]["9"]["abonnement_ttc_mensuel"] == 19.52
+
+
 # --- open data CRE -------------------------------------------------------------
 
 def test_date_inversee():
@@ -142,25 +196,58 @@ def test_open_data_grille_en_cours(option):
 
 # --- grille EDF lue sur web.archive.org (EDF refuse les serveurs de GitHub) --------
 
+CAPTURES = {edf_grille.URL: ("20260801093110", EDF), edf_grille.URL_EJP: ("20260801134207", EDF_EJP)}
+
+
+def faux_archive(appels, absents=()):
+    def faux_get(url, **kw):
+        appels.append(url)
+        for doc, (ts, fichier) in CAPTURES.items():
+            if url.startswith(edf_grille.CDX) and quote(doc, safe="") in url:
+                return b'[["timestamp"]]' if doc in absents else f'[["timestamp"],["{ts}"]]'.encode()
+            if url == edf_grille.url_capture(ts, doc):
+                return fichier.read_bytes()
+        raise AssertionError(f"URL inattendue : {url}")
+    return faux_get
+
+
 def test_edf_copie_archive(monkeypatch):
     from tarif_kwh import http
 
     appels = []
-
-    def faux_get(url, **kw):
-        appels.append(url)
-        if url.startswith(edf_grille.CDX):
-            return b'[["timestamp"],["20260801093110"]]'
-        assert url == edf_grille.url_capture("20260801093110")
-        return EDF.read_bytes()
-
-    monkeypatch.setattr(http, "get", faux_get)
-    t = edf_grille.collecter()["tempo"]
+    monkeypatch.setattr(http, "get", faux_archive(appels))
+    g = edf_grille.collecter()
+    assert set(g) == {"base", "hphc", "tempo", "ejp"}
+    t = g["tempo"]
     assert t.url == edf_grille.URL
     assert t.meta["copie_archive"] == "https://web.archive.org/web/20260801093110id_/" + edf_grille.URL
     assert t.puissances[6].prix_ttc == TEMPO_TTC_2026_08
-    assert edf_grille.URL not in appels  # EDF n'est jamais sollicité directement
+    assert g["ejp"].url == edf_grille.URL_EJP
+    assert g["ejp"].meta["copie_archive"] == "https://web.archive.org/web/20260801134207id_/" + edf_grille.URL_EJP
+    assert g["ejp"].puissances[9].abonnement_ttc_mensuel == 19.52
+    assert edf_grille.URL not in appels and edf_grille.URL_EJP not in appels  # EDF jamais sollicité
     assert not any("/save/" in u for u in appels)  # aucune capture demandée
+
+
+def test_edf_un_document_sans_capture(monkeypatch):
+    from tarif_kwh import http
+
+    monkeypatch.setattr(http, "get", faux_archive([], absents=(edf_grille.URL_EJP,)))
+    assert set(edf_grille.collecter()) == {"base", "hphc", "tempo"}
+
+
+def test_edf_un_document_illisible(monkeypatch):
+    from tarif_kwh import http
+
+    faux = faux_archive([])
+
+    def get(url, **kw):
+        if url == edf_grille.url_capture("20260801134207", edf_grille.URL_EJP):
+            return b"%PDF-1.4 pas un vrai pdf"
+        return faux(url, **kw)
+
+    monkeypatch.setattr(http, "get", get)
+    assert set(edf_grille.collecter()) == {"base", "hphc", "tempo"}
 
 
 def test_edf_sans_capture(monkeypatch):
