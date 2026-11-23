@@ -229,3 +229,47 @@ def verifier_variation(grille: dict, precedente: dict | None, nb_sources: int) -
     if nb_sources > 1:
         return [], [msg + " (confirmée par plusieurs sources)"]
     return [msg + " — en attente d'une seconde source"], []
+
+
+# --- contrôle de l'accise appliquée --------------------------------------------
+
+TOL_ACCISE = 0.0001  # €/kWh (0,1 €/MWh) : le TTC publié est arrondi au 1/10000
+
+
+def accises_appliquees(registre: dict, config_taxes: dict) -> dict[str, tuple[float, str]]:
+    """Accise réellement appliquée par date d'effet, d'après les sources officielles.
+
+    Grille EDF : montant imprimé. Open data CRE : (TTC / (1 + TVA) - HT), médiane
+    sur toutes les puissances et périodes.
+    """
+    out: dict[str, tuple[float, str]] = {}
+    for option, dates in registre.get("grilles", {}).items():
+        for d, obs in dates.items():
+            if d in out:
+                continue
+            edf = obs.get("edf_grille")
+            if edf and edf.get("meta", {}).get("accise_eur_kwh"):
+                out[d] = (edf["meta"]["accise_eur_kwh"], "grille EDF")
+                continue
+            od = obs.get("cre_opendata")
+            if od:
+                tva = taxes.tva(date.fromisoformat(d), config_taxes, "tva_energie")
+                v = sorted(
+                    p["prix_ttc"][k] / (1 + tva) - p["prix_ht"][k]
+                    for p in od["puissances"].values()
+                    for k in p["prix_ht"]
+                )
+                if v:
+                    out[d] = (round(v[len(v) // 2], 5), "open data CRE (TTC/1,2 - HT)")
+    return out
+
+
+def ecarts_accise(registre: dict, config_taxes: dict) -> list[str]:
+    """Écarts entre l'accise appliquée et celle de config/taxes.json."""
+    pb = []
+    for d, (v, src) in sorted(accises_appliquees(registre, config_taxes).items()):
+        e = taxes.valeur_au(config_taxes["accise_eur_kwh"], date.fromisoformat(d))
+        if e is None or abs(e["valeur"] - v) > TOL_ACCISE:
+            attendu = f"{e['valeur']} (ligne du {e['debut']})" if e else "aucune valeur"
+            pb.append(f"grille du {d} : accise appliquée {v} €/kWh ({src}), config/taxes.json : {attendu}")
+    return pb

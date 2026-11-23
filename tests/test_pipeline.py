@@ -237,3 +237,45 @@ def test_jorf_detection():
 def test_jorf_index():
     html = '<a href="JORF_20261121-010907.tar.gz">x</a><a href="JORF_20261120-222218.tar.gz">y</a>'
     assert [a for a, _ in jorf.lister_archives(html)] == ["JORF_20261120-222218.tar.gz", "JORF_20261121-010907.tar.gz"]
+
+
+# --- accise appliquée vs config/taxes.json -----------------------------------------
+
+def test_accise_conforme(cfg):
+    from tarif_kwh import reconcile
+
+    r = registre_avec()
+    assert reconcile.accises_appliquees(r, cfg)["2026-08-01"] == (0.03062, "grille EDF")
+    assert reconcile.ecarts_accise(r, cfg) == []
+    # Sans la grille EDF : accise déduite de l'open data CRE
+    r = registre_avec(edf=False)
+    v, src = reconcile.accises_appliquees(r, cfg)["2026-08-01"]
+    assert v == pytest.approx(0.03062, abs=0.0001) and "open data" in src
+    assert reconcile.ecarts_accise(r, cfg) == []
+
+
+def test_accise_oubliee_dans_la_config(cfg):
+    """Changement d'accise non reporté (ex. 1er août 2026) : signalé."""
+    from tarif_kwh import reconcile
+
+    cfg2 = copy.deepcopy(cfg)
+    cfg2["accise_eur_kwh"] = [a for a in cfg["accise_eur_kwh"] if a["debut"] != "2026-08-01"]
+    ecarts = reconcile.ecarts_accise(registre_avec(), cfg2)
+    assert len(ecarts) == 1 and "0.03062" in ecarts[0] and "0.03085" in ecarts[0]
+
+
+@pytest.mark.parametrize("titre,attendu", [
+    ("LOI n° 2026-1290 du 30 décembre 2026 de finances pour 2027", True),
+    ("LOI n° 2026-801 du 12 juillet 2026 de finances rectificative pour 2026", True),
+    ("Arrêté du 28 juillet 2026 fixant les tarifs de l'accise sur l'électricité", True),
+    ("Décret relatif aux accises sur les énergies", True),
+    ("Arrêté relatif aux tarifs réglementés de vente de l'électricité", False),  # TRVE, pas taxes
+    ("Arrêté relatif aux accises sur les alcools et boissons alcooliques", None),
+    ("Décret relatif aux captures accidentelles de dauphins", None),
+])
+def test_jorf_motifs(titre, attendu):
+    pertinent = any(p.search(titre) for p in jorf.MOTIFS)
+    if attendu is None:
+        assert not pertinent
+    else:
+        assert pertinent and jorf.concerne_les_taxes(titre) is attendu

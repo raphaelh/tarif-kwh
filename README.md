@@ -97,9 +97,23 @@ conservé, `etat.json` passe à `"publication": "bloquee"` et une **issue GitHub
 ### Taxes
 
 TTC du kWh = (HT + accise) × 1,20 ; TTC de l'abonnement = (HT + CTA) × 1,20 (TVA à 20 % sur l'abonnement depuis le 1er août 2025).
-La CTA dépend de la puissance et du tarif d'acheminement : elle est déduite de la dernière grille officielle. Quand une loi
-de finances change l'accise, ajoutez la nouvelle valeur dans [`config/taxes.json`](config/taxes.json) pour que les grilles
-`propose` soient estimées juste ; une issue JORF vous le signale normalement.
+La CTA dépend de la puissance et du tarif d'acheminement : elle est déduite de la dernière grille officielle.
+
+L'**accise** est la seule taxe à suivre à la main, dans [`config/taxes.json`](config/taxes.json) : elle sert à estimer le TTC
+d'une grille `propose` avant que le TTC officiel ne soit publié. Elle change par loi de finances (souvent au 1er février),
+mais aussi en cours d'année (30,85 → 30,62 €/MWh au 1er août 2026). Trois garde-fous :
+
+1. **Veille du Journal officiel** : toute loi de finances (initiale ou rectificative) et tout texte sur les accises de
+   l'électricité ou de l'énergie ouvre une issue contenant la procédure.
+2. **Contrôle a posteriori** : dès que la grille EDF ou l'open data CRE est connue, l'accise réellement appliquée
+   (imprimée par EDF, ou TTC ÷ 1,2 − HT) est comparée à `config/taxes.json` ; tout écart ouvre l'issue
+   « Accise à mettre à jour dans config/taxes.json ».
+3. **Test du fichier** : dates croissantes, valeurs en €/kWh plausibles (une faute de frappe fait échouer la collecte
+   avant toute publication).
+
+Procédure : prendre le tarif « ménages et assimilés » en €/MWh (texte au JO, ou barème sur douane.gouv.fr), diviser
+par 1 000, et ajouter `{"debut": "AAAA-MM-JJ", "valeur": 0.0xxxx, "source": "…"}` à `accise_eur_kwh` (l'éditeur web de
+GitHub suffit). La collecte suivante recalcule les TTC estimés.
 
 ### Planification
 

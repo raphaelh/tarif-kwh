@@ -24,9 +24,17 @@ RE_ARCHIVE = re.compile(r'href="(JORF_(\d{8})-\d{6}\.tar\.gz)"')
 
 MOTIFS = [
     re.compile(r"tarifs? réglementés? de vente (de l'|d'|de l’|d’)électricité", re.I),
-    re.compile(r"accise sur l(’|')électricité", re.I),
     re.compile(r"tarifs? réglementés? .{0,60}électricité", re.I),
+    # Taxes : l'accise change par loi de finances (1er février) mais aussi en
+    # cours d'année (30,85 -> 30,62 €/MWh au 1er août 2026).
+    re.compile(r"\baccises?\b.{0,80}\bénergies?\b|\baccises?\b.{0,80}électricité|électricité.{0,80}\baccises?\b", re.I),
+    re.compile(r"\bloi\b.{0,60}\bde finances\b", re.I),  # initiale ou rectificative
 ]
+MOTIFS_TAXES = MOTIFS[2:]
+
+
+def concerne_les_taxes(titre: str) -> bool:
+    return any(p.search(titre) for p in MOTIFS_TAXES)
 
 
 def lister_archives(html: str) -> list[tuple[str, str]]:

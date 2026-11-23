@@ -27,6 +27,20 @@ SOURCES = RACINE / "config" / "sources.json"
 DOCS = RACINE / "docs"
 
 
+PROCEDURE_ACCISE = """### Si le texte change l'accise sur l'électricité
+
+1. Chercher le tarif de l'accise sur l'électricité, catégorie **« ménages et assimilés »** (€/MWh), et sa date
+   d'entrée en vigueur. Barème à jour aussi sur douane.gouv.fr (« accise sur l'électricité »).
+2. Convertir en €/kWh : diviser par 1 000 (30,62 €/MWh -> `0.03062`).
+3. Ajouter une ligne à `config/taxes.json` (éditeur web GitHub : crayon, puis *Commit changes*) :
+   `{"debut": "AAAA-MM-JJ", "valeur": 0.0xxxx, "source": "<texte, article>"}`
+4. Les tests vérifient le fichier ; la collecte suivante (ou *Actions → Collecte des tarifs → Run workflow*)
+   recalcule le TTC des grilles proposées.
+
+Si le texte ne change pas l'accise, fermer simplement cette issue.
+"""
+
+
 def charger(path: Path, defaut: dict) -> dict:
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else defaut
 
@@ -110,13 +124,15 @@ def collecter(registre: dict, forcer: list[str], erreurs: list) -> None:
         for t in textes:
             if t["url"] not in connus:
                 j["textes"].append(t)
-                issues.alerter(
-                    f"JORF : texte à vérifier — {t['titre'][:90]}",
-                    f"Un texte publié au Journal officiel concerne peut-être les TRVE ou l'accise :\n\n"
+                corps = (
+                    "Un texte publié au Journal officiel concerne peut-être les TRVE ou l'accise :\n\n"
                     f"- **{t['titre']}**\n- {t['nature']} publié le {t['date_publication']}\n- {t['url']}\n\n"
-                    "Vérifier s'il modifie ou bloque les prix proposés par la CRE, ou change les taxes "
-                    "(mettre à jour `config/taxes.json`).",
                 )
+                if jorf.concerne_les_taxes(t["titre"]):
+                    corps += PROCEDURE_ACCISE
+                else:
+                    corps += "Vérifier s'il modifie ou bloque les prix proposés par la CRE."
+                issues.alerter(f"JORF : texte à vérifier — {t['titre'][:90]}", corps)
 
 
 def main() -> int:
@@ -138,6 +154,14 @@ def main() -> int:
     REGISTRE.parent.mkdir(exist_ok=True)
     REGISTRE.write_text(json.dumps(registre, ensure_ascii=False, indent=1, sort_keys=True) + "\n", encoding="utf-8")
 
+    ecarts = reconcile.ecarts_accise(registre, taxes.charger_config())
+    if ecarts:
+        issues.alerter(
+            "Accise à mettre à jour dans config/taxes.json",
+            "L'accise appliquée par les sources officielles diffère de `config/taxes.json` : les TTC "
+            "estimés des prochaines grilles seraient faux.\n\n"
+            + "\n".join(f"- {e}" for e in ecarts) + "\n\n" + PROCEDURE_ACCISE,
+        )
     for nom, detail in erreurs:
         issues.alerter(f"Source en échec : {nom[:100]}", detail)
     for option, e in etat.items():
