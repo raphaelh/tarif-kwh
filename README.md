@@ -77,8 +77,8 @@ Ces deux champs n'existent que sur GitHub Pages (`https://raphaelh.github.io/…
 ### Historique (`historique.json`)
 
 Toutes les grilles entrées en vigueur, de la plus ancienne à l'actuelle : **depuis le 23/07/2012** pour Base et HP/HC,
-**depuis le 01/08/2013** pour Tempo et EJP. Tempo vient de l'open data CRE depuis août 2016 (statut `confirme`, HT et
-TTC officiels), et d'avant (voir plus bas) des arrêtés et des grilles EDF archivées. Utile pour recalculer une facture
+**depuis le 01/08/2013** pour Tempo et EJP. Tempo vient de l'open data CRE depuis août 2016 (statut `confirme` : HT
+officiel, TTC tel que publié par la CRE, voir [Statuts de confiance](#statuts-de-confiance)), et d'avant (voir plus bas) des arrêtés et des grilles EDF archivées. Utile pour recalculer une facture
 passée ou tracer l'évolution des prix.
 
 ```json
@@ -212,7 +212,7 @@ L'historique de chaque fichier est aussi celui de git.
 |---|---|
 | `propose` | Grille proposée par la **délibération CRE**. Prix **HT officiels** ; TTC **calculé** (`ttc_estime: true`) avec les taxes connues : il peut différer de quelques dixièmes de centime si l'accise ou la CTA changent à la même date. |
 | `en_vigueur` | **Date d'effet atteinte** sans texte signalé au Journal officiel, ou grille Tarif Bleu EDF concordante au centime près. Tant que `ttc_estime` vaut `true`, le TTC reste calculé (HT CRE + taxes). |
-| `confirme` | L'**open data CRE** (HT et TTC, publié ≈ 4 semaines après) concorde. |
+| `confirme` | L'**open data CRE** (HT et TTC, publié ≈ 4 semaines après) concorde. Le **HT** est alors sûr : recoupé avec les délibérations, les arrêtés et les grilles EDF, il n'a été trouvé faux qu'une fois (Base, août 2015 et août 2016). Le **TTC** est celui **publié par la CRE**, pas un TTC vérifié : la CRE recalcule elle-même les taxes et oublie parfois d'en reporter un changement (CTA, taxes au kWh). Les erreurs démontrées par un texte officiel ou une grille EDF sont corrigées, et la grille passe alors en `en_vigueur` (voir [Historique](#historique-historiquejson)). Depuis août 2017, EDF n'imprime plus l'abonnement annuel, ce qui empêche tout contrôle au centime : sur les grilles anciennes, l'abonnement TTC peut s'écarter de quelques centimes à quelques euros par an de ce qui a été facturé. |
 
 ## Fonctionnement
 
