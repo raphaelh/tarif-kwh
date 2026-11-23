@@ -16,6 +16,78 @@
       "grilles": [
         {
           "date_debut": "2012-07-23",
+          "date_fin": "2012-12-31",
+          "puissances": {
+            "3": {
+              "abonnement_ht": 55.56,
+              "abonnement_ttc": 69.37,
+              "prix_ht": {
+                "base": 0.0822
+              },
+              "prix_ttc": {
+                "base": 0.1218
+              }
+            },
+            "6": {
+              "abonnement_ht": 65.64,
+              "abonnement_ttc": 82.98,
+              "prix_ht": {
+                "base": 0.0828
+              },
+              "prix_ttc": {
+                "base": 0.1225
+              }
+            },
+            "9": {
+              "abonnement_ht": 76.08,
+              "abonnement_ttc": 96.97,
+              "prix_ht": {
+                "base": 0.0848
+              },
+              "prix_ttc": {
+                "base": 0.1249
+              }
+            },
+            "12": {
+              "abonnement_ht": 118.08,
+              "abonnement_ttc": 153.7,
+              "prix_ht": {
+                "base": 0.0848
+              },
+              "prix_ttc": {
+                "base": 0.1249
+              }
+            },
+            "15": {
+              "abonnement_ht": 135.72,
+              "abonnement_ttc": 177.66,
+              "prix_ht": {
+                "base": 0.0848
+              },
+              "prix_ttc": {
+                "base": 0.1249
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "en_vigueur",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Base.csv"
+            }
+          ],
+          "correction_ttc": {
+            "taxes_kwh": 0.01964,
+            "motif": "CSPE 1,05 c€/kWh (10,5 €/MWh du 1er juillet au 31 décembre 2012) + TCFE 0,914 c€/kWh, d'après la grille Tarif Bleu EDF « en vigueur à compter du 01 juillet 2012 » (archive.org, capture du 10 juillet 2012). L'open data CRE du 23 juillet 2012 applique 2,28 c€/kWh, les taxes de 2013 (CSPE 13,5 €/MWh au 1er janvier 2013, TCFE indexée), comme en août 2013.",
+            "sources": [
+              "https://web.archive.org/web/20120710190444/http://particuliers.edf.com/fichiers/fckeditor/Particuliers/Offres/CGV_CRE/CRE_TB.pdf",
+              "https://www.cre.fr/content/download/9669/file/121009_CSPE2013.pdf"
+            ]
+          }
+        },
+        {
+          "date_debut": "2013-01-01",
           "date_fin": "2013-07-31",
           "puissances": {
             "3": {
@@ -69,14 +141,20 @@
               }
             }
           },
-          "ttc_estime": false,
-          "statut": "confirme",
+          "ttc_estime": true,
+          "statut": "en_vigueur",
           "sources": [
             {
               "type": "cre_opendata",
               "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Base.csv"
             }
-          ]
+          ],
+          "revision_ttc": {
+            "date": "2013-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2013-01-01 : 0.0228 €/kWh, d'après l'open data CRE du 2012-07-23"
+            ]
+          }
         },
         {
           "date_debut": "2013-08-01",
@@ -1986,6 +2064,132 @@
       "grilles": [
         {
           "date_debut": "2012-07-23",
+          "date_fin": "2012-12-31",
+          "puissances": {
+            "6": {
+              "abonnement_ht": 79.2,
+              "abonnement_ttc": 99.54,
+              "prix_ht": {
+                "hc": 0.0578,
+                "hp": 0.0935
+              },
+              "prix_ttc": {
+                "hc": 0.0926,
+                "hp": 0.1353
+              }
+            },
+            "9": {
+              "abonnement_ht": 94.44,
+              "abonnement_ttc": 119.73,
+              "prix_ht": {
+                "hc": 0.0578,
+                "hp": 0.0935
+              },
+              "prix_ttc": {
+                "hc": 0.0926,
+                "hp": 0.1353
+              }
+            },
+            "12": {
+              "abonnement_ht": 156.72,
+              "abonnement_ttc": 203.92,
+              "prix_ht": {
+                "hc": 0.0578,
+                "hp": 0.0935
+              },
+              "prix_ttc": {
+                "hc": 0.0926,
+                "hp": 0.1353
+              }
+            },
+            "15": {
+              "abonnement_ht": 183.72,
+              "abonnement_ttc": 240.11,
+              "prix_ht": {
+                "hc": 0.0578,
+                "hp": 0.0935
+              },
+              "prix_ttc": {
+                "hc": 0.0926,
+                "hp": 0.1353
+              }
+            },
+            "18": {
+              "abonnement_ht": 208.68,
+              "abonnement_ttc": 274.14,
+              "prix_ht": {
+                "hc": 0.0578,
+                "hp": 0.0935
+              },
+              "prix_ttc": {
+                "hc": 0.0926,
+                "hp": 0.1353
+              }
+            },
+            "24": {
+              "abonnement_ht": 448.32,
+              "abonnement_ttc": 567.25,
+              "prix_ht": {
+                "hc": 0.0578,
+                "hp": 0.0935
+              },
+              "prix_ttc": {
+                "hc": 0.0926,
+                "hp": 0.1353
+              }
+            },
+            "30": {
+              "abonnement_ht": 552.36,
+              "abonnement_ttc": 698.38,
+              "prix_ht": {
+                "hc": 0.0578,
+                "hp": 0.0935
+              },
+              "prix_ttc": {
+                "hc": 0.0926,
+                "hp": 0.1353
+              }
+            },
+            "36": {
+              "abonnement_ht": 636.24,
+              "abonnement_ttc": 808.24,
+              "prix_ht": {
+                "hc": 0.0578,
+                "hp": 0.0935
+              },
+              "prix_ttc": {
+                "hc": 0.0926,
+                "hp": 0.1353
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "en_vigueur",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_HPHC.csv"
+            }
+          ],
+          "prix_ht": {
+            "hc": 0.0578,
+            "hp": 0.0935
+          },
+          "prix_ttc": {
+            "hc": 0.0926,
+            "hp": 0.1353
+          },
+          "correction_ttc": {
+            "taxes_kwh": 0.01964,
+            "motif": "CSPE 1,05 c€/kWh (10,5 €/MWh du 1er juillet au 31 décembre 2012) + TCFE 0,914 c€/kWh, d'après la grille Tarif Bleu EDF « en vigueur à compter du 01 juillet 2012 » (archive.org, capture du 10 juillet 2012). L'open data CRE du 23 juillet 2012 applique 2,28 c€/kWh, les taxes de 2013 (CSPE 13,5 €/MWh au 1er janvier 2013, TCFE indexée), comme en août 2013.",
+            "sources": [
+              "https://web.archive.org/web/20120710190444/http://particuliers.edf.com/fichiers/fckeditor/Particuliers/Offres/CGV_CRE/CRE_TB.pdf",
+              "https://www.cre.fr/content/download/9669/file/121009_CSPE2013.pdf"
+            ]
+          }
+        },
+        {
+          "date_debut": "2013-01-01",
           "date_fin": "2013-07-31",
           "puissances": {
             "6": {
@@ -2085,8 +2289,8 @@
               }
             }
           },
-          "ttc_estime": false,
-          "statut": "confirme",
+          "ttc_estime": true,
+          "statut": "en_vigueur",
           "sources": [
             {
               "type": "cre_opendata",
@@ -2100,6 +2304,12 @@
           "prix_ttc": {
             "hc": 0.0964,
             "hp": 0.1391
+          },
+          "revision_ttc": {
+            "date": "2013-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2013-01-01 : 0.0228 €/kWh, d'après l'open data CRE du 2012-07-23"
+            ]
           }
         },
         {
@@ -5373,6 +5583,164 @@
       "grilles": [
         {
           "date_debut": "2012-07-23",
+          "date_fin": "2012-12-31",
+          "statut": "en_vigueur",
+          "ttc_estime": true,
+          "sources": [
+            {
+              "type": "arrete",
+              "url": "https://www.legifrance.gouv.fr/eli/arrete/2012/7/20/DEVR1230094A/jo/texte"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 91.68,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "blanc_hc": 0.067,
+                "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
+                "rouge_hc": 0.142,
+                "rouge_hp": 0.4052
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1036,
+                "blanc_hp": 0.1234,
+                "bleu_hc": 0.0725,
+                "bleu_hp": 0.0869,
+                "rouge_hc": 0.1933,
+                "rouge_hp": 0.5081
+              }
+            },
+            "12": {
+              "abonnement_ht": 170.16,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "blanc_hc": 0.067,
+                "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
+                "rouge_hc": 0.142,
+                "rouge_hp": 0.4052
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1036,
+                "blanc_hp": 0.1234,
+                "bleu_hc": 0.0725,
+                "bleu_hp": 0.0869,
+                "rouge_hc": 0.1933,
+                "rouge_hp": 0.5081
+              }
+            },
+            "15": {
+              "abonnement_ht": 170.16,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "blanc_hc": 0.067,
+                "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
+                "rouge_hc": 0.142,
+                "rouge_hp": 0.4052
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1036,
+                "blanc_hp": 0.1234,
+                "bleu_hc": 0.0725,
+                "bleu_hp": 0.0869,
+                "rouge_hc": 0.1933,
+                "rouge_hp": 0.5081
+              }
+            },
+            "18": {
+              "abonnement_ht": 170.16,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "blanc_hc": 0.067,
+                "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
+                "rouge_hc": 0.142,
+                "rouge_hp": 0.4052
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1036,
+                "blanc_hp": 0.1234,
+                "bleu_hc": 0.0725,
+                "bleu_hp": 0.0869,
+                "rouge_hc": 0.1933,
+                "rouge_hp": 0.5081
+              }
+            },
+            "30": {
+              "abonnement_ht": 361.32,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "blanc_hc": 0.067,
+                "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
+                "rouge_hc": 0.142,
+                "rouge_hp": 0.4052
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1036,
+                "blanc_hp": 0.1234,
+                "bleu_hc": 0.0725,
+                "bleu_hp": 0.0869,
+                "rouge_hc": 0.1933,
+                "rouge_hp": 0.5081
+              }
+            },
+            "36": {
+              "abonnement_ht": 452.88,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "blanc_hc": 0.067,
+                "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
+                "rouge_hc": 0.142,
+                "rouge_hp": 0.4052
+              },
+              "prix_ttc": {
+                "blanc_hc": 0.1036,
+                "blanc_hp": 0.1234,
+                "bleu_hc": 0.0725,
+                "bleu_hp": 0.0869,
+                "rouge_hc": 0.1933,
+                "rouge_hp": 0.5081
+              }
+            }
+          },
+          "prix_ht": {
+            "blanc_hc": 0.067,
+            "blanc_hp": 0.0835,
+            "bleu_hc": 0.041,
+            "bleu_hp": 0.053,
+            "rouge_hc": 0.142,
+            "rouge_hp": 0.4052
+          },
+          "prix_ttc": {
+            "blanc_hc": 0.1036,
+            "blanc_hp": 0.1234,
+            "bleu_hc": 0.0725,
+            "bleu_hp": 0.0869,
+            "rouge_hc": 0.1933,
+            "rouge_hp": 0.5081
+          },
+          "correction_ttc": {
+            "taxes_kwh": 0.01964,
+            "motif": "CSPE 1,05 c€/kWh (10,5 €/MWh du 1er juillet au 31 décembre 2012) + TCFE 0,914 c€/kWh, d'après la grille Tarif Bleu EDF « en vigueur à compter du 01 juillet 2012 » (archive.org, capture du 10 juillet 2012). L'open data CRE du 23 juillet 2012 applique 2,28 c€/kWh, les taxes de 2013 (CSPE 13,5 €/MWh au 1er janvier 2013, TCFE indexée), comme en août 2013.",
+            "sources": [
+              "https://web.archive.org/web/20120710190444/http://particuliers.edf.com/fichiers/fckeditor/Particuliers/Offres/CGV_CRE/CRE_TB.pdf",
+              "https://www.cre.fr/content/download/9669/file/121009_CSPE2013.pdf"
+            ]
+          }
+        },
+        {
+          "date_debut": "2013-01-01",
           "date_fin": "2013-07-31",
           "statut": "en_vigueur",
           "ttc_estime": true,
@@ -5387,18 +5755,18 @@
               "abonnement_ht": 91.68,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hc": 0.041,
-                "bleu_hp": 0.053,
                 "blanc_hc": 0.067,
                 "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
                 "rouge_hc": 0.142,
                 "rouge_hp": 0.4052
               },
               "prix_ttc": {
-                "bleu_hc": 0.0763,
-                "bleu_hp": 0.0907,
                 "blanc_hc": 0.1074,
                 "blanc_hp": 0.1271,
+                "bleu_hc": 0.0763,
+                "bleu_hp": 0.0907,
                 "rouge_hc": 0.1971,
                 "rouge_hp": 0.5119
               }
@@ -5407,18 +5775,18 @@
               "abonnement_ht": 170.16,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hc": 0.041,
-                "bleu_hp": 0.053,
                 "blanc_hc": 0.067,
                 "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
                 "rouge_hc": 0.142,
                 "rouge_hp": 0.4052
               },
               "prix_ttc": {
-                "bleu_hc": 0.0763,
-                "bleu_hp": 0.0907,
                 "blanc_hc": 0.1074,
                 "blanc_hp": 0.1271,
+                "bleu_hc": 0.0763,
+                "bleu_hp": 0.0907,
                 "rouge_hc": 0.1971,
                 "rouge_hp": 0.5119
               }
@@ -5427,18 +5795,18 @@
               "abonnement_ht": 170.16,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hc": 0.041,
-                "bleu_hp": 0.053,
                 "blanc_hc": 0.067,
                 "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
                 "rouge_hc": 0.142,
                 "rouge_hp": 0.4052
               },
               "prix_ttc": {
-                "bleu_hc": 0.0763,
-                "bleu_hp": 0.0907,
                 "blanc_hc": 0.1074,
                 "blanc_hp": 0.1271,
+                "bleu_hc": 0.0763,
+                "bleu_hp": 0.0907,
                 "rouge_hc": 0.1971,
                 "rouge_hp": 0.5119
               }
@@ -5447,18 +5815,18 @@
               "abonnement_ht": 170.16,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hc": 0.041,
-                "bleu_hp": 0.053,
                 "blanc_hc": 0.067,
                 "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
                 "rouge_hc": 0.142,
                 "rouge_hp": 0.4052
               },
               "prix_ttc": {
-                "bleu_hc": 0.0763,
-                "bleu_hp": 0.0907,
                 "blanc_hc": 0.1074,
                 "blanc_hp": 0.1271,
+                "bleu_hc": 0.0763,
+                "bleu_hp": 0.0907,
                 "rouge_hc": 0.1971,
                 "rouge_hp": 0.5119
               }
@@ -5467,18 +5835,18 @@
               "abonnement_ht": 361.32,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hc": 0.041,
-                "bleu_hp": 0.053,
                 "blanc_hc": 0.067,
                 "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
                 "rouge_hc": 0.142,
                 "rouge_hp": 0.4052
               },
               "prix_ttc": {
-                "bleu_hc": 0.0763,
-                "bleu_hp": 0.0907,
                 "blanc_hc": 0.1074,
                 "blanc_hp": 0.1271,
+                "bleu_hc": 0.0763,
+                "bleu_hp": 0.0907,
                 "rouge_hc": 0.1971,
                 "rouge_hp": 0.5119
               }
@@ -5487,38 +5855,44 @@
               "abonnement_ht": 452.88,
               "abonnement_ttc": null,
               "prix_ht": {
-                "bleu_hc": 0.041,
-                "bleu_hp": 0.053,
                 "blanc_hc": 0.067,
                 "blanc_hp": 0.0835,
+                "bleu_hc": 0.041,
+                "bleu_hp": 0.053,
                 "rouge_hc": 0.142,
                 "rouge_hp": 0.4052
               },
               "prix_ttc": {
-                "bleu_hc": 0.0763,
-                "bleu_hp": 0.0907,
                 "blanc_hc": 0.1074,
                 "blanc_hp": 0.1271,
+                "bleu_hc": 0.0763,
+                "bleu_hp": 0.0907,
                 "rouge_hc": 0.1971,
                 "rouge_hp": 0.5119
               }
             }
           },
           "prix_ht": {
-            "bleu_hc": 0.041,
-            "bleu_hp": 0.053,
             "blanc_hc": 0.067,
             "blanc_hp": 0.0835,
+            "bleu_hc": 0.041,
+            "bleu_hp": 0.053,
             "rouge_hc": 0.142,
             "rouge_hp": 0.4052
           },
           "prix_ttc": {
-            "bleu_hc": 0.0763,
-            "bleu_hp": 0.0907,
             "blanc_hc": 0.1074,
             "blanc_hp": 0.1271,
+            "bleu_hc": 0.0763,
+            "bleu_hp": 0.0907,
             "rouge_hc": 0.1971,
             "rouge_hp": 0.5119
+          },
+          "revision_ttc": {
+            "date": "2013-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2013-01-01 : 0.0228 €/kWh, d'après l'open data CRE du 2012-07-23"
+            ]
           }
         },
         {
@@ -10025,6 +10399,96 @@
       "grilles": [
         {
           "date_debut": "2012-07-23",
+          "date_fin": "2012-12-31",
+          "statut": "en_vigueur",
+          "ttc_estime": true,
+          "sources": [
+            {
+              "type": "arrete",
+              "url": "https://www.legifrance.gouv.fr/eli/arrete/2012/7/20/DEVR1230094A/jo/texte"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 124.56,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0665,
+                "pointe": 0.4259
+              },
+              "prix_ttc": {
+                "normal": 0.103,
+                "pointe": 0.5329
+              }
+            },
+            "12": {
+              "abonnement_ht": 124.56,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0665,
+                "pointe": 0.4259
+              },
+              "prix_ttc": {
+                "normal": 0.103,
+                "pointe": 0.5329
+              }
+            },
+            "15": {
+              "abonnement_ht": 124.56,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0665,
+                "pointe": 0.4259
+              },
+              "prix_ttc": {
+                "normal": 0.103,
+                "pointe": 0.5329
+              }
+            },
+            "18": {
+              "abonnement_ht": 124.56,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0665,
+                "pointe": 0.4259
+              },
+              "prix_ttc": {
+                "normal": 0.103,
+                "pointe": 0.5329
+              }
+            },
+            "36": {
+              "abonnement_ht": 418.44,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0665,
+                "pointe": 0.4259
+              },
+              "prix_ttc": {
+                "normal": 0.103,
+                "pointe": 0.5329
+              }
+            }
+          },
+          "prix_ht": {
+            "normal": 0.0665,
+            "pointe": 0.4259
+          },
+          "prix_ttc": {
+            "normal": 0.103,
+            "pointe": 0.5329
+          },
+          "correction_ttc": {
+            "taxes_kwh": 0.01964,
+            "motif": "CSPE 1,05 c€/kWh (10,5 €/MWh du 1er juillet au 31 décembre 2012) + TCFE 0,914 c€/kWh, d'après la grille Tarif Bleu EDF « en vigueur à compter du 01 juillet 2012 » (archive.org, capture du 10 juillet 2012). L'open data CRE du 23 juillet 2012 applique 2,28 c€/kWh, les taxes de 2013 (CSPE 13,5 €/MWh au 1er janvier 2013, TCFE indexée), comme en août 2013.",
+            "sources": [
+              "https://web.archive.org/web/20120710190444/http://particuliers.edf.com/fichiers/fckeditor/Particuliers/Offres/CGV_CRE/CRE_TB.pdf",
+              "https://www.cre.fr/content/download/9669/file/121009_CSPE2013.pdf"
+            ]
+          }
+        },
+        {
+          "date_debut": "2013-01-01",
           "date_fin": "2013-07-31",
           "statut": "en_vigueur",
           "ttc_estime": true,
@@ -10103,6 +10567,12 @@
           "prix_ttc": {
             "normal": 0.1068,
             "pointe": 0.5366
+          },
+          "revision_ttc": {
+            "date": "2013-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2013-01-01 : 0.0228 €/kWh, d'après l'open data CRE du 2012-07-23"
+            ]
           }
         },
         {
@@ -12401,5 +12871,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T19:55:31+00:00"
+  "mis_a_jour_le": "2026-11-23T20:03:49+00:00"
 }
