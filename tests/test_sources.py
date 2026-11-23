@@ -137,3 +137,33 @@ def test_open_data_grille_en_cours(option):
     if option == "hphc":
         assert g.puissances[6].prix_ttc == {"hc": 0.1589, "hp": 0.2142}
         assert g.puissances[6].abonnement_ttc == 190.81
+
+
+# --- relais de la grille EDF (EDF refuse les serveurs de GitHub) -------------------
+
+def test_edf_relais(monkeypatch, tmp_path):
+    from datetime import datetime, timezone
+
+    from tarif_kwh import http
+
+    def refus(url, **kw):
+        raise http.FetchError("HTTP 403 pour " + url)
+
+    monkeypatch.setattr(http, "get", refus)
+    t0 = datetime(2026, 11, 23, 9, tzinfo=timezone.utc)
+    with pytest.raises(http.FetchError):
+        edf_grille.collecter(tmp_path / "absent.pdf")
+    g, avert = edf_grille.collecter(EDF, "2026-11-22T04:00:00+00:00", t0)
+    assert g["tempo"].puissances[6].prix_ttc == TEMPO_TTC_2026_08
+    assert g["tempo"].meta["via"] == "relais" and avert is None
+    _, avert = edf_grille.collecter(EDF, "2026-11-15T04:00:00+00:00", t0)
+    assert "8 jours" in avert
+    _, avert = edf_grille.collecter(EDF, None, t0)
+    assert "jamais" in avert
+
+
+def test_relais_blob_sha():
+    import relais_edf
+
+    # SHA git d'un blob connu : « hello\n »
+    assert relais_edf.blob_sha(b"hello\n") == "ce013625030ba8dba906f756967f9e9ca394464a"

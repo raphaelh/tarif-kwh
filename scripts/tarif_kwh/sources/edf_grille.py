@@ -8,7 +8,8 @@ from __future__ import annotations
 
 import io
 import re
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
 
 import pdfplumber
 
@@ -96,5 +97,33 @@ def parse_grille(pdf_bytes: bytes, url: str = URL) -> dict[str, GrilleSource]:
     return grilles
 
 
-def collecter() -> dict[str, GrilleSource]:
-    return parse_grille(http.get(URL), URL)
+RELAIS_MAX_JOURS = 3
+
+
+class RelaisInactif(RuntimeError):
+    """La copie relayée est utilisée mais le relais ne donne plus signe de vie."""
+
+
+def collecter(copie_relais: Path | None = None, relais_vu_le: str | None = None,
+              maintenant: datetime | None = None) -> tuple[dict[str, GrilleSource], str | None]:
+    """Grille EDF : accès direct, sinon copie déposée par scripts/relais_edf.py.
+
+    Renvoie (grilles, avertissement éventuel sur le relais).
+    """
+    try:
+        return parse_grille(http.get(URL, tries=1), URL), None
+    except http.FetchError as direct:
+        if copie_relais is None or not copie_relais.exists():
+            raise http.FetchError(f"{direct} ; aucune copie relayée dans data/edf/") from direct
+    grilles = parse_grille(copie_relais.read_bytes(), URL)
+    for g in grilles.values():
+        g.meta["via"] = "relais"
+    maintenant = maintenant or datetime.now(timezone.utc)
+    avertissement = None
+    if not relais_vu_le:
+        avertissement = "le relais EDF n'a jamais signalé de passage (variable EDF_RELAIS_VU_LE absente)"
+    else:
+        age = maintenant - datetime.fromisoformat(relais_vu_le)
+        if age > timedelta(days=RELAIS_MAX_JOURS):
+            avertissement = f"le relais EDF ne s'est pas manifesté depuis {age.days} jours ({relais_vu_le})"
+    return grilles, avertissement
