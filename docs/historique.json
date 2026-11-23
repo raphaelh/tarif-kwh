@@ -7479,17 +7479,21 @@
           "date_debut": "2026-08-01",
           "date_fin": null,
           "statut": "en_vigueur",
-          "ttc_estime": true,
+          "ttc_estime": false,
           "sources": [
             {
               "type": "cre_deliberation",
               "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf"
+            },
+            {
+              "type": "edf_grille",
+              "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
             }
           ],
           "puissances": {
             "9": {
               "abonnement_ht": 175.2,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 234.24,
               "prix_ht": {
                 "normal": 0.1185,
                 "pointe": 0.3297
@@ -7501,7 +7505,7 @@
             },
             "12": {
               "abonnement_ht": 206.64,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 277.68,
               "prix_ht": {
                 "normal": 0.1185,
                 "pointe": 0.3297
@@ -7513,7 +7517,7 @@
             },
             "15": {
               "abonnement_ht": 238.68,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 321.72,
               "prix_ht": {
                 "normal": 0.1185,
                 "pointe": 0.3297
@@ -7525,7 +7529,7 @@
             },
             "18": {
               "abonnement_ht": 269.64,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 364.44,
               "prix_ht": {
                 "normal": 0.1185,
                 "pointe": 0.3297
@@ -7537,7 +7541,7 @@
             },
             "36": {
               "abonnement_ht": 463.8,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 631.2,
               "prix_ht": {
                 "normal": 0.1185,
                 "pointe": 0.3297
@@ -7560,5 +7564,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T11:00:05+00:00"
+  "mis_a_jour_le": "2026-11-23T11:40:12+00:00"
 }

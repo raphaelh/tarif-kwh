@@ -651,6 +651,69 @@
      },
      "source": "cre_deliberation",
      "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf"
+    },
+    "edf_grille": {
+     "date_effet": "2026-08-01",
+     "meta": {
+      "accise_eur_kwh": 0.03062,
+      "copie_archive": "https://web.archive.org/web/20260801134207id_/https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf",
+      "recupere_le": "2026-11-23T11:39:23+00:00"
+     },
+     "option": "ejp",
+     "puissances": {
+      "12": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 23.14,
+       "prix_ht": {},
+       "prix_ttc": {
+        "normal": 0.1789,
+        "pointe": 0.4324
+       }
+      },
+      "15": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 26.81,
+       "prix_ht": {},
+       "prix_ttc": {
+        "normal": 0.1789,
+        "pointe": 0.4324
+       }
+      },
+      "18": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 30.37,
+       "prix_ht": {},
+       "prix_ttc": {
+        "normal": 0.1789,
+        "pointe": 0.4324
+       }
+      },
+      "36": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 52.6,
+       "prix_ht": {},
+       "prix_ttc": {
+        "normal": 0.1789,
+        "pointe": 0.4324
+       }
+      },
+      "9": {
+       "abonnement_ht": null,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": 19.52,
+       "prix_ht": {},
+       "prix_ttc": {
+        "normal": 0.1789,
+        "pointe": 0.4324
+       }
+      }
+     },
+     "source": "edf_grille",
+     "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
     }
    }
   },

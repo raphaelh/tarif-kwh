@@ -24,12 +24,12 @@
     "option": "ejp",
     "date_effet": "2026-08-01",
     "statut": "en_vigueur",
-    "ttc_estime": true,
+    "ttc_estime": false,
     "puissances": {
       "9": {
         "abonnement_ht": 175.2,
-        "abonnement_ttc": null,
-        "abonnement_ttc_mensuel": null,
+        "abonnement_ttc": 234.24,
+        "abonnement_ttc_mensuel": 19.52,
         "prix_ht": {
           "normal": 0.1185,
           "pointe": 0.3297
@@ -41,8 +41,8 @@
       },
       "12": {
         "abonnement_ht": 206.64,
-        "abonnement_ttc": null,
-        "abonnement_ttc_mensuel": null,
+        "abonnement_ttc": 277.68,
+        "abonnement_ttc_mensuel": 23.14,
         "prix_ht": {
           "normal": 0.1185,
           "pointe": 0.3297
@@ -54,8 +54,8 @@
       },
       "15": {
         "abonnement_ht": 238.68,
-        "abonnement_ttc": null,
-        "abonnement_ttc_mensuel": null,
+        "abonnement_ttc": 321.72,
+        "abonnement_ttc_mensuel": 26.81,
         "prix_ht": {
           "normal": 0.1185,
           "pointe": 0.3297
@@ -67,8 +67,8 @@
       },
       "18": {
         "abonnement_ht": 269.64,
-        "abonnement_ttc": null,
-        "abonnement_ttc_mensuel": null,
+        "abonnement_ttc": 364.44,
+        "abonnement_ttc_mensuel": 30.37,
         "prix_ht": {
           "normal": 0.1185,
           "pointe": 0.3297
@@ -80,8 +80,8 @@
       },
       "36": {
         "abonnement_ht": 463.8,
-        "abonnement_ttc": null,
-        "abonnement_ttc_mensuel": null,
+        "abonnement_ttc": 631.2,
+        "abonnement_ttc_mensuel": 52.6,
         "prix_ht": {
           "normal": 0.1185,
           "pointe": 0.3297
@@ -97,11 +97,16 @@
         "type": "cre_deliberation",
         "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf",
         "recupere_le": "2026-11-23T08:51:23+00:00"
+      },
+      {
+        "type": "edf_grille",
+        "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf",
+        "recupere_le": "2026-11-23T11:39:23+00:00"
       }
     ],
     "taxes": {
       "accise_eur_kwh": 0.03062,
-      "accise_source": "grille Tarif Bleu EDF du 1er août 2026 (3,062 c€/kWh) (en vigueur au 2026-08-01)",
+      "accise_source": "grille EDF (https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf)",
       "tva_energie": 0.2,
       "tva_abonnement": 0.2
     },
@@ -116,5 +121,5 @@
     }
   },
   "prochaine": null,
-  "mis_a_jour_le": "2026-11-23T08:51:57+00:00"
+  "mis_a_jour_le": "2026-11-23T11:40:12+00:00"
 }
