@@ -183,6 +183,54 @@ def test_historique_2022(jt, taxes_od):
     ]
 
 
+# --- Avant 2023 : révision du TTC au 1er janvier ---------------------------------------------
+
+@pytest.fixture(scope="module")
+def od_hist():
+    """Open data CRE, Tempo 2022 corrigé."""
+    return _hist_opendata(True)
+
+
+def test_taxes_annuelles(taxes_od):
+    """Première grille de chaque année."""
+    a = publish.taxes_annuelles(taxes_od)
+    assert a[2014] == ("2014-11-01", 0.02585) and a[2019] == ("2019-06-01", taxes_od["2019-06-01"]["valeur"])
+    assert a[2022] == ("2022-02-01", 0.00763)
+
+
+def test_revisions_janvier(od_hist, taxes_od):
+    """CSPE +3 €/MWh en 2014, 2015 et 2016 (et TVA 20 % en 2014) : une période au 1er janvier ; rien ensuite."""
+    h = publish.construire_historique(od_hist, None, {}, date(2026, 11, 23), None, CONFIG, taxes_od)
+    rev = {
+        o: [(g["date_debut"], g["date_fin"]) for g in b["grilles"] if "revision_ttc" in g and g["date_debut"] < "2023-02"]
+        for o, b in h["options"].items()
+    }
+    attendu = [("2014-01-01", "2014-10-31"), ("2015-01-01", "2015-07-31"), ("2016-01-01", "2016-07-31")]
+    assert rev["base"] == rev["hphc"] == attendu + [("2023-01-01", "2023-01-31")]
+    assert rev["tempo"] == [("2023-01-01", "2023-01-31")]  # open data Tempo depuis août 2016
+    base = {g["date_debut"]: g for g in h["options"]["base"]["grilles"]}
+    assert base["2013-08-01"]["date_fin"] == "2013-12-31"
+    g = base["2014-01-01"]
+    assert g["ttc_estime"] is True and g["statut"] == "confirme"
+    assert "TVA" in g["revision_ttc"]["motifs"][1]
+    for k, p in g["puissances"].items():
+        assert p["prix_ht"] == base["2013-08-01"]["puissances"][k]["prix_ht"]
+        assert p["abonnement_ttc"] == base["2013-08-01"]["puissances"][k]["abonnement_ttc"]
+        assert p["prix_ttc"] == {per: taxes.kwh_ttc(v, 0.02585, 0.20) for per, v in p["prix_ht"].items()}
+    # Janvier 2022 : pas de révision (baisse au 1er février, avec la grille suivante)
+    assert base["2021-08-01"]["date_fin"] == "2022-01-31"
+    # Janvier 2023 : TCCFE dans l'accise, 1 €/MWh pour toutes les options
+    for o in ("base", "hphc", "tempo"):
+        g = next(g for g in h["options"][o]["grilles"] if g["date_debut"] == "2023-01-01")
+        assert g["date_fin"] == "2023-01-31" and g["ttc_estime"] is True
+        assert "2023-01-01" in g["revision_ttc"]["date"]
+        for p in g["puissances"].values():
+            assert p["prix_ttc"] == {per: taxes.kwh_ttc(v, 0.001, 0.20) for per, v in p["prix_ht"].items()}
+    # Relu hors ligne (open data non téléchargé), l'historique ne se duplique pas
+    h2 = publish.construire_historique(None, {"options": h["options"]}, {}, date(2026, 11, 23), None, CONFIG, taxes_od)
+    assert h2["options"] == h["options"]
+
+
 def test_turpe_ignore_avant_2023(jt):
     """Avant 2023, l'abonnement TTC est inconnu par construction : pas d'issue TURPE."""
     r = {"grilles": {"ejp": {"2021-08-01": {"jourtempo": grille_to_dict(jt[("ejp", date(2021, 8, 1))])}}}}

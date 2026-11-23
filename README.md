@@ -104,6 +104,15 @@ passée ou tracer l'évolution des prix.
   0,10 c€/kWh) : le TTC au kWh Tempo publié ici est recalculé (HT CRE + 7,63 €/MWh + TVA), égal au centime aux grilles
   EDF, avec `ttc_estime: true`, `statut: en_vigueur` et `correction_ttc` (motif, sources). L'abonnement reste celui de
   l'open data. Ces corrections sont listées dans [`config/corrections_opendata.json`](config/corrections_opendata.json).
+- **Avant 2023, les taxes au kWh (CSPE + TCFE) changeaient au 1er janvier**, alors que le TTC de l'open data CRE est
+  celui de la date d'effet. Quand une grille traverse un 1er janvier et que ces taxes ont bougé de plus de 0,5 €/MWh,
+  une période s'ouvre au 1er janvier (`revision_ttc`, `ttc_estime: true`) : TTC au kWh recalculé avec les taxes de
+  l'année, lues dans la première grille open data de cette année (même HT, même abonnement). C'est le cas au
+  1er janvier 2014 (CSPE + 3 €/MWh, TVA 19,6 → 20 %), 2015 et 2016 (CSPE + 3 €/MWh), pour Base, HP/HC et EJP. Les
+  indexations annuelles des TCFE (≈ 0,1 €/MWh) se confondent avec l'arrondi de l'open data et ne sont pas reportées.
+  Rien au 1er janvier 2022 : la baisse de 2022 (bouclier) date du 1er février, jour d'une nouvelle grille. Au
+  **1er janvier 2023**, la TCCFE entre dans l'accise, seule taxe au kWh (1 €/MWh) : les grilles d'août 2022 de toutes
+  les options sont révisées du 1er au 31 janvier 2023 avec l'accise de `config/taxes.json`.
 - L'open data CRE paraît ≈ 4 semaines après la date d'effet : en attendant, la grille la plus récente vient des autres
   sources (même `statut` que dans `tempo.json`…).
 - **EJP** n'est pas dans l'open data CRE : son historique commence au **1er août 2013**. Le HT vient de la
@@ -118,8 +127,6 @@ passée ou tracer l'évolution des prix.
     pointe mobile y passe de 27,93 à 77,72 c€/kWh HT (+178 %), une variation qui doit être vérifiée dans le barème de
     l'arrêté du 28 janvier 2022 avant d'être ajoutée à `config/validations.json`.
 
-  Comme pour les autres options avant 2023, une grille garde le TTC de sa date d'effet jusqu'au mouvement suivant, même
-  quand une taxe change au 1er janvier (CSPE, TVA 19,6 → 20 % en 2014).
   Une grille rejetée par les contrôles laisse un **trou** plutôt que de prolonger à tort la précédente.
 - Pas de `prochaine` ici : elle est dans les fichiers par option.
 

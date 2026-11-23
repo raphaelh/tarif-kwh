@@ -80,7 +80,7 @@
         },
         {
           "date_debut": "2013-08-01",
-          "date_fin": "2014-10-31",
+          "date_fin": "2013-12-31",
           "puissances": {
             "3": {
               "abonnement_ht": 38.88,
@@ -149,8 +149,85 @@
           }
         },
         {
+          "date_debut": "2014-01-01",
+          "date_fin": "2014-10-31",
+          "puissances": {
+            "3": {
+              "abonnement_ht": 38.88,
+              "abonnement_ttc": 51.7,
+              "prix_ht": {
+                "base": 0.0883
+              },
+              "prix_ttc": {
+                "base": 0.137
+              }
+            },
+            "6": {
+              "abonnement_ht": 66.72,
+              "abonnement_ttc": 84.05,
+              "prix_ht": {
+                "base": 0.0883
+              },
+              "prix_ttc": {
+                "base": 0.137
+              }
+            },
+            "9": {
+              "abonnement_ht": 89.76,
+              "abonnement_ttc": 111.33,
+              "prix_ht": {
+                "base": 0.0883
+              },
+              "prix_ttc": {
+                "base": 0.137
+              }
+            },
+            "12": {
+              "abonnement_ht": 135.0,
+              "abonnement_ttc": 171.49,
+              "prix_ht": {
+                "base": 0.0883
+              },
+              "prix_ttc": {
+                "base": 0.137
+              }
+            },
+            "15": {
+              "abonnement_ht": 153.84,
+              "abonnement_ttc": 196.7,
+              "prix_ht": {
+                "base": 0.0883
+              },
+              "prix_ttc": {
+                "base": 0.137
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "confirme",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Base.csv"
+            }
+          ],
+          "prix_ht": {
+            "base": 0.0883
+          },
+          "revision_ttc": {
+            "date": "2014-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2014-01-01 : 0.02585 €/kWh, d'après l'open data CRE du 2014-11-01",
+              "TVA sur l'énergie au 2014-01-01 : 20.0%"
+            ]
+          },
+          "prix_ttc": {
+            "base": 0.137
+          }
+        },
+        {
           "date_debut": "2014-11-01",
-          "date_fin": "2015-07-31",
+          "date_fin": "2014-12-31",
           "puissances": {
             "3": {
               "abonnement_ht": 40.08,
@@ -219,8 +296,84 @@
           }
         },
         {
+          "date_debut": "2015-01-01",
+          "date_fin": "2015-07-31",
+          "puissances": {
+            "3": {
+              "abonnement_ht": 40.08,
+              "abonnement_ttc": 53.28,
+              "prix_ht": {
+                "base": 0.0909
+              },
+              "prix_ttc": {
+                "base": 0.1436
+              }
+            },
+            "6": {
+              "abonnement_ht": 68.64,
+              "abonnement_ttc": 86.49,
+              "prix_ht": {
+                "base": 0.0909
+              },
+              "prix_ttc": {
+                "base": 0.1436
+              }
+            },
+            "9": {
+              "abonnement_ht": 92.4,
+              "abonnement_ttc": 114.64,
+              "prix_ht": {
+                "base": 0.0909
+              },
+              "prix_ttc": {
+                "base": 0.1436
+              }
+            },
+            "12": {
+              "abonnement_ht": 138.96,
+              "abonnement_ttc": 176.28,
+              "prix_ht": {
+                "base": 0.0909
+              },
+              "prix_ttc": {
+                "base": 0.1436
+              }
+            },
+            "15": {
+              "abonnement_ht": 158.4,
+              "abonnement_ttc": 202.23,
+              "prix_ht": {
+                "base": 0.0909
+              },
+              "prix_ttc": {
+                "base": 0.1436
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "confirme",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Base.csv"
+            }
+          ],
+          "prix_ht": {
+            "base": 0.0909
+          },
+          "revision_ttc": {
+            "date": "2015-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2015-01-01 : 0.02878 €/kWh, d'après l'open data CRE du 2015-08-01"
+            ]
+          },
+          "prix_ttc": {
+            "base": 0.1436
+          }
+        },
+        {
           "date_debut": "2015-08-01",
-          "date_fin": "2016-07-31",
+          "date_fin": "2015-12-31",
           "puissances": {
             "3": {
               "abonnement_ht": 40.08,
@@ -286,6 +439,82 @@
           },
           "prix_ttc": {
             "base": 0.1437
+          }
+        },
+        {
+          "date_debut": "2016-01-01",
+          "date_fin": "2016-07-31",
+          "puissances": {
+            "3": {
+              "abonnement_ht": 40.08,
+              "abonnement_ttc": 53.28,
+              "prix_ht": {
+                "base": 0.0909
+              },
+              "prix_ttc": {
+                "base": 0.1476
+              }
+            },
+            "6": {
+              "abonnement_ht": 68.64,
+              "abonnement_ttc": 86.49,
+              "prix_ht": {
+                "base": 0.0909
+              },
+              "prix_ttc": {
+                "base": 0.1476
+              }
+            },
+            "9": {
+              "abonnement_ht": 92.4,
+              "abonnement_ttc": 114.64,
+              "prix_ht": {
+                "base": 0.0909
+              },
+              "prix_ttc": {
+                "base": 0.1476
+              }
+            },
+            "12": {
+              "abonnement_ht": 138.96,
+              "abonnement_ttc": 176.28,
+              "prix_ht": {
+                "base": 0.0909
+              },
+              "prix_ttc": {
+                "base": 0.1476
+              }
+            },
+            "15": {
+              "abonnement_ht": 158.4,
+              "abonnement_ttc": 202.23,
+              "prix_ht": {
+                "base": 0.0909
+              },
+              "prix_ttc": {
+                "base": 0.1476
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "confirme",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Base.csv"
+            }
+          ],
+          "prix_ht": {
+            "base": 0.0909
+          },
+          "revision_ttc": {
+            "date": "2016-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2016-01-01 : 0.03208 €/kWh, d'après l'open data CRE du 2016-08-01"
+            ]
+          },
+          "prix_ttc": {
+            "base": 0.1476
           }
         },
         {
@@ -1006,7 +1235,7 @@
         },
         {
           "date_debut": "2022-08-01",
-          "date_fin": "2023-01-31",
+          "date_fin": "2022-12-31",
           "puissances": {
             "3": {
               "abonnement_ht": 85.44,
@@ -1072,6 +1301,82 @@
           },
           "prix_ttc": {
             "base": 0.174
+          }
+        },
+        {
+          "date_debut": "2023-01-01",
+          "date_fin": "2023-01-31",
+          "puissances": {
+            "3": {
+              "abonnement_ht": 85.44,
+              "abonnement_ttc": 104.08,
+              "prix_ht": {
+                "base": 0.1374
+              },
+              "prix_ttc": {
+                "base": 0.1661
+              }
+            },
+            "6": {
+              "abonnement_ht": 110.76,
+              "abonnement_ttc": 136.85,
+              "prix_ht": {
+                "base": 0.1374
+              },
+              "prix_ttc": {
+                "base": 0.1661
+              }
+            },
+            "9": {
+              "abonnement_ht": 137.16,
+              "abonnement_ttc": 171.13,
+              "prix_ht": {
+                "base": 0.1374
+              },
+              "prix_ttc": {
+                "base": 0.1661
+              }
+            },
+            "12": {
+              "abonnement_ht": 163.92,
+              "abonnement_ttc": 205.96,
+              "prix_ht": {
+                "base": 0.1374
+              },
+              "prix_ttc": {
+                "base": 0.1661
+              }
+            },
+            "15": {
+              "abonnement_ht": 188.88,
+              "abonnement_ttc": 238.46,
+              "prix_ht": {
+                "base": 0.1374
+              },
+              "prix_ttc": {
+                "base": 0.1661
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "confirme",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Base.csv"
+            }
+          ],
+          "prix_ht": {
+            "base": 0.1374
+          },
+          "revision_ttc": {
+            "date": "2023-01-01",
+            "motifs": [
+              "accise (TCFE comprises) au 2023-01-01 : 0.001 €/kWh, d'après config/taxes.json (TCCFE intégrée à l'accise au 1er janvier 2023, taux de la grille EDF EJP de février 2023)"
+            ]
+          },
+          "prix_ttc": {
+            "base": 0.1661
           }
         },
         {
@@ -1681,7 +1986,7 @@
         },
         {
           "date_debut": "2013-08-01",
-          "date_fin": "2014-10-31",
+          "date_fin": "2013-12-31",
           "puissances": {
             "6": {
               "abonnement_ht": 71.64,
@@ -1798,8 +2103,133 @@
           }
         },
         {
+          "date_debut": "2014-01-01",
+          "date_fin": "2014-10-31",
+          "puissances": {
+            "6": {
+              "abonnement_ht": 71.64,
+              "abonnement_ttc": 91.5,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "9": {
+              "abonnement_ht": 97.44,
+              "abonnement_ttc": 122.82,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "12": {
+              "abonnement_ht": 156.12,
+              "abonnement_ttc": 203.21,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "15": {
+              "abonnement_ht": 180.0,
+              "abonnement_ttc": 236.11,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "18": {
+              "abonnement_ht": 201.24,
+              "abonnement_ttc": 266.23,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "24": {
+              "abonnement_ht": 420.12,
+              "abonnement_ttc": 536.62,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "30": {
+              "abonnement_ht": 492.36,
+              "abonnement_ttc": 633.98,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            },
+            "36": {
+              "abonnement_ht": 562.68,
+              "abonnement_ttc": 729.32,
+              "prix_ht": {
+                "hc": 0.061,
+                "hp": 0.0998
+              },
+              "prix_ttc": {
+                "hc": 0.1042,
+                "hp": 0.1508
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "confirme",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_HPHC.csv"
+            }
+          ],
+          "prix_ht": {
+            "hc": 0.061,
+            "hp": 0.0998
+          },
+          "revision_ttc": {
+            "date": "2014-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2014-01-01 : 0.02585 €/kWh, d'après l'open data CRE du 2014-11-01",
+              "TVA sur l'énergie au 2014-01-01 : 20.0%"
+            ]
+          },
+          "prix_ttc": {
+            "hc": 0.1042,
+            "hp": 0.1508
+          }
+        },
+        {
           "date_debut": "2014-11-01",
-          "date_fin": "2015-07-31",
+          "date_fin": "2014-12-31",
           "puissances": {
             "6": {
               "abonnement_ht": 73.2,
@@ -1916,8 +2346,132 @@
           }
         },
         {
+          "date_debut": "2015-01-01",
+          "date_fin": "2015-07-31",
+          "puissances": {
+            "6": {
+              "abonnement_ht": 73.2,
+              "abonnement_ttc": 92.52,
+              "prix_ht": {
+                "hc": 0.0623,
+                "hp": 0.1019
+              },
+              "prix_ttc": {
+                "hc": 0.1093,
+                "hp": 0.1568
+              }
+            },
+            "9": {
+              "abonnement_ht": 99.48,
+              "abonnement_ttc": 123.95,
+              "prix_ht": {
+                "hc": 0.0623,
+                "hp": 0.1019
+              },
+              "prix_ttc": {
+                "hc": 0.1093,
+                "hp": 0.1568
+              }
+            },
+            "12": {
+              "abonnement_ht": 159.36,
+              "abonnement_ttc": 200.68,
+              "prix_ht": {
+                "hc": 0.0623,
+                "hp": 0.1019
+              },
+              "prix_ttc": {
+                "hc": 0.1093,
+                "hp": 0.1568
+              }
+            },
+            "15": {
+              "abonnement_ht": 183.72,
+              "abonnement_ttc": 232.54,
+              "prix_ht": {
+                "hc": 0.0623,
+                "hp": 0.1019
+              },
+              "prix_ttc": {
+                "hc": 0.1093,
+                "hp": 0.1568
+              }
+            },
+            "18": {
+              "abonnement_ht": 205.44,
+              "abonnement_ttc": 261.62,
+              "prix_ht": {
+                "hc": 0.0623,
+                "hp": 0.1019
+              },
+              "prix_ttc": {
+                "hc": 0.1093,
+                "hp": 0.1568
+              }
+            },
+            "24": {
+              "abonnement_ht": 428.88,
+              "abonnement_ttc": 549.38,
+              "prix_ht": {
+                "hc": 0.0623,
+                "hp": 0.1019
+              },
+              "prix_ttc": {
+                "hc": 0.1093,
+                "hp": 0.1568
+              }
+            },
+            "30": {
+              "abonnement_ht": 502.68,
+              "abonnement_ttc": 649.22,
+              "prix_ht": {
+                "hc": 0.0623,
+                "hp": 0.1019
+              },
+              "prix_ttc": {
+                "hc": 0.1093,
+                "hp": 0.1568
+              }
+            },
+            "36": {
+              "abonnement_ht": 574.44,
+              "abonnement_ttc": 746.9,
+              "prix_ht": {
+                "hc": 0.0623,
+                "hp": 0.1019
+              },
+              "prix_ttc": {
+                "hc": 0.1093,
+                "hp": 0.1568
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "confirme",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_HPHC.csv"
+            }
+          ],
+          "prix_ht": {
+            "hc": 0.0623,
+            "hp": 0.1019
+          },
+          "revision_ttc": {
+            "date": "2015-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2015-01-01 : 0.02878 €/kWh, d'après l'open data CRE du 2015-08-01"
+            ]
+          },
+          "prix_ttc": {
+            "hc": 0.1093,
+            "hp": 0.1568
+          }
+        },
+        {
           "date_debut": "2015-08-01",
-          "date_fin": "2016-07-31",
+          "date_fin": "2015-12-31",
           "puissances": {
             "6": {
               "abonnement_ht": 75.0,
@@ -2031,6 +2585,130 @@
           "prix_ttc": {
             "hc": 0.1111,
             "hp": 0.1597
+          }
+        },
+        {
+          "date_debut": "2016-01-01",
+          "date_fin": "2016-07-31",
+          "puissances": {
+            "6": {
+              "abonnement_ht": 75.0,
+              "abonnement_ttc": 94.42,
+              "prix_ht": {
+                "hc": 0.0638,
+                "hp": 0.1043
+              },
+              "prix_ttc": {
+                "hc": 0.1151,
+                "hp": 0.1637
+              }
+            },
+            "9": {
+              "abonnement_ht": 101.88,
+              "abonnement_ttc": 126.48,
+              "prix_ht": {
+                "hc": 0.0638,
+                "hp": 0.1043
+              },
+              "prix_ttc": {
+                "hc": 0.1151,
+                "hp": 0.1637
+              }
+            },
+            "12": {
+              "abonnement_ht": 163.2,
+              "abonnement_ttc": 204.73,
+              "prix_ht": {
+                "hc": 0.0638,
+                "hp": 0.1043
+              },
+              "prix_ttc": {
+                "hc": 0.1151,
+                "hp": 0.1637
+              }
+            },
+            "15": {
+              "abonnement_ht": 188.16,
+              "abonnement_ttc": 237.23,
+              "prix_ht": {
+                "hc": 0.0638,
+                "hp": 0.1043
+              },
+              "prix_ttc": {
+                "hc": 0.1151,
+                "hp": 0.1637
+              }
+            },
+            "18": {
+              "abonnement_ht": 210.36,
+              "abonnement_ttc": 266.81,
+              "prix_ht": {
+                "hc": 0.0638,
+                "hp": 0.1043
+              },
+              "prix_ttc": {
+                "hc": 0.1151,
+                "hp": 0.1637
+              }
+            },
+            "24": {
+              "abonnement_ht": 439.08,
+              "abonnement_ttc": 560.14,
+              "prix_ht": {
+                "hc": 0.0638,
+                "hp": 0.1043
+              },
+              "prix_ttc": {
+                "hc": 0.1151,
+                "hp": 0.1637
+              }
+            },
+            "30": {
+              "abonnement_ht": 514.68,
+              "abonnement_ttc": 661.88,
+              "prix_ht": {
+                "hc": 0.0638,
+                "hp": 0.1043
+              },
+              "prix_ttc": {
+                "hc": 0.1151,
+                "hp": 0.1637
+              }
+            },
+            "36": {
+              "abonnement_ht": 588.12,
+              "abonnement_ttc": 761.33,
+              "prix_ht": {
+                "hc": 0.0638,
+                "hp": 0.1043
+              },
+              "prix_ttc": {
+                "hc": 0.1151,
+                "hp": 0.1637
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "confirme",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_HPHC.csv"
+            }
+          ],
+          "prix_ht": {
+            "hc": 0.0638,
+            "hp": 0.1043
+          },
+          "revision_ttc": {
+            "date": "2016-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2016-01-01 : 0.03208 €/kWh, d'après l'open data CRE du 2016-08-01"
+            ]
+          },
+          "prix_ttc": {
+            "hc": 0.1151,
+            "hp": 0.1637
           }
         },
         {
@@ -3325,7 +4003,7 @@
         },
         {
           "date_debut": "2022-08-01",
-          "date_fin": "2023-01-31",
+          "date_fin": "2022-12-31",
           "puissances": {
             "6": {
               "abonnement_ht": 116.16,
@@ -3439,6 +4117,130 @@
           "prix_ttc": {
             "hc": 0.147,
             "hp": 0.1841
+          }
+        },
+        {
+          "date_debut": "2023-01-01",
+          "date_fin": "2023-01-31",
+          "puissances": {
+            "6": {
+              "abonnement_ht": 116.16,
+              "abonnement_ttc": 143.57,
+              "prix_ht": {
+                "hc": 0.1149,
+                "hp": 0.1458
+              },
+              "prix_ttc": {
+                "hc": 0.1391,
+                "hp": 0.1762
+              }
+            },
+            "9": {
+              "abonnement_ht": 146.64,
+              "abonnement_ttc": 182.9,
+              "prix_ht": {
+                "hc": 0.1149,
+                "hp": 0.1458
+              },
+              "prix_ttc": {
+                "hc": 0.1391,
+                "hp": 0.1762
+              }
+            },
+            "12": {
+              "abonnement_ht": 176.04,
+              "abonnement_ttc": 220.89,
+              "prix_ht": {
+                "hc": 0.1149,
+                "hp": 0.1458
+              },
+              "prix_ttc": {
+                "hc": 0.1391,
+                "hp": 0.1762
+              }
+            },
+            "15": {
+              "abonnement_ht": 204.48,
+              "abonnement_ttc": 257.49,
+              "prix_ht": {
+                "hc": 0.1149,
+                "hp": 0.1458
+              },
+              "prix_ttc": {
+                "hc": 0.1391,
+                "hp": 0.1762
+              }
+            },
+            "18": {
+              "abonnement_ht": 231.12,
+              "abonnement_ttc": 292.02,
+              "prix_ht": {
+                "hc": 0.1149,
+                "hp": 0.1458
+              },
+              "prix_ttc": {
+                "hc": 0.1391,
+                "hp": 0.1762
+              }
+            },
+            "24": {
+              "abonnement_ht": 289.92,
+              "abonnement_ttc": 368.01,
+              "prix_ht": {
+                "hc": 0.1149,
+                "hp": 0.1458
+              },
+              "prix_ttc": {
+                "hc": 0.1391,
+                "hp": 0.1762
+              }
+            },
+            "30": {
+              "abonnement_ht": 342.84,
+              "abonnement_ttc": 436.33,
+              "prix_ht": {
+                "hc": 0.1149,
+                "hp": 0.1458
+              },
+              "prix_ttc": {
+                "hc": 0.1391,
+                "hp": 0.1762
+              }
+            },
+            "36": {
+              "abonnement_ht": 394.8,
+              "abonnement_ttc": 503.36,
+              "prix_ht": {
+                "hc": 0.1149,
+                "hp": 0.1458
+              },
+              "prix_ttc": {
+                "hc": 0.1391,
+                "hp": 0.1762
+              }
+            }
+          },
+          "ttc_estime": true,
+          "statut": "confirme",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_HPHC.csv"
+            }
+          ],
+          "prix_ht": {
+            "hc": 0.1149,
+            "hp": 0.1458
+          },
+          "revision_ttc": {
+            "date": "2023-01-01",
+            "motifs": [
+              "accise (TCFE comprises) au 2023-01-01 : 0.001 €/kWh, d'après config/taxes.json (TCCFE intégrée à l'accise au 1er janvier 2023, taux de la grille EDF EJP de février 2023)"
+            ]
+          },
+          "prix_ttc": {
+            "hc": 0.1391,
+            "hp": 0.1762
           }
         },
         {
@@ -5952,7 +6754,7 @@
         },
         {
           "date_debut": "2022-08-01",
-          "date_fin": "2023-01-31",
+          "date_fin": "2022-12-31",
           "puissances": {
             "9": {
               "abonnement_ht": 144.48,
@@ -6106,6 +6908,170 @@
             "blanc_hp": 0.1653,
             "rouge_hc": 0.1222,
             "rouge_hp": 0.5486
+          }
+        },
+        {
+          "date_debut": "2023-01-01",
+          "date_fin": "2023-01-31",
+          "puissances": {
+            "9": {
+              "abonnement_ht": 144.48,
+              "abonnement_ttc": 179.52,
+              "prix_ht": {
+                "bleu_hc": 0.0642,
+                "bleu_hp": 0.0984,
+                "blanc_hc": 0.085,
+                "blanc_hp": 0.1301,
+                "rouge_hc": 0.0942,
+                "rouge_hp": 0.4495
+              },
+              "prix_ttc": {
+                "bleu_hc": 0.0782,
+                "bleu_hp": 0.1193,
+                "blanc_hc": 0.1032,
+                "blanc_hp": 0.1573,
+                "rouge_hc": 0.1142,
+                "rouge_hp": 0.5406
+              }
+            },
+            "12": {
+              "abonnement_ht": 173.64,
+              "abonnement_ttc": 217.02,
+              "prix_ht": {
+                "bleu_hc": 0.0642,
+                "bleu_hp": 0.0984,
+                "blanc_hc": 0.085,
+                "blanc_hp": 0.1301,
+                "rouge_hc": 0.0942,
+                "rouge_hp": 0.4495
+              },
+              "prix_ttc": {
+                "bleu_hc": 0.0782,
+                "bleu_hp": 0.1193,
+                "blanc_hc": 0.1032,
+                "blanc_hp": 0.1573,
+                "rouge_hc": 0.1142,
+                "rouge_hp": 0.5406
+              }
+            },
+            "15": {
+              "abonnement_ht": 199.56,
+              "abonnement_ttc": 250.36,
+              "prix_ht": {
+                "bleu_hc": 0.0642,
+                "bleu_hp": 0.0984,
+                "blanc_hc": 0.085,
+                "blanc_hp": 0.1301,
+                "rouge_hc": 0.0942,
+                "rouge_hp": 0.4495
+              },
+              "prix_ttc": {
+                "bleu_hc": 0.0782,
+                "bleu_hp": 0.1193,
+                "blanc_hc": 0.1032,
+                "blanc_hp": 0.1573,
+                "rouge_hc": 0.1142,
+                "rouge_hp": 0.5406
+              }
+            },
+            "18": {
+              "abonnement_ht": 224.4,
+              "abonnement_ttc": 282.3,
+              "prix_ht": {
+                "bleu_hc": 0.0642,
+                "bleu_hp": 0.0984,
+                "blanc_hc": 0.085,
+                "blanc_hp": 0.1301,
+                "rouge_hc": 0.0942,
+                "rouge_hp": 0.4495
+              },
+              "prix_ttc": {
+                "bleu_hc": 0.0782,
+                "bleu_hp": 0.1193,
+                "blanc_hc": 0.1032,
+                "blanc_hp": 0.1573,
+                "rouge_hc": 0.1142,
+                "rouge_hp": 0.5406
+              }
+            },
+            "30": {
+              "abonnement_ht": 336.6,
+              "abonnement_ttc": 426.64,
+              "prix_ht": {
+                "bleu_hc": 0.0642,
+                "bleu_hp": 0.0984,
+                "blanc_hc": 0.085,
+                "blanc_hp": 0.1301,
+                "rouge_hc": 0.0942,
+                "rouge_hp": 0.4495
+              },
+              "prix_ttc": {
+                "bleu_hc": 0.0782,
+                "bleu_hp": 0.1193,
+                "blanc_hc": 0.1032,
+                "blanc_hp": 0.1573,
+                "rouge_hc": 0.1142,
+                "rouge_hp": 0.5406
+              }
+            },
+            "36": {
+              "abonnement_ht": 393.84,
+              "abonnement_ttc": 500.26,
+              "prix_ht": {
+                "bleu_hc": 0.0642,
+                "bleu_hp": 0.0984,
+                "blanc_hc": 0.085,
+                "blanc_hp": 0.1301,
+                "rouge_hc": 0.0942,
+                "rouge_hp": 0.4495
+              },
+              "prix_ttc": {
+                "bleu_hc": 0.0782,
+                "bleu_hp": 0.1193,
+                "blanc_hc": 0.1032,
+                "blanc_hp": 0.1573,
+                "rouge_hc": 0.1142,
+                "rouge_hp": 0.5406
+              }
+            }
+          },
+          "correction_ttc": {
+            "taxes_kwh": 0.00763,
+            "motif": "L'open data CRE applique à Tempo 10,9 €/MWh de taxes (CSPE + TCFE) en 2022, contre 7,6 €/MWh à Base et HP/HC. Les grilles Tarif Bleu EDF des 1er février et 1er août 2022 tranchent pour 7,63 €/MWh (TCFE 0,6630 + CSPE 0,10 c€/kWh) : leurs prix Tempo TTC valent HT CRE + 7,63 €/MWh + TVA 20 %, au centime, sur les six périodes. Les 3,3 €/MWh de trop de l'open data Tempo correspondent à l'ancienne TDCFE (fondue dans l'accise en 2022, que le bouclier tarifaire a ramenée au minimum au 1er février).",
+            "sources": [
+              "https://web.archive.org/web/20220307212025/https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_Tarif_Bleu.pdf",
+              "https://web.archive.org/web/20220828023838/https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_Tarif_Bleu.pdf"
+            ]
+          },
+          "ttc_estime": true,
+          "statut": "en_vigueur",
+          "sources": [
+            {
+              "type": "cre_opendata",
+              "url": "https://www.cre.fr/fileadmin/Documents/Open_data/Marches_de_detail/Option_Tempo.csv"
+            }
+          ],
+          "prix_ht": {
+            "bleu_hc": 0.0642,
+            "bleu_hp": 0.0984,
+            "blanc_hc": 0.085,
+            "blanc_hp": 0.1301,
+            "rouge_hc": 0.0942,
+            "rouge_hp": 0.4495
+          },
+          "revision_ttc": {
+            "date": "2023-01-01",
+            "motifs": [
+              "accise (TCFE comprises) au 2023-01-01 : 0.001 €/kWh, d'après config/taxes.json (TCCFE intégrée à l'accise au 1er janvier 2023, taux de la grille EDF EJP de février 2023)"
+            ]
+          },
+          "prix_ttc": {
+            "bleu_hc": 0.0782,
+            "bleu_hp": 0.1193,
+            "blanc_hc": 0.1032,
+            "blanc_hp": 0.1573,
+            "rouge_hc": 0.1142,
+            "rouge_hp": 0.5406
           }
         },
         {
@@ -7329,7 +8295,7 @@
       "grilles": [
         {
           "date_debut": "2013-08-01",
-          "date_fin": "2014-10-31",
+          "date_fin": "2013-12-31",
           "statut": "en_vigueur",
           "ttc_estime": true,
           "sources": [
@@ -7410,8 +8376,97 @@
           }
         },
         {
+          "date_debut": "2014-01-01",
+          "date_fin": "2014-10-31",
+          "statut": "en_vigueur",
+          "ttc_estime": true,
+          "sources": [
+            {
+              "type": "jourtempo",
+              "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000027778284"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 92.04,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0673,
+                "pointe": 0.4313
+              },
+              "prix_ttc": {
+                "normal": 0.1118,
+                "pointe": 0.5486
+              }
+            },
+            "12": {
+              "abonnement_ht": 137.16,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0673,
+                "pointe": 0.4313
+              },
+              "prix_ttc": {
+                "normal": 0.1118,
+                "pointe": 0.5486
+              }
+            },
+            "15": {
+              "abonnement_ht": 156.12,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0673,
+                "pointe": 0.4313
+              },
+              "prix_ttc": {
+                "normal": 0.1118,
+                "pointe": 0.5486
+              }
+            },
+            "18": {
+              "abonnement_ht": 173.64,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0673,
+                "pointe": 0.4313
+              },
+              "prix_ttc": {
+                "normal": 0.1118,
+                "pointe": 0.5486
+              }
+            },
+            "36": {
+              "abonnement_ht": 521.16,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0673,
+                "pointe": 0.4313
+              },
+              "prix_ttc": {
+                "normal": 0.1118,
+                "pointe": 0.5486
+              }
+            }
+          },
+          "prix_ht": {
+            "normal": 0.0673,
+            "pointe": 0.4313
+          },
+          "revision_ttc": {
+            "date": "2014-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2014-01-01 : 0.02585 €/kWh, d'après l'open data CRE du 2014-11-01",
+              "TVA sur l'énergie au 2014-01-01 : 20.0%"
+            ]
+          },
+          "prix_ttc": {
+            "normal": 0.1118,
+            "pointe": 0.5486
+          }
+        },
+        {
           "date_debut": "2014-11-01",
-          "date_fin": "2015-07-31",
+          "date_fin": "2014-12-31",
           "statut": "en_vigueur",
           "ttc_estime": true,
           "sources": [
@@ -7492,8 +8547,96 @@
           }
         },
         {
+          "date_debut": "2015-01-01",
+          "date_fin": "2015-07-31",
+          "statut": "en_vigueur",
+          "ttc_estime": true,
+          "sources": [
+            {
+              "type": "jourtempo",
+              "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000029672773"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 96.36,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0705,
+                "pointe": 0.4518
+              },
+              "prix_ttc": {
+                "normal": 0.1191,
+                "pointe": 0.5767
+              }
+            },
+            "12": {
+              "abonnement_ht": 143.64,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0705,
+                "pointe": 0.4518
+              },
+              "prix_ttc": {
+                "normal": 0.1191,
+                "pointe": 0.5767
+              }
+            },
+            "15": {
+              "abonnement_ht": 163.56,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0705,
+                "pointe": 0.4518
+              },
+              "prix_ttc": {
+                "normal": 0.1191,
+                "pointe": 0.5767
+              }
+            },
+            "18": {
+              "abonnement_ht": 181.92,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0705,
+                "pointe": 0.4518
+              },
+              "prix_ttc": {
+                "normal": 0.1191,
+                "pointe": 0.5767
+              }
+            },
+            "36": {
+              "abonnement_ht": 546.0,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0705,
+                "pointe": 0.4518
+              },
+              "prix_ttc": {
+                "normal": 0.1191,
+                "pointe": 0.5767
+              }
+            }
+          },
+          "prix_ht": {
+            "normal": 0.0705,
+            "pointe": 0.4518
+          },
+          "revision_ttc": {
+            "date": "2015-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2015-01-01 : 0.02878 €/kWh, d'après l'open data CRE du 2015-08-01"
+            ]
+          },
+          "prix_ttc": {
+            "normal": 0.1191,
+            "pointe": 0.5767
+          }
+        },
+        {
           "date_debut": "2015-08-01",
-          "date_fin": "2016-07-31",
+          "date_fin": "2015-12-31",
           "statut": "en_vigueur",
           "ttc_estime": true,
           "sources": [
@@ -7571,6 +8714,94 @@
           "prix_ttc": {
             "normal": 0.122,
             "pointe": 0.5949
+          }
+        },
+        {
+          "date_debut": "2016-01-01",
+          "date_fin": "2016-07-31",
+          "statut": "en_vigueur",
+          "ttc_estime": true,
+          "sources": [
+            {
+              "type": "jourtempo",
+              "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000030954456"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 99.6,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0729,
+                "pointe": 0.467
+              },
+              "prix_ttc": {
+                "normal": 0.126,
+                "pointe": 0.5989
+              }
+            },
+            "12": {
+              "abonnement_ht": 148.44,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0729,
+                "pointe": 0.467
+              },
+              "prix_ttc": {
+                "normal": 0.126,
+                "pointe": 0.5989
+              }
+            },
+            "15": {
+              "abonnement_ht": 169.08,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0729,
+                "pointe": 0.467
+              },
+              "prix_ttc": {
+                "normal": 0.126,
+                "pointe": 0.5989
+              }
+            },
+            "18": {
+              "abonnement_ht": 188.04,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0729,
+                "pointe": 0.467
+              },
+              "prix_ttc": {
+                "normal": 0.126,
+                "pointe": 0.5989
+              }
+            },
+            "36": {
+              "abonnement_ht": 564.36,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0729,
+                "pointe": 0.467
+              },
+              "prix_ttc": {
+                "normal": 0.126,
+                "pointe": 0.5989
+              }
+            }
+          },
+          "prix_ht": {
+            "normal": 0.0729,
+            "pointe": 0.467
+          },
+          "revision_ttc": {
+            "date": "2016-01-01",
+            "motifs": [
+              "taxes au kWh (CSPE + TCFE) au 2016-01-01 : 0.03208 €/kWh, d'après l'open data CRE du 2016-08-01"
+            ]
+          },
+          "prix_ttc": {
+            "normal": 0.126,
+            "pointe": 0.5989
           }
         },
         {
@@ -8395,7 +9626,7 @@
         },
         {
           "date_debut": "2022-08-01",
-          "date_fin": "2023-01-31",
+          "date_fin": "2022-12-31",
           "statut": "en_vigueur",
           "ttc_estime": true,
           "sources": [
@@ -8473,6 +9704,94 @@
           "prix_ttc": {
             "normal": 0.1283,
             "pointe": 0.9418
+          }
+        },
+        {
+          "date_debut": "2023-01-01",
+          "date_fin": "2023-01-31",
+          "statut": "en_vigueur",
+          "ttc_estime": true,
+          "sources": [
+            {
+              "type": "jourtempo",
+              "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000046115076"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 137.64,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0993,
+                "pointe": 0.7772
+              },
+              "prix_ttc": {
+                "normal": 0.1204,
+                "pointe": 0.9338
+              }
+            },
+            "12": {
+              "abonnement_ht": 162.96,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0993,
+                "pointe": 0.7772
+              },
+              "prix_ttc": {
+                "normal": 0.1204,
+                "pointe": 0.9338
+              }
+            },
+            "15": {
+              "abonnement_ht": 188.52,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0993,
+                "pointe": 0.7772
+              },
+              "prix_ttc": {
+                "normal": 0.1204,
+                "pointe": 0.9338
+              }
+            },
+            "18": {
+              "abonnement_ht": 213.6,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0993,
+                "pointe": 0.7772
+              },
+              "prix_ttc": {
+                "normal": 0.1204,
+                "pointe": 0.9338
+              }
+            },
+            "36": {
+              "abonnement_ht": 370.2,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0993,
+                "pointe": 0.7772
+              },
+              "prix_ttc": {
+                "normal": 0.1204,
+                "pointe": 0.9338
+              }
+            }
+          },
+          "prix_ht": {
+            "normal": 0.0993,
+            "pointe": 0.7772
+          },
+          "revision_ttc": {
+            "date": "2023-01-01",
+            "motifs": [
+              "accise (TCFE comprises) au 2023-01-01 : 0.001 €/kWh, d'après config/taxes.json (TCCFE intégrée à l'accise au 1er janvier 2023, taux de la grille EDF EJP de février 2023)"
+            ]
+          },
+          "prix_ttc": {
+            "normal": 0.1204,
+            "pointe": 0.9338
           }
         },
         {
@@ -9188,5 +10507,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T14:31:06+00:00"
+  "mis_a_jour_le": "2026-11-23T14:36:27+00:00"
 }
