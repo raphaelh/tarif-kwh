@@ -74,7 +74,16 @@
         "tva_energie": {"description": "Taux, ex. 0.2 pour 20 %.", "type": "number", "minimum": 0, "maximum": 1},
         "tva_abonnement": {"type": "number", "minimum": 0, "maximum": 1},
         "cta_deduite_de": {"description": "Présent si le TTC de l'abonnement est estimé : grille dont la CTA est reprise.", "type": "string"},
-        "cta_calculee": {"description": "Présent si la CTA de l'abonnement est calculée (taux × part fixe du TURPE) : méthode et texte de référence.", "type": "string"}
+        "cta_calculee": {"description": "Présent si la CTA de l'abonnement est calculée (taux × part fixe du TURPE) : méthode et texte de référence.", "type": "string"},
+        "revision_ttc": {
+          "description": "Présent si une taxe a changé depuis la date d'effet sans nouveau barème (grille actuelle seulement) : le TTC est recalculé avec les taxes du jour (ttc_estime vaut alors true).",
+          "type": "object",
+          "required": ["date", "motifs"],
+          "properties": {
+            "date": {"description": "Date du dernier changement de taxe pris en compte.", "$ref": "#/$defs/date"},
+            "motifs": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+          }
+        }
       }
     },
     "grille": {

@@ -6,7 +6,7 @@ import shutil
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
-from . import reconcile
+from . import reconcile, taxes
 from .schema import OPTIONS, SCHEMA_VERSION
 
 AVERTISSEMENT = (
@@ -63,7 +63,8 @@ def evaluer_option(option: str, registre: dict, config_taxes: dict, aujourd_hui:
 
     passees = [d for d in ok if d <= aujourd_hui.isoformat()]
     futures = [d for d in ok if d > aujourd_hui.isoformat()]
-    actuelle = ok[max(passees)] if passees else None
+    # TTC du jour : une taxe peut avoir changé depuis la date d'effet sans nouveau barème
+    actuelle = taxes.reviser_ttc(ok[max(passees)], aujourd_hui, config_taxes) if passees else None
     prochaine = ok[min(futures)] if futures else None
     # Un problème sur la grille courante ou une grille plus récente bloque l'option.
     seuil = actuelle["date_effet"] if actuelle else ""

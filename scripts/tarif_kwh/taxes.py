@@ -12,6 +12,7 @@ calculé ainsi est une ESTIMATION, signalée par ``ttc_estime: true`` dans les J
 """
 from __future__ import annotations
 
+import copy
 import json
 from datetime import date
 from pathlib import Path
@@ -85,3 +86,74 @@ def cta_turpe(option: str, d: date, kva: int, config: dict) -> tuple[float, str]
         f"CTA {taux['valeur']:.2%} × part fixe TURPE (gestion + comptage + CU4 × kVA, "
         f"{periode['source']})",
     )
+
+
+# --- révision du TTC en cours de grille ----------------------------------------------
+
+def _changements(serie: list[dict], apres: date, jusqu_a: date) -> list[dict]:
+    return [e for e in serie if apres < date.fromisoformat(e["debut"]) <= jusqu_a]
+
+
+def reviser_ttc(grille: dict, jour: date, config: dict) -> dict:
+    """TTC de la grille applicable le ``jour``, si une taxe a changé depuis sa date d'effet.
+
+    Le TTC d'une grille (open data CRE, grille EDF) est celui du jour d'effet. Une taxe peut
+    changer ensuite sans nouveau barème (accise par loi de finances, taux de CTA, TVA, TURPE
+    pour l'EJP) : on recalcule alors le TTC à partir du HT et des taxes de ``config`` en
+    vigueur le ``jour``. La grille révisée porte ``ttc_estime: true`` et ``taxes.revision_ttc``.
+    Renvoie la grille telle quelle (même objet) si rien n'a changé.
+    """
+    d = date.fromisoformat(grille["date_effet"])
+    option = grille["option"]
+    ch = {
+        cle: _changements(config.get(cle, []), d, jour)
+        for cle in ("accise_eur_kwh", "tva_energie", "tva_abonnement", "cta_taux", "turpe_part_fixe")
+    }
+    if option not in FORMULE_TURPE:
+        ch["turpe_part_fixe"] = []
+    if not any(ch.values()):
+        return grille
+
+    g = copy.deepcopy(grille)
+    t = g["taxes"]
+    kwh = bool(ch["accise_eur_kwh"] or ch["tva_energie"])
+    acc, acc_src = accise(jour, config) if ch["accise_eur_kwh"] else (t["accise_eur_kwh"], t.get("accise_source"))
+    tva_e = tva(jour, config, "tva_energie")
+    tva_a_avant, tva_a = t["tva_abonnement"], tva(jour, config, "tva_abonnement")
+    taux_avant, taux = valeur_au(config.get("cta_taux", []), d), valeur_au(config.get("cta_taux", []), jour)
+
+    for k, p in g["puissances"].items():
+        if kwh:
+            p["prix_ttc"] = {per: kwh_ttc(v, acc, tva_e) for per, v in p["prix_ht"].items()}
+        if p.get("abonnement_ttc") is None:
+            continue
+        cta = p["abonnement_ttc"] / (1 + tva_a_avant) - p["abonnement_ht"]
+        calc = cta_turpe(option, jour, int(k), config) if (ch["turpe_part_fixe"] or ch["cta_taux"]) else None
+        if calc is not None:
+            cta = calc[0]
+        elif ch["cta_taux"] and taux_avant and taux:
+            cta *= taux["valeur"] / taux_avant["valeur"]
+        p["abonnement_ttc"] = abonnement_ttc(p["abonnement_ht"], cta, tva_a)
+        if "abonnement_ttc_mensuel" in p:
+            p["abonnement_ttc_mensuel"] = round(p["abonnement_ttc"] / 12, 2)
+
+    valeurs = [p["prix_ttc"] for p in g["puissances"].values()]
+    if valeurs and all(v == valeurs[0] for v in valeurs):
+        g["prix_ttc"] = valeurs[0]
+    else:
+        g.pop("prix_ttc", None)
+
+    motifs = [
+        f"{cle} au {e['debut']}" + (f" : {e['valeur']}" if "valeur" in e else "")
+        + (f" ({e['source']})" if e.get("source") else "")
+        for cle, lst in ch.items() for e in lst
+    ]
+    g["ttc_estime"] = True
+    t.update({"accise_eur_kwh": acc, "tva_energie": tva_e, "tva_abonnement": tva_a})
+    if acc_src:
+        t["accise_source"] = acc_src
+    t["revision_ttc"] = {
+        "date": max(e["debut"] for lst in ch.values() for e in lst),
+        "motifs": motifs,
+    }
+    return g

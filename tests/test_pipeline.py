@@ -373,3 +373,47 @@ def test_restructuration_ejp_fevrier_2026_validee(tmp_path, cfg):
     g = lire(tmp_path, "historique.json")["options"]["ejp"]["grilles"]
     assert [(x["date_debut"], x["date_fin"]) for x in g] == [
         ("2025-08-01", "2026-01-31"), ("2026-02-01", "2026-07-31"), ("2026-08-01", None)]
+
+
+# --- TTC du jour : taxe changée en cours de grille ------------------------------------
+
+def test_accise_changee_en_cours_de_grille(tmp_path, cfg):
+    """Accise modifiée au 1er février sans nouveau barème : le TTC du kWh suit dès ce jour."""
+    c = copy.deepcopy(cfg)
+    c["accise_eur_kwh"].append({"debut": "2027-02-01", "valeur": 0.035, "source": "loi de finances 2027 (test)"})
+    r = registre_avec()
+    publish.publier(tmp_path, r, c, date(2027, 1, 31), [], T0)
+    a = lire(tmp_path, "tempo.json")["actuelle"]
+    assert a["prix_ttc"]["rouge_hp"] == 0.7295 and not a["ttc_estime"] and "revision_ttc" not in a["taxes"]
+
+    publish.publier(tmp_path, r, c, date(2027, 2, 1), [], T0)
+    a = lire(tmp_path, "tempo.json")["actuelle"]
+    assert a["date_effet"] == "2026-08-01" and a["statut"] == "confirme" and a["ttc_estime"]
+    assert a["prix_ttc"]["rouge_hp"] == round((0.5773 + 0.035) * 1.2, 4)
+    assert a["puissances"]["6"]["prix_ttc"] == a["prix_ttc"]
+    assert a["puissances"]["6"]["abonnement_ttc"] == 189.98  # abonnement : pas d'accise
+    assert a["taxes"]["accise_eur_kwh"] == 0.035
+    assert a["taxes"]["revision_ttc"]["date"] == "2027-02-01"
+    b = lire(tmp_path, "base.json")["actuelle"]  # prix propre à chaque puissance
+    assert "prix_ttc" not in b
+    assert b["puissances"]["6"]["prix_ttc"]["base"] == round((b["puissances"]["6"]["prix_ht"]["base"] + 0.035) * 1.2, 4)
+    # l'historique garde le TTC publié par la CRE
+    h = lire(tmp_path, "historique.json")["options"]["tempo"]["grilles"][-1]
+    assert h["prix_ttc"]["rouge_hp"] == 0.7295
+
+
+def test_taux_cta_change_en_cours_de_grille(tmp_path, cfg):
+    """Taux de CTA modifié : l'abonnement TTC suit, le prix du kWh ne bouge pas."""
+    c = copy.deepcopy(cfg)
+    c["cta_taux"].append({"debut": "2027-01-01", "valeur": 0.2, "source": "test"})
+    publish.publier(tmp_path, registre_avec(), c, date(2027, 1, 10), [], T0)
+    p = lire(tmp_path, "tempo.json")["actuelle"]["puissances"]["6"]
+    cta = (189.98 / 1.2 - 142.68) * 0.2 / 0.15
+    assert p["abonnement_ttc"] == round((142.68 + cta) * 1.2, 2)
+    assert p["abonnement_ttc_mensuel"] == round(p["abonnement_ttc"] / 12, 2)
+    assert p["prix_ttc"]["rouge_hp"] == 0.7295
+
+
+def test_sans_changement_de_taxe_grille_inchangee(cfg):
+    g = {"option": "tempo", "date_effet": "2026-08-01", "taxes": {}, "puissances": {}}
+    assert taxes.reviser_ttc(g, date(2026, 12, 1), cfg) is g

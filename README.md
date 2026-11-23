@@ -214,6 +214,15 @@ Procédure : prendre le tarif « ménages et assimilés » en €/MWh (texte au 
 par 1 000, et ajouter `{"debut": "AAAA-MM-JJ", "valeur": 0.0xxxx, "source": "…"}` à `accise_eur_kwh` (l'éditeur web de
 GitHub suffit). La collecte suivante recalcule les TTC estimés.
 
+**Taxe changée en cours de grille.** Le TTC officiel d'une grille est celui de son jour d'effet. Si une ligne de
+`config/taxes.json` (accise, TVA, taux de CTA, période TURPE pour l'EJP) prend effet **après** la date d'effet de la
+grille en cours, sans nouveau barème, la grille `actuelle` des fichiers par option et de `tarifs.json` donne le **TTC du
+jour** : recalculé à partir du HT avec les taxes en vigueur, `ttc_estime: true`, et `taxes.revision_ttc` (date et motifs).
+Le statut et le HT ne changent pas. Une intégration qui lit le prix du kWh chaque jour (Home Assistant…) suit donc la taxe
+dès la collecte du matin (5 h 17 UTC), à condition que la ligne ait été ajoutée à la configuration. Limite : pour
+Base, HP/HC et Tempo, un changement de TURPE en cours de grille (rare : 1er novembre 2024) ne se recalcule pas, faute
+de formule vérifiée ; seul l'abonnement serait touché. `historique.json` garde le TTC publié par la CRE.
+
 ### Planification
 
 - [`collecte.yml`](.github/workflows/collecte.yml) : deux fois par jour (+ lancement manuel, et à chaque modification de

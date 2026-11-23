@@ -63,6 +63,13 @@ def test_sorties_du_collecteur_conformes(tmp_path):
     assert json.loads((tmp_path / "b" / "tempo.json").read_text())["prochaine"]["statut"] == "propose"
     _verifier_dossier(tmp_path / "b")
 
+    c = copy.deepcopy(cfg)  # TTC révisé : accise et taux de CTA changés en cours de grille
+    c["accise_eur_kwh"].append({"debut": "2027-02-01", "valeur": 0.035, "source": "test"})
+    c["cta_taux"].append({"debut": "2027-02-01", "valeur": 0.2, "source": "test"})
+    publish.publier(tmp_path / "c", registre_avec(), c, date(2027, 2, 2), [], T0)
+    assert "revision_ttc" in json.loads((tmp_path / "c" / "ejp.json").read_text())["actuelle"]["taxes"]
+    _verifier_dossier(tmp_path / "c")
+
     r = registre_avec()
     r["grilles"]["tempo"]["2026-08-01"]["edf_grille"]["puissances"]["6"]["prix_ttc"]["rouge_hp"] = 0.7395
     publish.publier(tmp_path / "a", r, cfg, date(2026, 11, 23), [], T0)
