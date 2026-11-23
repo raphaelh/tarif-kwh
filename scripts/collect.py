@@ -123,12 +123,13 @@ def collecter(registre: dict, forcer: list[str], erreurs: list) -> None:
         connus = {t["url"] for t in j["textes"]}
         for t in textes:
             if t["url"] not in connus:
+                connus.add(t["url"])  # un même texte peut figurer dans plusieurs archives
                 j["textes"].append(t)
                 corps = (
                     "Un texte publié au Journal officiel concerne peut-être les TRVE ou l'accise :\n\n"
                     f"- **{t['titre']}**\n- {t['nature']} publié le {t['date_publication']}\n- {t['url']}\n\n"
                 )
-                if jorf.concerne_les_taxes(t["titre"]):
+                if jorf.concerne_les_taxes(t["titre"], t.get("nature") or ""):
                     corps += PROCEDURE_ACCISE
                 else:
                     corps += "Vérifier s'il modifie ou bloque les prix proposés par la CRE."

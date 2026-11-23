@@ -15,6 +15,7 @@ import io
 import re
 import tarfile
 import xml.etree.ElementTree as ET
+from datetime import date, timedelta
 
 from .. import http
 
@@ -28,13 +29,24 @@ MOTIFS = [
     # Taxes : l'accise change par loi de finances (1er février) mais aussi en
     # cours d'année (30,85 -> 30,62 €/MWh au 1er août 2026).
     re.compile(r"\baccises?\b.{0,80}\bénergies?\b|\baccises?\b.{0,80}électricité|électricité.{0,80}\baccises?\b", re.I),
-    re.compile(r"\bloi\b.{0,60}\bde finances\b", re.I),  # initiale ou rectificative
 ]
+# Loi de finances (initiale ou rectificative) : retenue seulement si le texte
+# est lui-même une loi, pas un décret « pris pour l'application de l'article…».
+LOI_DE_FINANCES = re.compile(r"\bde finances\b", re.I)
 MOTIFS_TAXES = MOTIFS[2:]
+# Les archives quotidiennes contiennent aussi d'anciens textes republiés (mises
+# à jour, liens) : seuls les textes publiés récemment sont signalés.
+FENETRE_JOURS = 15
 
 
-def concerne_les_taxes(titre: str) -> bool:
-    return any(p.search(titre) for p in MOTIFS_TAXES)
+def concerne_les_taxes(titre: str, nature: str = "") -> bool:
+    return any(p.search(titre) for p in MOTIFS_TAXES) or (
+        nature.upper() == "LOI" and bool(LOI_DE_FINANCES.search(titre))
+    )
+
+
+def pertinent(titre: str, nature: str = "") -> bool:
+    return any(p.search(titre) for p in MOTIFS) or concerne_les_taxes(titre, nature)
 
 
 def lister_archives(html: str) -> list[tuple[str, str]]:
@@ -42,7 +54,7 @@ def lister_archives(html: str) -> list[tuple[str, str]]:
     return sorted(set(RE_ARCHIVE.findall(html)))
 
 
-def textes_pertinents(archive: bytes) -> list[dict]:
+def textes_pertinents(archive: bytes, depuis: date | None = None) -> list[dict]:
     out = []
     with tarfile.open(fileobj=io.BytesIO(archive), mode="r:gz") as tar:
         for m in tar:
@@ -56,20 +68,24 @@ def textes_pertinents(archive: bytes) -> list[dict]:
             except ET.ParseError:
                 continue
             titre = (root.findtext(".//TITREFULL") or "").strip()
-            if titre and any(p.search(titre) for p in MOTIFS):
+            nature = root.findtext(".//NATURE") or ""
+            publie = root.findtext(".//DATE_PUBLI") or ""
+            if depuis and (not publie or publie < depuis.isoformat()):
+                continue
+            if titre and pertinent(titre, nature):
                 cid = root.findtext(".//CID") or root.findtext(".//ID") or ""
                 out.append(
                     {
                         "titre": titre,
                         "date_publication": root.findtext(".//DATE_PUBLI"),
-                        "nature": root.findtext(".//NATURE"),
+                        "nature": nature,
                         "url": f"https://www.legifrance.gouv.fr/jorf/id/{cid}",
                     }
                 )
     return out
 
 
-def collecter(dernier_traite: str | None, max_archives: int = 30) -> tuple[list[dict], str | None]:
+def collecter(dernier_traite: str | None, max_archives: int = 30, aujourd_hui: date | None = None) -> tuple[list[dict], str | None]:
     """Parcourt les archives postérieures à ``dernier_traite``.
 
     Renvoie (textes trouvés, nom de la dernière archive traitée).
@@ -80,5 +96,6 @@ def collecter(dernier_traite: str | None, max_archives: int = 30) -> tuple[list[
     archives = archives[-max_archives:]
     trouves: list[dict] = []
     for a in archives:
-        trouves += textes_pertinents(http.get(INDEX + a))
+        depuis = (aujourd_hui or date.today()) - timedelta(days=FENETRE_JOURS)
+        trouves += textes_pertinents(http.get(INDEX + a), depuis)
     return trouves, (archives[-1] if archives else dernier_traite)

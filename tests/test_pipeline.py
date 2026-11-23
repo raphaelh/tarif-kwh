@@ -215,7 +215,8 @@ def _archive(titres):
     buf = io.BytesIO()
     with tarfile.open(fileobj=buf, mode="w:gz") as tar:
         for i, t in enumerate(titres):
-            xml = (f"<TEXTE_VERSION><META><META_COMMUN><ID>JORFTEXT{i}</ID><NATURE>ARRETE</NATURE></META_COMMUN>"
+            nature = "LOI" if t.startswith("LOI") else "ARRETE"
+            xml = (f"<TEXTE_VERSION><META><META_COMMUN><ID>JORFTEXT{i}</ID><NATURE>{nature}</NATURE></META_COMMUN>"
                    f"<META_SPEC><META_TEXTE_CHRONICLE><CID>JORFTEXT{i}</CID><DATE_PUBLI>2026-07-31</DATE_PUBLI>"
                    f"</META_TEXTE_CHRONICLE><META_TEXTE_VERSION><TITREFULL>{t}</TITREFULL></META_TEXTE_VERSION>"
                    "</META_SPEC></META></TEXTE_VERSION>").encode()
@@ -274,8 +275,20 @@ def test_accise_oubliee_dans_la_config(cfg):
     ("Décret relatif aux captures accidentelles de dauphins", None),
 ])
 def test_jorf_motifs(titre, attendu):
-    pertinent = any(p.search(titre) for p in jorf.MOTIFS)
+    nature = "LOI" if titre.startswith("LOI") else "ARRETE"
     if attendu is None:
-        assert not pertinent
+        assert not jorf.pertinent(titre, nature)
     else:
-        assert pertinent and jorf.concerne_les_taxes(titre) is attendu
+        assert jorf.pertinent(titre, nature) and jorf.concerne_les_taxes(titre, nature) is attendu
+
+
+def test_jorf_decret_d_application_ignore():
+    titre = ("Décret n° 2026-1073 du 19 novembre 2026 pris pour l'application de l'article 17 "
+             "de la loi n° 2026-103 du 19 février 2026 de finances pour 2026")
+    assert not jorf.pertinent(titre, "DECRET")
+
+
+def test_jorf_anciens_textes_ignores():
+    a = _archive(["LOI n° 2026-1290 du 30 décembre 2026 de finances pour 2027"])  # publié le 2026-07-31
+    assert jorf.textes_pertinents(a, date(2026, 7, 20))
+    assert jorf.textes_pertinents(a, date(2026, 8, 5)) == []
