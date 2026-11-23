@@ -62,7 +62,7 @@ def abonnement_ttc(ht: float, cta: float, tva_v: float) -> float:
 
 
 # Formule tarifaire d'acheminement dont la part fixe sert d'assiette à la CTA.
-# EJP : CU4 (vérifié au centime sur les grilles EDF d'août 2025 et août 2026).
+# EJP : CU4 (vérifié au centime sur les grilles EDF de février 2024 à août 2026).
 FORMULE_TURPE = {"ejp": "soutirage_fixe_cu4"}
 
 

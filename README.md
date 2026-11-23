@@ -174,9 +174,11 @@ de [`scripts/tarif_kwh/sources/`](scripts/tarif_kwh/sources), par ordre d'arriv�
 **CTA de l'EJP.** L'abonnement TTC vaut (HT + CTA) × (1 + TVA). Pour Base, HP/HC et Tempo, la CTA est déduite de l'open
 data CRE. L'EJP n'y est pas : sa CTA est calculée, taux de CTA × (composante de gestion + composante de comptage +
 soutirage fixe CU4 × kVA) du TURPE, d'après `config/taxes.json` (`cta_taux`, `turpe_part_fixe`, une période par
-délibération TURPE, au 1er août). Ce calcul redonne au centime les grilles EDF d'août 2025 et d'août 2026 ; le JSON le
-signale par `taxes.cta_calculee`. Périodes configurées : août 2023 → octobre 2024 (vérifiée sur la grille EDF de
-février 2024), puis à partir d'août 2025 (vérifiées sur août 2025 et août 2026). Deux garde-fous ouvrent une issue : une grille EJP
+grille TURPE, en principe au 1er août). Ce calcul redonne au centime les grilles EDF de février 2024, novembre 2024,
+février 2025, août 2025 et août 2026 ; le JSON le signale par `taxes.cta_calculee`. Périodes configurées, sans trou,
+d'août 2023 à juillet 2027 : août 2023 → octobre 2024 (TURPE 6, indexation 2023, reportée), novembre 2024 → janvier 2025
+(TURPE 6, indexation 2024 reportée au 1er novembre), février → juillet 2025 (TURPE 6, hausse exceptionnelle de 7,70 %),
+puis TURPE 7 à partir d'août 2025. Deux garde-fous ouvrent une issue : une grille EJP
 hors des périodes configurées (TURPE du 1er août pas encore ajouté), et un abonnement calculé qui diffère de plus d'un
 demi-centime par mois de celui d'une grille EDF (période TURPE fausse ou taux de CTA changé sans être reporté).
 

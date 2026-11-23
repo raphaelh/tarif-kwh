@@ -110,6 +110,24 @@ def test_cta_turpe_2023_redonne_grille_edf_fevrier_2024():
     assert "2023-137" in src
 
 
+@pytest.mark.parametrize("d,fixture,delib", [
+    ("2024-11-01", FIX / "edf_grille_ejp_2024-11-01.pdf", "2024-122"),  # capture archive.org
+    ("2025-02-01", FIX / "edf_grille_ejp_2025-02-01.pdf", "2025-08"),   # capture archive.org
+])
+def test_cta_turpe_novembre_2024_fevrier_2025_redonne_grille_edf(jt, d, fixture, delib):
+    """TURPE 6 du 1er novembre 2024 et du 1er février 2025, TVA 5,5 % : grilles EDF au centime.
+    En novembre 2024, seule la CTA change : le HT est celui de février 2024."""
+    de = date.fromisoformat(d)
+    edf = edf_grille.parse_grille_ejp(fixture.read_bytes())["ejp"]
+    assert edf.date_effet == de
+    ht = jt[("ejp", date(2024, 2, 1) if de.month == 11 else de)]
+    for k in KVAS:
+        cta, src = taxes.cta_turpe("ejp", de, k, CONFIG)
+        ttc = taxes.abonnement_ttc(ht.puissances[k].abonnement_ht, cta, 0.055)
+        assert round(ttc / 12 + 1e-9, 2) == edf.puissances[k].abonnement_ttc_mensuel, k
+    assert delib in src
+
+
 def test_cta_turpe_aout_2023(jt):
     """Août 2023 : arrêté seul, pas de grille EDF archivée ; abonnement calculé."""
     g, pb = reconcile.recouper("ejp", date(2023, 8, 1), {"jourtempo": jt[("ejp", date(2023, 8, 1))]}, {}, CONFIG, date(2026, 11, 23))
@@ -132,7 +150,7 @@ def test_cta_turpe_fevrier_2026(ejp_cre):
     assert mensuel == {9: 19.20, 12: 22.71, 15: 26.27, 18: 29.74, 36: 51.31}
 
 
-@pytest.mark.parametrize("option,d", [("ejp", date(2023, 2, 1)), ("ejp", date(2025, 2, 1)), ("ejp", date(2027, 8, 1)), ("tempo", date(2026, 2, 1))])
+@pytest.mark.parametrize("option,d", [("ejp", date(2023, 2, 1)), ("ejp", date(2023, 7, 31)), ("ejp", date(2027, 8, 1)), ("tempo", date(2026, 2, 1))])
 def test_cta_turpe_hors_perimetre(option, d):
     assert taxes.cta_turpe(option, d, 9, CONFIG) is None
 
