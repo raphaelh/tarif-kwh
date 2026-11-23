@@ -141,7 +141,8 @@ def corriger(historique: dict, corrections: list[dict], config_taxes: dict) -> l
     """Recalcule les TTC au kWh reconnus faux de l'historique (``config/corrections_opendata.json``).
 
     TTC = (HT + ``taxes_kwh``) × (1 + TVA), pour toutes les puissances de la grille ; la grille
-    porte alors ``correction_ttc`` (motif, sources). L'abonnement n'est pas touché. Une grille
+    porte alors ``correction_ttc`` (motif, sources). L'abonnement n'est pas touché, sauf pour une
+    correction avec ``bareme`` (barème périmé dans l'open data, voir ``_corriger_bareme``). Une grille
     dont le TTC publié est déjà juste (la CRE a corrigé son fichier) reste telle quelle.
     Renvoie une ligne par grille examinée.
     """
@@ -154,6 +155,9 @@ def corriger(historique: dict, corrections: list[dict], config_taxes: dict) -> l
                 journal.append(f"correction {c['option']} {d} : grille absente de l'open data")
                 continue
             tva = taxes.tva_energie(date.fromisoformat(d), config_taxes)
+            if "bareme" in c:
+                journal.append(_corriger_bareme(c, d, g, tva))
+                continue
             calc = {
                 k: {per: taxes.kwh_ttc(v, c["taxes_kwh"], tva) for per, v in p["prix_ht"].items()}
                 for k, p in g["puissances"].items()
@@ -167,3 +171,33 @@ def corriger(historique: dict, corrections: list[dict], config_taxes: dict) -> l
             g["correction_ttc"] = {"taxes_kwh": c["taxes_kwh"], "motif": c["motif"], "sources": list(c["sources"])}
             journal.append(f"correction {c['option']} {d} : TTC au kWh recalculé (écart max {ecart:.4f} €/kWh)")
     return journal
+
+
+def _corriger_bareme(c: dict, d: str, g: dict, tva: float) -> str:
+    """Remplace un barème périmé de l'open data (HT, abonnement HT et TTC) par celui de ``c["bareme"]``,
+    pour les puissances présentes dans l'open data.
+
+    TTC au kWh = (HT du barème + ``taxes_kwh``) × (1 + TVA). Sans effet si l'open data porte
+    déjà ce barème (la CRE a corrigé son fichier).
+    """
+    bareme = c["bareme"]
+    # Le barème couvre toutes les puissances du texte ; l'open data peut en omettre (puissances en extinction)
+    manquantes = set(g["puissances"]) - set(bareme)
+    if manquantes:
+        raise ValueError(f"correction {c['option']} {d} : puissances {sorted(manquantes, key=int)} absentes du barème")
+    deja = all(
+        abs(p["abonnement_ht"] - bareme[k]["abonnement_ht"]) <= 0.011
+        and all(abs(p["prix_ht"][per] - v) <= TOL_CORRECTION / 2 for per, v in bareme[k]["prix_ht"].items())
+        for k, p in g["puissances"].items()
+    )
+    if deja:
+        return f"correction {c['option']} {d} : barème open data déjà juste, sans effet"
+    for k, p in g["puissances"].items():
+        b = bareme[k]
+        p["abonnement_ht"], p["abonnement_ttc"] = b["abonnement_ht"], b["abonnement_ttc"]
+        p["prix_ht"] = dict(b["prix_ht"])
+        p["prix_ttc"] = {per: taxes.kwh_ttc(v, c["taxes_kwh"], tva) for per, v in b["prix_ht"].items()}
+    g["correction_ttc"] = {
+        "taxes_kwh": c["taxes_kwh"], "bareme": True, "motif": c["motif"], "sources": list(c["sources"]),
+    }
+    return f"correction {c['option']} {d} : barème remplacé (HT, abonnement, TTC)"

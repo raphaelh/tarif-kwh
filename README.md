@@ -105,6 +105,12 @@ passée ou tracer l'évolution des prix.
   0,10 c€/kWh) : le TTC au kWh Tempo publié ici est recalculé (HT CRE + 7,63 €/MWh + TVA), égal au centime aux grilles
   EDF, avec `ttc_estime: true`, `statut: en_vigueur` et `correction_ttc` (motif, sources). L'abonnement reste celui de
   l'open data. Ces corrections sont listées dans [`config/corrections_opendata.json`](config/corrections_opendata.json).
+- **Base, août 2015 et août 2016** : l'open data CRE y reprend le barème précédent (novembre 2014, puis août 2015). Le
+  barème publié ici est celui des textes officiels (arrêté du 30 juillet 2015, délibération CRE du 13 juillet 2016),
+  confirmé par les grilles Tarif Bleu EDF archivées : HT et abonnement HT du texte, abonnement TTC de la grille EDF, TTC
+  au kWh = HT + taxes au kWh + TVA (`correction_ttc` avec `bareme: true`, `ttc_estime: true`, `statut: en_vigueur`).
+  Août 2016 tombe au centime de la grille EDF ; août 2015 est 0,03 c€/kWh sous EDF, parce qu'il garde les TCFE de la CRE
+  (≈ 0,93 c€ contre 0,957 c€ chez EDF), comme HP/HC à la même date.
 - **Avant 2023, les taxes au kWh (CSPE + TCFE) changeaient au 1er janvier**, alors que le TTC de l'open data CRE est
   celui de la date d'effet. Quand une grille traverse un 1er janvier et que ces taxes ont bougé de plus de 0,5 €/MWh,
   une période s'ouvre au 1er janvier (`revision_ttc`, `ttc_estime: true`) : TTC au kWh recalculé avec les taxes de

@@ -213,11 +213,12 @@
           "$ref": "#/$defs/taxes/properties/revision_ttc"
         },
         "correction_ttc": {
-          "description": "Présent si le TTC au kWh de l'open data CRE est reconnu faux (config/corrections_opendata.json) : recalculé avec HT open data + taxes_kwh + TVA (ttc_estime vaut alors true, statut en_vigueur). L'abonnement reste celui de l'open data.",
+          "description": "Présent si le TTC au kWh de l'open data CRE est reconnu faux (config/corrections_opendata.json) : recalculé avec HT open data + taxes_kwh + TVA (ttc_estime vaut alors true, statut en_vigueur). L'abonnement reste celui de l'open data, sauf si bareme vaut true : l'open data reprenait un barème périmé, remplacé (HT, abonnement HT et TTC) par celui du texte officiel.",
           "type": "object",
           "required": ["taxes_kwh", "motif", "sources"],
           "properties": {
             "taxes_kwh": {"description": "Taxes au kWh appliquées (€/kWh HTVA).", "type": "number", "exclusiveMinimum": 0, "maximum": 0.1},
+            "bareme": {"description": "true si tout le barème de la grille a été remplacé (HT et abonnements), pas seulement le TTC au kWh.", "const": true},
             "motif": {"type": "string"},
             "sources": {"type": "array", "minItems": 1, "items": {"type": "string", "format": "uri"}}
           }

@@ -1,4 +1,4 @@
-"""TTC de l'open data CRE reconnus faux : Tempo 2022, tranché par les grilles EDF archivées."""
+"""Open data CRE reconnue fausse : TTC Tempo 2022 et barème Base d'août 2015 et d'août 2016, tranchés par les grilles EDF archivées."""
 import copy
 import json
 import re
@@ -24,7 +24,8 @@ def brut():
 def corrige(brut):
     h = copy.deepcopy(brut)
     journal = cre_opendata.corriger(h, cre_opendata.charger_corrections(), CONFIG)
-    assert len(journal) == 2 and all("recalculé" in l for l in journal), journal
+    assert len(journal) == 4, journal
+    assert sum("recalculé" in l for l in journal) == 2 and sum("barème remplacé" in l for l in journal) == 2, journal
     return h
 
 
@@ -104,3 +105,54 @@ def test_corrections_json():
         assert e["option"] in {"base", "hphc", "tempo"}
         assert all(date.fromisoformat(d).day == 1 for d in e["dates_effet"])
         assert 0 < e["taxes_kwh"] < 0.1 and e["motif"] and e["sources"]
+
+
+# --- Base d'août 2015 et d'août 2016 : barème périmé dans l'open data -----------------------------
+
+# Grilles Tarif Bleu EDF archivées (web.archive.org), lues dans les PDF : 6 kVA, abonnement €/an TTC et kWh TTC
+EDF_BASE = {"2015-08-01": (88.42, 0.1467), "2016-08-01": (96.50, 0.1449)}
+HT_OFFICIEL = {"2015-08-01": (70.44, 0.0932), "2016-08-01": (78.00, 0.0887)}  # arrêté 2015-07-30, CRE 2016-07-13
+
+
+@pytest.mark.parametrize("d", sorted(EDF_BASE))
+def test_correction_bareme_base(brut, corrige, d):
+    b, g = _grille(brut, "base", d), _grille(corrige, "base", d)
+    p, q = g["puissances"]["6"], b["puissances"]["6"]
+    assert (q["abonnement_ht"], q["prix_ht"]["base"]) != HT_OFFICIEL[d]  # open data périmée
+    assert (p["abonnement_ht"], p["prix_ht"]["base"]) == HT_OFFICIEL[d]
+    assert g["correction_ttc"]["bareme"] is True
+    abo, kwh = EDF_BASE[d]
+    assert p["abonnement_ttc"] == abo
+    # TCFE de la CRE (≈ 0,93 c€) contre 0,957 c€ chez EDF : 0,03 c€ d'écart au plus
+    assert abs(p["prix_ttc"]["base"] - kwh) <= 0.00031
+    assert p["prix_ttc"]["base"] == taxes.kwh_ttc(p["prix_ht"]["base"], g["correction_ttc"]["taxes_kwh"], 0.20)
+    assert set(g["puissances"]) == set(b["puissances"])
+
+
+def test_correction_bareme_base_2016_egale_grille_edf(corrige):
+    """Août 2016 : au centime de la grille EDF (TTC au kWh et abonnement), puissances de l'open data (3 à 15 kVA)."""
+    edf = {"3": (56.07, 0.1564), "6": (96.50, 0.1449), "9": (111.35, 0.1462), "15": (199.59, 0.1462)}
+    g = _grille(corrige, "base", "2016-08-01")
+    for k, (abo, kwh) in edf.items():
+        assert (g["puissances"][k]["abonnement_ttc"], g["puissances"][k]["prix_ttc"]["base"]) == (abo, kwh), k
+
+
+def test_correction_bareme_sans_effet_si_open_data_juste(corrige):
+    h = copy.deepcopy(corrige)
+    for g in h["base"]["grilles"]:
+        g.pop("correction_ttc", None)
+    journal = cre_opendata.corriger(h, cre_opendata.charger_corrections(), CONFIG)
+    assert sum("barème open data déjà juste" in l for l in journal) == 2
+    assert not any("correction_ttc" in g for g in h["base"]["grilles"])
+
+
+def test_historique_base_janvier_2016_corrige(corrige):
+    """La période révisée au 1er janvier 2016 part du barème corrigé : grille EDF de janvier 2016 à 0,03 c€ près."""
+    from tarif_kwh import reconcile
+
+    od = reconcile.taxes_kwh_opendata(corrige, CONFIG)
+    h = publish.construire_historique(corrige, None, {}, date(2026, 11, 23), None, CONFIG, od)
+    g = next(g for g in h["options"]["base"]["grilles"] if g["date_debut"] == "2016-01-01")
+    p = g["puissances"]["6"]
+    assert p["prix_ht"]["base"] == 0.0932 and p["abonnement_ttc"] == 88.42
+    assert abs(p["prix_ttc"]["base"] - 0.1503) <= 0.00031  # EDF au 1er janvier 2016 : 15,03 c€
