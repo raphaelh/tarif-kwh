@@ -7,11 +7,11 @@ on:
     - cron: "17 5 * * *"
     - cron: "17 17 * * *"
   workflow_dispatch:
-  # Un changement manuel des fichiers publiés ou de la config est mis en ligne
+  # Un changement manuel des fichiers publiés, de la config ou de la page est mis en ligne
   # tout de suite (le site Pages n'est déployé que par ce workflow).
   push:
     branches: [main]
-    paths: ["docs/**", "config/**"]
+    paths: ["docs/**", "config/**", "scripts/tarif_kwh/page.py"]
 
 permissions:
   contents: write   # commit des JSON

@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from tarif_kwh import calendrier, http, issues, publish, reconcile, taxes  # noqa: E402
+from tarif_kwh import calendrier, http, issues, page, publish, reconcile, taxes  # noqa: E402
 from tarif_kwh.sources import cre_deliberation, cre_opendata, edf_grille, jorf, jourtempo  # noqa: E402
 
 RACINE = Path(__file__).resolve().parents[1]
@@ -256,6 +256,7 @@ def main() -> int:
             print("remarque:", r, file=sys.stderr)
     if args.site:
         publish.preparer_site(DOCS, args.site, [nom for nom, _ in erreurs])
+        page.ecrire_index(args.site)  # page lisible : un tableau par option
     print(json.dumps({o: e["publication"] for o, e in etat.items()}, ensure_ascii=False))
     return 0
 
