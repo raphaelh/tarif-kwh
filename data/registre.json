@@ -3403,6 +3403,342 @@
    }
   },
   "tempo": {
+   "2013-08-01": {
+    "jourtempo": {
+     "date_effet": "2013-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T15:45:35+00:00",
+      "texte": "jorf_arrete_2013-07-26"
+     },
+     "option": "tempo",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 152.76,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0719,
+        "blanc_hp": 0.0907,
+        "bleu_hc": 0.044,
+        "bleu_hp": 0.0576,
+        "rouge_hc": 0.1525,
+        "rouge_hp": 0.4401
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 176.04,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0719,
+        "blanc_hp": 0.0907,
+        "bleu_hc": 0.044,
+        "bleu_hp": 0.0576,
+        "rouge_hc": 0.1525,
+        "rouge_hp": 0.4401
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 190.92,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0719,
+        "blanc_hp": 0.0907,
+        "bleu_hc": 0.044,
+        "bleu_hp": 0.0576,
+        "rouge_hc": 0.1525,
+        "rouge_hp": 0.4401
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 471.84,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0719,
+        "blanc_hp": 0.0907,
+        "bleu_hc": 0.044,
+        "bleu_hp": 0.0576,
+        "rouge_hc": 0.1525,
+        "rouge_hp": 0.4401
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 471.84,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0719,
+        "blanc_hp": 0.0907,
+        "bleu_hc": 0.044,
+        "bleu_hp": 0.0576,
+        "rouge_hc": 0.1525,
+        "rouge_hp": 0.4401
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 583.56,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0719,
+        "blanc_hp": 0.0907,
+        "bleu_hc": 0.044,
+        "bleu_hp": 0.0576,
+        "rouge_hc": 0.1525,
+        "rouge_hp": 0.4401
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 96.6,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0719,
+        "blanc_hp": 0.0907,
+        "bleu_hc": 0.044,
+        "bleu_hp": 0.0576,
+        "rouge_hc": 0.1525,
+        "rouge_hp": 0.4401
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "jourtempo",
+     "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000027778284"
+    }
+   },
+   "2014-11-01": {
+    "jourtempo": {
+     "date_effet": "2014-11-01",
+     "meta": {
+      "recupere_le": "2026-11-23T15:45:35+00:00",
+      "texte": "jorf_arrete_2014-10-30"
+     },
+     "option": "tempo",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 160.44,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0755,
+        "blanc_hp": 0.0952,
+        "bleu_hc": 0.0462,
+        "bleu_hp": 0.0605,
+        "rouge_hc": 0.1601,
+        "rouge_hp": 0.4621
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 184.8,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0755,
+        "blanc_hp": 0.0952,
+        "bleu_hc": 0.0462,
+        "bleu_hp": 0.0605,
+        "rouge_hc": 0.1601,
+        "rouge_hp": 0.4621
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 200.52,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0755,
+        "blanc_hp": 0.0952,
+        "bleu_hc": 0.0462,
+        "bleu_hp": 0.0605,
+        "rouge_hc": 0.1601,
+        "rouge_hp": 0.4621
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 495.48,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0755,
+        "blanc_hp": 0.0952,
+        "bleu_hc": 0.0462,
+        "bleu_hp": 0.0605,
+        "rouge_hc": 0.1601,
+        "rouge_hp": 0.4621
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 495.48,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0755,
+        "blanc_hp": 0.0952,
+        "bleu_hc": 0.0462,
+        "bleu_hp": 0.0605,
+        "rouge_hc": 0.1601,
+        "rouge_hp": 0.4621
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 612.72,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0755,
+        "blanc_hp": 0.0952,
+        "bleu_hc": 0.0462,
+        "bleu_hp": 0.0605,
+        "rouge_hc": 0.1601,
+        "rouge_hp": 0.4621
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 101.4,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0755,
+        "blanc_hp": 0.0952,
+        "bleu_hc": 0.0462,
+        "bleu_hp": 0.0605,
+        "rouge_hc": 0.1601,
+        "rouge_hp": 0.4621
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "jourtempo",
+     "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000029672773"
+    }
+   },
+   "2015-08-01": {
+    "jourtempo": {
+     "date_effet": "2015-08-01",
+     "meta": {
+      "recupere_le": "2026-11-23T15:45:35+00:00",
+      "texte": "jorf_arrete_2015-07-30"
+     },
+     "option": "tempo",
+     "puissances": {
+      "12": {
+       "abonnement_ht": 168.48,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0793,
+        "blanc_hp": 0.1,
+        "bleu_hc": 0.0485,
+        "bleu_hp": 0.0635,
+        "rouge_hc": 0.1681,
+        "rouge_hp": 0.4852
+       },
+       "prix_ttc": {}
+      },
+      "15": {
+       "abonnement_ht": 194.04,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0793,
+        "blanc_hp": 0.1,
+        "bleu_hc": 0.0485,
+        "bleu_hp": 0.0635,
+        "rouge_hc": 0.1681,
+        "rouge_hp": 0.4852
+       },
+       "prix_ttc": {}
+      },
+      "18": {
+       "abonnement_ht": 210.6,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0793,
+        "blanc_hp": 0.1,
+        "bleu_hc": 0.0485,
+        "bleu_hp": 0.0635,
+        "rouge_hc": 0.1681,
+        "rouge_hp": 0.4852
+       },
+       "prix_ttc": {}
+      },
+      "24": {
+       "abonnement_ht": 520.2,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0793,
+        "blanc_hp": 0.1,
+        "bleu_hc": 0.0485,
+        "bleu_hp": 0.0635,
+        "rouge_hc": 0.1681,
+        "rouge_hp": 0.4852
+       },
+       "prix_ttc": {}
+      },
+      "30": {
+       "abonnement_ht": 520.2,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0793,
+        "blanc_hp": 0.1,
+        "bleu_hc": 0.0485,
+        "bleu_hp": 0.0635,
+        "rouge_hc": 0.1681,
+        "rouge_hp": 0.4852
+       },
+       "prix_ttc": {}
+      },
+      "36": {
+       "abonnement_ht": 643.32,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0793,
+        "blanc_hp": 0.1,
+        "bleu_hc": 0.0485,
+        "bleu_hp": 0.0635,
+        "rouge_hc": 0.1681,
+        "rouge_hp": 0.4852
+       },
+       "prix_ttc": {}
+      },
+      "9": {
+       "abonnement_ht": 106.44,
+       "abonnement_ttc": null,
+       "abonnement_ttc_mensuel": null,
+       "prix_ht": {
+        "blanc_hc": 0.0793,
+        "blanc_hp": 0.1,
+        "bleu_hc": 0.0485,
+        "bleu_hp": 0.0635,
+        "rouge_hc": 0.1681,
+        "rouge_hp": 0.4852
+       },
+       "prix_ttc": {}
+      }
+     },
+     "source": "jourtempo",
+     "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000030954456"
+    }
+   },
    "2024-02-01": {
     "cre_deliberation": {
      "date_effet": "2024-02-01",
