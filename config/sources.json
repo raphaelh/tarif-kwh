@@ -3,5 +3,16 @@
   "annexes_b_connues": [
     "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf",
     "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260715_2026-147_TRVE_Annexe_B.pdf"
+  ],
+  "_commentaire_anciennes": "Annexes B antérieures à juin 2025 : leur date d'effet n'est pas écrite en « 01/MM/AAAA », on la fournit. Ne pas ajouter une proposition CRE que le gouvernement n'a pas appliquée (ex. 1er février et 1er août 2023, bouclier tarifaire ; proposition reportée du 1er novembre 2024).",
+  "annexes_b_anciennes": [
+    {
+      "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/240118_2024-05_TRVE_2024_annexe_B.pdf",
+      "date_effet": "2024-02-01"
+    },
+    {
+      "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250115_2025-10_TRVE_inf_36_annexe_B.pdf",
+      "date_effet": "2025-02-01"
+    }
   ]
 }

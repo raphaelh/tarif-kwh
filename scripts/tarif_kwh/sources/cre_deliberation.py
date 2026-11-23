@@ -84,8 +84,14 @@ def lignes_page(page) -> list[str]:
     return [" ".join(w["text"] for w in sorted(r, key=lambda w: w["x0"])) for _, r in rangs]
 
 
-def parse_annexe_b(pdf_bytes: bytes, url: str = "") -> dict[str, GrilleSource]:
-    """Extrait les barèmes Bleu résidentiel (métropole continentale) d'une annexe B."""
+def parse_annexe_b(pdf_bytes: bytes, url: str = "", date_effet: date | None = None) -> dict[str, GrilleSource]:
+    """Extrait les barèmes Bleu résidentiel (métropole continentale) d'une annexe B.
+
+    Les annexes antérieures à juin 2025 n'écrivent pas la date d'effet en
+    « 01/MM/AAAA » : on la fournit alors (config/sources.json). Si l'annexe
+    porte une date, elle doit être celle fournie.
+    """
+    fournie = date_effet
     with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
         lignes: list[str] = []
         for page in pdf.pages:
@@ -102,9 +108,14 @@ def parse_annexe_b(pdf_bytes: bytes, url: str = "") -> dict[str, GrilleSource]:
         for l in lignes
         for m in RE_DATE_EFFET.finditer(l)
     )
-    if not dates:
+    if dates:
+        date_effet = date.fromisoformat(dates.most_common(1)[0][0])
+        if fournie and date_effet != fournie:
+            raise ParseError(f"date d'effet de l'annexe B {date_effet} ≠ date fournie {fournie}")
+    elif fournie:
+        date_effet = fournie
+    else:
         raise ParseError("date d'effet introuvable dans l'annexe B")
-    date_effet = date.fromisoformat(dates.most_common(1)[0][0])
 
     grilles: dict[str, GrilleSource] = {}
     option = None

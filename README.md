@@ -97,7 +97,11 @@ passée ou tracer l'évolution des prix.
   août 2025…). Une puissance absente n'était pas proposée à cette date (ex. Tempo 6 kVA avant février 2023 dans ces données).
 - L'open data CRE paraît ≈ 4 semaines après la date d'effet : en attendant, la grille la plus récente vient des autres
   sources (même `statut` que dans `tempo.json`…).
-- **EJP** n'est pas dans l'open data CRE : son historique ne commence qu'avec les délibérations lues par le collecteur.
+- **EJP** n'est pas dans l'open data CRE : son historique commence au **1er février 2024**. Chaque grille y recoupe la
+  délibération CRE (HT) et la grille EDF EJP archivée sur web.archive.org (TTC). Avant 2024, les propositions de la CRE
+  n'ont pas été appliquées (bouclier tarifaire de 2023) et les barèmes du Journal officiel ne sont que des images : pas
+  d'EJP plutôt qu'une grille non recoupée. La grille de février 2026 n'a pas de capture EDF : TTC estimé, abonnement TTC
+  inconnu (`null`).
   Une grille rejetée par les contrôles laisse un **trou** plutôt que de prolonger à tort la précédente.
 - Pas de `prochaine` ici : elle est dans les fichiers par option.
 
@@ -152,11 +156,15 @@ de [`scripts/tarif_kwh/sources/`](scripts/tarif_kwh/sources), par ordre d'arriv�
 
 1. **Délibération CRE** « portant proposition des TRVE », annexe B (PDF, HT) — découverte sur la liste des délibérations et la
    page « Comprendre les TRVE » du site CRE, puis lue avec `pdfplumber` (barèmes Bleu résidentiel, métropole continentale,
-   version standard). Les PDF déjà lus sont listés dans `data/registre.json` ; `config/sources.json` permet d'en forcer un.
-2. **Grille Tarif Bleu EDF** (PDF, TTC), source d'appoint. Le site d'EDF refuse les serveurs de GitHub (HTTP 403) : on ne
-   contourne pas ce filtrage, on lit seulement la **dernière capture déjà faite par la Wayback Machine** (web.archive.org,
-   copie brute identique au PDF d'EDF). Elle apporte le TTC officiel et l'accise appliquée, souvent dès le jour d'effet ;
-   si aucune capture n'est disponible, rien n'est bloqué.
+   version standard). Les PDF déjà lus sont listés dans `data/registre.json` ; `config/sources.json` permet d'en forcer un
+   (`annexes_b_anciennes` : annexes antérieures à juin 2025, dont la date d'effet doit être fournie).
+2. **Grilles Tarif Bleu EDF** (PDF, TTC), source d'appoint : Base / HP-HC / Tempo, et une grille à part pour l'EJP (seule
+   source officielle de l'abonnement EJP TTC). Le site d'EDF refuse les serveurs de GitHub (HTTP 403) : on ne contourne
+   pas ce filtrage, on lit seulement la **dernière capture déjà faite par la Wayback Machine** (web.archive.org, copie
+   brute identique au PDF d'EDF). Elle apporte le TTC officiel et l'accise appliquée, souvent dès le jour d'effet ; si
+   aucune capture n'est disponible, rien n'est bloqué. `python scripts/collect.py --captures-edf` lit une fois toutes les
+   captures EJP (amorçage de l'historique) ; une grille EDF sans grille CRE à la même date est ignorée (ex. 1er novembre
+   2024, où seul le TTC de l'abonnement change avec la CTA).
 3. **Open data CRE** (`Option_Base.csv`, `Option_HPHC.csv`, `Option_Tempo.csv`) : lignes sans `DATE_FIN` pour la grille en
    cours ; toutes les lignes pour `historique.json`.
 4. **Journal officiel** (flux ouvert DILA) : tout texte dont le titre parle de TRVE ou d'accise sur l'électricité ouvre une issue.

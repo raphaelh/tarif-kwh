@@ -141,6 +141,12 @@ def derniere_capture(url: str = URL) -> str | None:
     return lignes[-1][0] if len(lignes) > 1 else None
 
 
+def captures(url: str) -> list[str]:
+    """Horodatages de toutes les captures réussies, une par contenu distinct."""
+    q = urlencode({"url": url, "output": "json", "fl": "timestamp", "filter": "statuscode:200", "collapse": "digest"})
+    return [l[0] for l in json.loads(http.get(f"{CDX}?{q}"))[1:]]
+
+
 def url_capture(ts: str, url: str = URL) -> str:
     """Copie brute (« id_ ») : octets identiques au PDF d'EDF."""
     return f"https://web.archive.org/web/{ts}id_/{url}"
@@ -171,3 +177,23 @@ def collecter() -> dict[str, GrilleSource]:
     for err in erreurs:
         print(f"grille EDF (archive.org) ignorée : {err}", file=sys.stderr)
     return grilles
+
+
+def collecter_captures_ejp() -> tuple[list[GrilleSource], list[str]]:
+    """Amorçage de l'historique EJP : toutes les captures archivées de la grille EJP.
+
+    Une grille par date d'effet (la capture la plus récente). Renvoie aussi les
+    captures illisibles, pour information.
+    """
+    par_date: dict[date, GrilleSource] = {}
+    illisibles: list[str] = []
+    for ts in captures(URL_EJP):
+        copie = url_capture(ts, URL_EJP)
+        try:
+            g = parse_grille_ejp(http.get(copie), URL_EJP)["ejp"]
+        except Exception as e:  # noqa: BLE001
+            illisibles.append(f"{copie} : {e}")
+            continue
+        g.meta["copie_archive"] = copie
+        par_date[g.date_effet] = g  # captures dans l'ordre chronologique
+    return [par_date[d] for d in sorted(par_date)], illisibles

@@ -30,3 +30,14 @@ def test_validations_json():
     for e in v["validations"]:
         date.fromisoformat(e["date_effet"])
         assert e["option"] in {"base", "hphc", "tempo", "ejp"}
+
+
+def test_sources_json():
+    s = json.loads((RACINE / "config" / "sources.json").read_text(encoding="utf-8"))
+    assert all(u.startswith("https://www.cre.fr/") for u in s["annexes_b_connues"])
+    for a in s.get("annexes_b_anciennes", []):
+        assert a["url"].startswith("https://www.cre.fr/") and a["url"].lower().endswith(".pdf")
+        d = date.fromisoformat(a["date_effet"])
+        assert d.day == 1, a
+        # Propositions CRE non appliquées (bouclier tarifaire 2023, report de novembre 2024)
+        assert d.isoformat() not in {"2023-02-01", "2023-08-01", "2024-11-01"}, a

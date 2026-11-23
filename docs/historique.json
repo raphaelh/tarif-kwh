@@ -7312,20 +7312,196 @@
       ],
       "grilles": [
         {
+          "date_debut": "2024-02-01",
+          "date_fin": "2025-01-31",
+          "statut": "en_vigueur",
+          "ttc_estime": false,
+          "sources": [
+            {
+              "type": "cre_deliberation",
+              "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/import/240118_2024-05_TRVE_2024_annexe_B.pdf"
+            },
+            {
+              "type": "edf_grille",
+              "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 154.2,
+              "abonnement_ttc": 189.6,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2454
+              },
+              "prix_ttc": {
+                "normal": 0.1758,
+                "pointe": 1.5197
+              }
+            },
+            "12": {
+              "abonnement_ht": 181.92,
+              "abonnement_ttc": 225.12,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2454
+              },
+              "prix_ttc": {
+                "normal": 0.1758,
+                "pointe": 1.5197
+              }
+            },
+            "15": {
+              "abonnement_ht": 210.36,
+              "abonnement_ttc": 261.36,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2454
+              },
+              "prix_ttc": {
+                "normal": 0.1758,
+                "pointe": 1.5197
+              }
+            },
+            "18": {
+              "abonnement_ht": 237.72,
+              "abonnement_ttc": 296.52,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2454
+              },
+              "prix_ttc": {
+                "normal": 0.1758,
+                "pointe": 1.5197
+              }
+            },
+            "36": {
+              "abonnement_ht": 411.72,
+              "abonnement_ttc": 517.56,
+              "prix_ht": {
+                "normal": 0.1255,
+                "pointe": 1.2454
+              },
+              "prix_ttc": {
+                "normal": 0.1758,
+                "pointe": 1.5197
+              }
+            }
+          },
+          "prix_ht": {
+            "normal": 0.1255,
+            "pointe": 1.2454
+          },
+          "prix_ttc": {
+            "normal": 0.1758,
+            "pointe": 1.5197
+          }
+        },
+        {
+          "date_debut": "2025-02-01",
+          "date_fin": "2025-07-31",
+          "statut": "en_vigueur",
+          "ttc_estime": false,
+          "sources": [
+            {
+              "type": "cre_deliberation",
+              "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250115_2025-10_TRVE_inf_36_annexe_B.pdf"
+            },
+            {
+              "type": "edf_grille",
+              "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 167.16,
+              "abonnement_ttc": 206.4,
+              "prix_ht": {
+                "normal": 0.0893,
+                "pointe": 0.8861
+              },
+              "prix_ttc": {
+                "normal": 0.1476,
+                "pointe": 1.1038
+              }
+            },
+            "12": {
+              "abonnement_ht": 198.0,
+              "abonnement_ttc": 246.0,
+              "prix_ht": {
+                "normal": 0.0893,
+                "pointe": 0.8861
+              },
+              "prix_ttc": {
+                "normal": 0.1476,
+                "pointe": 1.1038
+              }
+            },
+            "15": {
+              "abonnement_ht": 229.8,
+              "abonnement_ttc": 286.56,
+              "prix_ht": {
+                "normal": 0.0893,
+                "pointe": 0.8861
+              },
+              "prix_ttc": {
+                "normal": 0.1476,
+                "pointe": 1.1038
+              }
+            },
+            "18": {
+              "abonnement_ht": 259.56,
+              "abonnement_ttc": 324.96,
+              "prix_ht": {
+                "normal": 0.0893,
+                "pointe": 0.8861
+              },
+              "prix_ttc": {
+                "normal": 0.1476,
+                "pointe": 1.1038
+              }
+            },
+            "36": {
+              "abonnement_ht": 451.2,
+              "abonnement_ttc": 569.04,
+              "prix_ht": {
+                "normal": 0.0893,
+                "pointe": 0.8861
+              },
+              "prix_ttc": {
+                "normal": 0.1476,
+                "pointe": 1.1038
+              }
+            }
+          },
+          "prix_ht": {
+            "normal": 0.0893,
+            "pointe": 0.8861
+          },
+          "prix_ttc": {
+            "normal": 0.1476,
+            "pointe": 1.1038
+          }
+        },
+        {
           "date_debut": "2025-08-01",
           "date_fin": "2026-01-31",
           "statut": "en_vigueur",
-          "ttc_estime": true,
+          "ttc_estime": false,
           "sources": [
             {
               "type": "cre_deliberation",
               "url": "https://www.cre.fr/fileadmin/Documents/Deliberations/2025/250619_2025-155_Proposition_TRVE_inf_36_annexe_B.pdf"
+            },
+            {
+              "type": "edf_grille",
+              "url": "https://particulier.edf.fr/content/dam/2-Actifs/Documents/Offres/Grille_prix_EJP.pdf"
             }
           ],
           "puissances": {
             "9": {
               "abonnement_ht": 164.76,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 231.84,
               "prix_ht": {
                 "normal": 0.0882,
                 "pointe": 0.8756
@@ -7337,7 +7513,7 @@
             },
             "12": {
               "abonnement_ht": 195.24,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 276.48,
               "prix_ht": {
                 "normal": 0.0882,
                 "pointe": 0.8756
@@ -7349,7 +7525,7 @@
             },
             "15": {
               "abonnement_ht": 226.32,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 321.72,
               "prix_ht": {
                 "normal": 0.0882,
                 "pointe": 0.8756
@@ -7361,7 +7537,7 @@
             },
             "18": {
               "abonnement_ht": 256.32,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 365.64,
               "prix_ht": {
                 "normal": 0.0882,
                 "pointe": 0.8756
@@ -7373,7 +7549,7 @@
             },
             "36": {
               "abonnement_ht": 444.84,
-              "abonnement_ttc": null,
+              "abonnement_ttc": 639.84,
               "prix_ht": {
                 "normal": 0.0882,
                 "pointe": 0.8756
@@ -7564,5 +7740,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T11:40:12+00:00"
+  "mis_a_jour_le": "2026-11-23T11:55:32+00:00"
 }

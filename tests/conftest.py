@@ -17,6 +17,9 @@ CSV = {o: FIX / f"Option_{f}_2026-11-23.csv" for o, f in (("base", "Base"), ("hp
 EDF = FIX / "edf_grille_tarif_bleu_2026-08-01.pdf"
 EDF_EJP = FIX / "edf_grille_ejp_2026-08-01.pdf"
 EDF_EJP_2025 = FIX / "edf_grille_ejp_2025-08-01.pdf"  # capture archive.org
+EDF_EJP_2024 = FIX / "edf_grille_ejp_2024-02-01.pdf"  # capture archive.org
+# Annexe B sans date d'effet lisible (fournie dans config/sources.json)
+ANNEXE_2024 = FIX / "240118_2024-05_TRVE_2024_annexe_B.pdf"
 
 
 def fr(s: str) -> float:

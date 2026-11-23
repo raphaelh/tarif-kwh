@@ -77,15 +77,20 @@ def etape(nom: str, erreurs: list[tuple[str, str]], fn, *args):
 def collecter(registre: dict, forcer: list[str], erreurs: list, historique: dict) -> None:
     traitees = registre.setdefault("annexes_traitees", {})
     # 1. Délibérations CRE (annexe B) : connues + découvertes + forcées
-    connues = charger(SOURCES, {}).get("annexes_b_connues", [])
+    sources = charger(SOURCES, {})
+    connues = sources.get("annexes_b_connues", [])
+    # Annexes anciennes sans date d'effet lisible : date fournie dans la configuration
+    dates_fournies = {a["url"]: date.fromisoformat(a["date_effet"]) for a in sources.get("annexes_b_anciennes", [])}
     decouvertes = etape("Découverte des délibérations CRE", erreurs, cre_deliberation.decouvrir, set(traitees)) or []
-    for url in dict.fromkeys(connues + decouvertes + forcer):
+    for url in dict.fromkeys(connues + list(dates_fournies) + decouvertes + forcer):
         if url in traitees and url not in forcer:
             continue
         contenu = etape(f"Téléchargement {url}", erreurs, http.get, url)
         if contenu is None:
             continue
-        grilles = etape(f"Lecture de l'annexe B {url}", erreurs, cre_deliberation.parse_annexe_b, contenu, url)
+        grilles = etape(
+            f"Lecture de l'annexe B {url}", erreurs, cre_deliberation.parse_annexe_b, contenu, url, dates_fournies.get(url)
+        )
         if grilles is None:
             continue
         for g in grilles.values():
@@ -137,11 +142,37 @@ def collecter(registre: dict, forcer: list[str], erreurs: list, historique: dict
                 issues.alerter(f"JORF : texte à vérifier — {t['titre'][:90]}", corps)
 
 
+def amorcer_captures_ejp(registre: dict) -> None:
+    """Lit toutes les captures archivées de la grille EDF EJP (amorçage de l'historique).
+
+    Une grille EDF n'est retenue que si la CRE a publié une grille EJP à la même
+    date : sinon (ex. révision du seul TTC au 1er novembre 2024, après une
+    hausse de la CTA) elle n'est pas une nouvelle grille tarifaire.
+    """
+    grilles, illisibles = edf_grille.collecter_captures_ejp()
+    for msg in illisibles:
+        print(f"capture EJP illisible : {msg}", file=sys.stderr)
+    connues = registre.get("grilles", {}).get("ejp", {})
+    for g in grilles:
+        d = g.date_effet.isoformat()
+        if "cre_deliberation" not in connues.get(d, {}):
+            print(f"grille EDF EJP du {d} ignorée : aucune grille CRE à cette date", file=sys.stderr)
+            continue
+        enregistrer_obs(registre, g)
+        if g.meta.get("accise_eur_kwh"):
+            registre.setdefault("accise_observee", {})[d] = g.meta["accise_eur_kwh"]
+        print(f"grille EDF EJP du {d} enregistrée ({g.meta.get('copie_archive', g.url)})", file=sys.stderr)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--hors-ligne", action="store_true", help="ne télécharge rien")
     ap.add_argument("--annexe", action="append", default=[], help="URL d'annexe B à lire")
     ap.add_argument("--date", help="date du jour simulée (AAAA-MM-JJ)")
+    ap.add_argument(
+        "--captures-edf", action="store_true",
+        help="lit toutes les captures archive.org de la grille EDF EJP (amorçage de l'historique)",
+    )
     ap.add_argument("--site", type=Path, help="dossier du site GitHub Pages à préparer (copie de docs/)")
     args = ap.parse_args()
 
@@ -150,6 +181,8 @@ def main() -> int:
     historique: dict = {}  # open data CRE complet, pour docs/historique.json
     if not args.hors_ligne:
         collecter(registre, args.annexe, erreurs, historique)
+        if args.captures_edf:
+            amorcer_captures_ejp(registre)
 
     aujourd_hui = date.fromisoformat(args.date) if args.date else date.today()
     etat = publish.publier(

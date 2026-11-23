@@ -3,7 +3,7 @@ from datetime import date
 from urllib.parse import quote
 
 import pytest
-from conftest import CSV, EDF, EDF_EJP, EDF_EJP_2025, FIX, fr, lignes_csv
+from conftest import ANNEXE_2024, ANNEXES, CSV, EDF, EDF_EJP, EDF_EJP_2024, EDF_EJP_2025, FIX, fr, lignes_csv
 
 from tarif_kwh import taxes
 from tarif_kwh.sources import cre_deliberation, cre_opendata, edf_grille
@@ -255,3 +255,65 @@ def test_edf_sans_capture(monkeypatch):
 
     monkeypatch.setattr(http, "get", lambda url, **kw: b'[["timestamp"]]')
     assert edf_grille.collecter() == {}
+
+
+# --- historique EJP : annexes anciennes et captures archivées ------------------------
+
+def test_annexe_ancienne_date_fournie():
+    contenu = ANNEXE_2024.read_bytes()
+    with pytest.raises(cre_deliberation.ParseError, match="date d'effet introuvable"):
+        cre_deliberation.parse_annexe_b(contenu)
+    g = cre_deliberation.parse_annexe_b(contenu, "u", date(2024, 2, 1))
+    assert set(g) == {"base", "hphc", "tempo", "ejp"}
+    assert g["ejp"].date_effet == date(2024, 2, 1)
+    assert g["ejp"].puissances[9].abonnement_ht == 154.20
+    assert g["ejp"].puissances[9].prix_ht == {"normal": 0.1255, "pointe": 1.2454}
+
+
+def test_annexe_date_fournie_contredite():
+    """Une annexe datée ne peut pas recevoir une autre date (erreur de configuration)."""
+    with pytest.raises(cre_deliberation.ParseError, match="≠ date fournie"):
+        cre_deliberation.parse_annexe_b(ANNEXES["2025-08-01"].read_bytes(), "u", date(2025, 2, 1))
+
+
+def test_ejp_2024_cre_egal_edf():
+    """Février 2024 : HT de la CRE + accise 2,10 c€ + TVA = TTC de la grille EDF archivée."""
+    cre = cre_deliberation.parse_annexe_b(ANNEXE_2024.read_bytes(), "u", date(2024, 2, 1))["ejp"]
+    edf = edf_grille.parse_grille_ejp(EDF_EJP_2024.read_bytes())["ejp"]
+    assert edf.date_effet == date(2024, 2, 1) and edf.meta["accise_eur_kwh"] == 0.021
+    for k, p in cre.puissances.items():
+        assert {per: taxes.kwh_ttc(v, 0.021, 0.20) for per, v in p.prix_ht.items()} == edf.puissances[k].prix_ttc
+
+
+def test_captures_ejp_une_grille_par_date(monkeypatch):
+    from tarif_kwh import http
+
+    fichiers = {"20240820124846": EDF_EJP_2024, "20250801123011": EDF_EJP_2025,
+                "20250908013652": EDF_EJP_2025, "20260801134207": EDF_EJP}
+
+    def faux_get(url, **kw):
+        if url.startswith(edf_grille.CDX):
+            assert "collapse=digest" in url
+            return ('[["timestamp"],' + ",".join(f'["{ts}"]' for ts in [*fichiers, "20991231000000"]) + "]").encode()
+        ts = url.split("/web/")[1].split("id_")[0]
+        return fichiers[ts].read_bytes() if ts in fichiers else b"%PDF-1.4 illisible"
+
+    monkeypatch.setattr(http, "get", faux_get)
+    grilles, illisibles = edf_grille.collecter_captures_ejp()
+    assert [g.date_effet.isoformat() for g in grilles] == ["2024-02-01", "2025-08-01", "2026-08-01"]
+    assert "20250908013652" in grilles[1].meta["copie_archive"]  # la plus récente pour une même date
+    assert len(illisibles) == 1
+
+
+def test_amorcage_ignore_grille_edf_sans_grille_cre(monkeypatch):
+    """Ex. 1er novembre 2024 : EDF révise le seul TTC (CTA), la CRE n'a pas de grille à cette date."""
+    import collect
+
+    g24 = edf_grille.parse_grille_ejp(EDF_EJP_2024.read_bytes())["ejp"]
+    g25 = edf_grille.parse_grille_ejp(EDF_EJP_2025.read_bytes())["ejp"]
+    monkeypatch.setattr(edf_grille, "collecter_captures_ejp", lambda: ([g24, g25], []))
+    registre = {"grilles": {"ejp": {"2025-08-01": {"cre_deliberation": {}}}}}
+    collect.amorcer_captures_ejp(registre)
+    assert set(registre["grilles"]["ejp"]) == {"2025-08-01"}
+    assert "edf_grille" in registre["grilles"]["ejp"]["2025-08-01"]
+    assert registre["accise_observee"] == {"2025-08-01": 0.02998}
