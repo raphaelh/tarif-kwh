@@ -9625,6 +9625,88 @@
           }
         },
         {
+          "date_debut": "2022-02-01",
+          "date_fin": "2022-07-31",
+          "statut": "en_vigueur",
+          "ttc_estime": true,
+          "sources": [
+            {
+              "type": "jourtempo",
+              "url": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045084156"
+            }
+          ],
+          "puissances": {
+            "9": {
+              "abonnement_ht": 137.64,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0993,
+                "pointe": 0.7772
+              },
+              "prix_ttc": {
+                "normal": 0.1283,
+                "pointe": 0.9418
+              }
+            },
+            "12": {
+              "abonnement_ht": 162.96,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0993,
+                "pointe": 0.7772
+              },
+              "prix_ttc": {
+                "normal": 0.1283,
+                "pointe": 0.9418
+              }
+            },
+            "15": {
+              "abonnement_ht": 188.52,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0993,
+                "pointe": 0.7772
+              },
+              "prix_ttc": {
+                "normal": 0.1283,
+                "pointe": 0.9418
+              }
+            },
+            "18": {
+              "abonnement_ht": 213.6,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0993,
+                "pointe": 0.7772
+              },
+              "prix_ttc": {
+                "normal": 0.1283,
+                "pointe": 0.9418
+              }
+            },
+            "36": {
+              "abonnement_ht": 370.2,
+              "abonnement_ttc": null,
+              "prix_ht": {
+                "normal": 0.0993,
+                "pointe": 0.7772
+              },
+              "prix_ttc": {
+                "normal": 0.1283,
+                "pointe": 0.9418
+              }
+            }
+          },
+          "prix_ht": {
+            "normal": 0.0993,
+            "pointe": 0.7772
+          },
+          "prix_ttc": {
+            "normal": 0.1283,
+            "pointe": 0.9418
+          }
+        },
+        {
           "date_debut": "2022-08-01",
           "date_fin": "2022-12-31",
           "statut": "en_vigueur",
@@ -10507,5 +10589,5 @@
       ]
     }
   },
-  "mis_a_jour_le": "2026-11-23T14:36:27+00:00"
+  "mis_a_jour_le": "2026-11-23T14:44:58+00:00"
 }

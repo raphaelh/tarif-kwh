@@ -3,6 +3,13 @@
   "validations": [
     {
       "option": "ejp",
+      "date_effet": "2022-02-01",
+      "motif": "Tarif Bleu EJP résidentiel fixé par le gouvernement (opposition aux propositions CRE de la délibération n° 2022-08, bouclier tarifaire) : pointe mobile 27,93 -> 77,72 c€/kWh HT (+178 %), heures normales 9,24 -> 9,93 c€/kWh HT ; abonnements 9 kVA 137,64, 12 kVA 162,96, 15 kVA 188,52, 18 kVA 213,60, 36 kVA 370,20 €/an HT. Barème « TARIF BLEU - OPTION EJP RESIDENTIEL », version standard, de l'annexe de l'arrêté (extrait du JO authentifié) lu par le mainteneur ; les barèmes Base, HP/HC et Tempo du même arrêté concordent avec l'open data CRE.",
+      "source": "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045084156",
+      "valide_le": "2026-11-23"
+    },
+    {
+      "option": "ejp",
       "date_effet": "2026-02-01",
       "motif": "Restructuration de l'option EJP par la CRE : pointe mobile 87,56 -> 25,58 c€/kWh HT (-71 %), heures normales 8,82 -> 11,76 c€/kWh HT (+33 %). Même mouvement sur l'EJP non résidentiel (84,24 -> 25,12). Lecture du PDF vérifiée.",
       "source": "https://www.cre.fr/fileadmin/Documents/Deliberations/2026/260114_2026-06_TRVE_2026_Annexe_B.pdf",

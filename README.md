@@ -124,9 +124,9 @@ passée ou tracer l'évolution des prix.
     (CSPE + TCFE) que la CRE a appliquées à Base, HP/HC et Tempo à la même date (open data, TVA 19,6 % avant 2014) :
     le **TTC au kWh** est donc celui de ses hypothèses, à 0,0003 €/kWh près (écart entre options). L'**abonnement TTC
     vaut `null`** (CTA non calculée). La méthode redonne au centime les TTC au kWh des grilles EDF de 2023 à 2026 ;
-  - **2022** : 7,63 €/MWh, une fois Tempo corrigé (voir plus haut). **Février à juillet 2022 reste un trou** : la
-    pointe mobile y passe de 27,93 à 77,72 c€/kWh HT (+178 %), une variation qui doit être vérifiée dans le barème de
-    l'arrêté du 28 janvier 2022 avant d'être ajoutée à `config/validations.json`.
+  - **2022** : 7,63 €/MWh, une fois Tempo corrigé (voir plus haut). La hausse de la pointe mobile au 1er février 2022
+    (27,93 -> 77,72 c€/kWh HT, +178 %) est validée dans `config/validations.json` sur le barème de l'arrêté du
+    28 janvier 2022.
 
   Une grille rejetée par les contrôles laisse un **trou** plutôt que de prolonger à tort la précédente.
 - Pas de `prochaine` ici : elle est dans les fichiers par option.
