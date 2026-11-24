@@ -1,3 +1,8 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/logo-sombre.png">
+  <img src="docs/img/logo.png" alt="Tarif kWh" height="64">
+</picture>
+
 # tarif-kwh
 
 [![Collecte](https://github.com/raphaelh/tarif-kwh/actions/workflows/collecte.yml/badge.svg)](https://github.com/raphaelh/tarif-kwh/actions/workflows/collecte.yml)

@@ -190,6 +190,7 @@ def construire(tarifs: dict, etat: dict) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prix du kWh Tarif Bleu</title>
 <meta name="description" content="Prix du kWh et abonnements du Tarif Bleu EDF (Base, Heures Creuses, Tempo, EJP), mis à jour automatiquement.">
+{ICONES}
 <style>{STYLE}</style>
 </head>
 <body><main>
@@ -205,6 +206,24 @@ def construire(tarifs: dict, etat: dict) -> str:
 </main></body>
 </html>
 """
+
+
+# Favicon, icône d'écran d'accueil et aperçu des liens partagés (docs/img, générés par
+# outils/icones.py du dépôt ha-tarif-kwh). L'aperçu og:image exige une URL absolue.
+SITE = "https://raphaelh.github.io/tarif-kwh/"
+ICONES = f"""<link rel="icon" href="img/favicon.ico" sizes="48x48">
+<link rel="icon" href="img/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="img/site.webmanifest">
+<meta name="theme-color" content="#1e63d6">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prix du kWh Tarif Bleu">
+<meta property="og:description" content="Prix du kWh et abonnements du Tarif Bleu (Base, HP/HC, Tempo, EJP), sources officielles, mis à jour automatiquement.">
+<meta property="og:url" content="{SITE}">
+<meta property="og:image" content="{SITE}img/social.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">"""
 
 
 def ecrire_index(site: Path) -> None:

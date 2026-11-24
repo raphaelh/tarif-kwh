@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<rect width="100" height="100" rx="22" fill="#1e63d6"/>
+<polygon points="52,10 18,56 38,56 30,90 66,40 45,40 56,10" fill="#fff"/>
+<circle cx="72" cy="72" r="24" fill="#1e63d6"/><circle cx="72" cy="72" r="21" fill="#ffc107"/>
+<text x="72" y="72" dy=".35em" text-anchor="middle" font-family="DejaVu Sans,Verdana,Arial,sans-serif"
+ font-weight="bold" font-size="30" fill="#212121">€</text>
+</svg>

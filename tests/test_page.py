@@ -104,3 +104,21 @@ def test_page_sans_etat(tmp_path):
     (tmp_path / "tarifs.json").write_text(json.dumps(TARIFS), encoding="utf-8")
     page.ecrire_index(tmp_path)
     assert "Dernière vérification" not in (tmp_path / "index.html").read_text(encoding="utf-8")
+
+
+def test_page_icones_et_apercu(tmp_path):
+    """Favicon, icône d'accueil et aperçu des liens : chaque fichier cité existe dans docs/img."""
+    import pathlib
+    import re
+
+    (tmp_path / "tarifs.json").write_text(json.dumps(TARIFS), encoding="utf-8")
+    (tmp_path / "etat.json").write_text(json.dumps({"options": {}}), encoding="utf-8")
+    page.ecrire_index(tmp_path)
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert '<link rel="icon" href="img/favicon.ico"' in html
+    assert '<meta property="og:image" content="https://raphaelh.github.io/tarif-kwh/img/social.png">' in html
+    img = pathlib.Path(__file__).parents[1] / "docs" / "img"
+    cites = set(re.findall(r'href="img/([^"]+)"', html)) | {"social.png"}
+    assert cites and all((img / f).is_file() for f in cites)
+    manifeste = json.loads((img / "site.webmanifest").read_text(encoding="utf-8"))
+    assert all((img / i["src"]).is_file() for i in manifeste["icons"])
