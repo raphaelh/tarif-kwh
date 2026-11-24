@@ -12,6 +12,8 @@
 > officiel) and cross-checked before publishing. Per option: kWh price and subscription, excl. and incl. tax, for every
 > kVA rating, the current grid and the upcoming one with its effective date, plus full history since 2012. Ready to use
 > in Home Assistant, Jeedom, Domoticz or any script: see the URLs below and the Home Assistant example.
+> Home Assistant users can install the ready-made HACS integration
+> [`ha-tarif-kwh`](https://github.com/raphaelh/ha-tarif-kwh) instead (price sensors, subscription, current price).
 > Human-readable tables (in French): <https://raphaelh.github.io/tarif-kwh/>.
 
 Les prix réglementés de l'électricité en France (**TRVE**, « Tarif Bleu » résidentiel d'**EDF**), publiés en **JSON**
@@ -25,6 +27,8 @@ la **grille actuelle** et la **prochaine grille** avec sa date d'effet, dès que
 L'abonnement mensuel y est l'annuel ÷ 12 : EDF facture l'abonnement annuel au prorata des jours.
 
 Le JSON se lit avec n'importe quel outil : Home Assistant, Jeedom, Domoticz, tableur, script…
+Pour **Home Assistant**, une intégration prête à l'emploi existe (installation par HACS) :
+[**ha-tarif-kwh**](https://github.com/raphaelh/ha-tarif-kwh).
 
 > ⚠️ **Projet non officiel**, sans lien avec EDF, la CRE ou les pouvoirs publics. « EDF », « Tempo » et « Tarif Bleu » sont des
 > marques de leurs propriétaires, citées uniquement pour désigner les tarifs concernés. Les données sont reprises des
@@ -360,7 +364,12 @@ redonne la grille EDF de ce jour au centime). L'open data CRE n'a pas de telle p
 
 ## Utilisation avec Home Assistant
 
-Une intégration dédiée pourra venir plus tard (dépôt séparé `ha-tarif-kwh`). En attendant, ajoutez dans `configuration.yaml`
+**Le plus simple : l'intégration [ha-tarif-kwh](https://github.com/raphaelh/ha-tarif-kwh)**, installable par HACS et
+configurable depuis l'interface (option et puissance du contrat). Elle expose un capteur de prix TTC par période, l'abonnement
+et un capteur « Prix actuel » (utilisable dans le tableau de bord Énergie), lit ces fichiers une fois par jour et
+**applique la prochaine grille dès sa date d'effet**.
+
+Sans HACS, ou pour un usage sur mesure, on peut lire le JSON soi-même : ajoutez dans `configuration.yaml`
 (ou un *package*) un capteur REST qui garde les deux grilles en attributs, puis des capteurs *template* qui **appliquent
 la prochaine grille dès sa date d'effet** :
 
