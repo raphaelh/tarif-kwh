@@ -1,4 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>raphaelh/renovate-config"]
+  "extends": ["github>raphaelh/renovate-config"],
+  "packageRules": [
+    {
+      "description": "Pas de ruleset possible (le workflow collecte pousse sur main avec GITHUB_TOKEN) : aucune PR n'est fusionnée automatiquement",
+      "matchPackageNames": ["*"],
+      "automerge": false
+    }
+  ]
 }
